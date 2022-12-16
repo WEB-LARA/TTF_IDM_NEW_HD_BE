@@ -22,9 +22,9 @@ class SysUser extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
-        'user_email',
-        'password',
+        'USERNAME',
+        'USER_EMAIL',
+        'PASSWORD',
     ];
 
     /**

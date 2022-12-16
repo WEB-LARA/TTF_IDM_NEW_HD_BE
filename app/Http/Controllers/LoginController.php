@@ -46,16 +46,16 @@ class LoginController extends Controller
     }
 
     public function register(Request $request){
-        $request->validate([
-            'username' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6',
-        ]);
-        print_r($request->all());
+        // print_r($request->all());
+        // $request->validate([
+        //     'USERNAME' => 'required|string|max:255',
+        //     'USER_EMAIL' => 'required|string|email|max:255|unique:sys_user',
+        //     'PASSWORD' => 'required|string|min:6',
+        // ]);
         $user = SysUser::create([
-            'username' => $request->username,
-            'user_email' => $request->email,
-            'password' => Hash::make($request->password),
+            'USERNAME' => $request->username,
+            'USER_EMAIL' => $request->email,
+            'PASSWORD' => Hash::make($request->password),
         ]);
 
         $token = Auth::login($user);
@@ -89,6 +89,56 @@ class LoginController extends Controller
                 'type' => 'bearer',
             ]
         ]);
+    }
+
+    public function createUser(Request $request){
+        $user = SysUser::create([
+            'USERNAME' => $request->username,
+            'USER_EMAIL' => $request->email,
+            'RESET_FLAG' => $request->reset_flag,
+            'PASSWORD' => Hash::make($request->password),
+            'ACTIVE_FLAG' => $request->active_flag
+        ]);
+
+        if($user){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User Berhasil dibuat!'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'gagal',
+                'message' => 'User Gagal dibuat!'
+            ]);
+        }
+    }
+
+    public function updateUser(Request $request){
+        $user = SysUser::find($request->user_id);
+        if($request->password){
+            $user->USERNAME = $request->username;
+            $user->USER_EMAIL = $request->email;
+            $user->RESET_FLAG = $request->reset_flag;
+            $user->PASSWORD = Hash::make($request->password);
+            $user->ACTIVE_FLAG = $request->active_flag;
+        }else{
+            $user->USERNAME = $request->username;
+            $user->USER_EMAIL = $request->email;
+            $user->RESET_FLAG = $request->reset_flag;
+            $user->ACTIVE_FLAG = $request->active_flag;
+        }
+
+        if($user->save()){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User Berhasil diedit!'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'gagal',
+                'message' => 'User Gagal diedit!'
+            ]);
+        }
     }
 
 }

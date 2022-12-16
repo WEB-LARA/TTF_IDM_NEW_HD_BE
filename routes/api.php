@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SysSupplierController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,7 +24,12 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('register', 'register');
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
+    Route::post('createUser', 'createUser');
+    Route::post('updateUser', 'updateUser');
+});
 
+Route::controller(SysSupplierController::class)->group(function () {
+    Route::get('getAllSupplier', 'getAllSupplier');
 });
 
 

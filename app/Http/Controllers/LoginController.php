@@ -33,10 +33,12 @@ class LoginController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        $user = Auth::id();
+        $sys_user = new  SysUser();
+        $dataUser =  $sys_user->getDataUser($user);
         return response()->json([
                 'status' => 'success',
-                'user' => $user,
+                'user' => $dataUser,
                 'authorisation' => [
                     'token' => $token,
                     'type' => 'bearer',

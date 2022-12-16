@@ -43,7 +43,7 @@ class LoginController extends Controller
                     'token' => $token,
                     'type' => 'bearer',
                 ]
-            ]);
+            ],200);
 
     }
 
@@ -69,7 +69,7 @@ class LoginController extends Controller
                 'token' => $token,
                 'type' => 'bearer',
             ]
-        ]);
+        ],200);
     }
 
     public function logout()
@@ -78,7 +78,7 @@ class LoginController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => 'Successfully logged out',
-        ]);
+        ],200);
     }
 
     public function refresh()
@@ -90,7 +90,7 @@ class LoginController extends Controller
                 'token' => Auth::refresh(),
                 'type' => 'bearer',
             ]
-        ]);
+        ],200);
     }
 
     public function createUser(Request $request){
@@ -106,12 +106,12 @@ class LoginController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'User Berhasil dibuat!'
-            ]);
+            ],200);
         }else{
             return response()->json([
                 'status' => 'gagal',
                 'message' => 'User Gagal dibuat!'
-            ]);
+            ],400);
         }
     }
 
@@ -134,12 +134,31 @@ class LoginController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'User Berhasil diedit!'
-            ]);
+            ],200);
         }else{
             return response()->json([
                 'status' => 'gagal',
                 'message' => 'User Gagal diedit!'
-            ]);
+            ],400);
+        }
+    }
+
+    public function getDataForInquiryUser(){
+        $sys_user = new SysUser();
+
+        $getData = $sys_user->getDataForInquiryUser();
+
+        if($getData){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'List User',
+                'data' => $getData
+            ],200);
+        }else{
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Gagal Mengambil Data Inquiry User!',
+            ],400);
         }
     }
 

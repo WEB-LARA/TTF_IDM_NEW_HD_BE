@@ -97,25 +97,32 @@ class LoginController extends Controller
         $user = new SysUser();
         $checkUsername = $user->checkAvailableUsername($request->username);
         print_r($checkUsername);
-        // $user = SysUser::create([
-        //     'USERNAME' => $request->username,
-        //     'USER_EMAIL' => $request->email,
-        //     'RESET_FLAG' => $request->reset_flag,
-        //     'PASSWORD' => Hash::make($request->password),
-        //     'ACTIVE_FLAG' => $request->active_flag
-        // ]);
-
-        // if($user){
-        //     return response()->json([
-        //         'status' => 'success',
-        //         'message' => 'User Berhasil dibuat!'
-        //     ],200);
-        // }else{
-        //     return response()->json([
-        //         'status' => 'gagal',
-        //         'message' => 'User Gagal dibuat!'
-        //     ],400);
-        // }
+        if($checkUsername == 0){
+            $user = SysUser::create([
+                'USERNAME' => $request->username,
+                'USER_EMAIL' => $request->email,
+                'RESET_FLAG' => $request->reset_flag,
+                'PASSWORD' => Hash::make($request->password),
+                'ACTIVE_FLAG' => $request->active_flag
+            ]);
+    
+            if($user){
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'User Berhasil dibuat!'
+                ],200);
+            }else{
+                return response()->json([
+                    'status' => 'gagal',
+                    'message' => 'User Gagal dibuat!'
+                ],400);
+            }
+        }else{
+            return response()->json([
+                'status' => 'gagal',
+                'message' => 'Duplicate Username'
+            ],400);
+        }
     }
 
     public function updateUser(Request $request){

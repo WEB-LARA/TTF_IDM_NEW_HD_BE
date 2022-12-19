@@ -91,7 +91,7 @@ class SysUser extends Authenticatable implements JWTSubject
     }
 
     public function getOldUsernameByUserId($user_id){
-        $getData = SysUser::select('USERNAME')->where('USERNAME',$username)->get()->USERNAME;
+        $getData = SysUser::select('USERNAME')->where('user_id',$user_id)->get()->USERNAME;
         return $getData;
     }
 }

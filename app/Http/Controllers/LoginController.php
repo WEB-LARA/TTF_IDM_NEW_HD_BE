@@ -129,7 +129,7 @@ class LoginController extends Controller
         $sys_user = new SysUser();
 
         $getOldUsername = $sys_user->getOldUsernameByUserId($request->user_id);
-        // $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($request->username);
+        $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($getOldUsername[0]->USERNAME,$request->username);
         print_r($getOldUsername[0]->USERNAME);
         if($checkAvailableUsername == 0){
             if($request->password){

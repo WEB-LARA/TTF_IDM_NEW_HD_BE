@@ -84,8 +84,8 @@ class SysUser extends Authenticatable implements JWTSubject
         return $num_rows;
     }
 
-    public function checkAvailableUsernameEdit($username_new,$username_old){
-        $getData = SysUser::select('USERNAMEE')->where('USERNAME',$username)->where('USERNAME','!=',$username)->get();
+    public function checkAvailableUsernameEdit($username_old,$username_new){
+        $getData = SysUser::select('USERNAMEE')->where('USERNAME',$username_new)->where('USERNAME','!=',$username_old)->get();
         $num_rows = count($getData);
         return $num_rows;
     }

@@ -96,7 +96,6 @@ class LoginController extends Controller
     public function createUser(Request $request){
         $user = new SysUser();
         $checkUsername = $user->checkAvailableUsername($request->username);
-        print_r($checkUsername);
         if($checkUsername == 0){
             $user = SysUser::create([
                 'USERNAME' => $request->username,
@@ -127,17 +126,27 @@ class LoginController extends Controller
 
     public function updateUser(Request $request){
         $user = SysUser::find($request->user_id);
-        if($request->password){
-            $user->USERNAME = $request->username;
-            $user->USER_EMAIL = $request->email;
-            $user->RESET_FLAG = $request->reset_flag;
-            $user->PASSWORD = Hash::make($request->password);
-            $user->ACTIVE_FLAG = $request->active_flag;
+        $sys_user = new SysUser();
+
+        $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($request->username);
+        if($checkAvailableUsername == 0){
+            if($request->password){
+                $user->USERNAME = $request->username;
+                $user->USER_EMAIL = $request->email;
+                $user->RESET_FLAG = $request->reset_flag;
+                $user->PASSWORD = Hash::make($request->password);
+                $user->ACTIVE_FLAG = $request->active_flag;
+            }else{
+                $user->USERNAME = $request->username;
+                $user->USER_EMAIL = $request->email;
+                $user->RESET_FLAG = $request->reset_flag;
+                $user->ACTIVE_FLAG = $request->active_flag;
+            }
         }else{
-            $user->USERNAME = $request->username;
-            $user->USER_EMAIL = $request->email;
-            $user->RESET_FLAG = $request->reset_flag;
-            $user->ACTIVE_FLAG = $request->active_flag;
+            return response()->json([
+                'status' => 'gagal',
+                'message' => 'Duplicate Username'
+            ],400);
         }
 
         if($user->save()){

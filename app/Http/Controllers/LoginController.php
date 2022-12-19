@@ -94,25 +94,28 @@ class LoginController extends Controller
     }
 
     public function createUser(Request $request){
-        $user = SysUser::create([
-            'USERNAME' => $request->username,
-            'USER_EMAIL' => $request->email,
-            'RESET_FLAG' => $request->reset_flag,
-            'PASSWORD' => Hash::make($request->password),
-            'ACTIVE_FLAG' => $request->active_flag
-        ]);
+        $user = new SysUser();
+        $checkUsername = $user->checkAvailableUsername($request->username);
+        print_r($checkUsername);
+        // $user = SysUser::create([
+        //     'USERNAME' => $request->username,
+        //     'USER_EMAIL' => $request->email,
+        //     'RESET_FLAG' => $request->reset_flag,
+        //     'PASSWORD' => Hash::make($request->password),
+        //     'ACTIVE_FLAG' => $request->active_flag
+        // ]);
 
-        if($user){
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User Berhasil dibuat!'
-            ],200);
-        }else{
-            return response()->json([
-                'status' => 'gagal',
-                'message' => 'User Gagal dibuat!'
-            ],400);
-        }
+        // if($user){
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'message' => 'User Berhasil dibuat!'
+        //     ],200);
+        // }else{
+        //     return response()->json([
+        //         'status' => 'gagal',
+        //         'message' => 'User Gagal dibuat!'
+        //     ],400);
+        // }
     }
 
     public function updateUser(Request $request){

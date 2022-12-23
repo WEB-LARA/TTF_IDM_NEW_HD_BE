@@ -154,16 +154,37 @@ class LoginController extends Controller
         $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($getOldUsername[0]->USERNAME,$request->username);
         if($checkAvailableUsername == 0){
             if($request->password){
-                $user->USERNAME = $request->username;
-                $user->USER_EMAIL = $request->email;
-                $user->RESET_FLAG = $request->reset_flag;
-                $user->PASSWORD = Hash::make($request->password);
-                $user->ACTIVE_FLAG = $request->active_flag;
+                DB::transaction(function () use ($request){
+                    $user = SysUser::update([
+                        'USERNAME' => $request->username,
+                        'USER_EMAIL' => $request->email,
+                        'RESET_FLAG' => $request->reset_flag,
+                        'PASSWORD' => Hash::make($request->password),
+                        'ACTIVE_FLAG' => $request->active_flag,
+                        'LAST_UPDATED_DATE' => date('Y-m-d')
+                    ])->where('ID_USER',$request->user_id);
+    
+                },5);
+                // $user->USERNAME = $request->username;
+                // $user->USER_EMAIL = $request->email;
+                // $user->RESET_FLAG = $request->reset_flag;
+                // $user->PASSWORD = Hash::make($request->password);
+                // $user->ACTIVE_FLAG = $request->active_flag;
             }else{
-                $user->USERNAME = $request->username;
-                $user->USER_EMAIL = $request->email;
-                $user->RESET_FLAG = $request->reset_flag;
-                $user->ACTIVE_FLAG = $request->active_flag;
+                DB::transaction(function () use ($request){
+                    $user = SysUser::update([
+                        'USERNAME' => $request->username,
+                        'USER_EMAIL' => $request->email,
+                        'RESET_FLAG' => $request->reset_flag,
+                        'ACTIVE_FLAG' => $request->active_flag,
+                        'LAST_UPDATED_DATE' => date('Y-m-d')
+                    ])->where('ID_USER',$request->user_id);
+    
+                },5);
+                // $user->USERNAME = $request->username;
+                // $user->USER_EMAIL = $request->email;
+                // $user->RESET_FLAG = $request->reset_flag;
+                // $user->ACTIVE_FLAG = $request->active_flag;
             }
         }else{
             return response()->json([

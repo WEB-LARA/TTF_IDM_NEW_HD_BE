@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class SysMapSupplier extends Model
 {
     use HasFactory;
+    protected $table = 'sys_mapp_supplier';
+
+    protected $primaryKey = 'ID';
     protected $fillable = [
         'USER_ID',
         'SUPP_SITE_CODE',

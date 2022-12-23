@@ -76,7 +76,7 @@ class SysUser extends Authenticatable implements JWTSubject
     }
 
     public function getDataForInquiryUser(){
-        $getData = DB::statement('SELECT 
+        $getData = DB::select('SELECT 
                                       USERNAME,
                                       USER_EMAIL,
                                       SUPP_ID,
@@ -91,7 +91,7 @@ class SysUser extends Authenticatable implements JWTSubject
                                           WHERE
                                               USER_ID = ID_USER) JUMLAH_SUPPLIER
                                   FROM
-                                      sys_user')->get();
+                                      sys_user');
 
         return $getData;
     }

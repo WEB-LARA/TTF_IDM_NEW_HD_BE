@@ -218,18 +218,21 @@ class LoginController extends Controller
                 'message' => 'Duplicate Username'
             ],400);
         }
-
-        if($user->save()){
             return response()->json([
                 'status' => 'success',
                 'message' => 'User Berhasil diedit!'
             ],200);
-        }else{
-            return response()->json([
-                'status' => 'gagal',
-                'message' => 'User Gagal diedit!'
-            ],400);
-        }
+        // if($user->save()){
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'message' => 'User Berhasil diedit!'
+        //     ],200);
+        // }else{
+        //     return response()->json([
+        //         'status' => 'gagal',
+        //         'message' => 'User Gagal diedit!'
+        //     ],400);
+        // }
     }
 
     public function getDataForInquiryUser(){

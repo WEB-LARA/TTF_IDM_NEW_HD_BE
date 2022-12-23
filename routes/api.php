@@ -35,7 +35,7 @@ Route::controller(SysSupplierController::class)->group(function () {
 });
 
 Route::controller(SysSuppSiteController::class)->group(function () {
-    Route::get('getAllSupplierSite', 'getAllSupplierSite');
+    Route::post('getAllSupplierSite', 'getAllSupplierSite');
 });
 
 

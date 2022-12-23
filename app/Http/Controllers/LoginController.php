@@ -109,7 +109,7 @@ class LoginController extends Controller
                         'ACTIVE_FLAG' => $request->active_flag
                     ]);
                     foreach($request->list_supplier as $a){
-                        print_r($a);
+                        print_r($a['supp_site_code']);
                         // $sys_map_customer = SysMapSupplier::create([
                         //     'USER_ID' => $user->id,
                         //     'SUPP_SITE_CODE' =>$a->supp_site_code,

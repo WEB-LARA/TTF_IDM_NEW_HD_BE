@@ -100,7 +100,7 @@ class LoginController extends Controller
         if($checkUsername == 0){
             
             try{
-                DB::transaction(function () {
+                DB::transaction(function () use ($request,$user){
                     $user = SysUser::create([
                         'USERNAME' => $request->username,
                         'USER_EMAIL' => $request->email,

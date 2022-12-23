@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\SysUser;
-
+use App\Models\SysMapSupplier;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {
@@ -97,13 +98,32 @@ class LoginController extends Controller
         $user = new SysUser();
         $checkUsername = $user->checkAvailableUsername($request->username);
         if($checkUsername == 0){
-            $user = SysUser::create([
-                'USERNAME' => $request->username,
-                'USER_EMAIL' => $request->email,
-                'RESET_FLAG' => $request->reset_flag,
-                'PASSWORD' => Hash::make($request->password),
-                'ACTIVE_FLAG' => $request->active_flag
-            ]);
+            
+            try{
+                DB::transaction(function () {
+                    $user = SysUser::create([
+                        'USERNAME' => $request->username,
+                        'USER_EMAIL' => $request->email,
+                        'RESET_FLAG' => $request->reset_flag,
+                        'PASSWORD' => Hash::make($request->password),
+                        'ACTIVE_FLAG' => $request->active_flag
+                    ]);
+                    foreach($request->list_supplier as $a){
+                        $sys_map_customer = SysMapSupplier::create([
+                            'USER_ID' => $user->id(),
+                            'SUPP_SITE_CODE' =>$a->supp_site_code,
+                            'BRANCH_CODE' =>  date('Y-m-d'),
+                            'STATUS' => 'Y',
+                            'TRANSFER_FLAG' => 'Y'
+                        ]);
+                    }
+    
+                },5);
+            }catch (\Exception $e) {
+
+                return $e->getMessage();
+            }
+
     
             if($user){
                 return response()->json([
@@ -130,7 +150,6 @@ class LoginController extends Controller
 
         $getOldUsername = $sys_user->getOldUsernameByUserId($request->user_id);
         $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($getOldUsername[0]->USERNAME,$request->username);
-        print_r($getOldUsername[0]->USERNAME);
         if($checkAvailableUsername == 0){
             if($request->password){
                 $user->USERNAME = $request->username;

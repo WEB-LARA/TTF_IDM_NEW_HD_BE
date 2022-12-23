@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SysSupplierController;
+use App\Http\Controllers\SysSuppSiteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -31,6 +32,10 @@ Route::controller(LoginController::class)->group(function () {
 
 Route::controller(SysSupplierController::class)->group(function () {
     Route::get('getAllSupplier', 'getAllSupplier');
+});
+
+Route::controller(SysSuppSiteController::class)->group(function () {
+    Route::get('getAllSupplierSite', 'getAllSupplierSite');
 });
 
 

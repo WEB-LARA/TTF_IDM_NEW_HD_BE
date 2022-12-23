@@ -14,7 +14,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login','register','logout']]);
     }
 
     public function login(Request $request)
@@ -106,14 +106,15 @@ class LoginController extends Controller
                         'USER_EMAIL' => $request->email,
                         'RESET_FLAG' => $request->reset_flag,
                         'PASSWORD' => Hash::make($request->password),
-                        'ACTIVE_FLAG' => $request->active_flag
+                        'ACTIVE_FLAG' => $request->active_flag,
+                        'CREATION_DATE' => date('Y-m-d')
                     ]);
                     foreach($request->list_supplier as $a){
                         // print_r();
                         $sys_map_customer = SysMapSupplier::create([
                             'USER_ID' => $user->ID_USER,
                             'SUPP_SITE_CODE' =>$a['supp_site_code'],
-                            'BRANCH_CODE' =>  date('Y-m-d'),
+                            'BRANCH_CODE' =>  $a['supp_branch_code'],
                             'STATUS' => 'Y',
                             'TRANSFER_FLAG' => 'Y'
                         ]);

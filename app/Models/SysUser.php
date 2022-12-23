@@ -91,7 +91,7 @@ class SysUser extends Authenticatable implements JWTSubject
                                           WHERE
                                               USER_ID = ID_USER) JUMLAH_SUPPLIER
                                   FROM
-                                      sys_user');
+                                      sys_user')->get();
 
         return $getData;
     }

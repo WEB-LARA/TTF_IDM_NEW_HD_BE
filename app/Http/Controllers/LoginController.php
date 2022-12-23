@@ -96,8 +96,8 @@ class LoginController extends Controller
 
     public function createUser(Request $request){
         print_r("ASOK");
-        // $user = new SysUser();
-        // $checkUsername = $user->checkAvailableUsername($request->username);
+        $user = new SysUser();
+        $checkUsername = $user->checkAvailableUsername($request->username);
         // if($checkUsername == 0){
             
         //     try{

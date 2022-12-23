@@ -11,6 +11,7 @@ class SysMapSupplier extends Model
     protected $table = 'sys_mapp_supp';
 
     protected $primaryKey = 'ID';
+    public $timestamps = false;
     protected $fillable = [
         'USER_ID',
         'SUPP_SITE_CODE',

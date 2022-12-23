@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SysSupplierController;
 use App\Http\Controllers\SysSuppSiteController;
+use App\Http\Controllers\SysRefBranchController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -36,6 +37,10 @@ Route::controller(SysSupplierController::class)->group(function () {
 
 Route::controller(SysSuppSiteController::class)->group(function () {
     Route::post('getAllSupplierSite', 'getAllSupplierSite');
+});
+
+Route::controller(SysRefBranchController::class)->group(function () {
+    Route::post('getAllBranch', 'getAllBranch');
 });
 
 

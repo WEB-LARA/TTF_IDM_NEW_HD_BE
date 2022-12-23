@@ -152,58 +152,60 @@ class LoginController extends Controller
 
         $getOldUsername = $sys_user->getOldUsernameByUserId($request->user_id);
         $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($getOldUsername[0]->USERNAME,$request->username);
-        if($checkAvailableUsername == 0){
-            if($request->password){
-                DB::transaction(function () use ($request){
-                    $user = SysUser::where('ID_USER',$request->user_id)->update([
-                        'USERNAME' => $request->username,
-                        'USER_EMAIL' => $request->email,
-                        'RESET_FLAG' => $request->reset_flag,
-                        'PASSWORD' => Hash::make($request->password),
-                        'ACTIVE_FLAG' => $request->active_flag,
-                        'LAST_UPDATED_DATE' => date('Y-m-d')
-                    ]);
+        print_r($getOldUsername);
+        print_r($checkAvailableUsername);
+        // if($checkAvailableUsername == 0){
+        //     if($request->password){
+        //         DB::transaction(function () use ($request){
+        //             $user = SysUser::where('ID_USER',$request->user_id)->update([
+        //                 'USERNAME' => $request->username,
+        //                 'USER_EMAIL' => $request->email,
+        //                 'RESET_FLAG' => $request->reset_flag,
+        //                 'PASSWORD' => Hash::make($request->password),
+        //                 'ACTIVE_FLAG' => $request->active_flag,
+        //                 'LAST_UPDATED_DATE' => date('Y-m-d')
+        //             ]);
     
-                },5);
-                // $user->USERNAME = $request->username;
-                // $user->USER_EMAIL = $request->email;
-                // $user->RESET_FLAG = $request->reset_flag;
-                // $user->PASSWORD = Hash::make($request->password);
-                // $user->ACTIVE_FLAG = $request->active_flag;
-            }else{
-                DB::transaction(function () use ($request){
-                    $user = SysUser::where('ID_USER',$request->user_id)->update([
-                        'USERNAME' => $request->username,
-                        'USER_EMAIL' => $request->email,
-                        'RESET_FLAG' => $request->reset_flag,
-                        'ACTIVE_FLAG' => $request->active_flag,
-                        'LAST_UPDATED_DATE' => date('Y-m-d')
-                    ])->where('ID_USER',$request->user_id);
+        //         },5);
+        //         // $user->USERNAME = $request->username;
+        //         // $user->USER_EMAIL = $request->email;
+        //         // $user->RESET_FLAG = $request->reset_flag;
+        //         // $user->PASSWORD = Hash::make($request->password);
+        //         // $user->ACTIVE_FLAG = $request->active_flag;
+        //     }else{
+        //         DB::transaction(function () use ($request){
+        //             $user = SysUser::where('ID_USER',$request->user_id)->update([
+        //                 'USERNAME' => $request->username,
+        //                 'USER_EMAIL' => $request->email,
+        //                 'RESET_FLAG' => $request->reset_flag,
+        //                 'ACTIVE_FLAG' => $request->active_flag,
+        //                 'LAST_UPDATED_DATE' => date('Y-m-d')
+        //             ])->where('ID_USER',$request->user_id);
     
-                },5);
-                // $user->USERNAME = $request->username;
-                // $user->USER_EMAIL = $request->email;
-                // $user->RESET_FLAG = $request->reset_flag;
-                // $user->ACTIVE_FLAG = $request->active_flag;
-            }
-        }else{
-            return response()->json([
-                'status' => 'gagal',
-                'message' => 'Duplicate Username'
-            ],400);
-        }
+        //         },5);
+        //         // $user->USERNAME = $request->username;
+        //         // $user->USER_EMAIL = $request->email;
+        //         // $user->RESET_FLAG = $request->reset_flag;
+        //         // $user->ACTIVE_FLAG = $request->active_flag;
+        //     }
+        // }else{
+        //     return response()->json([
+        //         'status' => 'gagal',
+        //         'message' => 'Duplicate Username'
+        //     ],400);
+        // }
 
-        if($user->save()){
-            return response()->json([
-                'status' => 'success',
-                'message' => 'User Berhasil diedit!'
-            ],200);
-        }else{
-            return response()->json([
-                'status' => 'gagal',
-                'message' => 'User Gagal diedit!'
-            ],400);
-        }
+        // if($user->save()){
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'message' => 'User Berhasil diedit!'
+        //     ],200);
+        // }else{
+        //     return response()->json([
+        //         'status' => 'gagal',
+        //         'message' => 'User Gagal diedit!'
+        //     ],400);
+        // }
     }
 
     public function getDataForInquiryUser(){

@@ -12,4 +12,11 @@ class SysSupplier extends Model
 
     protected $primaryKey = 'SUPP_ID';
 
+    protected $fillable = [
+        'USER_ID',
+        'SUPP_SITE_CODE',
+        'BRANCH_CODE',
+        'DATE',
+        'STATUS'
+    ];
 }

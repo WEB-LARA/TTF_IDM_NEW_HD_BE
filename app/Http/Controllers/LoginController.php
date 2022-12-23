@@ -147,9 +147,9 @@ class LoginController extends Controller
     }
 
     public function updateUser(Request $request){
-        $user = SysUser::find($request->user_id);
+        // $user = SysUser::find($request->user_id);
         $sys_user = new SysUser();
-
+        $sys_map_supplier = new SysMapSupplier();
         $getOldUsername = $sys_user->getOldUsernameByUserId($request->user_id);
         $checkAvailableUsername = $sys_user->checkAvailableUsernameEdit($getOldUsername[0]->USERNAME,$request->username);
         if($checkAvailableUsername == 0){
@@ -163,6 +163,19 @@ class LoginController extends Controller
                         'ACTIVE_FLAG' => $request->active_flag,
                         'LAST_UPDATED_DATE' => date('Y-m-d')
                     ]);
+
+                    $deleteMappSupp = $sys_map_supplier->deleteMapSuppByUserID($request->user_id);
+
+                    foreach($request->list_supplier as $a){
+                        // print_r();
+                        $sys_map_customer = SysMapSupplier::create([
+                            'USER_ID' => $user->ID_USER,
+                            'SUPP_SITE_CODE' =>$a['supp_site_code'],
+                            'BRANCH_CODE' =>  $a['supp_branch_code'],
+                            'STATUS' => 'Y',
+                            'TRANSFER_FLAG' => 'Y'
+                        ]);
+                    }
     
                 },5);
                 // $user->USERNAME = $request->username;
@@ -181,6 +194,19 @@ class LoginController extends Controller
                     ])->where('ID_USER',$request->user_id);
     
                 },5);
+
+                    $deleteMappSupp = $sys_map_supplier->deleteMapSuppByUserID($request->user_id);
+
+                    foreach($request->list_supplier as $a){
+                        // print_r();
+                        $sys_map_customer = SysMapSupplier::create([
+                            'USER_ID' => $user->ID_USER,
+                            'SUPP_SITE_CODE' =>$a['supp_site_code'],
+                            'BRANCH_CODE' =>  $a['supp_branch_code'],
+                            'STATUS' => 'Y',
+                            'TRANSFER_FLAG' => 'Y'
+                        ]);
+                    }
                 // $user->USERNAME = $request->username;
                 // $user->USER_EMAIL = $request->email;
                 // $user->RESET_FLAG = $request->reset_flag;

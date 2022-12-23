@@ -19,4 +19,14 @@ class SysMapSupplier extends Model
         'DATE',
         'STATUS'
     ];
+
+    public function deleteMapSuppByUserID($user_id){
+        $data = SysMapSupplier::where('USER_ID',$user_id)->delete();
+
+        if($data){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

@@ -98,6 +98,7 @@ class LoginController extends Controller
         print_r("ASOK");
         $user = new SysUser();
         $checkUsername = $user->checkAvailableUsername($request->username);
+        print_r($request->username);
         // if($checkUsername == 0){
             
         //     try{

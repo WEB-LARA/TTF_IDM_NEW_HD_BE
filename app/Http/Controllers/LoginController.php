@@ -111,7 +111,7 @@ class LoginController extends Controller
                     foreach($request->list_supplier as $a){
                         // print_r();
                         $sys_map_customer = SysMapSupplier::create([
-                            'USER_ID' => $user->id,
+                            'USER_ID' => $user->ID_USER,
                             'SUPP_SITE_CODE' =>$a['supp_site_code'],
                             'BRANCH_CODE' =>  date('Y-m-d'),
                             'STATUS' => 'Y',

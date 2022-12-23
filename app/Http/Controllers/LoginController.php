@@ -155,14 +155,14 @@ class LoginController extends Controller
         if($checkAvailableUsername == 0){
             if($request->password){
                 DB::transaction(function () use ($request){
-                    $user = SysUser::update([
+                    $user = SysUser::where('ID_USER',$request->user_id)->update([
                         'USERNAME' => $request->username,
                         'USER_EMAIL' => $request->email,
                         'RESET_FLAG' => $request->reset_flag,
                         'PASSWORD' => Hash::make($request->password),
                         'ACTIVE_FLAG' => $request->active_flag,
                         'LAST_UPDATED_DATE' => date('Y-m-d')
-                    ])->where('ID_USER',$request->user_id);
+                    ]);
     
                 },5);
                 // $user->USERNAME = $request->username;
@@ -172,7 +172,7 @@ class LoginController extends Controller
                 // $user->ACTIVE_FLAG = $request->active_flag;
             }else{
                 DB::transaction(function () use ($request){
-                    $user = SysUser::update([
+                    $user = SysUser::where('ID_USER',$request->user_id)->update([
                         'USERNAME' => $request->username,
                         'USER_EMAIL' => $request->email,
                         'RESET_FLAG' => $request->reset_flag,

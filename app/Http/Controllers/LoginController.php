@@ -109,13 +109,14 @@ class LoginController extends Controller
                         'ACTIVE_FLAG' => $request->active_flag
                     ]);
                     foreach($request->list_supplier as $a){
-                        $sys_map_customer = SysMapSupplier::create([
-                            'USER_ID' => $user->id,
-                            'SUPP_SITE_CODE' =>$a->supp_site_code,
-                            'BRANCH_CODE' =>  date('Y-m-d'),
-                            'STATUS' => 'Y',
-                            'TRANSFER_FLAG' => 'Y'
-                        ]);
+                        print_r($a);
+                        // $sys_map_customer = SysMapSupplier::create([
+                        //     'USER_ID' => $user->id,
+                        //     'SUPP_SITE_CODE' =>$a->supp_site_code,
+                        //     'BRANCH_CODE' =>  date('Y-m-d'),
+                        //     'STATUS' => 'Y',
+                        //     'TRANSFER_FLAG' => 'Y'
+                        // ]);
                     }
     
                 },5);

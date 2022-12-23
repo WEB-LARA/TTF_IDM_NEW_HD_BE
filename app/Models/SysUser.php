@@ -75,7 +75,23 @@ class SysUser extends Authenticatable implements JWTSubject
     }
 
     public function getDataForInquiryUser(){
-        $getData = SysUser::select('ID_USER','USERNAME','USER_EMAIL','RESET_FLAG','ACTIVE_FLAG','CREATION_DATE')->get();
+        $getData = SysUser::select(DB::raw('SELECT 
+                                                USERNAME,
+                                                USER_EMAIL,
+                                                SUPP_ID,
+                                                RESET_FLAG,
+                                                ACTIVE_FLAG,
+                                                CREATION_DATE,
+                                                LAST_UPDATED_DATE,
+                                                (SELECT 
+                                                        COUNT(*)
+                                                    FROM
+                                                        sys_mapp_supp
+                                                    WHERE
+                                                        USER_ID = ID_USER) JUMLAH_SUPPLIER
+                                            FROM
+                                                sys_user')
+                                   )->get();
 
         return $getData;
     }

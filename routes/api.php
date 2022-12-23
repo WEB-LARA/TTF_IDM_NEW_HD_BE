@@ -40,7 +40,7 @@ Route::controller(SysSuppSiteController::class)->group(function () {
 });
 
 Route::controller(SysRefBranchController::class)->group(function () {
-    Route::post('getAllBranch', 'getAllBranch');
+    Route::get('getAllBranch', 'getAllBranch');
 });
 
 

@@ -166,15 +166,17 @@ class LoginController extends Controller
 
                     $deleteMappSupp = $sys_map_supplier->deleteMapSuppByUserID($request->user_id);
 
-                    foreach($request->list_supplier as $a){
-                        // print_r();
-                        $sys_map_customer = SysMapSupplier::create([
-                            'USER_ID' => $request->user_id,
-                            'SUPP_SITE_CODE' =>$a['supp_site_code'],
-                            'BRANCH_CODE' =>  $a['supp_branch_code'],
-                            'STATUS' => 'Y',
-                            'TRANSFER_FLAG' => 'Y'
-                        ]);
+                    if($request->list_supplier){
+                        foreach($request->list_supplier as $a){
+                            // print_r();
+                            $sys_map_customer = SysMapSupplier::create([
+                                'USER_ID' => $request->user_id,
+                                'SUPP_SITE_CODE' =>$a['supp_site_code'],
+                                'BRANCH_CODE' =>  $a['supp_branch_code'],
+                                'STATUS' => 'Y',
+                                'TRANSFER_FLAG' => 'Y'
+                            ]);
+                        }
                     }
     
                 },5);
@@ -197,15 +199,17 @@ class LoginController extends Controller
 
                     $deleteMappSupp = $sys_map_supplier->deleteMapSuppByUserID($request->user_id);
 
-                    foreach($request->list_supplier as $a){
-                        // print_r();
-                        $sys_map_customer = SysMapSupplier::create([
-                            'USER_ID' => $user->ID_USER,
-                            'SUPP_SITE_CODE' =>$a['supp_site_code'],
-                            'BRANCH_CODE' =>  $a['supp_branch_code'],
-                            'STATUS' => 'Y',
-                            'TRANSFER_FLAG' => 'Y'
-                        ]);
+                    if($request->list_supplier){
+                        foreach($request->list_supplier as $a){
+                            // print_r();
+                            $sys_map_customer = SysMapSupplier::create([
+                                'USER_ID' => $user->ID_USER,
+                                'SUPP_SITE_CODE' =>$a['supp_site_code'],
+                                'BRANCH_CODE' =>  $a['supp_branch_code'],
+                                'STATUS' => 'Y',
+                                'TRANSFER_FLAG' => 'Y'
+                            ]);
+                        }
                     }
                 // $user->USERNAME = $request->username;
                 // $user->USER_EMAIL = $request->email;

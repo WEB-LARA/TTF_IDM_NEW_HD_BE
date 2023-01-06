@@ -26,14 +26,13 @@ class InputTTfController extends Controller
         $scan_flag = $request->scan_flag;
         $ttf_tmp_table = new TtfTmpTable();
         $session_id = session()->getId();
-        print_r($session_id);
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id){
                 foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,
                         'FP_TYPE' => $fp_type,
-                        'SUPP_SITE' => '121',
+                        'SUPP_SITE' => 'S73W',
                         'CABANG' => $branch_code,
                         'NO_FP' => $no_fp,
                         'NO_NPWP' => 'teest npwp',
@@ -55,10 +54,10 @@ class InputTTfController extends Controller
         }
     }
 
-    public function getDataTtfTmpBYSessionId(){
+    public function getDataTtfTmpBYSessionId(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
-        $session_id = session()->getId();
-        $data = $ttf_tmp_table->getDataTtfTmpBYSessionId($session_id);
+
+        $data = $ttf_tmp_table->getDataTtfTmpBYSessionId($request->supp_site_code);
 
         return response()->json([
                 'status' => 'success',

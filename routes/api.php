@@ -45,7 +45,7 @@ Route::controller(SysRefBranchController::class)->group(function () {
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');
-    Route::get('getDataTtfTmpBYSessionId', 'getDataTtfTmpBYSessionId');
+    Route::post('getDataTtfTmpBYSessionId', 'getDataTtfTmpBYSessionId');
 });
 
 

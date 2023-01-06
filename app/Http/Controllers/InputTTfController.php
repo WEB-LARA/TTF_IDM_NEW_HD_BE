@@ -58,5 +58,10 @@ class InputTTfController extends Controller
         $ttf_tmp_table = new TtfTmpTable();
         $session_id = session()->getId();
         $data = $ttf_tmp_table->getDataTtfTmpBYSessionId($session_id);
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
     }
 }

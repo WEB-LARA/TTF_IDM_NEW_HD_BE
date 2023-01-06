@@ -36,7 +36,7 @@ class InputTTfController extends Controller
                         'CABANG' => $branch_code,
                         'NO_FP' => $no_fp,
                         'NO_NPWP' => 'teest npwp',
-                        'FP_DATE' => $tanggal_fp,
+                        'FP_DATE' => $fp_date,
                         'FP_DPP' => $dpp_fp,
                         'FP_TAX' => $tax_fp,
                         'BPB_NUM' => $a['bpb_num'],

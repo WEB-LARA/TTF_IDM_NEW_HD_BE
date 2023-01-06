@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SysSupplierController;
 use App\Http\Controllers\SysSuppSiteController;
 use App\Http\Controllers\SysRefBranchController;
+use App\Http\Controllers\InputTTfController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -41,6 +42,9 @@ Route::controller(SysSuppSiteController::class)->group(function () {
 
 Route::controller(SysRefBranchController::class)->group(function () {
     Route::get('getAllBranch', 'getAllBranch');
+});
+Route::controller(InputTTfController::class)->group(function () {
+    Route::post('saveToTmpTtf', 'saveToTmpTtf');
 });
 
 

@@ -56,7 +56,7 @@ class InputTTfController extends Controller
 
     public function getDataTtfTmpBYSessionId(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
-
+        
         $data = $ttf_tmp_table->getDataTtfTmpBYSessionId($request->supp_site_code);
 
         return response()->json([

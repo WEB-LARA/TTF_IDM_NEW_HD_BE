@@ -37,7 +37,7 @@ class TtfTmpTable extends Model
                 DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
                     foreach($data_bpb as $a){
                         $tmpTable = TtfTmpTable::create([
-                            'SEQ_NUM' => 1,
+                            'SEQ_NUM2' => 1,
                             'FP_TYPE' => $fp_type,
                             'SUPP_SITE' => '121',
                             'CABANG' => $branch_code,

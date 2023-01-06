@@ -34,7 +34,9 @@ class TtfTmpTable extends Model
     public function saveToTmpTable($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
         $session_id = session()->getId();
             try{
+                print_r("TeST");
                 DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
+                    print_r("TeST2");
                     foreach($data_bpb as $a){
                         $tmpTable = TtfTmpTable::create([
                             'SEQ_NUM2' => 1,

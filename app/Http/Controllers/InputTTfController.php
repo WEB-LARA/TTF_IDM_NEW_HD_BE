@@ -53,4 +53,10 @@ class InputTTfController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getDataTtfTmpBYSessionId(){
+        $ttf_tmp_table = new TtfTmpTable();
+        $session_id = session()->getId();
+        $data = $ttf_tmp_table->getDataTtfTmpBYSessionId($session_id);
+    }
 }

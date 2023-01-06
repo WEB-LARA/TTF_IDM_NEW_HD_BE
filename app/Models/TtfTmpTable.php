@@ -60,4 +60,10 @@ class TtfTmpTable extends Model
     //             return $e->getMessage();
     //         }
     // }
+
+    public function getDataTtfTmpBYSessionId($session_id){
+        $getData = TtfTmpTable::where('SESS_ID',$session_id)->get();
+
+        return $getData;
+    }
 }

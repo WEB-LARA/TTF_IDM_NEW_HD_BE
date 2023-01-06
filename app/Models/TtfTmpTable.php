@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class TtfTmpTable extends Model
 {
@@ -18,7 +19,7 @@ class TtfTmpTable extends Model
         $session_id = session()->getId();
         print_r($session_id);
             try{
-                DB::transaction(function () use ($request,$user){
+                DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
                     foreach($datga_bpb as $a){
                         $tmpTable = TtfTmpTable::create([
                             'SEQ_NUM' => 1,

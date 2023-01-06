@@ -35,8 +35,8 @@ class TtfTmpTable extends Model
         $session_id = session()->getId();
             try{
                 print_r("TeST");
-                        $tmpTable = TtfTmpTable::create([
-                            'SEQ_NUM2' => 1,
+                        $tmpTable = TtfTmpTable::createe([
+                            'SEQ_NUM' => 1,
                             'FP_TYPE' => $fp_type,
                             'SUPP_SITE' => '121',
                             'CABANG' => $branch_code,

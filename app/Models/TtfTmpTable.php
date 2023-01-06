@@ -35,10 +35,6 @@ class TtfTmpTable extends Model
         $session_id = session()->getId();
             try{
                 print_r("TeST");
-                DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
-                    print_r("FP TYPE".$fp_type);
-                    foreach($data_bpb as $a){
-                        print_r($a);
                         $tmpTable = TtfTmpTable::create([
                             'SEQ_NUM2' => 1,
                             'FP_TYPE' => $fp_type,
@@ -56,9 +52,30 @@ class TtfTmpTable extends Model
                             'SESS_ID' => $session_id,
                             'SCAN_FLAG' => $scan_flag
                         ]);
-                    }
+                // DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
+                //     print_r("FP TYPE".$fp_type);
+                //     foreach($data_bpb as $a){
+                //         print_r($a);
+                //         $tmpTable = TtfTmpTable::create([
+                //             'SEQ_NUM2' => 1,
+                //             'FP_TYPE' => $fp_type,
+                //             'SUPP_SITE' => '121',
+                //             'CABANG' => $branch_code,
+                //             'NO_FP' => $no_fp,
+                //             'NO_NPWP' => 'teest npwp',
+                //             'FP_DATE' => $tanggal_fp,
+                //             'FP_DPP' => $dpp_fp,
+                //             'FP_TAX' => $tax_fp,
+                //             'BPB_NUM' => $a['bpb_num'],
+                //             'BPB_DATE' => $a['bpb_date'],
+                //             'BPB_AMOUNT' => $a['bpb_amount'],
+                //             'BPB_PPN' => $a['bpb_ppn'],
+                //             'SESS_ID' => $session_id,
+                //             'SCAN_FLAG' => $scan_flag
+                //         ]);
+                //     }
     
-                },5);
+                // },5);
             }catch (\Exception $e) {
 
                 return $e->getMessage();

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\TTfTmpTable;
+use App\Models\TtfTmpTable;
 
 class InputTTfController extends Controller
 {
@@ -29,7 +29,7 @@ class InputTTfController extends Controller
 
         $insert = $ttf_tmp_table->saveToTmpTable($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag);
 
-        
+
 
 
     }

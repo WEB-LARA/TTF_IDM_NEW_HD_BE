@@ -14,7 +14,7 @@ class InputTTfController extends Controller
 
         $fp_type = $request->fp_type;
         $no_fp = $request->no_fp;
-        if($no_fp = ""){
+        if($no_fp == ""){
             $no_fp = 0;
         }
         $supp_site_id = $request->supp_site_id;

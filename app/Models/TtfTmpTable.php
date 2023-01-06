@@ -62,7 +62,7 @@ class TtfTmpTable extends Model
     // }
 
     public function getDataTtfTmpBYSessionId($supp_site_code){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->get();
+        $getData = TtfTmpTable::where('SUPP_SITEE',$supp_site_code)->get();
 
         return $getData;
     }

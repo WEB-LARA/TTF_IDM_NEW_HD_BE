@@ -86,7 +86,7 @@ class InputTTfController extends Controller
                         'TTF_STATUS' => '',
                         'SOURCE' => "WEB",
                         'CREATED_BY' => $request->user_id,
-                        'CREATION_DATE' => $date('Y-m-d')
+                        'CREATION_DATE' => date('Y-m-d')
                     ]);
                 }
 

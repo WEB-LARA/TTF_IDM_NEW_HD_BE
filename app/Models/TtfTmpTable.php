@@ -66,4 +66,10 @@ class TtfTmpTable extends Model
 
         return $getData;
     }
+
+    public function getDataTTfTmpForInsertTTf($supp_site_code){
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->groupBy('SUPP_SITE')->select('SUPP_SITE','CABANG')->get();
+
+        return $getData;
+    }
 }

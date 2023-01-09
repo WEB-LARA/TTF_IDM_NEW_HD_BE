@@ -75,7 +75,7 @@ class InputTTfController extends Controller
         // print_r($data);
             DB::transaction(function () use($data,$request){
                 foreach($data as $a){
-                    // print_r($a['SUPP_SITE']);
+                    print_r($a['TTF_TYPE']);
                     $ttf_type = $a['TTF_TYPE'];
                     $tmpTable = TtfHeader::create([
                         'BRANCH_CODE' => $a['CABANG'],

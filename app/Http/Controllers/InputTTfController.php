@@ -73,28 +73,29 @@ class InputTTfController extends Controller
         $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code);
         
         print_r($data);
-            // DB::transaction(function () use($data){
-            //     foreach($data_bpb as $a){
-            //         $tmpTable = TtfTmpTable::create([
-            //             'SEQ_NUM' => 1,
-            //             'FP_TYPE' => $fp_type,
-            //             'SUPP_SITE' => 'S73W',
-            //             'CABANG' => $branch_code,
-            //             'NO_FP' => $no_fp,
-            //             'NO_NPWP' => 'teest npwp',
-            //             'FP_DATE' => $fp_date,
-            //             'FP_DPP' => $dpp_fp,
-            //             'FP_TAX' => $tax_fp,
-            //             'BPB_NUM' => $a['bpb_num'],
-            //             'BPB_DATE' => $a['bpb_date'],
-            //             'BPB_AMOUNT' => $a['bpb_amount'],
-            //             'BPB_PPN' => $a['bpb_ppn'],
-            //             'SESS_ID' => $session_id,
-            //             'SCAN_FLAG' => $scan_flag
-            //         ]);
-            //     }
+            DB::transaction(function () use($data){
+                foreach($data as $a){
+                    print_r($a);
+                    // $tmpTable = TtfTmpTable::create([
+                    //     'SEQ_NUM' => 1,
+                    //     'FP_TYPE' => $fp_type,
+                    //     'SUPP_SITE' => 'S73W',
+                    //     'CABANG' => $branch_code,
+                    //     'NO_FP' => $no_fp,
+                    //     'NO_NPWP' => 'teest npwp',
+                    //     'FP_DATE' => $fp_date,
+                    //     'FP_DPP' => $dpp_fp,
+                    //     'FP_TAX' => $tax_fp,
+                    //     'BPB_NUM' => $a['bpb_num'],
+                    //     'BPB_DATE' => $a['bpb_date'],
+                    //     'BPB_AMOUNT' => $a['bpb_amount'],
+                    //     'BPB_PPN' => $a['bpb_ppn'],
+                    //     'SESS_ID' => $session_id,
+                    //     'SCAN_FLAG' => $scan_flag
+                    // ]);
+                }
 
-            // },5);
+            },5);
         // INSERT into ttf_headers(
         //                                 TTF_ID,
         //                                 BRANCH_CODE,

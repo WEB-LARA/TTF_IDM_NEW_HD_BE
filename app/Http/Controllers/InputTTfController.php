@@ -73,7 +73,7 @@ class InputTTfController extends Controller
         $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code);
         
         // print_r($data);
-            DB::transaction(function () use($data){
+            DB::transaction(function () use($data,$request){
                 foreach($data as $a){
                     // print_r($a['SUPP_SITE']);
                     $ttf_type = $a['TTF_TYPE'];

@@ -69,30 +69,25 @@ class InputTTfController extends Controller
     
     public function saveTTf(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
-
+        $ttf_headers = new TtfHeader();
         $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code);
         
         // print_r($data);
             DB::transaction(function () use($data){
                 foreach($data as $a){
-                    print_r($a['SUPP_SITE']);
-                    // $tmpTable = TtfTmpTable::create([
-                    //     'SEQ_NUM' => 1,
-                    //     'FP_TYPE' => $fp_type,
-                    //     'SUPP_SITE' => 'S73W',
-                    //     'CABANG' => $branch_code,
-                    //     'NO_FP' => $no_fp,
-                    //     'NO_NPWP' => 'teest npwp',
-                    //     'FP_DATE' => $fp_date,
-                    //     'FP_DPP' => $dpp_fp,
-                    //     'FP_TAX' => $tax_fp,
-                    //     'BPB_NUM' => $a['bpb_num'],
-                    //     'BPB_DATE' => $a['bpb_date'],
-                    //     'BPB_AMOUNT' => $a['bpb_amount'],
-                    //     'BPB_PPN' => $a['bpb_ppn'],
-                    //     'SESS_ID' => $session_id,
-                    //     'SCAN_FLAG' => $scan_flag
-                    // ]);
+                    // print_r($a['SUPP_SITE']);
+                    $ttf_type = $a['TTF_TYPE'];
+                    $tmpTable = TtfHeader::create([
+                        'BRANCH_CODE' => $a['CABANG'],
+                        'VENDOR_SITE_CODE' => $a['SUPP_SITE'],
+                        'TTF_NUM' => 'S73W',
+                        'TTF_DATE' => date('Y-m-d'),
+                        'TTF_TYPE' => $ttf_type,
+                        'TTF_STATUS' => '',
+                        'SOURCE' => "WEB",
+                        'CREATED_BY' => $request->user_id,
+                        'CREATION_DATE' => $date('Y-m-d')
+                    ]);
                 }
 
             },5);

@@ -75,7 +75,7 @@ class InputTTfController extends Controller
         // print_r($data);
             DB::transaction(function () use($data){
                 foreach($data as $a){
-                    print_r($a);
+                    print_r($a['SUPP_SITE']);
                     // $tmpTable = TtfTmpTable::create([
                     //     'SEQ_NUM' => 1,
                     //     'FP_TYPE' => $fp_type,

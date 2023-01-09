@@ -83,7 +83,7 @@ class InputTTfController extends Controller
                         'TTF_NUM' => 'S73W',
                         'TTF_DATE' => date('Y-m-d'),
                         'TTF_TYPE' => $ttf_type,
-                        'TTF_STATUS' => '',
+                        'TTF_STATUS' => 'D',
                         'SOURCE' => "WEB",
                         'CREATED_BY' => $request->user_id,
                         'CREATION_DATE' => date('Y-m-d')

@@ -72,7 +72,7 @@ class InputTTfController extends Controller
 
         $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code);
         
-        print_r($data);
+        // print_r($data);
             DB::transaction(function () use($data){
                 foreach($data as $a){
                     print_r($a);

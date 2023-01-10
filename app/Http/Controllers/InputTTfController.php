@@ -77,10 +77,10 @@ class InputTTfController extends Controller
                 foreach($data as $a){
                     // print_r($a['FP_TYPE']);
                     $ttf_type = $a['FP_TYPE'];
-                    $tmpTable = TtfHeader::create([
+                    $insertHeader = TtfHeader::create([
                         'BRANCH_CODE' => $a['CABANG'],
                         'VENDOR_SITE_CODE' => $a['SUPP_SITE'],
-                        'TTF_NUM' => 'S73W',
+                        'TTF_NUM' => 'TES_NOMOR_TTF',
                         'TTF_DATE' => date('Y-m-d'),
                         'TTF_TYPE' => $ttf_type,
                         'TTF_STATUS' => 'D',
@@ -88,7 +88,12 @@ class InputTTfController extends Controller
                         'CREATED_BY' => $request->user_id,
                         'CREATION_DATE' => date('Y-m-d')
                     ]);
+
+                    $idHeader = $insertHeader->TTF_ID();
+
+                    print_r($idHeader);
                 }
+
 
             },5);
         // INSERT into ttf_headers(

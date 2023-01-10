@@ -8,6 +8,7 @@ use App\Models\TtfHeader;
 use App\Models\TtfFp;
 use App\Models\TtfLines;
 use App\Models\SysSuppSite;
+use App\Models\PrepopulatedFp;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -121,8 +122,6 @@ class InputTTfController extends Controller
                         $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
 
                         foreach ($getDataBPBperFP as $c){
-                            print_r($c['BPB_ID']);
-                            echo "<br>";
                             $insertLines = TtfLines::create([
                                 'TTF_ID' => $idHeader,
                                 'TTF_BPB_ID' => $c['BPB_ID'],
@@ -134,37 +133,12 @@ class InputTTfController extends Controller
                                 'TTF_FP_TTF_FP_ID' => $idFp
                             ]);
                         }
+                        $prepopulated_fp = new PrepopulatedFp();
+                        $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                     }
                 }
 
 
             },5);
-        // INSERT into ttf_headers(
-        //                                 TTF_ID,
-        //                                 BRANCH_CODE,
-        //                                 VENDOR_SITE_CODE,
-        //                                 TTF_NUM,
-        //                                 TTF_DATE,
-        //                                 TTF_TYPE,
-        //                                 TTF_STATUS,
-        //                                 SOURCE,
-        //                                 CREATED_BY,
-        //                                 CREATION_DATE,
-        //                                 LAST_UPDATE_BY,
-        //                                 LAST_UPDATE_DATE
-        //                             )values(
-        //                                 ?,
-        //                                 ?,
-        //                                 ?,
-        //                                 ?,
-        //                                 sysdate(),
-        //                                 ?,
-        //                                 ?,
-        //                                 ?,
-        //                                 ?,
-        //                                 sysdate(),
-        //                                 ?,
-        //                                 sysdate()
-        //                             )
     }
 }

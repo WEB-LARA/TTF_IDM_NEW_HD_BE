@@ -84,9 +84,12 @@ class LoginController extends Controller
 
     public function refresh()
     {
+        $user = Auth::id();
+        $sys_user = new  SysUser();
+        $dataUser =  $sys_user->getDataUser($user);
         return response()->json([
             'status' => 'success',
-            'user' => Auth::user(),
+            'user' => $dataUser,
             'authorisation' => [
                 'token' => Auth::refresh(),
                 'type' => 'bearer',

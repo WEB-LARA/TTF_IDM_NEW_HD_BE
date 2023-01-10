@@ -73,8 +73,23 @@ class TtfTmpTable extends Model
         return $getData;
     }
 
-    public function getDataTTFTmpBPB($supp_site_code,$branch_code){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')->get();
+    public function getDataTTFTmpBPB($supp_site_code,$branch_code,$no_fp){
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)
+                    ->where('CABANG',$branch_code)
+                    ->where('NO_FP',$no_fp)
+                    ->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')
+                    ->selectRaw("(SELECT 
+                                      tdb.BPB_ID
+                                  FROM
+                                      ttf_data_bpb tdb
+                                  WHERE
+                                      tdb.BPB_NUMBER = BPB_NUM AND tdb.BRANCH_CODE = ?
+                                          AND tdb.VENDOR_SITE_CODE = ?
+                                          AND tdb.VENDOR_SITE_ID IS NOT NULL
+                                          AND tdb.VENDOR_SITE_ID <> 0
+                                  ) as BPB_ID")
+                    ->setBindings([$no_fp, $branch_code, $supp_site_code])
+                    ->get();
 
         return $getData;
     }

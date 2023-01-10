@@ -67,8 +67,20 @@ class TtfTmpTable extends Model
         return $getData;
     }
 
-    public function getDataTTfTmpForInsertTTf($supp_site_code){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->groupBy('SUPP_SITE')->select('SUPP_SITE','CABANG','FP_TYPE')->get();
+    public function getDataTTfTmpForInsertTTf($supp_site_code,$branch_code){
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->groupBy('SUPP_SITE')->select('SUPP_SITE','CABANG','FP_TYPE')->get();
+
+        return $getData;
+    }
+
+    public function getDataTTFTmpBPB($supp_site_code,$branch_code){
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')->get();
+
+        return $getData;
+    }
+
+    public function getDataTTFTmpFP($supp_site_code,$branch_code){
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->groupBy('NO_FP')->select('NO_FP','FP_TYPE','NO_NPWP','FP_DATE','FP_DPP','FP_TAX','SCAN_FLAG')->get();
 
         return $getData;
     }

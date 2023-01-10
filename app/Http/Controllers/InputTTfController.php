@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TtfTmpTable;
 use App\Models\TtfHeader;
+use App\Models\TtfFp;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -70,11 +71,12 @@ class InputTTfController extends Controller
     public function saveTTf(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
         $ttf_headers = new TtfHeader();
-        $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code);
-        
+        $ttf_fp = new TtfFp();
+        $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code);
+        $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code);
         // print_r($data);
-            DB::transaction(function () use($data,$request){
-                foreach($data as $a){
+            DB::transaction(function () use($dataHeader,$request,$dataFpTmp){
+                foreach($dataHeader as $a){
                     // print_r($a['FP_TYPE']);
                     $ttf_type = $a['FP_TYPE'];
                     $insertHeader = TtfHeader::create([
@@ -90,8 +92,24 @@ class InputTTfController extends Controller
                     ]);
 
                     $idHeader = $insertHeader->TTF_ID;
-
+                    
                     print_r($idHeader);
+
+                    foreach($dataFpTmp as $b){
+                        $insertFp = TtfFp::create([
+                            'TTF_ID' => $idHeader,
+                            'FP_NUM' => $b['NO_FP'],
+                            'FP_TYPE' => $b['FP_TYPE'],
+                            'FP_DATE' => $b['FP_DATE'],
+                            'FP_DPP_AMT' => $b['FP_DPP'],
+                            'FP_TAX_AMT' => $b['FP_TAX'],
+                            'USED_FLAG' => "Y",
+                            'CREATED_BY' => $request->user_id,
+                            'CREATION_DATE' => date('Y-m-d'),
+                            'TTF_HEADERS_TTF_ID' => $idHeader,
+                            'SCAN_FLAG' => $b['SCAN_FLAG']
+                        ]);
+                    }
                 }
 
 

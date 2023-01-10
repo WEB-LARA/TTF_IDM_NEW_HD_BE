@@ -92,8 +92,6 @@ class InputTTfController extends Controller
                     ]);
 
                     $idHeader = $insertHeader->TTF_ID;
-                    
-                    print_r($idHeader);
 
                     foreach($dataFpTmp as $b){
                         $insertFp = TtfFp::create([
@@ -111,21 +109,23 @@ class InputTTfController extends Controller
                         ]);
                         $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
 
-                        // foreach ($getDataBPBperFP as $c){
-                        //     $insertLines = TtfFp::create([
-                        //         'TTF_ID' => $idHeader,
-                        //         'FP_NUM' => $b['NO_FP'],
-                        //         'FP_TYPE' => $b['FP_TYPE'],
-                        //         'FP_DATE' => $b['FP_DATE'],
-                        //         'FP_DPP_AMT' => $b['FP_DPP'],
-                        //         'FP_TAX_AMT' => $b['FP_TAX'],
-                        //         'USED_FLAG' => "Y",
-                        //         'CREATED_BY' => $request->user_id,
-                        //         'CREATION_DATE' => date('Y-m-d'),
-                        //         'TTF_HEADERS_TTF_ID' => $idHeader,
-                        //         'SCAN_FLAG' => $b['SCAN_FLAG']
-                        //     ]);
-                        // }
+                        foreach ($getDataBPBperFP as $c){
+                            print_r($c);
+                            echo "<br>";
+                            // $insertLines = TtfFp::create([
+                            //     'TTF_ID' => $idHeader,
+                            //     'FP_NUM' => $b['NO_FP'],
+                            //     'FP_TYPE' => $b['FP_TYPE'],
+                            //     'FP_DATE' => $b['FP_DATE'],
+                            //     'FP_DPP_AMT' => $b['FP_DPP'],
+                            //     'FP_TAX_AMT' => $b['FP_TAX'],
+                            //     'USED_FLAG' => "Y",
+                            //     'CREATED_BY' => $request->user_id,
+                            //     'CREATION_DATE' => date('Y-m-d'),
+                            //     'TTF_HEADERS_TTF_ID' => $idHeader,
+                            //     'SCAN_FLAG' => $b['SCAN_FLAG']
+                            // ]);
+                        }
                     }
                 }
 

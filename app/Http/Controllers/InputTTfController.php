@@ -110,7 +110,7 @@ class InputTTfController extends Controller
                         $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
 
                         foreach ($getDataBPBperFP as $c){
-                            print_r($c);
+                            print_r($c['BPB_ID']);
                             echo "<br>";
                             // $insertLines = TtfFp::create([
                             //     'TTF_ID' => $idHeader,

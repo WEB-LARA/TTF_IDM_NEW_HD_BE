@@ -72,7 +72,7 @@ class InputTTfController extends Controller
         $ttf_tmp_table = new TtfTmpTable();
         $ttf_headers = new TtfHeader();
         $ttf_fp = new TtfFp();
-        $data = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code);
+        $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code);
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code);
         // print_r($data);
             DB::transaction(function () use($dataHeader,$request,$dataFpTmp){

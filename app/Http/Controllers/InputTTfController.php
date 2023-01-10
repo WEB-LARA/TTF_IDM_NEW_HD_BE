@@ -75,8 +75,10 @@ class InputTTfController extends Controller
         $ttf_fp = new TtfFp();
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code);
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code);
+        $user_id = $request->user_id;
+        print_r("USEr_ID".$user_id);
         // print_r($data);
-            DB::transaction(function () use($dataHeader,$request,$dataFpTmp,$ttf_tmp_table){
+            DB::transaction(function () use($dataHeader,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){
                     // print_r($a['FP_TYPE']);
                     $ttf_type = $a['FP_TYPE'];
@@ -88,7 +90,7 @@ class InputTTfController extends Controller
                         'TTF_TYPE' => $ttf_type,
                         'TTF_STATUS' => 'D',
                         'SOURCE' => "WEB",
-                        'CREATED_BY' => $request->user_id,
+                        'CREATED_BY' => $user_id,
                         'CREATION_DATE' => date('Y-m-d')
                     ]);
 
@@ -103,7 +105,7 @@ class InputTTfController extends Controller
                             'FP_DPP_AMT' => $b['FP_DPP'],
                             'FP_TAX_AMT' => $b['FP_TAX'],
                             'USED_FLAG' => "Y",
-                            'CREATED_BY' => $request->user_id,
+                            'CREATED_BY' => $user_id,
                             'CREATION_DATE' => date('Y-m-d'),
                             'TTF_HEADERS_TTF_ID' => $idHeader,
                             'SCAN_FLAG' => $b['SCAN_FLAG']
@@ -120,7 +122,7 @@ class InputTTfController extends Controller
                                 'TTF_FP_ID' => $idFp,
                                 'ACTIVE_FLAG' => "Y",
                                 'CREATION_DATE' => date('Y-m-d'),
-                                'CREATED_BY' => $request->user_id,
+                                'CREATED_BY' => $user_id,
                                 'TTF_HEADERS_TTF_ID' => $idHeader,
                                 'TTF_FP_TTF_FP_ID' => $idFp
                             ]);

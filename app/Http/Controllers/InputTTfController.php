@@ -44,7 +44,7 @@ class InputTTfController extends Controller
                         'FP_TAX' => $tax_fp,
                         'BPB_NUM' => $a['bpb_num'],
                         'BPB_DATE' => $a['bpb_date'],
-                        'BPB_AMOUNT' => $a['bpb_amount'],
+                        'BPB_AMOUNT' => $a['bpb_dpp'],
                         'BPB_PPN' => $a['bpb_ppn'],
                         'SESS_ID' => $session_id,
                         'SCAN_FLAG' => $scan_flag
@@ -76,7 +76,6 @@ class InputTTfController extends Controller
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code);
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code);
         $user_id = $request->user_id;
-        print_r($request->all());
         // print_r($data);
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){

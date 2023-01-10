@@ -18,7 +18,7 @@ class TtfDataBpb extends Model
     ];
 
     public function updateDataBpb($bpb_id,$status){
-        $data = PrepopulatedFp::where('BPB_ID',$nomor_fp)->update([
+        $data = PrepopulatedFp::where('BPB_ID',$bpb_id)->update([
                 'USED_FLAG' => $status
         ]);
 

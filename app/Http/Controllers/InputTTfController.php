@@ -34,16 +34,14 @@ class InputTTfController extends Controller
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id){
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
-                print_r($dataSuppSite->SUPP_SITE_CODE);
-                print_r($dataSuppSite->SUPP_PKP_NUM);
                 foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,
                         'FP_TYPE' => $fp_type,
-                        'SUPP_SITE' => 'S73W',
+                        'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
                         'CABANG' => $branch_code,
                         'NO_FP' => $no_fp,
-                        'NO_NPWP' => 'teest npwp',
+                        'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
                         'FP_DATE' => $fp_date,
                         'FP_DPP' => $dpp_fp,
                         'FP_TAX' => $tax_fp,

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\TtfTmpTable;
 use App\Models\TtfHeader;
 use App\Models\TtfFp;
+use App\Models\TtfLines;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -107,24 +108,22 @@ class InputTTfController extends Controller
                             'TTF_HEADERS_TTF_ID' => $idHeader,
                             'SCAN_FLAG' => $b['SCAN_FLAG']
                         ]);
+                        $idFp = $insertFp->TTF_FP_ID;
                         $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
 
                         foreach ($getDataBPBperFP as $c){
                             print_r($c['BPB_ID']);
                             echo "<br>";
-                            // $insertLines = TtfFp::create([
-                            //     'TTF_ID' => $idHeader,
-                            //     'FP_NUM' => $b['NO_FP'],
-                            //     'FP_TYPE' => $b['FP_TYPE'],
-                            //     'FP_DATE' => $b['FP_DATE'],
-                            //     'FP_DPP_AMT' => $b['FP_DPP'],
-                            //     'FP_TAX_AMT' => $b['FP_TAX'],
-                            //     'USED_FLAG' => "Y",
-                            //     'CREATED_BY' => $request->user_id,
-                            //     'CREATION_DATE' => date('Y-m-d'),
-                            //     'TTF_HEADERS_TTF_ID' => $idHeader,
-                            //     'SCAN_FLAG' => $b['SCAN_FLAG']
-                            // ]);
+                            $insertLines = TtfLines::create([
+                                'TTF_ID' => $idHeader,
+                                'TTF_BPB_ID' => $c['BPB_ID'],
+                                'TTF_FP_ID' => $idFp,
+                                'ACTIVE_FLAG' => "Y",
+                                'CREATION_DATE' => date('Y-m-d'),
+                                'CREATED_BY' => $request->user_id,
+                                'TTF_HEADERS_TTF_ID' => $idHeader,
+                                'TTF_FP_TTF_FP_ID' => $idFp
+                            ]);
                         }
                     }
                 }

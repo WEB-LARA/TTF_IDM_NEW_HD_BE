@@ -78,7 +78,7 @@ class InputTTfController extends Controller
         $user_id = $request->user_id;
         print_r("USEr_ID".$user_id);
         // print_r($data);
-            DB::transaction(function () use($dataHeader,$user_id,$dataFpTmp,$ttf_tmp_table){
+            DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){
                     // print_r($a['FP_TYPE']);
                     $ttf_type = $a['FP_TYPE'];

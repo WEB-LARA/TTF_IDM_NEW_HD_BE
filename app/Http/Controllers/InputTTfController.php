@@ -89,7 +89,7 @@ class InputTTfController extends Controller
                         'CREATION_DATE' => date('Y-m-d')
                     ]);
 
-                    $idHeader = $insertHeader->TTF_ID();
+                    $idHeader = $insertHeader->TTF_ID;
 
                     print_r($idHeader);
                 }

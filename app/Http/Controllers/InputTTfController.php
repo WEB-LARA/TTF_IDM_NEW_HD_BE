@@ -7,6 +7,7 @@ use App\Models\TtfTmpTable;
 use App\Models\TtfHeader;
 use App\Models\TtfFp;
 use App\Models\TtfLines;
+use App\Models\SysSuppSite;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -31,6 +32,9 @@ class InputTTfController extends Controller
         $session_id = session()->getId();
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id){
+                $sys_supp_site = new SysSuppSite();
+                $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
+                print_r($dataSuppSite);
                 foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,

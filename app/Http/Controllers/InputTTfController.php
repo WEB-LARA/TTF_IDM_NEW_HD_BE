@@ -76,7 +76,7 @@ class InputTTfController extends Controller
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code);
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code);
         $user_id = $request->user_id;
-        print_r("USEr_ID".$request->all());
+        print_r($request->all());
         // print_r($data);
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){

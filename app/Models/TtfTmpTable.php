@@ -88,7 +88,7 @@ class TtfTmpTable extends Model
                                           AND tdb.VENDOR_SITE_ID IS NOT NULL
                                           AND tdb.VENDOR_SITE_ID <> 0
                                   ) as BPB_ID")
-                    ->setBindings([$no_fp, $branch_code, $supp_site_code])
+                    ->setBindings([$branch_code, $supp_site_code])
                     ->get();
 
         return $getData;

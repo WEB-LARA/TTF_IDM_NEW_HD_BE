@@ -95,7 +95,7 @@ class InputTTfController extends Controller
                         'TTF_NUM' => 'TES_NOMOR_TTF',
                         'TTF_DATE' => date('Y-m-d'),
                         'TTF_TYPE' => $ttf_type,
-                        'TTF_STATUS' => 'D',
+                        'TTF_STATUS' => '',
                         'SOURCE' => "WEB",
                         'CREATED_BY' => $user_id,
                         'CREATION_DATE' => date('Y-m-d')

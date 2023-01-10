@@ -55,6 +55,11 @@ class InputTTfController extends Controller
                 }
 
             },5);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'sukses'
+            ]);
         }catch (\Exception $e) {
             return $e->getMessage();
         }

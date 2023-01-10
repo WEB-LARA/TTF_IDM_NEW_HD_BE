@@ -9,6 +9,7 @@ use App\Models\TtfFp;
 use App\Models\TtfLines;
 use App\Models\SysSuppSite;
 use App\Models\PrepopulatedFp;
+use App\Models\TtfDataBpb;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -132,6 +133,10 @@ class InputTTfController extends Controller
                                 'TTF_HEADERS_TTF_ID' => $idHeader,
                                 'TTF_FP_TTF_FP_ID' => $idFp
                             ]);
+
+                            $ttf_data_bpb = new TtfDataBpb();
+
+                            $updateDataBpb = $ttf_data_bpb->updateDataBpb($c['BPB_ID'],'Y');
                         }
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');

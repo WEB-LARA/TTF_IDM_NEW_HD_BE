@@ -31,7 +31,7 @@ class SysMapSupplier extends Model
     }
 
     public function getSupplierByUserId($user_id){
-        $getData = SysMapSupplier::where('USER_ID',$user_id)
+        $getData = SysMapSupplier::from('sys_mapp_supp as a')->where('USER_ID',$user_id)
                    ->SELECT('SUPP_SITE_CODE','BRANCH_CODE')
                    ->selectRaw('(SELECT 
                                     b.SUPP_SITE_ALT_NAME

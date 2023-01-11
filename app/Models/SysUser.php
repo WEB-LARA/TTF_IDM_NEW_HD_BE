@@ -83,6 +83,7 @@ class SysUser extends Authenticatable implements JWTSubject
                                       USER_EMAIL,
                                       SUPP_ID,
                                       RESET_FLAG,
+                                      USER_ROLE,
                                       ACTIVE_FLAG,
                                       CREATION_DATE,
                                       LAST_UPDATED_DATE,

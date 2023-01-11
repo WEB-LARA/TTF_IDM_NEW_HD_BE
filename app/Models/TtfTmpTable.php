@@ -101,7 +101,7 @@ class TtfTmpTable extends Model
     }
 
     public function getDataTmpTtfBySuppCodeAndBranch($supp_site_code,$branch){
-        $getData = DB::select("SELECT 
+        $getData = DB::select("SELECTE 
                                     CASE
                                         WHEN FP_TYPE = 1 THEN 'STANDARD'
                                         ELSE 'TANPA FAKTUR PAJAK'
@@ -119,7 +119,7 @@ class TtfTmpTable extends Model
                                     ttf_tmp_table
                                 WHERE
                                     SUPP_SITE = ? AND CABANG = ?
-                                GROUP BY NO_FP;",[$supp_site_code,$branch]);
+                                GROUP BY NO_FP",[$supp_site_code,$branch]);
         return $getData;
     }
 }

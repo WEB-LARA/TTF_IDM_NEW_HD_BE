@@ -12,6 +12,7 @@ use App\Http\Controllers\SysMapSupplierController;
 use App\Http\Controllers\PrepopulatedFpController;
 use App\Http\Controllers\TtfDataBpbController;
 use App\Http\Controllers\TtfTmpTableController;
+use App\Http\Controllers\TtfHeaderController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,6 +70,10 @@ Route::controller(TtfDataBpbController::class)->group(function () {
 Route::controller(TtfTmpTableController::class)->group(function () {
     Route::post('getDataTmpTtfBySuppCodeAndBranch', 'getDataTmpTtfBySuppCodeAndBranch');
     Route::post('getDataDetailBPBperFP', 'getDataDetailBPBperFP');
+});
+Route::controller(TtfHeaderController::class)->group(function () {
+    Route::post('getDataInquiryTTF', 'getDataInquiryTTF');
+    // Route::post('getDataDetailBPBperFP', 'getDataDetailBPBperFP');
 });
 
 

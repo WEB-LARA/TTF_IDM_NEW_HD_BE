@@ -39,4 +39,17 @@ class TtfHeader extends Model
         'SELISIH_DPP',
         'SELISIH_TAX'
     ];
+
+
+    public function getDataInquiryTTF($branch_code,$supp_site_code){
+        $getData = TtfHeader::where('BRANCH_CODE',$branch_code)
+                             ->where('VENDOR_SITE_CODE',$supp_site_code)
+                             ->select('TTF_NUM')
+                             ->selectRaw("CASE
+                                              WHEN TTF_STATUS = '' THEN 'DRAFT'
+                                          END AS TTF_STATUS")
+                             ->select('BRANCH_CODE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
+                             ->get();
+        return $getData;
+    }
 }

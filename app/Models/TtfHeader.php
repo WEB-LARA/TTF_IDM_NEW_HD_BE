@@ -51,4 +51,54 @@ class TtfHeader extends Model
                              ->get();
         return $getData;
     }
+
+    public function getDataInquiryDetailTTF($ttf_id){
+        $getData = DB::select('SELECT 
+                                   asd.JUMLAH_FP,
+                                   asd.JUMLAH_DPP_FAKTUR,
+                                   asd.JUMLAH_PPN_FAKTUR,
+                                   asd.JUMLAH_BPB,
+                                   asd.JUMLAH_DPP_BPB,
+                                   asd.JUMLAH_TAX_BPB,
+                                   (asd.JUMLAH_DPP_FAKTUR - asd.JUMLAH_DPP_BPB) AS SEL_DPP,
+                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN
+                               FROM
+                                   (SELECT 
+                                       COUNT(*) JUMLAH_FP,
+                                           SUM(FP_DPP_AMT) JUMLAH_DPP_FAKTUR,
+                                           SUM(FP_TAX_AMT) JUMLAH_PPN_FAKTUR,
+                                           (SELECT 
+                                                   COUNT(*)
+                                               FROM
+                                                   ttf_lines
+                                               WHERE
+                                                   TTF_ID = ?) AS JUMLAH_BPB,
+                                           (SELECT 
+                                                   SUM(BPB_DPP)
+                                               FROM
+                                                   ttf_data_bpb
+                                               WHERE
+                                                   BPB_ID IN (SELECT 
+                                                           TTF_BPB_ID
+                                                       FROM
+                                                           ttf_lines
+                                                       WHERE
+                                                           TTF_ID = ?)) AS JUMLAH_DPP_BPB,
+                                           (SELECT 
+                                                   SUM(BPB_TAX)
+                                               FROM
+                                                   ttf_data_bpb
+                                               WHERE
+                                                   BPB_ID IN (SELECT 
+                                                           TTF_BPB_ID
+                                                       FROM
+                                                           ttf_lines
+                                                       WHERE
+                                                           TTF_ID = ?)) AS JUMLAH_TAX_BPB
+                                   FROM
+                                       ttf_fp
+                                   WHERE
+                                       TTF_ID = ?) asd',[$ttf_id,$ttf_id,$ttf_id,$ttf_id]);
+        return $getData;
+    }
 }

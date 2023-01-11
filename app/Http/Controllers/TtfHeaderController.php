@@ -15,4 +15,14 @@ class TtfHeaderController extends Controller
                 'data' => $data,
             ]);
     }
+
+    public function getDataInquiryDetailTTF(Request $request){
+        $ttf_header = new TtfHeader();
+        $data = $ttf_header->getDataInquiryDetailTTF($request->ttf_id);
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
+    }
 }

@@ -61,6 +61,13 @@ class SysMapSupplier extends Model
                                 WHERE
                                     b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
                                         AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) ALAMAT_SUPPLIER')
+                   ->selectRaw('(SELECT 
+                                    b.SUPP_SITE_ID
+                                FROM
+                                    sys_supp_site b
+                                WHERE
+                                    b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
+                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) SUPP_SITE_ID')
                     ->get();
         return $getData;
     }

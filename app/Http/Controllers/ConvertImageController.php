@@ -9,11 +9,11 @@ class ConvertImageController extends Controller
 {
     public function index()
     {
-        phpinfo();
+        // phpinfo();
         // print_r(storage_path());
-        // $imgExt = new Imagick();
-        // $imgExt->readImage(storage_path('/pdf/010.002-22.09707040.pdf'));
-        // $imgExt->writeImages('pdf_image_doc.png', true);
-        // dd("Document has been converted");
+        $imgExt = new Imagick();
+        $imgExt->readImage(storage_path('/pdf/010.002-22.09707040.pdf'));
+        $imgExt->writeImages('pdf_image_doc.png', true);
+        dd("Document has been converted");
     }
 }

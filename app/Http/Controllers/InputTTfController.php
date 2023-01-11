@@ -143,7 +143,10 @@ class InputTTfController extends Controller
                     }
                 }
 
-
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'TTF Berhasil Disimpan!',
+                    ]);
             },5);
     }
 }

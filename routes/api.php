@@ -10,6 +10,7 @@ use App\Http\Controllers\InputTTfController;
 use App\Http\Controllers\ConvertImageController;
 use App\Http\Controllers\SysMapSupplierController;
 use App\Http\Controllers\PrepopulatedFpController;
+use App\Http\Controllers\TtfDataBpbController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -61,5 +62,9 @@ Route::controller(ConvertImageController::class)->group(function () {
 Route::controller(PrepopulatedFpController::class)->group(function () {
     Route::post('getPrepopulatedFpByNpwp', 'getPrepopulatedFpByNpwp');
 });
+Route::controller(TtfDataBpbController::class)->group(function () {
+    Route::post('getDataBPBPerSupplier', 'getDataBPBPerSupplier');
+});
+
 
 

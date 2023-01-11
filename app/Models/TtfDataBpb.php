@@ -28,4 +28,10 @@ class TtfDataBpb extends Model
             return 0;
         }
     }
+
+    public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn){
+        $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->whereNotin('BPB_ID',$notIn)->get();
+
+        return $data;
+    }
 }

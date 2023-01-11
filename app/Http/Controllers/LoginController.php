@@ -110,6 +110,7 @@ class LoginController extends Controller
                         'RESET_FLAG' => $request->reset_flag,
                         'PASSWORD' => Hash::make($request->password),
                         'ACTIVE_FLAG' => $request->active_flag,
+                        'USER_ROLE' => $request->role,
                         'CREATION_DATE' => date('Y-m-d')
                     ]);
                     foreach($request->list_supplier as $a){

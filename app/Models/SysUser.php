@@ -26,6 +26,7 @@ class SysUser extends Authenticatable implements JWTSubject
         'USERNAME',
         'USER_EMAIL',
         'PASSWORD',
+        'USER_ROLE',
         'CREATION_DATE',
         'LAST_UPDATE_DATE'
     ];

@@ -33,34 +33,34 @@ class SysMapSupplier extends Model
     public function getSupplierByUserId($user_id){
         $getData = SysMapSupplier::from('sys_mapp_supp as a')->where('USER_ID',$user_id)
                    ->SELECT('SUPP_SITE_CODE','BRANCH_CODE')
-                   ->selectRaw('SELECT 
+                   ->selectRaw('(SELECT 
                                     b.SUPP_SITE_ALT_NAME
                                 FROM
                                     sys_supp_site b
                                 WHERE
                                     b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
-                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE NAMA_SUPPLIER')
-                   ->selectRaw('SELECT 
+                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) NAMA_SUPPLIER')
+                   ->selectRaw('(SELECT 
                                     COUNT(*)
                                 FROM
                                     ttf_data_bpb c
                                 WHERE
                                     c.VENDOR_SITE_CODE = a.SUPP_SITE_CODE
-                                        AND c.BRANCH_CODE = a.BRANCH_CODE JUMLAH_BPB')
-                   ->selectRaw('SELECT 
+                                        AND c.BRANCH_CODE = a.BRANCH_CODE) JUMLAH_BPB')
+                   ->selectRaw('(SELECT 
                                     b.SUPP_PKP_NUM
                                 FROM
                                     sys_supp_site b
                                 WHERE
                                     b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
-                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE NOMOR_NPWP')
-                   ->selectRaw('SELECT 
+                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) NOMOR_NPWP')
+                   ->selectRaw('(SELECT 
                                     b.SUPP_PKP_ADDR1
                                 FROM
                                     sys_supp_site b
                                 WHERE
                                     b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
-                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE ALAMAT_SUPPLIER')
+                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) ALAMAT_SUPPLIER')
                     ->get();
         return $getData;
     }

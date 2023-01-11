@@ -9,6 +9,7 @@ use App\Http\Controllers\SysRefBranchController;
 use App\Http\Controllers\InputTTfController;
 use App\Http\Controllers\ConvertImageController;
 use App\Http\Controllers\SysMapSupplierController;
+use App\Http\Controllers\PrepopulatedFpController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -55,6 +56,10 @@ Route::controller(InputTTfController::class)->group(function () {
 
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');
+});
+
+Route::controller(PrepopulatedFpController::class)->group(function () {
+    Route::get('getPrepopulatedFpByNpwp', 'getPrepopulatedFpByNpwp');
 });
 
 

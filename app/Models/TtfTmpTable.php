@@ -101,7 +101,7 @@ class TtfTmpTable extends Model
     }
 
     public function getDataTmpTtfBySuppCodeAndBranch($supp_site_code,$branch){
-        $getData = DB::select("SELECTE 
+        $getData = DB::select("SELECT 
                                     CASE
                                         WHEN FP_TYPE = 1 THEN 'STANDARD'
                                         ELSE 'TANPA FAKTUR PAJAK'

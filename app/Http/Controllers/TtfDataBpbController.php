@@ -13,7 +13,7 @@ class TtfDataBpbController extends Controller
         $id_bpb = array();
         // print_r($request->data_bpb);
         foreach($request->data_bpb as $a){
-            array_push($a,$a['bpb_id']);
+            array_push($id_bpb,$a['bpb_id']);
         }
         print_r($id_bpb);
         // return response()->json([

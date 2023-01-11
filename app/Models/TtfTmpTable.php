@@ -98,4 +98,27 @@ class TtfTmpTable extends Model
 
         return $getData;
     }
+
+    public function getDataTmpTtfBySuppCodeAndBranch($supp_site_code,$branch){
+        $getData = DB::select("SELECT 
+                                    CASE
+                                        WHEN FP_TYPE = 1 THEN 'STANDARD'
+                                        ELSE 'TANPA FAKTUR PAJAK'
+                                    END FP_TYPE,
+                                    NO_FP,
+                                    DATE_FORMAT(FP_DATE, '%d-%b-%Y') TANGGAL_FP,
+                                    FP_DPP,
+                                    FP_TAX,
+                                    COUNT(BPB_NUM) AS JUMLAH_BPB,
+                                    SUM(BPB_AMOUNT) AS JUMLAH_DPP_BPB,
+                                    SUM(BPB_PPN) AS JUMLAH_PPN_BPB,
+                                    (FP_DPP - SUM(BPB_AMOUNT)) SEL_DPP,
+                                    (FP_TAX - SUM(BPB_PPN)) SEL_PPN
+                                FROM
+                                    ttf_tmp_table
+                                WHERE
+                                    SUPP_SITE = ? AND CABANG = ?
+                                GROUP BY NO_FP;",[$supp_site_code,$branch]);
+        return $getData;
+    }
 }

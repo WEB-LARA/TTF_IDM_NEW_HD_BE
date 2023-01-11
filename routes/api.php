@@ -11,6 +11,7 @@ use App\Http\Controllers\ConvertImageController;
 use App\Http\Controllers\SysMapSupplierController;
 use App\Http\Controllers\PrepopulatedFpController;
 use App\Http\Controllers\TtfDataBpbController;
+use App\Http\Controllers\TtfTmpTableController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -65,6 +66,8 @@ Route::controller(PrepopulatedFpController::class)->group(function () {
 Route::controller(TtfDataBpbController::class)->group(function () {
     Route::post('getDataBPBPerSupplier', 'getDataBPBPerSupplier');
 });
-
+Route::controller(TtfTmpTableController::class)->group(function () {
+    Route::post('getDataTmpTtfBySuppCodeAndBranch', 'getDataTmpTtfBySuppCodeAndBranch');
+});
 
 

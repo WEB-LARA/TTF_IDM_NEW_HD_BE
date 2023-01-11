@@ -12,7 +12,7 @@ class ConvertImageController extends Controller
         // phpinfo();
         // print_r(public_path());
         $fileone = realpath('010.002-22.09707040.pdf');
-            
+        print_r($fileone);
         if (!is_readable($fileone)) {
             echo 'file not readable';
         }

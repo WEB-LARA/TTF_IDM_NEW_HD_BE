@@ -8,6 +8,7 @@ use App\Http\Controllers\SysSuppSiteController;
 use App\Http\Controllers\SysRefBranchController;
 use App\Http\Controllers\InputTTfController;
 use App\Http\Controllers\ConvertImageController;
+use App\Http\Controllers\SysMapSupplierController;
 /*
 |--------------------------------------------------------------------------
 | API Routes

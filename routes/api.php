@@ -70,6 +70,7 @@ Route::controller(TtfDataBpbController::class)->group(function () {
 Route::controller(TtfTmpTableController::class)->group(function () {
     Route::post('getDataTmpTtfBySuppCodeAndBranch', 'getDataTmpTtfBySuppCodeAndBranch');
     Route::post('getDataDetailBPBperFP', 'getDataDetailBPBperFP');
+    Route::post('deleteTmpTableBySiteCodeAndBranch','deleteTmpTableBySiteCodeAndBranch');
 });
 Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('getDataInquiryTTF', 'getDataInquiryTTF');

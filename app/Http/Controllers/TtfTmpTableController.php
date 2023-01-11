@@ -24,4 +24,21 @@ class TtfTmpTableController extends Controller
                 'data' => $data,
             ]);
     }
+
+    public function deleteTmpTableBySiteCodeAndBranch(){
+        $ttf_tmp_table = new TtfTmpTable();
+        $data = $ttf_tmp_table->deleteTmpTableBySiteCodeAndBranch($request->supp_site_code,$request->branch_code);
+
+        if($data){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data TTF berhasil dihapus',
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data TTF gagal dihapus',
+                ]);
+        }
+    }
 }

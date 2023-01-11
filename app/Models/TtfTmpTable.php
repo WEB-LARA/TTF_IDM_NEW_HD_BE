@@ -128,4 +128,14 @@ class TtfTmpTable extends Model
 
         return $getData;
     }
+
+    public function deleteTmpTableBySiteCodeAndBranch($supp_site_code,$branch){
+        $delete = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

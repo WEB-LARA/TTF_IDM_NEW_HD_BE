@@ -87,6 +87,7 @@ class InputTTfController extends Controller
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code);
         $user_id = $request->user_id;
         // print_r($data);
+        try{
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){
                     // print_r($a['FP_TYPE']);
@@ -143,10 +144,13 @@ class InputTTfController extends Controller
                     }
                 }
 
-                return response()->json([
-                        'status' => 'success',
-                        'message' => 'TTF Berhasil Disimpan!',
-                    ]);
             },5);
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'TTF Berhasil Disimpan!',
+                ]);
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 }

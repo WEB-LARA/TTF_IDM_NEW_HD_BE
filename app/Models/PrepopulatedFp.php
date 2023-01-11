@@ -27,4 +27,10 @@ class PrepopulatedFp extends Model
             return 0;
         }
     }
+
+    public function getPrepopulatedFpByNpwp($npwp){
+        $data = PrepopulatedFp::where('NPWP_PENJUAL',$npwp)->where('USED_FLAG','N')->get();
+
+        return $data;
+    }
 }

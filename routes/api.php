@@ -59,7 +59,7 @@ Route::controller(ConvertImageController::class)->group(function () {
 });
 
 Route::controller(PrepopulatedFpController::class)->group(function () {
-    Route::get('getPrepopulatedFpByNpwp', 'getPrepopulatedFpByNpwp');
+    Route::post('getPrepopulatedFpByNpwp', 'getPrepopulatedFpByNpwp');
 });
 
 

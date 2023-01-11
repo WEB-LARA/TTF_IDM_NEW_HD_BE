@@ -48,7 +48,7 @@ class TtfHeader extends Model
                              ->selectRaw('CASE
                                               WHEN TTF_STATUS = \'\' THEN \'DRAFT\'
                                           END AS TTF_STATUS')
-                             ->select('BRANCH_CODE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
+                             ->select('BRANCH_CODEE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
                              ->get();
         return $getData;
     }

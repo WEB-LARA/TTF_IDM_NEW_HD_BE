@@ -40,7 +40,9 @@ Route::controller(SysSupplierController::class)->group(function () {
 Route::controller(SysSuppSiteController::class)->group(function () {
     Route::post('getAllSupplierSite', 'getAllSupplierSite');
 });
-
+Route::controller(SysMapSupplierController::class)->group(function () {
+    Route::post('getSupplierByUserId', 'getSupplierByUserId');
+});
 Route::controller(SysRefBranchController::class)->group(function () {
     Route::get('getAllBranch', 'getAllBranch');
 });

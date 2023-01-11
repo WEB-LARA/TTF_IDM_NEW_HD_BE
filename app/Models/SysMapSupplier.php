@@ -29,4 +29,25 @@ class SysMapSupplier extends Model
             return 0;
         }
     }
+
+    public function getSupplierByUserId($user_id){
+        $getData = SysMapSupplier::where('USER_ID',$user_id)
+                   ->SELECT('SUPP_SITE_CODE','BRANCH_CODE')
+                   ->selectRaw('(SELECT 
+                                    b.SUPP_SITE_ALT_NAME
+                                FROM
+                                    sys_supp_site b
+                                WHERE
+                                    b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
+                                        AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) NAMA_SUPPLIER')
+                   ->selectRaw('(SELECT 
+                                    COUNT(*)
+                                FROM
+                                    ttf_data_bpb c
+                                WHERE
+                                    c.VENDOR_SITE_CODE = a.SUPP_SITE_CODE
+                                        AND c.BRANCH_CODE = a.BRANCH_CODE) JUMLAH_BPB')
+                    ->get();
+        return $getData;
+    }
 }

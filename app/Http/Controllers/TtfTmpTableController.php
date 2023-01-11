@@ -15,4 +15,13 @@ class TtfTmpTableController extends Controller
                 'data' => $data,
             ]);
     }
+
+    public function getDataDetailBPBperFP(Request $request){
+        $ttf_tmp_table = new TtfTmpTable();
+        $data = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$request->no_fp);
+        return response()->json([
+                'status' => 'success',
+                'data' => $data,
+            ]);
+    }
 }

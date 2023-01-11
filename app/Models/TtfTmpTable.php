@@ -122,4 +122,10 @@ class TtfTmpTable extends Model
                                 GROUP BY NO_FP",[$supp_site_code,$branch]);
         return $getData;
     }
+
+    public function getDataDetailBPBperFP($supp_site_code,$branch_code,$no_fp){
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('NO_FP',$no_fp)->select('BPB_NUM','BPB_DATE','BPB_AMOUNT','BPB_PPN')->get();
+
+        return $getData;
+    }
 }

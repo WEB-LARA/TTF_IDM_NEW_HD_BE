@@ -7,6 +7,7 @@ use App\Http\Controllers\SysSupplierController;
 use App\Http\Controllers\SysSuppSiteController;
 use App\Http\Controllers\SysRefBranchController;
 use App\Http\Controllers\InputTTfController;
+use App\Http\Controllers\ConvertImageController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -47,6 +48,10 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');
     Route::post('getDataTtfTmpBYSessionId', 'getDataTtfTmpBYSessionId');
     Route::post('saveTTf', 'saveTTf');
+});
+
+Route::controller(ConvertImageController::class)->group(function () {
+    Route::post('convert', 'index');
 });
 
 

@@ -51,7 +51,7 @@ Route::controller(InputTTfController::class)->group(function () {
 });
 
 Route::controller(ConvertImageController::class)->group(function () {
-    Route::post('convert', 'index');
+    Route::get('convert', 'index');
 });
 
 

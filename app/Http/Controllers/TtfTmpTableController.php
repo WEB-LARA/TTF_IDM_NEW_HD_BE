@@ -25,7 +25,7 @@ class TtfTmpTableController extends Controller
             ]);
     }
 
-    public function deleteTmpTableBySiteCodeAndBranch(){
+    public function deleteTmpTableBySiteCodeAndBranch(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
         $data = $ttf_tmp_table->deleteTmpTableBySiteCodeAndBranch($request->supp_site_code,$request->branch_code);
 

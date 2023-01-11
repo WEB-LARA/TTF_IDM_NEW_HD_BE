@@ -37,11 +37,9 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('updateUser', 'updateUser');
     Route::get('getDataForInquiryUser', 'getDataForInquiryUser');
 });
-
 Route::controller(SysSupplierController::class)->group(function () {
     Route::get('getAllSupplier', 'getAllSupplier');
 });
-
 Route::controller(SysSuppSiteController::class)->group(function () {
     Route::post('getAllSupplierSite', 'getAllSupplierSite');
 });
@@ -56,11 +54,9 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::post('getDataTtfTmpBYSessionId', 'getDataTtfTmpBYSessionId');
     Route::post('saveTTf', 'saveTTf');
 });
-
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');
 });
-
 Route::controller(PrepopulatedFpController::class)->group(function () {
     Route::post('getPrepopulatedFpByNpwp', 'getPrepopulatedFpByNpwp');
 });

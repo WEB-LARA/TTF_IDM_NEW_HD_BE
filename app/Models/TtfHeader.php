@@ -45,9 +45,9 @@ class TtfHeader extends Model
         $getData = TtfHeader::where('BRANCH_CODE',$branch_code)
                              ->where('VENDOR_SITE_CODE',$supp_site_code)
                              ->select('TTF_NUM','BRANCH_CODEE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
-                             ->selectRaw('(CASE
+                             ->selectRaw('CASE
                                               WHEN TTF_STATUS = \'\' THEN \'DRAFT\'
-                                          END AS TTF_STATUS)')
+                                          END AS TTF_STATUS')
                              ->get();
         return $getData;
     }

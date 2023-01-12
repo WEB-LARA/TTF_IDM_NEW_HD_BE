@@ -17,7 +17,6 @@ class InputTTfController extends Controller
     //
 
     public function saveToTmpTtf(Request $request){
-
         $fp_type = $request->fp_type;
         $no_fp = $request->no_fp;
         if($no_fp == ""){
@@ -31,11 +30,65 @@ class InputTTfController extends Controller
         $data_bpb = $request->data_bpb;
         $scan_flag = $request->scan_flag;
         $ttf_tmp_table = new TtfTmpTable();
-        $session_id = session()->getId();
+        $session_id = $request->session_id;
+        
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id){
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
+                foreach($data_bpb as $a){
+                    $tmpTable = TtfTmpTable::create([
+                        'SEQ_NUM' => 1,
+                        'FP_TYPE' => $fp_type,
+                        'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
+                        'CABANG' => $branch_code,
+                        'NO_FP' => $no_fp,
+                        'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
+                        'FP_DATE' => $fp_date,
+                        'FP_DPP' => $dpp_fp,
+                        'FP_TAX' => $tax_fp,
+                        'BPB_NUM' => $a['bpb_num'],
+                        'BPB_DATE' => $a['bpb_date'],
+                        'BPB_AMOUNT' => $a['bpb_dpp'],
+                        'BPB_PPN' => $a['bpb_ppn'],
+                        'SESS_ID' => $session_id,
+                        'SCAN_FLAG' => $scan_flag
+                    ]);
+                }
+
+            },5);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'sukses'
+            ]);
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function editTmpTTF(Request $request){
+        $no_fp_lama = $request->no_fp_lama;
+        $fp_type = $request->fp_type;
+        $no_fp = $request->no_fp;
+        if($no_fp == ""){
+            $no_fp = 0;
+        }
+        $supp_site_id = $request->supp_site_id;
+        $branch_code = $request->branch_code;
+        $fp_date = $request->fp_date;
+        $dpp_fp = $request->dpp_fp;
+        $tax_fp = $request->tax_fp;
+        $data_bpb = $request->data_bpb;
+        $scan_flag = $request->scan_flag;
+        $session_id = $request->session_id;
+        $ttf_tmp_table = new TtfTmpTable();
+
+        try{
+            DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama){
+                $sys_supp_site = new SysSuppSite();
+                $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
+                $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->delete();
                 foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,

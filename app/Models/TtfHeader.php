@@ -42,14 +42,90 @@ class TtfHeader extends Model
     ];
 
 
-    public function getDataInquiryTTF($branch_code,$supp_site_code){
-        $getData = TtfHeader::where('BRANCH_CODE',$branch_code)
-                             ->where('VENDOR_SITE_CODE',$supp_site_code)
-                             ->select('TTF_ID','TTF_NUM','BRANCH_CODE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
-                             ->selectRaw('CASE
-                                              WHEN TTF_STATUS = \'\' THEN \'DRAFT\'
-                                          END AS TTF_STATUS')
-                             ->get();
+    public function getDataInquiryTTF($user_id){
+        // $getData = TtfHeader::where('CREATED_BY',$user_id)
+        //                      ->select('TTF_ID','TTF_NUM','BRANCH_CODE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
+        //                      ->selectRaw('CASE
+        //                                       WHEN TTF_STATUS = \'\' THEN \'DRAFT\'
+        //                                   END AS TTF_STATUS')
+        //                      ->get();
+        $getData = DB::select("SELECT 
+                                   asd.TTF_ID,
+                                   asd.TTF_NUM,
+                                   asd.TTF_STATUS,
+                                   asd.BRANCH_CODE,
+                                   asd.TTF_DATE,
+                                   asd.REVIEWED_DATE,
+                                   asd.VENDOR_SITE_CODE,
+                                   asd.JUMLAH_FP,
+                                   asd.JUMLAH_DPP_FAKTUR,
+                                   asd.JUMLAH_PPN_FAKTUR,
+                                   asd.JUMLAH_BPB,
+                                   asd.JUMLAH_DPP_BPB,
+                                   asd.JUMLAH_TAX_BPB,
+                                   (asd.JUMLAH_DPP_FAKTUR - asd.JUMLAH_DPP_BPB) AS SEL_DPP,
+                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN
+                               FROM
+                                   (SELECT 
+                                       a.TTF_ID,
+                                           a.TTF_NUM,
+                                           CASE
+                                               WHEN TTF_STATUS = '' THEN 'DRAFT'
+                                           END AS TTF_STATUS,
+                                           a.BRANCH_CODE,
+                                           a.TTF_DATE,
+                                           a.REVIEWED_DATE,
+                                           a.VENDOR_SITE_CODE,
+                                           (SELECT 
+                                                   COUNT(*)
+                                               FROM
+                                                   ttf_fp b
+                                               WHERE
+                                                   b.TTF_ID = a.TTF_ID) JUMLAH_FP,
+                                           (SELECT 
+                                                   SUM(b.FP_DPP_AMT)
+                                               FROM
+                                                   ttf_fp b
+                                               WHERE
+                                                   b.TTF_ID = a.TTF_ID) JUMLAH_DPP_FAKTUR,
+                                           (SELECT 
+                                                   SUM(b.FP_TAX_AMT)
+                                               FROM
+                                                   ttf_fp b
+                                               WHERE
+                                                   b.TTF_ID = a.TTF_ID) JUMLAH_PPN_FAKTUR,
+                                           (SELECT 
+                                                   COUNT(*)
+                                               FROM
+                                                   ttf_lines c
+                                               WHERE
+                                                   c.TTF_ID = a.TTF_ID) AS JUMLAH_BPB,
+                                           (SELECT 
+                                                   SUM(c.BPB_DPP)
+                                               FROM
+                                                   ttf_data_bpb c
+                                               WHERE
+                                                   c.BPB_ID IN (SELECT 
+                                                           d.TTF_BPB_ID
+                                                       FROM
+                                                           ttf_lines d
+                                                       WHERE
+                                                           d.TTF_ID = a.TTF_ID)) AS JUMLAH_DPP_BPB,
+                                           (SELECT 
+                                                   SUM(c.BPB_TAX)
+                                               FROM
+                                                   ttf_data_bpb c
+                                               WHERE
+                                                   c.BPB_ID IN (SELECT 
+                                                           d.TTF_BPB_ID
+                                                       FROM
+                                                           ttf_lines d
+                                                       WHERE
+                                                           d.TTF_ID = a.TTF_ID)) AS JUMLAH_TAX_BPB
+                                   FROM
+                                       ttf_headers a
+                                   WHERE
+                                       CREATED_BY = ?) asd",[$user_id]);
         return $getData;
     }
 

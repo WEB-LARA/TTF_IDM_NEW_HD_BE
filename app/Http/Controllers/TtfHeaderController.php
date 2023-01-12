@@ -8,7 +8,7 @@ class TtfHeaderController extends Controller
 {
     public function getDataInquiryTTF(Request $request){
         $ttf_header = new TtfHeader();
-        $data = $ttf_header->getDataInquiryTTF($request->branch_code,$request->supp_site_code);
+        $data = $ttf_header->getDataInquiryTTF($request->user_id);
 
         return response()->json([
                 'status' => 'success',

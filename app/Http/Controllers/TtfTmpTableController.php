@@ -9,7 +9,7 @@ class TtfTmpTableController extends Controller
 {
     public function getDataTmpTtfBySessId(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
-        $data = $ttf_tmp_table->getDataTmpTtfBySessId($request->supp_site_code,$request->branch_code);
+        $data = $ttf_tmp_table->getDataTmpTtfBySessId($request->session_id);
         return response()->json([
                 'status' => 'success',
                 'data' => $data,

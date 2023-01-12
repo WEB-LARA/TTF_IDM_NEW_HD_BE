@@ -101,7 +101,7 @@ class TtfTmpTable extends Model
     }
 
     public function getDataTmpTtfBySessId($session_id){
-        $getData = DB::select("*SELECT 
+        $getData = DB::select("SELECT 
                                     CASE
                                         WHEN FP_TYPE = 1 THEN 'STANDARD'
                                         ELSE 'TANPA FAKTUR PAJAK'

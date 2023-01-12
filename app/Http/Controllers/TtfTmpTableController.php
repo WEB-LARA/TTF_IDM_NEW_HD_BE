@@ -10,10 +10,15 @@ class TtfTmpTableController extends Controller
     public function getDataTmpTtfBySessId(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
         $data = $ttf_tmp_table->getDataTmpTtfBySessId($request->session_id);
-        return response()->json([
-                'status' => 'success',
-                'data' => $data,
-            ]);
+        // $dataArray = array();
+
+        foreach ($data as $a){
+            print_r($a['FP_TYPE']);
+        }
+        // return response()->json([
+        //         'status' => 'success',
+        //         'data' => $data,
+        //     ]);
     }
 
     public function getDataDetailBPBperFP(Request $request){

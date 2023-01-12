@@ -31,7 +31,6 @@ class InputTTfController extends Controller
         $scan_flag = $request->scan_flag;
         $ttf_tmp_table = new TtfTmpTable();
         $session_id = $request->session_id;
-        
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id){
                 $sys_supp_site = new SysSuppSite();
@@ -82,19 +81,14 @@ class InputTTfController extends Controller
         $data_bpb = $request->data_bpb;
         $scan_flag = $request->scan_flag;
         $session_id = $request->session_id;
+        $ttf_tmp_table = new TtfTmpTable();
 
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama){
                 $sys_supp_site = new SysSuppSite();
-                $ttf_tmp_table = new TtfTmpTable();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->delete();
-                $ttf_data_bpb = new TtfDataBpb();
                 foreach($data_bpb as $a){
-                    $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($dataSuppSite->SUPP_SITE_CODE,$branch_code,$no_fp_lama);
-                    foreach ($getDataBPBperFP as $c){
-                        $updateDataBpb = $ttf_data_bpb->updateDataBpb($c['BPB_ID'],'N');
-                    }
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,
                         'FP_TYPE' => $fp_type,

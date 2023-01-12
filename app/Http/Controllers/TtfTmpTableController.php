@@ -28,6 +28,8 @@ class TtfTmpTableController extends Controller
 
             $i++;
         }
+
+        print_r($dataArray);
         // return response()->json([
         //         'status' => 'success',
         //         'data' => $data,

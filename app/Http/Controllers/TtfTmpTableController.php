@@ -13,7 +13,7 @@ class TtfTmpTableController extends Controller
         $dataArray = array();
         $i = 0;
         foreach ($data as $a){
-            print_r($a->FP_TYPE);
+            // print_r($a->FP_TYPE);
             $dataLines = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$a->NO_FP);
             $dataArray[$i]['FP_TYPE'] = $a->FP_TYPE;
             $dataArray[$i]['NO_FP'] = $a->NO_FP;
@@ -25,7 +25,7 @@ class TtfTmpTableController extends Controller
             $dataArray[$i]['JUMLAH_PPN_BPB'] = $a->JUMLAH_PPN_BPB;
             $dataArray[$i]['SEL_DPP'] = $a->SEL_DPP;
             $dataArray[$i]['SEL_PPN'] = $a->SEL_PPN;
-
+            $dataArray[$i]['DATA_LINES'] = $dataLines;
             $i++;
         }
 

@@ -82,11 +82,11 @@ class InputTTfController extends Controller
         $data_bpb = $request->data_bpb;
         $scan_flag = $request->scan_flag;
         $session_id = $request->session_id;
-        $ttf_tmp_table = new TtfTmpTable();
 
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama){
                 $sys_supp_site = new SysSuppSite();
+                $ttf_tmp_table = new TtfTmpTable();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->delete();
                 foreach($data_bpb as $a){

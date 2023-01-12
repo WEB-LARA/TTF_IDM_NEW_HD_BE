@@ -13,7 +13,7 @@ class TtfTmpTableController extends Controller
         // $dataArray = array();
 
         foreach ($data as $a){
-            print_r($a['FP_TYPE']);
+            print_r($a->FP_TYPE);
         }
         // return response()->json([
         //         'status' => 'success',

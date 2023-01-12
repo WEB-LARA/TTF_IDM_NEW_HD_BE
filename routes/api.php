@@ -64,7 +64,7 @@ Route::controller(TtfDataBpbController::class)->group(function () {
     Route::post('getDataBPBPerSupplier', 'getDataBPBPerSupplier');
 });
 Route::controller(TtfTmpTableController::class)->group(function () {
-    Route::post('getDataTmpTtfBySuppCodeAndBranch', 'getDataTmpTtfBySuppCodeAndBranch');
+    Route::post('getDataTmpTtfBySessId', 'getDataTmpTtfBySessId');
     Route::post('getDataDetailBPBperFP', 'getDataDetailBPBperFP');
     Route::post('deleteTmpTableBySiteCodeAndBranch','deleteTmpTableBySiteCodeAndBranch');
 });

@@ -100,7 +100,7 @@ class TtfTmpTable extends Model
         return $getData;
     }
 
-    public function getDataTmpTtfBySuppCodeAndBranch($supp_site_code,$branch){
+    public function getDataTmpTtfBySessId($session_id){
         $getData = DB::select("SELECT 
                                     CASE
                                         WHEN FP_TYPE = 1 THEN 'STANDARD'
@@ -118,8 +118,8 @@ class TtfTmpTable extends Model
                                 FROM
                                     ttf_tmp_table
                                 WHERE
-                                    SUPP_SITE = ? AND CABANG = ?
-                                GROUP BY NO_FP",[$supp_site_code,$branch]);
+                                    SESS_ID = ?
+                                GROUP BY NO_FP",[$session_id]);
         return $getData;
     }
 
@@ -129,8 +129,8 @@ class TtfTmpTable extends Model
         return $getData;
     }
 
-    public function deleteTmpTableBySiteCodeAndBranch($supp_site_code,$branch_code){
-        $delete = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->delete();
+    public function deleteTmpTableBySiteCodeAndBranch($session_id){
+        $delete = TtfTmpTable::where('SESS_ID',$session_id)->delete();
 
         if($delete){
             return 1;

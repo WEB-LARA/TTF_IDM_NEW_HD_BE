@@ -10,10 +10,23 @@ class TtfTmpTableController extends Controller
     public function getDataTmpTtfBySessId(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
         $data = $ttf_tmp_table->getDataTmpTtfBySessId($request->session_id);
-        // $dataArray = array();
-
+        $dataArray = array();
+        $i = 0;
         foreach ($data as $a){
             print_r($a->FP_TYPE);
+            $dataLines = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$a->NO_FP);
+            $dataArray[$i]['FP_TYPE'] = $a->FP_TYPE;
+            $dataArray[$i]['NO_FP'] = $a->NO_FP;
+            $dataArray[$i]['TANGGAL_FP'] = $a->TANGGAL_FP;
+            $dataArray[$i]['FP_DPP'] = $a->FP_DPP;
+            $dataArray[$i]['FP_TAX'] = $a->FP_TAX;
+            $dataArray[$i]['JUMLAH_BPB'] = $a->JUMLAH_BPB;
+            $dataArray[$i]['JUMLAH_DPP_BPB'] = $a->JUMLAH_DPP_BPB;
+            $dataArray[$i]['JUMLAH_PPN_BPB'] = $a->JUMLAH_PPN_BPB;
+            $dataArray[$i]['SEL_DPP'] = $a->SEL_DPP;
+            $dataArray[$i]['SEL_PPN'] = $a->SEL_PPN;
+
+            $i++;
         }
         // return response()->json([
         //         'status' => 'success',

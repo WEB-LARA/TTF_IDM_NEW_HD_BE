@@ -90,6 +90,11 @@ class InputTTfController extends Controller
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->delete();
                 foreach($data_bpb as $a){
+                    $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($dataSuppSite->SUPP_SITE_CODE,$branch_code,$no_fp_lama);
+                    foreach ($getDataBPBperFP as $c){
+                        $ttf_data_bpb = new TtfDataBpb();
+                        $updateDataBpb = $ttf_data_bpb->updateDataBpb($c['BPB_ID'],'N');
+                    }
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,
                         'FP_TYPE' => $fp_type,

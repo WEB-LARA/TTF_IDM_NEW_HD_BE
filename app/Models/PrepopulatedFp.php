@@ -30,12 +30,12 @@ class PrepopulatedFp extends Model
 
     public function getPrepopulatedFpByNpwp($npwp,$supp_site_code,$branch_code,$session_id){
         $data = PrepopulatedFp::where('NPWP_PENJUAL',$npwp)->where('USED_FLAG','N')->whereRaw('NO_FP NOT IN (SELECT 
-    NO_FP
-FROM
-    ttf_tmp_table
-WHERE
-    SUPP_SITE = ? AND CABANG = ?
-        AND SESS_ID = ?)',[$supp_site_code,$branch_code,$session_id])->get();
+                                           NOMOR_FAKTUR
+                                       FROM
+                                           ttf_tmp_table
+                                       WHERE
+                                           SUPP_SITE = ? AND CABANG = ?
+                                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$session_id])->get();
 
         return $data;
     }

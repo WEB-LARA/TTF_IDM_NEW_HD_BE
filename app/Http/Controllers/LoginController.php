@@ -150,6 +150,26 @@ class LoginController extends Controller
         }
     }
 
+    public function updateEmailAndPasswordperUser(Request $request){
+        $sys_usser = new SysUser();
+
+        if($request->password){
+            DB::transaction(function () use ($request){
+                $user = SysUser::where('ID_USER',$request->user_id)->update([
+                    'USER_EMAIL' => $request->email,
+                    'LAST_UPDATED_DATE' => date('Y-m-d')
+                ]);    
+            },5);
+        }else{
+            DB::transaction(function () use ($request){
+                $user = SysUser::where('ID_USER',$request->user_id)->update([
+                    'USER_EMAIL' => $request->email,
+                    'PASSWORD' => Hash::make($request->password),
+                    'LAST_UPDATED_DATE' => date('Y-m-d')
+                ]);    
+            },5);
+        }
+    }
     public function updateUser(Request $request){
         // $user = SysUser::find($request->user_id);
         $sys_user = new SysUser();

@@ -197,8 +197,9 @@ class LoginController extends Controller
                         'USER_EMAIL' => $request->email,
                         'RESET_FLAG' => $request->reset_flag,
                         'ACTIVE_FLAG' => $request->active_flag,
+                        'USER_ROLE' => $request->role,
                         'LAST_UPDATED_DATE' => date('Y-m-d')
-                    ])->where('ID_USER',$request->user_id);
+                    ]);
     
                 },5);
 

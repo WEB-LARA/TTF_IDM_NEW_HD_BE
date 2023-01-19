@@ -169,6 +169,11 @@ class LoginController extends Controller
                 ]);    
             },5);
         }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User Berhasil diedit!'
+        ],200);
     }
     public function updateUser(Request $request){
         // $user = SysUser::find($request->user_id);

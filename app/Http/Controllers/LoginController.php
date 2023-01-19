@@ -154,26 +154,39 @@ class LoginController extends Controller
         $sys_usser = new SysUser();
 
         if($request->password){
-            DB::transaction(function () use ($request){
-                $user = SysUser::where('ID_USER',$request->user_id)->update([
-                    'USER_EMAIL' => $request->email,
-                    'LAST_UPDATED_DATE' => date('Y-m-d')
-                ]);    
-            },5);
-        }else{
-            DB::transaction(function () use ($request){
-                $user = SysUser::where('ID_USER',$request->user_id)->update([
-                    'USER_EMAIL' => $request->email,
-                    'PASSWORD' => Hash::make($request->password),
-                    'LAST_UPDATED_DATE' => date('Y-m-d')
-                ]);    
-            },5);
-        }
+            try{
+                DB::transaction(function () use ($request){
+                    $user = SysUser::where('ID_USER',$request->user_id)->update([
+                        'USER_EMAIL' => $request->email,
+                        'PASSWORD' => Hash::make($request->password),
+                        'LAST_UPDATED_DATE' => date('Y-m-d')
+                    ]);    
+                },5);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'User Berhasil diedit!'
+                ],200);
+            }catch (\Exception $e) {
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User Berhasil diedit!'
-        ],200);
+                return $e->getMessage();
+            }
+        }else{
+            try{
+                DB::transaction(function () use ($request){
+                    $user = SysUser::where('ID_USER',$request->user_id)->update([
+                        'USER_EMAIL' => $request->email,
+                        'LAST_UPDATED_DATE' => date('Y-m-d')
+                    ]);    
+                },5);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'User Berhasil diedit!'
+                ],200);
+            }catch (\Exception $e) {
+
+                return $e->getMessage();
+            }
+        }
     }
     public function updateUser(Request $request){
         // $user = SysUser::find($request->user_id);

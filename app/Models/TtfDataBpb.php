@@ -30,7 +30,7 @@ class TtfDataBpb extends Model
     }
 
     public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn,$sess_id){
-        $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_ID NOT IN (SELECT 
+        $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODEE',$branch_code)->where('USED_FLAG','N')->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_ID NOT IN (SELECT 
                    BPB_NUM
                 FROM
                    ttf_tmp_table

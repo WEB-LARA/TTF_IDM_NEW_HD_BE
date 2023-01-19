@@ -61,4 +61,22 @@ class TtfTmpTableController extends Controller
                 ]);
         }
     }
+
+    public function deleteTmpTableById(Request $request){
+        $ttf_tmp_table = new TtfTmpTable();
+
+        $delete = $ttf_tmp_table->deleteTmpTableById($request->id_tmp);
+
+        if($delete){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data TTF berhasil dihapus',
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data TTF gagal dihapus',
+                ]);
+        }
+    }
 }

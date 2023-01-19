@@ -138,4 +138,14 @@ class TtfTmpTable extends Model
             return 0;
         }
     }
+
+    public function deleteTmpTableById($id){
+        $delete = TtfTmpTable::where('ID',$id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

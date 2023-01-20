@@ -69,7 +69,7 @@ Route::controller(TtfTmpTableController::class)->group(function () {
     Route::post('getDataTmpTtfBySessId', 'getDataTmpTtfBySessId');
     Route::post('getDataDetailBPBperFP', 'getDataDetailBPBperFP');
     Route::post('deleteTmpTableBySiteCodeAndBranch','deleteTmpTableBySiteCodeAndBranch');
-    Route::post('deleteTmpTableById','deleteTmpTableById');
+    Route::post('deleteTmpTableByNoFpAndSessId','deleteTmpTableByNoFpAndSessId');
 });
 Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('getDataInquiryTTF', 'getDataInquiryTTF');

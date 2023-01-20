@@ -120,8 +120,14 @@ class TtfTmpTable extends Model
                                     COUNT(BPB_NUM) AS JUMLAH_BPB,
                                     SUM(BPB_AMOUNT) AS JUMLAH_DPP_BPB,
                                     SUM(BPB_PPN) AS JUMLAH_PPN_BPB,
-                                    (FP_DPP - SUM(BPB_AMOUNT)) SEL_DPP,
-                                    (FP_TAX - SUM(BPB_PPN)) SEL_PPN
+                                    CASE
+                                        WHEN FP_TYPE = 1 THEN (FP_DPP - SUM(BPB_AMOUNT))
+                                        ELSE 0
+                                    END SEL_DPP,
+                                    CASE
+                                        WHEN FP_TYPE = 1 THEN (FP_TAX - SUM(BPB_PPN))
+                                        ELSE 0
+                                    END SEL_PPN
                                 FROM
                                     ttf_tmp_table
                                 WHERE

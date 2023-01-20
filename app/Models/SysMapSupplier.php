@@ -68,6 +68,12 @@ class SysMapSupplier extends Model
                                 WHERE
                                     b.SUPP_SITE_CODE = a.SUPP_SITE_CODE
                                         AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) SUPP_SITE_ID')
+                   ->selectRaw('(SELECT 
+                                       b.BRANCH_NAME
+                                   FROM
+                                       sys_ref_branch b
+                                   WHERE
+                                       b.BRANCH_CODE = a.BRANCH_CODE) BRANCH_NAME')
                     ->get();
         return $getData;
     }

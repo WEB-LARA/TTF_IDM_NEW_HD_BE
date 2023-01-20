@@ -63,10 +63,10 @@ class TtfTmpTableController extends Controller
         }
     }
 
-    public function deleteTmpTableById(Request $request){
+    public function deleteTmpTableByNoFpAndSessId(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
 
-        $delete = $ttf_tmp_table->deleteTmpTableById($request->id_tmp);
+        $delete = $ttf_tmp_table->deleteTmpTableByNoFpAndSessId($request->no_fp,$request->session_id);
 
         if($delete){
             return response()->json([

@@ -109,8 +109,14 @@ class TtfTmpTable extends Model
                                     END FP_TYPE,
                                     NO_FP,
                                     DATE_FORMAT(FP_DATE, '%d-%b-%Y') TANGGAL_FP,
-                                    FP_DPP,
-                                    FP_TAX,
+                                    CASE
+                                        WHEN asd.FP_TYPE = 1 THEN FP_DPP
+                                        ELSE SUM(asd.BPB_AMOUNT)
+                                    END FP_DPP
+                                    CASE
+                                        WHEN asd.FP_TYPE = 1 THEN FP_TAX
+                                        ELSE SUM(asd.BPB_TAX)
+                                    END FP_TAX,
                                     COUNT(BPB_NUM) AS JUMLAH_BPB,
                                     SUM(BPB_AMOUNT) AS JUMLAH_DPP_BPB,
                                     SUM(BPB_PPN) AS JUMLAH_PPN_BPB,
@@ -120,7 +126,7 @@ class TtfTmpTable extends Model
                                     ttf_tmp_table
                                 WHERE
                                     SESS_ID = ?
-                                GROUP BY NO_FP",[$session_id]);
+                                GROUP BY NO_FP,SESS_ID",[$session_id]);
         return $getData;
     }
 

@@ -13,14 +13,14 @@ class ConvertImageController extends Controller
         
         // phpinfo();
         // print_r(public_path());
-        // $fileone = realpath('010.002-22.09707040.pdf');
-        print_r(storage_path());
+        $fileone = public_path('/file_djp_ttf_idm/1674188872.pdf');
+        // print_r(storage_path());
         // print_r($fileone);
-        // if (!is_readable($fileone)) {
-        //     echo 'file not readable';
-        // }
+        if (!is_readable($fileone)) {
+            echo 'file not readable';
+        }
         // $imgExt = new Imagick();
-        // $imgExt->readImage('/usr/src/app/010.002-22.09707040.pdf');
+        // $imgExt->readImage(public_path('/file_djp_ttf_idm'));
         // $imgExt->writeImages('pdf_image_doc.png', true);
         // dd("Document has been converted");
     }

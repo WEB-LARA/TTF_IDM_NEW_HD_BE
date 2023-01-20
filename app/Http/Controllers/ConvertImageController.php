@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class ConvertImageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+
+        
         // phpinfo();
         // print_r(public_path());
         // $fileone = realpath('010.002-22.09707040.pdf');
@@ -21,5 +23,21 @@ class ConvertImageController extends Controller
         // $imgExt->readImage('/usr/src/app/010.002-22.09707040.pdf');
         // $imgExt->writeImages('pdf_image_doc.png', true);
         // dd("Document has been converted");
+    }
+    public function fileUploadPost(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+        ]);
+  
+        $fileName = time().'.'.$request->file->extension();  
+   
+        print_r($fileName);
+        // $request->file->move(public_path('uploads'), $fileName);
+   
+        // return back()
+        //     ->with('success','You have successfully upload file.')
+        //     ->with('file',$fileName);
+   
     }
 }

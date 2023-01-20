@@ -57,6 +57,7 @@ Route::controller(InputTTfController::class)->group(function () {
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');
+    Route::post('fileUploadPost','fileUploadPost');
 });
 Route::controller(PrepopulatedFpController::class)->group(function () {
     Route::post('getPrepopulatedFpByNpwp', 'getPrepopulatedFpByNpwp');

@@ -16,15 +16,15 @@ class ConvertImageController extends Controller
         $fileone = public_path('/file_djp_ttf_idm/1674188872.pdf');
         // print_r(storage_path());
         // print_r($fileone);
-        if (!is_readable($fileone)) {
-            echo 'file not readable';
-        }else{
-            echo 'kebaca om';
-        }
-        // $imgExt = new Imagick();
-        // $imgExt->readImage(public_path('/file_djp_ttf_idm'));
-        // $imgExt->writeImages('pdf_image_doc.png', true);
-        // dd("Document has been converted");
+        // if (!is_readable($fileone)) {
+        //     echo 'file not readable';
+        // }else{
+        //     echo 'kebaca om';
+        // }
+        $imgExt = new Imagick();
+        $imgExt->readImage(public_path('/file_djp_ttf_idm/1674188872.pdf'));
+        $imgExt->writeImages('pdf_image_doc.png', true);
+        dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)
     {

@@ -110,11 +110,11 @@ class TtfTmpTable extends Model
                                     NO_FP,
                                     DATE_FORMAT(FP_DATE, '%d-%b-%Y') TANGGAL_FP,
                                     CASE
-                                        WHEN asd.FP_TYPE = 1 THEN FP_DPP
+                                        WHEN FP_TYPE = 1 THEN FP_DPP
                                         ELSE SUM(asd.BPB_AMOUNT)
                                     END FP_DPP,
                                     CASE
-                                        WHEN asd.FP_TYPE = 1 THEN FP_TAX
+                                        WHEN FP_TYPE = 1 THEN FP_TAX
                                         ELSE SUM(asd.BPB_TAX)
                                     END FP_TAX,
                                     COUNT(BPB_NUM) AS JUMLAH_BPB,

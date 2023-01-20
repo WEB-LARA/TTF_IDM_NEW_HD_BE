@@ -22,7 +22,7 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf.pdf'));
+        $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tes gambar.png'), true);
         dd("Document has been converted");
     }

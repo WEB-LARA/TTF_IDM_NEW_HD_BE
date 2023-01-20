@@ -32,8 +32,12 @@ class ConvertImageController extends Controller
   
         $fileName = time().'.'.$request->file->extension();  
    
-        print_r($fileName);
-        // $request->file->move(public_path('uploads'), $fileName);
+        if($request->file->move('/opt/lampp/file_djp_ttf_idm', $fileName)){
+            print_r("SUKSES");
+        }else{
+            print_r("GAGAl");
+        }
+        // print_r($fileName);
    
         // return back()
         //     ->with('success','You have successfully upload file.')

@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Imagick;
 use Illuminate\Http\Request;
-require __DIR__ . "/vendor/autoload.php";
-use Zxing\QrReader;
 class ConvertImageController extends Controller
 {
     public function index(Request $request)

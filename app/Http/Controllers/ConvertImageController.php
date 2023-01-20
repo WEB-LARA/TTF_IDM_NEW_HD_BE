@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Imagick;
 use Illuminate\Http\Request;
-
+require __DIR__ . "/vendor/autoload.php";
+use Zxing\QrReader;
 class ConvertImageController extends Controller
 {
     public function index(Request $request)
@@ -45,5 +46,10 @@ class ConvertImageController extends Controller
         //     ->with('success','You have successfully upload file.')
         //     ->with('file',$fileName);
    
+    }
+    public function readQr(){
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tes gambar.png'));
+        $text = $qrcode->text();
+        
     }
 }

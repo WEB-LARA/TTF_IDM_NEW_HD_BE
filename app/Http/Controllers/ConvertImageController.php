@@ -18,6 +18,8 @@ class ConvertImageController extends Controller
         // print_r($fileone);
         if (!is_readable($fileone)) {
             echo 'file not readable';
+        }else{
+            echo 'kebaca om';
         }
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path('/file_djp_ttf_idm'));

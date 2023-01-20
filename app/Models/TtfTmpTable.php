@@ -115,7 +115,7 @@ class TtfTmpTable extends Model
                                     END FP_DPP,
                                     CASE
                                         WHEN FP_TYPE = 1 THEN FP_TAX
-                                        ELSE SUM(BPB_TAX)
+                                        ELSE SUM(BPB_PPN)
                                     END FP_TAX,
                                     COUNT(BPB_NUM) AS JUMLAH_BPB,
                                     SUM(BPB_AMOUNT) AS JUMLAH_DPP_BPB,

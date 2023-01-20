@@ -15,6 +15,7 @@ class TtfTmpTableController extends Controller
         foreach ($data as $a){
             // print_r($a->FP_TYPE);
             $dataLines = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$a->NO_FP,$request->session_id);
+            $dataArray[$i]['ID'] = $a->ID;
             $dataArray[$i]['FP_TYPE'] = $a->FP_TYPE;
             $dataArray[$i]['NO_FP'] = $a->NO_FP;
             $dataArray[$i]['TANGGAL_FP'] = $a->TANGGAL_FP;

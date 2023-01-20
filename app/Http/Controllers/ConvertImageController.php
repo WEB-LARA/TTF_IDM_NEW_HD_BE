@@ -32,7 +32,7 @@ class ConvertImageController extends Controller
   
         $fileName = time().'.'.$request->file->extension();  
    
-        if($request->file->move(public_path('/storage/file_djp_ttf_idm'), $fileName)){
+        if($request->file->move(public_path('/file_djp_ttf_idm'), $fileName)){
             print_r("SUKSES");
         }else{
             print_r("GAGAl");

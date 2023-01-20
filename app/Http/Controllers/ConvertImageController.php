@@ -48,8 +48,9 @@ class ConvertImageController extends Controller
    
     }
     public function readQr(){
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tes gambar.png'));
-        $text = $qrcode->text();
-        
+        phpinfo();
+        // $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tes gambar.png'));
+        // $text = $qrcode->text();
+
     }
 }

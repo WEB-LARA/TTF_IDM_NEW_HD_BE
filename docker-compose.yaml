@@ -1,0 +1,54 @@
+version: "3.8"
+services:
+  ttf_idm_new_hd:
+    container_name: ttf_idm_new_hd
+    build:
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    expose:
+      - 9001
+    volumes:
+      - .:/usr/src/app
+      - ./public:/usr/src/app/public
+    # depends_on:
+    #   - ttf_idm_new_hd_db
+    networks:
+      - app_network1
+
+  ttf_idm_new_hd_nginx:
+    container_name: ttf_idm_new_hd_nginx
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    volumes:
+    - ./public:/usr/src/app/public
+    - ./log:/var/log/nginx/
+    ports:
+      - 8001:80
+    depends_on:
+      - ttf_idm_new_hd
+    environment:
+      NGINX_FPM_HOST: ttf_idm_new_hd
+      NGINX_ROOT: /usr/src/app/public
+    networks:
+      - app_network1
+
+  ttf_idm_new_hd_db:
+    container_name: ttf_idm_new_hd_db
+    image: mysql:8.0.20
+    restart: always
+    volumes:
+      - ./storage/db-data:/var/lib/mysql
+    ports:
+      - 4020:3306
+    environment:
+      MYSQL_DATABASE: ttf_idm_new_hd
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root1234
+    networks:
+      - app_network1
+
+networks:
+  app_network1:
+    driver: bridge

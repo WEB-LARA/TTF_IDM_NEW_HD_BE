@@ -112,7 +112,7 @@ class TtfTmpTable extends Model
                                     CASE
                                         WHEN asd.FP_TYPE = 1 THEN FP_DPP
                                         ELSE SUM(asd.BPB_AMOUNT)
-                                    END FP_DPP
+                                    END FP_DPP,
                                     CASE
                                         WHEN asd.FP_TYPE = 1 THEN FP_TAX
                                         ELSE SUM(asd.BPB_TAX)

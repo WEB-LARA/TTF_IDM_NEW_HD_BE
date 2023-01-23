@@ -24,7 +24,7 @@ class ConvertImageController extends Controller
         // }
         $imgExt = new Imagick();
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode.png'), true);
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode.jpg'), true);
         dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)
@@ -49,7 +49,7 @@ class ConvertImageController extends Controller
     }
     public function readQr(){
         // phpinfo();
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/tesbarcode.png'));
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tesgambarbarcode.jpg'));
         // print_r($qrcode);
         $text = $qrcode->text();
         // print_r("TES");

@@ -54,8 +54,10 @@ class TtfHeader extends Model
                                    asd.TTF_NUM,
                                    asd.TTF_STATUS,
                                    asd.BRANCH_CODE,
+                                   asd.BRANCH_NAME,
                                    asd.TTF_DATE,
                                    asd.REVIEWED_DATE,
+                                   asd.VENDOR_SITE_CODE,
                                    asd.VENDOR_SITE_CODE,
                                    asd.JUMLAH_FP,
                                    asd.JUMLAH_DPP_FAKTUR,
@@ -73,9 +75,22 @@ class TtfHeader extends Model
                                                WHEN TTF_STATUS = '' THEN 'DRAFT'
                                            END AS TTF_STATUS,
                                            a.BRANCH_CODE,
+                                           (SELECT 
+                                                   b.branch_name
+                                               FROM
+                                                   sys_ref_branch b
+                                               WHERE
+                                                   b.branch_code = a.BRANCH_CODE) BRANCH_NAME,
                                            a.TTF_DATE,
                                            a.REVIEWED_DATE,
                                            a.VENDOR_SITE_CODE,
+                                           (SELECT 
+                                                   b.SUPP_SITE_ALT_NAME
+                                               FROM
+                                                   sys_supp_site b
+                                               WHERE
+                                                   b.SUPP_SITE_CODE = a.VENDOR_SITE_CODE
+                                                       AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) VENDOR_SITE_NAME,
                                            (SELECT 
                                                    COUNT(*)
                                                FROM

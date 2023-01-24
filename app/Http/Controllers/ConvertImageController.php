@@ -60,7 +60,7 @@ class ConvertImageController extends Controller
         $fileNameConverted = time().'.'.'png';
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
 
-        return $fileNameConverted;
+        // return $fileNameConverted;
     }
     public function readQr($filename){
         // phpinfo();

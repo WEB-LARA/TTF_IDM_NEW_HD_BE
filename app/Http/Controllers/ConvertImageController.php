@@ -30,14 +30,13 @@ class ConvertImageController extends Controller
         $fileName = time().'.'.$request->file->extension();  
    
         if($request->file->move(public_path('/file_djp_ttf_idm'), $fileName)){
-            print_r("SUKSES");
+            // Convert Fp ke Gambar
+            $fileNameConverted = $this->convertFpPdfToImage($fileName);
+            // Scan Qr Faktur Pajak
+            $this->readQr($fileNameConverted);
         }else{
             print_r("GAGAl");
         }
-        // Convert Fp ke Gambar
-        $fileNameConverted = $this->convertFpPdfToImage($fileName);
-        // Scan Qr Faktur Pajak
-        $this->readQr($fileNameConverted);
         // print_r($fileName);
    
         // return back()

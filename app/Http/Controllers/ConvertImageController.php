@@ -29,6 +29,7 @@ class ConvertImageController extends Controller
         $imgExt->setBackgroundColor(new ImagickPixel('white'));
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE );
         $imgExt->setImageColorSpace(Imagick::COLORSPACE_SRGB);
+        $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         // $imgExt->setImageOpacity(0);
         // $imgExt->setResolution( 300, 300 );
         // $imgExt->setImageAlphaChannel(9);

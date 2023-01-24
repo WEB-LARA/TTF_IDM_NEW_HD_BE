@@ -40,7 +40,7 @@ class ConvertImageController extends Controller
         // $imgExt->setImageOpacity(0);
         // $imgExt->setResolution( 300, 300 );
         // $imgExt->setImageAlphaChannel(9);
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5.png'), true);
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5120.png'), true);
         dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)

@@ -24,14 +24,14 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        // $imgExt->setResolution(120,120);
+        $imgExt->setResolution(120,120);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674531730.pdf'));
         $imgExt->setImageFormat('png');
         $imgExt->setBackgroundColor(new ImagickPixel('white'));
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE );
         $imgExt->setImageColorSpace(Imagick::COLORSPACE_SRGB);
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
-        $imgExt->setImageCompressionQuality(100);
+        // $imgExt->setImageCompressionQuality(100);
         $imgExt->setImageDepth(16);
         // $imgExt->setImageOpacity(0);
         // $imgExt->setResolution( 300, 300 );

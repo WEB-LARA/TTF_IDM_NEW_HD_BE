@@ -24,9 +24,9 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        $color=new ImagickPixel();
-        $color->setColor("rgb(220,220,220)");
-        $imgExt->borderImage($color,1,1);
+        // $color=new ImagickPixel();
+        // $color->setColor("rgb(220,220,220)");
+        // // $imgExt->borderImage($color,1,1);
         // $imgExt->SetColorspace(Imagick::COLORSPACE_SRGB);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         $output = $imgExt->getimageblob();

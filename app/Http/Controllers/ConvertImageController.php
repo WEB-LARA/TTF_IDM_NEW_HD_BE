@@ -54,11 +54,11 @@ class ConvertImageController extends Controller
         $imgExt->setResolution(125,125);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
         $imgExt->setImageBackgroundColor('white');
-        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
         $imgExt->setOption('png:bit-depth', '16');
         $fileNameConverted = time().'.'.'png';
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
 
         // return $fileNameConverted;
     }

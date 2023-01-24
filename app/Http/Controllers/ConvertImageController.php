@@ -25,18 +25,18 @@ class ConvertImageController extends Controller
         // }
         $imgExt = new Imagick();
         $imgExt->setResolution(120,120);
-        $imgExt->setImageDepth(16);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674531730.pdf'));
         $imgExt->setImageFormat('png');
         $imgExt->setBackgroundColor(new ImagickPixel('white'));
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE );
         $imgExt->setImageColorSpace(Imagick::COLORSPACE_SRGB);
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $imgExt->setImageDepth(16);
         // $imgExt->setImageCompressionQuality(100);
         // $imgExt->setImageOpacity(0);
         // $imgExt->setResolution( 300, 300 );
         // $imgExt->setImageAlphaChannel(9);
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5.png'), true);
+        $imgExt->writeImage(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5.png'), true);
         dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)

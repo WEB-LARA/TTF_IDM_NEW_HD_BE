@@ -58,7 +58,7 @@ class ConvertImageController extends Controller
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         $imgExt->setOption('png:bit-depth', '16');
         $fileNameConverted = time().'.'.'png';
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
 
         // return $fileNameConverted;
     }

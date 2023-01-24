@@ -35,7 +35,7 @@ class ConvertImageController extends Controller
             print_r("GAGAl");
         }
         // Convert Fp ke Gambar
-        $fileNameConverted = $this->convertFpPdfToImage($filename);
+        $fileNameConverted = $this->convertFpPdfToImage($fileName);
         // Scan Qr Faktur Pajak
         $this->readQr($fileNameConverted);
         // print_r($fileName);

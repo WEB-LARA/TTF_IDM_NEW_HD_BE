@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Imagick;
+use ImagickPixel;
 use Illuminate\Http\Request;
 require "../vendor/autoload.php";
 use Zxing\QrReader;

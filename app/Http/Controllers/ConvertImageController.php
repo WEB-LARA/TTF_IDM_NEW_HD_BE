@@ -25,7 +25,7 @@ class ConvertImageController extends Controller
         $imgExt = new Imagick();
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri2.jpeg'), true);
-        dd("Document has been converted");
+        // dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)
     {

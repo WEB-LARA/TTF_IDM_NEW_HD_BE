@@ -58,7 +58,7 @@ class TtfHeader extends Model
                                    asd.TTF_DATE,
                                    asd.REVIEWED_DATE,
                                    asd.VENDOR_SITE_CODE,
-                                   asd.VENDOR_SITE_CODE,
+                                   asd.VENDOR_SITE_NAME,
                                    asd.JUMLAH_FP,
                                    asd.JUMLAH_DPP_FAKTUR,
                                    asd.JUMLAH_PPN_FAKTUR,

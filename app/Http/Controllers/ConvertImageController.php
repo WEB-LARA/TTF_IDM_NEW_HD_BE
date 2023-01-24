@@ -24,7 +24,7 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        $imgExt->setResolution(120,120);
+        $imgExt->setResolution(130,130);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674531730.pdf'));
         $imgExt->setImageBackgroundColor('white');
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);

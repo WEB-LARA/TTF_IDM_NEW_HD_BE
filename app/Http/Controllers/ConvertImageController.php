@@ -23,6 +23,7 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
+        $imgExt->SetColorspace(Imagick::COLORSPACE_SRGB);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri2.jpeg'), true);
         // dd("Document has been converted");

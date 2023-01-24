@@ -27,6 +27,7 @@ class ConvertImageController extends Controller
         $imgExt->setResolution(200,200);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         $imgExt->setBackgroundColor(new ImagickPixel('white'));
+        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE );
         $imgExt->setImageColorSpace(Imagick::COLORSPACE_SRGB);
         // $imgExt->setImageOpacity(0);
         // $imgExt->setResolution( 300, 300 );

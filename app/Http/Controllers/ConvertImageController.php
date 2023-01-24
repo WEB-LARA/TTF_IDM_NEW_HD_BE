@@ -25,6 +25,7 @@ class ConvertImageController extends Controller
         // }
         $imgExt = new Imagick();
         $imgExt->setResolution(120,120);
+        $imgExt->setImageDepth(16);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674531730.pdf'));
         $imgExt->setImageFormat('png');
         $imgExt->setBackgroundColor(new ImagickPixel('white'));
@@ -32,7 +33,6 @@ class ConvertImageController extends Controller
         $imgExt->setImageColorSpace(Imagick::COLORSPACE_SRGB);
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         // $imgExt->setImageCompressionQuality(100);
-        $imgExt->setImageDepth(16);
         // $imgExt->setImageOpacity(0);
         // $imgExt->setResolution( 300, 300 );
         // $imgExt->setImageAlphaChannel(9);

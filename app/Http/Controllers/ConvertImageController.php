@@ -28,7 +28,9 @@ class ConvertImageController extends Controller
         // $color->setColor("rgb(220,220,220)");
         // // $imgExt->borderImage($color,1,1);
         // $imgExt->SetColorspace(Imagick::COLORSPACE_SRGB);
-        $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
+        $imgExt->readimageblob(public_path('/file_djp_ttf_idm/1674193948.pdf'));
+        $outputtype = $imgExt->getFormat();
+        // $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         $output = $imgExt->getimageblob();
   header("Content-type: $outputtype");
   echo $output;

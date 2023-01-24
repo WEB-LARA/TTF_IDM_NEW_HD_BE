@@ -11,18 +11,6 @@ class ConvertImageController extends Controller
 {
     public function index(Request $request)
     {
-
-        
-        // phpinfo();
-        // print_r(public_path());
-        $fileone = public_path('/file_djp_ttf_idm/1674188872.pdf');
-        // print_r(storage_path());
-        // print_r($fileone);
-        // if (!is_readable($fileone)) {
-        //     echo 'file not readable';
-        // }else{
-        //     echo 'kebaca om';
-        // }
         $imgExt = new Imagick();
         $imgExt->setResolution(125,125);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674531730.pdf'));
@@ -30,16 +18,6 @@ class ConvertImageController extends Controller
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         $imgExt->setOption('png:bit-depth', '16');
-        // $imgExt->setImageFormat('png');
-        // $imgExt->setBackgroundColor(new ImagickPixel('white'));
-        // $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE );
-        // $imgExt->setImageColorSpace(Imagick::COLORSPACE_SRGB);
-        // $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
-        // $imgExt->setImageDepth(16);
-        // $imgExt->setImageCompressionQuality(100);
-        // $imgExt->setImageOpacity(0);
-        // $imgExt->setResolution( 300, 300 );
-        // $imgExt->setImageAlphaChannel(9);
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5125.png'), true);
         dd("Document has been converted");
     }
@@ -56,6 +34,10 @@ class ConvertImageController extends Controller
         }else{
             print_r("GAGAl");
         }
+        // Convert Fp ke Gambar
+        $fileNameConverted = $this->convertFpPdfToImage($filename);
+        // Scan Qr Faktur Pajak
+        $this->readQr($fileNameConverted);
         // print_r($fileName);
    
         // return back()
@@ -63,10 +45,24 @@ class ConvertImageController extends Controller
         //     ->with('file',$fileName);
    
     }
-    public function readQr(){
+    
+    public function convertFpPdfToImage($filename){
+        $imgExt = new Imagick();
+        $imgExt->setResolution(125,125);
+        $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
+        $imgExt->setImageBackgroundColor('white');
+        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+        $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $imgExt->setOption('png:bit-depth', '16');
+        $fileNameConverted = time().'.'.'png';
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
+
+        return $fileNameConverted;
+    }
+    public function readQr($filename){
         // phpinfo();
         ini_set('memory_limit', '-1');
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5125.png'));
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/'.$filename));
         // print_r($qrcode);
         $text = $qrcode->text();
         // print_r("TES");

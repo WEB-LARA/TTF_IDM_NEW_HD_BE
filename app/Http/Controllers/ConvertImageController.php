@@ -53,7 +53,7 @@ class ConvertImageController extends Controller
         $imgExt = new Imagick();
         $imgExt->setResolution(125,125);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
-        foreach($imgExt as $i=>$imagick){
+        foreach($imgExt as $i=>$imgExt){
             $imgExt->setImageBackgroundColor('white');
             $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
             $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);

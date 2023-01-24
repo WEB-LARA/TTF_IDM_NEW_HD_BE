@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Imagick;
-use ImagickPixel;
 use Illuminate\Http\Request;
 require "../vendor/autoload.php";
 use Zxing\QrReader;
@@ -24,18 +23,10 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        // $color=new ImagickPixel();
-        // $color->setColor("rgb(220,220,220)");
-        // // $imgExt->borderImage($color,1,1);
-        // $imgExt->SetColorspace(Imagick::COLORSPACE_SRGB);
-        $imgExt->readimageblob(public_path('/file_djp_ttf_idm/1674193948.pdf'));
-        $outputtype = $imgExt->getFormat();
-        // $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
-        $output = $imgExt->getimageblob();
-  header("Content-type: $outputtype");
-  echo $output;
-        // $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri2.jpeg'), true);
-        // dd("Document has been converted");
+        $imgExt->setResolution( 300, 300 );
+        $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri3.png'), true);
+        dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)
     {

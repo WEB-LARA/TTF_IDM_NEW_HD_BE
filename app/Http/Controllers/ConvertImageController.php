@@ -24,7 +24,7 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        $imgExt->setResolution(125,125);
+        $imgExt->setResolution(120,120);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674531730.pdf'));
         $imgExt->setImageBackgroundColor('white');
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
@@ -66,7 +66,7 @@ class ConvertImageController extends Controller
     public function readQr(){
         // phpinfo();
         ini_set('memory_limit', '-1');
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5.png'));
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5120.png'));
         // print_r($qrcode);
         $text = $qrcode->text();
         // print_r("TES");

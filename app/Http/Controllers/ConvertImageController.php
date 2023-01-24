@@ -58,7 +58,11 @@ class ConvertImageController extends Controller
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
         $imgExt->setOption('png:bit-depth', '16');
         $fileNameConverted = time().'.'.'png';
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
+        foreach($imgExt as $i=>$imagick){
+            print_r("1");
+            echo "<br>";
+        }
+        // $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
 
         // return $fileNameConverted;
     }

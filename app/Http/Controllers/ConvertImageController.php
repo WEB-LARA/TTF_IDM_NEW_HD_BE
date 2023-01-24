@@ -25,9 +25,9 @@ class ConvertImageController extends Controller
         // }
         $imgExt = new Imagick();
         $imgExt->setResolution(200,200);
+        $imgExt->setBackgroundColor(new ImagickPixel('white'));
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
         // $imgExt->setResolution( 300, 300 );
-        // $imgExt->setBackgroundColor(new ImagickPixel('white'));
         // $imgExt->setImageOpacity(1);
         // $imgExt->setImageAlphaChannel(9);
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri4.png'), true);

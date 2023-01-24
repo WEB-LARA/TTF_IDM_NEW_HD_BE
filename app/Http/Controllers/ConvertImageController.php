@@ -23,9 +23,15 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        $imgExt->SetColorspace(Imagick::COLORSPACE_SRGB);
+        $color=new ImagickPixel();
+        $color->setColor("rgb(220,220,220)");
+        $imgExt->borderImage($color,1,1);
+        // $imgExt->SetColorspace(Imagick::COLORSPACE_SRGB);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri2.jpeg'), true);
+        $output = $imgExt->getimageblob();
+  header("Content-type: $outputtype");
+  echo $output;
+        // $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri2.jpeg'), true);
         // dd("Document has been converted");
     }
     public function fileUploadPost(Request $request)

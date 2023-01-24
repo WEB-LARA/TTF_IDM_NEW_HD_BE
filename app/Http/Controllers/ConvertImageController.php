@@ -23,11 +23,10 @@ class ConvertImageController extends Controller
         //     echo 'kebaca om';
         // }
         $imgExt = new Imagick();
-        $imgExt->setResolution( 300, 300 );
-        $imgExt->setImageBackgroundColor('#ffffff');
-        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
-        $imgExt = $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         $imgExt->readImage(public_path('/file_djp_ttf_idm/1674193948.pdf'));
+        $imgExt->setResolution( 300, 300 );
+        $imgExt->setImageBackgroundColor('white');
+        $imgExt->setImageAlphaChannel(9);
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri4.png'), true);
         dd("Document has been converted");
     }

@@ -62,7 +62,7 @@ class ConvertImageController extends Controller
             $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
             $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
             $imgExt->setOption('png:bit-depth', '16');
-            $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.'page'.$i.'.png'), true);
+            $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$filename), true);
         }
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));

@@ -54,6 +54,7 @@ class ConvertImageController extends Controller
         $numOfPages = $getNumberPages->getNumberImages();
         // print_r($numOfPages);
         // print_r($filename);
+        $imgExt = new Imagick();
         $imgExt->setResolution(125,125);
         for($i = 0 ; $i<$numOfPages ; $i++){
             $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));

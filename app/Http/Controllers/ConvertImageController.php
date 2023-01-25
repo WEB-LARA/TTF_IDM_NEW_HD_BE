@@ -43,8 +43,8 @@ class ConvertImageController extends Controller
             // Scan Qr Faktur Pajak
             // $linkQr = $this->readQr($fileNameConverted);
 
-            // $explodeLink = explode("/",$linkQr);
-            // print_r($explodeLink);
+            $explodeLink = explode("/",$linkQr);
+            print_r($explodeLink);
         }else{
             print_r("GAGAl");
         }

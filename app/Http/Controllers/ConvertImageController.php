@@ -34,7 +34,6 @@ class ConvertImageController extends Controller
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
             $linkQr = '';
             foreach ($fileNameConverted as $a){
-                print_r($a);
                 $linkQr .= $this->readQr($a);
             }
             $explodeLink = explode("/",$linkQr);

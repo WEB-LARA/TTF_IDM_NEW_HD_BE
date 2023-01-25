@@ -69,7 +69,7 @@ class ConvertImageController extends Controller
         $namaFile = $expLodeFileName[0];
         $format = $expLodeFileName[1];
         $counter=  1;
-        $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
+        $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'[0]'));
         $imgExt->setImageBackgroundColor('white');
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);

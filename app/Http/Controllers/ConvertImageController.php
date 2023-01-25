@@ -62,7 +62,7 @@ class ConvertImageController extends Controller
         // print_r($numOfPages);
         // print_r($filename);
         $imgExt = new Imagick();
-        $imgExt->setResolution(125,125);
+        $imgExt->setResolution(150,150);
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();
         $expLodeFileName = explode(".",$fileNameConverted);

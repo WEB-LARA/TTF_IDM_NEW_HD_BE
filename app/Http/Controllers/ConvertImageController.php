@@ -31,8 +31,12 @@ class ConvertImageController extends Controller
    
         if($request->file->move(public_path('/file_djp_ttf_idm'), $fileName)){
             // Convert Fp ke Gambar
-            print_r("MASOK");
+            // print_r("MASOK");
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
+            print_r("File Name Converted = ".$fileNameConverted);
+
+            $expLodeFileName = explode("-",$fileNameConverted);
+            print_r($expLodeFileName);
             // Scan Qr Faktur Pajak
             // $linkQr = $this->readQr($fileNameConverted);
 
@@ -71,6 +75,8 @@ class ConvertImageController extends Controller
             // $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
         }
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
+
+        return $fileNameConverted;
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
         // $fileNameConverted = time().'.'.'png';

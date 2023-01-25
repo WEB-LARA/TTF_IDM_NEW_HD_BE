@@ -58,7 +58,7 @@ class ConvertImageController extends Controller
         $imgExt->setResolution(125,125);
         for($i = 0 ; $i<$numOfPages ; $i++){
             $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
-            $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.'page'.$i.'.pdf'), true);
+            $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.'page'.$i.'.png'), true);
         }
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));

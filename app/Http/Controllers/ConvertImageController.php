@@ -58,7 +58,7 @@ class ConvertImageController extends Controller
         $imgExt->setResolution(125,125);
         $fileNameConverted = time().'.'.'png';
         for($i = 0 ; $i<$numOfPages ; $i++){
-            $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'[0]'));
+            $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
             $imgExt->setImageBackgroundColor('white');
             $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
             $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);

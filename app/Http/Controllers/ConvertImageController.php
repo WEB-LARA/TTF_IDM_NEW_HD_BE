@@ -63,6 +63,8 @@ class ConvertImageController extends Controller
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();
         $expLodeFileName = explode(".",$fileNameConverted);
+        $namaFile = $expLodeFileName[0];
+        $format = $expLodeFileName[1];
         $counter=  1;
         for($i = 0 ; $i<$numOfPages ; $i++){
             $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
@@ -76,7 +78,7 @@ class ConvertImageController extends Controller
             // $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
             // $imgExt->setOption('png:bit-depth', '16');
             // $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
-            array_push($arrayFileConverted,$expLodeFileName[0].'-'.$counter.$expLodeFileName[1]);
+            array_push($arrayFileConverted,$namaFile.'-'.$counter.'.'.$format[1]);
             $counter ++;
         }
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);

@@ -33,10 +33,10 @@ class ConvertImageController extends Controller
             // Convert Fp ke Gambar
             // print_r("MASOK");
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
-            print_r("File Name Converted = ".$fileNameConverted);
+            print_r($fileNameConverted);
 
-            $expLodeFileName = explode(".",$fileNameConverted);
-            print_r($expLodeFileName);
+            // $expLodeFileName = explode(".",$fileNameConverted);
+            // print_r($expLodeFileName);
             // Scan Qr Faktur Pajak
             // $linkQr = $this->readQr($fileNameConverted);
 
@@ -61,6 +61,9 @@ class ConvertImageController extends Controller
         $imgExt = new Imagick();
         $imgExt->setResolution(125,125);
         $fileNameConverted = time().'.'.'png';
+        $arrayFileConverted =array ();
+        $expLodeFileName = explode(".",$fileNameConverted);
+        $counter=  1;
         for($i = 0 ; $i<$numOfPages ; $i++){
             $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
             $imgExt->setImageBackgroundColor('white');
@@ -73,10 +76,12 @@ class ConvertImageController extends Controller
             // $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
             // $imgExt->setOption('png:bit-depth', '16');
             // $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
+            array_push($arrayFileConverted,$expLodeFileName[0].'-'.$counter.$expLodeFileName[1]);
+            $counter ++;
         }
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
 
-        return $fileNameConverted;
+        return $arrayFileConverted;
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
         // $fileNameConverted = time().'.'.'png';

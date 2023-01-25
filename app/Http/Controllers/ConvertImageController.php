@@ -35,7 +35,7 @@ class ConvertImageController extends Controller
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
             print_r("File Name Converted = ".$fileNameConverted);
 
-            $expLodeFileName = explode("-",$fileNameConverted);
+            $expLodeFileName = explode(".",$fileNameConverted);
             print_r($expLodeFileName);
             // Scan Qr Faktur Pajak
             // $linkQr = $this->readQr($fileNameConverted);

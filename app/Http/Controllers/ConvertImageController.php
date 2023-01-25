@@ -57,11 +57,11 @@ class ConvertImageController extends Controller
         $imgExt = new Imagick();
         $imgExt->setResolution(125,125);
         for($i = 0 ; $i<$numOfPages ; $i++){
+            $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
             $imgExt->setImageBackgroundColor('white');
             $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
             $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
             $imgExt->setOption('png:bit-depth', '16');
-            $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
             $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.'page'.$i.'.png'), true);
         }
         // $imgExt = new Imagick();

@@ -50,22 +50,25 @@ class ConvertImageController extends Controller
     }
     
     public function convertFpPdfToImage($filename){
-        $imgExt = new Imagick();
-        $imgExt->setResolution(125,125);
-        $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
-        $fileNameConverted = time().'.'.'png';
-        $i = 0;
-        foreach($imgExt as $i=>$imgExt){
-            $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
-            $imgExt->setImageBackgroundColor('white');
-            $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
-            $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
-            $imgExt->setOption('png:bit-depth', '16');
-            print_r("1");
-            echo "<br>";
-            $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted.'['.$i.']'), true);
-            $i ++;
-        }
+        $getNumberPages = new Imagick(public_path('/file_djp_ttf_idm/'.$filename));
+        $numOfPages = $getNumberPages->getNumberImages();
+        print_r($numOfPages);
+        // $imgExt = new Imagick();
+        // $imgExt->setResolution(125,125);
+        // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
+        // $fileNameConverted = time().'.'.'png';
+        // $i = 0;
+        // foreach($imgExt as $i=>$imgExt){
+        //     $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
+        //     $imgExt->setImageBackgroundColor('white');
+        //     $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        //     $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+        //     $imgExt->setOption('png:bit-depth', '16');
+        //     print_r("1");
+        //     echo "<br>";
+        //     $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted.'['.$i.']'), true);
+        //     $i ++;
+        // }
 
         // return $fileNameConverted;
     }

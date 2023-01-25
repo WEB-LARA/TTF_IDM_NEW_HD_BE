@@ -33,12 +33,11 @@ class ConvertImageController extends Controller
             // Convert Fp ke Gambar
             // print_r("MASOK");
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
-            print_r($fileNameConverted);
             $linkQr = '';
             foreach ($fileNameConverted as $a){
                 $linkQr .= $this->readQr($a);
+                print_r($linkQr);
             }
-            print_r($linkQr);
             // $expLodeFileName = explode(".",$fileNameConverted);
             // print_r($expLodeFileName);
             // Scan Qr Faktur Pajak
@@ -106,14 +105,15 @@ class ConvertImageController extends Controller
 
         // return $fileNameConverted;
     }
-    public function readQr(){
+    public function readQr($filename){
         // phpinfo();
         ini_set('memory_limit', '-1');
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/1674652470-1.png'));
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/'.$filename));
         // print_r($qrcode);
         $text = $qrcode->text();
         // print_r("TES");
         // print_r($text);
-        print_r ($text);
+        // print_r ($text);
+        return $text;
     }
 }

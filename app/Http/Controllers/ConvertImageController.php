@@ -52,13 +52,14 @@ class ConvertImageController extends Controller
     public function convertFpPdfToImage($filename){
         $getNumberPages = new Imagick(public_path('/file_djp_ttf_idm/'.$filename));
         $numOfPages = $getNumberPages->getNumberImages();
-        print_r($numOfPages);
-        print_r($filename);
+        // print_r($numOfPages);
+        // print_r($filename);
+        $imgExt->setResolution(125,125);
         for($i = 0 ; $i<$numOfPages ; $i++){
-            // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
+            $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
+            $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.'page'.$i.'.pdf'), true);
         }
         // $imgExt = new Imagick();
-        // $imgExt->setResolution(125,125);
         // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
         // $fileNameConverted = time().'.'.'png';
         // $i = 0;

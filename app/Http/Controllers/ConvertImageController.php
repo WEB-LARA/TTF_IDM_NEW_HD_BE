@@ -114,6 +114,6 @@ class ConvertImageController extends Controller
         $text = $qrcode->text();
         // print_r("TES");
         // print_r($text);
-        return $text;
+        print_r ($text);
     }
 }

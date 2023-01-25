@@ -34,7 +34,11 @@ class ConvertImageController extends Controller
             // print_r("MASOK");
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
             print_r($fileNameConverted);
-
+            $linkQr = '';
+            foreach ($fileNameConverted as $a){
+                $linkQr .= $this->readQr($a);
+            }
+            print_r($linkQr);
             // $expLodeFileName = explode(".",$fileNameConverted);
             // print_r($expLodeFileName);
             // Scan Qr Faktur Pajak

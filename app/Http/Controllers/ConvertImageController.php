@@ -63,7 +63,7 @@ class ConvertImageController extends Controller
         // print_r($numOfPages);
         // print_r($filename);
         $imgExt = new Imagick();
-        $imgExt->setResolution(125,125);
+        $imgExt->setResolution(150,150);
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();
         $expLodeFileName = explode(".",$fileNameConverted);
@@ -109,7 +109,7 @@ class ConvertImageController extends Controller
     public function readQr(){
         // phpinfo();
         ini_set('memory_limit', '-1');
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/1674652030-1.png'));
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/Tesgambarbarcode3sendiri5125.png'));
         // print_r($qrcode);
         $text = $qrcode->text();
         // print_r("TES");

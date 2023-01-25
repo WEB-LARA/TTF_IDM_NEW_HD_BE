@@ -81,7 +81,11 @@ class ConvertImageController extends Controller
             // $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
             // $imgExt->setOption('png:bit-depth', '16');
             // $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
-            array_push($arrayFileConverted,$namaFile.'-'.$counter.'.'.$format);
+            if($numOfPages>1){
+                array_push($arrayFileConverted,$namaFile.'-'.$counter.'.'.$format);
+            }else{
+                array_push($arrayFileConverted,$fileNameConverted);
+            }
             $counter ++;
         }
         $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);

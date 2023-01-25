@@ -57,14 +57,20 @@ class ConvertImageController extends Controller
         $imgExt = new Imagick();
         $imgExt->setResolution(125,125);
         $fileNameConverted = time().'.'.'png';
-        for($i = 0 ; $i<$numOfPages ; $i++){
             $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'[0]'));
             $imgExt->setImageBackgroundColor('white');
             $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
             $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
             $imgExt->setOption('png:bit-depth', '16');
             $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
-        }
+        // for($i = 0 ; $i<$numOfPages ; $i++){
+        //     $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'[0]'));
+        //     $imgExt->setImageBackgroundColor('white');
+        //     $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        //     $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+        //     $imgExt->setOption('png:bit-depth', '16');
+        //     $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), true);
+        // }
         // $imgExt = new Imagick();
         // $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename));
         // $fileNameConverted = time().'.'.'png';

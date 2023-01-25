@@ -109,15 +109,15 @@ class ConvertImageController extends Controller
 
         // return $fileNameConverted;
     }
-    public function readQr($filename){
+    public function readQr(){
         // phpinfo();
         ini_set('memory_limit', '-1');
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/'.$filename));
+        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/1674653063.png'));
         // print_r($qrcode);
         $text = $qrcode->text();
         // print_r("TES");
         // print_r($text);
-        // print_r ($text);
-        return $text;
+        print_r ($text);
+        // return $text;
     }
 }

@@ -23,25 +23,24 @@ class ConvertImageController extends Controller
     }
     public function fileUploadPost(Request $request)
     {
-        phpinfo();
-        // $request->validate([
-        //     'file' => 'required|mimes:pdf,xlx,csv|max:2048',
-        // ]);
+        $request->validate([
+            'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+        ]);
   
-        // $fileName = time().'.'.$request->file->extension();  
+        $fileName = time().'.'.$request->file->extension();  
    
-        // if($request->file->move(public_path('/file_djp_ttf_idm'), $fileName)){
-        //     // Convert Fp ke Gambar
-        //     $fileNameConverted = $this->convertFpPdfToImage($fileName);
-        //     $linkQr = '';
-        //     foreach ($fileNameConverted as $a){
-        //         $linkQr .= $this->readQr($a);
-        //     }
-        //     $explodeLink = explode("/",$linkQr);
-        //     print_r($explodeLink);
-        // }else{
-        //     print_r("GAGAl");
-        // }
+        if($request->file->move(public_path('/file_djp_ttf_idm'), $fileName)){
+            // Convert Fp ke Gambar
+            $fileNameConverted = $this->convertFpPdfToImage($fileName);
+            $linkQr = '';
+            foreach ($fileNameConverted as $a){
+                $linkQr .= $this->readQr($a);
+            }
+            $explodeLink = explode("/",$linkQr);
+            print_r($explodeLink);
+        }else{
+            print_r("GAGAl");
+        }
    
     }
     

@@ -62,7 +62,7 @@ class ConvertImageController extends Controller
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
                 print_r("DATA TERVALIDASI");
             }else{
-
+                print_r("DATA TIDAK TERVALIDASI");
             }
         }else{
             print_r("GAGAl");

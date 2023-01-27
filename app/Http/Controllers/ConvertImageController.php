@@ -38,9 +38,26 @@ class ConvertImageController extends Controller
             }
             $explodeLink = explode("/",$linkQr);
             print_r($explodeLink);
-            print_r("NPWP PENJUAL = ".$explodeLink[5]);
+            $npwp_penjual = substr($data[5], 0, 2) .
+                    "." .
+                    substr($data[5], 2, 3) .
+                    "." .
+                    substr($data[5], 5, 3) .
+                    "." .
+                    substr($data[5], 8, 1) .
+                    "-" .
+                    substr($data[5], 9, 3) .
+                    "." .
+                    substr($data[5], 12, 3);
+            print_r("NPWP PENJUAL = ".$npwp_penjual);
             echo "<br>";
-            print_r("NO FAKTUR = ".$explodeLink[6]);
+                $no_faktur =
+                    substr($data[6], 0, 3) .
+                    "-" .
+                    substr($data[6], 3, 2) .
+                    "." .
+                    substr($data[6], 5, 8);
+            print_r("NO FAKTUR = ".$no_faktur);
             echo "<br>";
         }else{
             print_r("GAGAl");

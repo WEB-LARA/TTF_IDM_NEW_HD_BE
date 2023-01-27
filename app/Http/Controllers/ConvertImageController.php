@@ -37,7 +37,6 @@ class ConvertImageController extends Controller
                 $linkQr .= $this->readQr($a);
             }
             $explodeLink = explode("/",$linkQr);
-            print_r($explodeLink);
             $npwp_penjual = substr($explodeLink[5], 0, 2) .
                     "." .
                     substr($explodeLink[5], 2, 3) .
@@ -59,6 +58,12 @@ class ConvertImageController extends Controller
                     substr($explodeLink[6], 5, 8);
             print_r("NO FAKTUR = ".$no_faktur);
             echo "<br>";
+
+            if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
+                print_r("DATA TERVALIDASI");
+            }else{
+
+            }
         }else{
             print_r("GAGAl");
         }

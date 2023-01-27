@@ -40,23 +40,23 @@ class ConvertImageController extends Controller
             print_r($explodeLink);
             $npwp_penjual = substr($data[5], 0, 2) .
                     "." .
-                    substr($data[5], 2, 3) .
+                    substr($explodeLink[5], 2, 3) .
                     "." .
-                    substr($data[5], 5, 3) .
+                    substr($explodeLink[5], 5, 3) .
                     "." .
-                    substr($data[5], 8, 1) .
+                    substr($explodeLink[5], 8, 1) .
                     "-" .
-                    substr($data[5], 9, 3) .
+                    substr($explodeLink[5], 9, 3) .
                     "." .
-                    substr($data[5], 12, 3);
+                    substr($explodeLink[5], 12, 3);
             print_r("NPWP PENJUAL = ".$npwp_penjual);
             echo "<br>";
                 $no_faktur =
-                    substr($data[6], 0, 3) .
+                    substr($explodeLink[6], 0, 3) .
                     "-" .
-                    substr($data[6], 3, 2) .
+                    substr($explodeLink[6], 3, 2) .
                     "." .
-                    substr($data[6], 5, 8);
+                    substr($explodeLink[6], 5, 8);
             print_r("NO FAKTUR = ".$no_faktur);
             echo "<br>";
         }else{

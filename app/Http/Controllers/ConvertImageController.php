@@ -38,26 +38,22 @@ class ConvertImageController extends Controller
             }
             $explodeLink = explode("/",$linkQr);
             $npwp_penjual = substr($explodeLink[5], 0, 2) .
-                    "." .
-                    substr($explodeLink[5], 2, 3) .
-                    "." .
-                    substr($explodeLink[5], 5, 3) .
-                    "." .
-                    substr($explodeLink[5], 8, 1) .
-                    "-" .
-                    substr($explodeLink[5], 9, 3) .
-                    "." .
-                    substr($explodeLink[5], 12, 3);
-            print_r("NPWP PENJUAL = ".$npwp_penjual);
-            echo "<br>";
-                $no_faktur =
-                    substr($explodeLink[6], 0, 3) .
-                    "-" .
-                    substr($explodeLink[6], 3, 2) .
-                    "." .
-                    substr($explodeLink[6], 5, 8);
-            print_r("NO FAKTUR = ".$no_faktur);
-            echo "<br>";
+                "." .
+                substr($explodeLink[5], 2, 3) .
+                "." .
+                substr($explodeLink[5], 5, 3) .
+                "." .
+                substr($explodeLink[5], 8, 1) .
+                "-" .
+                substr($explodeLink[5], 9, 3) .
+                "." .
+                substr($explodeLink[5], 12, 3);
+            $no_faktur =
+                substr($explodeLink[6], 0, 3) .
+                "-" .
+                substr($explodeLink[6], 3, 2) .
+                "." .
+                substr($explodeLink[6], 5, 8);
 
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
                 print_r("DATA TERVALIDASI");

@@ -38,6 +38,10 @@ class ConvertImageController extends Controller
             }
             $explodeLink = explode("/",$linkQr);
             print_r($explodeLink);
+            print_r("NPWP PENJUAL = ".$explodeLink[5]);
+            echo "<br>";
+            print_r("NO FAKTUR = ".$explodeLink[6]);
+            echo "<br>";
         }else{
             print_r("GAGAl");
         }

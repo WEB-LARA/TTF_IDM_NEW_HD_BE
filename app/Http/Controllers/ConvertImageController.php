@@ -38,7 +38,7 @@ class ConvertImageController extends Controller
             }
             $explodeLink = explode("/",$linkQr);
             print_r($explodeLink);
-            $npwp_penjual = substr($data[5], 0, 2) .
+            $npwp_penjual = substr($explodeLink[5], 0, 2) .
                     "." .
                     substr($explodeLink[5], 2, 3) .
                     "." .

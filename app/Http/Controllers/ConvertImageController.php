@@ -24,7 +24,7 @@ class ConvertImageController extends Controller
     public function fileUploadPost(Request $request)
     {
         $request->validate([
-            'file' => 'required|mimes:pdf,xlx,csv|max:2048',
+            'file' => 'required|mimes:pdf|max:2048',
         ]);
   
         $fileName = time().'.'.$request->file->extension();  
@@ -57,11 +57,21 @@ class ConvertImageController extends Controller
 
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
                 print_r("DATA TERVALIDASI");
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'validated',
+                    ]);
             }else{
-                print_r("DATA TIDAK TERVALIDASI");
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'rejected',
+                    ]);
             }
         }else{
-            print_r("GAGAl");
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'gagal membaca file',
+                ]);
         }
    
     }

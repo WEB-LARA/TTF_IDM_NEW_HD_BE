@@ -23,10 +23,6 @@ class ConvertImageController extends Controller
     }
     public function fileUploadPost(Request $request)
     {
-        header('Access-Control-Allow-Origin: http://sd6webdev2.indomaret.lan');
-        header('Access-Control-Allow-Methods: GET, POST, DELETE, PUT');
-        header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
-        header('Access-Control-Allow-Credentials: true');
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048',
         ]);

@@ -60,7 +60,7 @@ class ConvertImageController extends Controller
             echo "<br>";
             print_r($request->no_faktur);
             echo "<br>";
-            print_r($no_faktur);
+            print_r(substr($request->no_faktur, 4));
             echo "<br>";
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
                 return response()->json([

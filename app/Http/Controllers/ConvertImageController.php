@@ -65,12 +65,12 @@ class ConvertImageController extends Controller
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
                 return response()->json([
                         'status' => 'success',
-                        'message' => $linkQr,
+                        'message' => 'validated',
                     ]);
             }else{
                 return response()->json([
                         'status' => 'success',
-                        'message' => $linkQr,
+                        'message' => 'rejected',
                     ]);
             }
         }else{

@@ -58,7 +58,7 @@ class ConvertImageController extends Controller
             echo "<br>";
             print_r($npwp_penjual);
             echo "<br>";
-            print_r($request->no_faktur);
+            print_r($no_faktur);
             echo "<br>";
             print_r(substr($request->no_faktur, 4));
             echo "<br>";

@@ -54,14 +54,6 @@ class ConvertImageController extends Controller
                 substr($explodeLink[6], 3, 2) .
                 "." .
                 substr($explodeLink[6], 5, 8);
-            print_r($request->no_npwp);
-            echo "<br>";
-            print_r($npwp_penjual);
-            echo "<br>";
-            print_r($no_faktur);
-            echo "<br>";
-            print_r(substr($request->no_faktur, 4));
-            echo "<br>";
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
                 return response()->json([
                         'status' => 'success',

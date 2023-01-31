@@ -76,6 +76,7 @@ class ConvertImageController extends Controller
     }
     
     public function convertFpPdfToImage($filename){
+        header('Access-Control-Allow-Origin: *');
         $getNumberPages = new Imagick(public_path('/file_djp_ttf_idm/'.$filename));
         $numOfPages = $getNumberPages->getNumberImages();
         $imgExt = new Imagick();

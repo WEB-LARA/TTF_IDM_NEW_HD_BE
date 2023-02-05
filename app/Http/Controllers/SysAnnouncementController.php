@@ -19,7 +19,7 @@ class SysAnnouncementController extends Controller
         ]);
         $files = $request->file('file_pengumuman');
         foreach ($files as $file){
-            print_r($file->getClientOriginalExtension());
+            print_r("TEST");
         }
         // print_r($request->file('file_pengumuman'));
         // $files = $request->file('file_pengumuman');

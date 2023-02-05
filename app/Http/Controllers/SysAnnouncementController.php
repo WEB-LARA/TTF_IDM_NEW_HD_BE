@@ -20,7 +20,7 @@ class SysAnnouncementController extends Controller
         $images = [];
         // print_r($request->file('file_pengumuman'));
         if ($request->file('file_pengumuman')){
-            dd($request->file);
+            dd($request->file_pengumuman);
             foreach($request->file('file_pengumuman') as $key => $file)
             {
                 print_r("TEST");

@@ -25,7 +25,7 @@ class SysAnnouncementController extends Controller
                 echo "<br>";
             }
         }
-        $fileName = time().'.'.$request->file->extension();  
+        // $fileName = time().'.'.$request->file->extension();  
    
         // try{
         //     DB::transaction(function () use ($request){

@@ -14,9 +14,9 @@ class SysAnnouncementController extends Controller
     }
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
-        $request->validate([
-            'file' => 'required|mimes:pdf|max:2048',
-        ]);
+        // $request->validate([
+        //     'file' => 'required|mimes:pdf|max:2048',
+        // ]);
   
         if($request->file_pengumuman){
             foreach($request->file_pengumuman as $file){

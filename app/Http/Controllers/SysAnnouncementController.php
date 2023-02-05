@@ -16,10 +16,10 @@ class SysAnnouncementController extends Controller
         try{
             DB::transaction(function () use ($request,$user){
                 $announcement = SysAnnouncement::create([
-                    'JUDUL_PENGUMUMAN' => $request->username,
-                    'ISI_PENGUMUMAN' => $request->email,
-                    'START_DATE' => $request->reset_flag,
-                    'END_DATE' => Hash::make($request->password)
+                    'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
+                    'ISI_PENGUMUMAN' => $request->isi_pengumuman,
+                    'START_DATE' => $request->start_date,
+                    'END_DATE' => Hash::make($request->end_date)
                 ]);
 
             },5);

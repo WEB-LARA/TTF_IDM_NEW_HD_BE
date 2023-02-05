@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SysAnnouncement;
+use Illuminate\Support\Facades\DB;
 
 class SysAnnouncementController extends Controller
 {

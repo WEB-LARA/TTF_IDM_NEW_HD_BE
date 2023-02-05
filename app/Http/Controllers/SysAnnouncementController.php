@@ -18,7 +18,7 @@ class SysAnnouncementController extends Controller
             'file_pengumuman' => 'required',
             'file_pengumuman.*' => 'mimes:csv,txt,xlx,xls,pdf'
         ]);
-        $files = $request->file('file_pengumuman');
+        $files = $request->file;
         foreach ($files as $key => $file){
             print_r("TEST");
         }

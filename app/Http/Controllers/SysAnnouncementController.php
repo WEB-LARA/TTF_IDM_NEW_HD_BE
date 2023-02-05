@@ -18,14 +18,22 @@ class SysAnnouncementController extends Controller
             'file_pengumuman' => 'required|mimes:pdf|max:2048',
         ]);
         $images = [];
+        if ($request->file('file_pengumuman')){
 
-        foreach ($data['file_pengumuman'] as $image) {
-            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
-            print_r($fileName);
-            // $image_path =  $image->storeAs('images', $fileName,'public');
+            foreach($request->file('file_pengumuman') as $key => $file)
 
-            // array_push($images, $image_path);
-        }
+            {
+
+                $fileName = time().rand(1,99).'.'.$file->extension();  
+
+                print_r($fileName);
+                // $file->move(public_path('uploads'), $fileName);
+
+                // $files[]['name'] = $fileName;
+
+            }
+
+        } 
         // print_r($request->file('file_pengumuman'));
         // $files = $request->file('file_pengumuman');
         // foreach($files as $file){

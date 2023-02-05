@@ -15,7 +15,7 @@ class SysAnnouncementController extends Controller
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
         $files = $request->file('file_pengumuman');
-        foreach ($files as $file){
+        foreach ($files as $key => $file){
             print_r("TEST");
         }
         // print_r($request->file('file_pengumuman'));

@@ -31,12 +31,29 @@ class SysAnnouncementController extends Controller
         if($announcement){
             return response()->json([
                 'status' => 'success',
-                'message' => 'User Berhasil dibuat!'
+                'message' => 'Announcement Berhasil dibuat!'
             ],200);
         }else{
             return response()->json([
                 'status' => 'gagal',
-                'message' => 'User Gagal dibuat!'
+                'message' => 'Announcement Gagal dibuat!'
+            ],400);
+        }
+    }
+
+    public function getDataAnnouncement(){
+        $announcement = new SysAnnouncement();
+
+        $data = $announcement->getDataAnnouncement();
+
+        if($data){
+            return response()->json([
+                'status' => 'success',
+                'data' => $data
+            ],200);
+        }else{
+            return response()->json([
+                'status' => 'gagal'
             ],400);
         }
     }

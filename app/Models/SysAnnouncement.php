@@ -18,4 +18,10 @@ class SysAnnouncement extends Model
         'START_DATE',
         'END_DATE'
     ];
+
+    public function getDataAnnouncement($id){
+        $getData = SysAnnouncement::get();
+
+        return $getData;
+    }
 }

@@ -16,7 +16,8 @@ class SysAnnouncement extends Model
         'JUDUL_PENGUMUMAN',
         'ISI_PENGUMUMAN',
         'START_DATE',
-        'END_DATE'
+        'END_DATE',
+        'FILENAME'
     ];
 
     public function getDataAnnouncement(){

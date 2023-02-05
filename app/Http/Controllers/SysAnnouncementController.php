@@ -14,10 +14,6 @@ class SysAnnouncementController extends Controller
     }
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
-        $validatedData = $request->validate([
-            'file' => 'required',
-            'file.*' => 'mimes:csv,txt,xlx,xls,pdf'
-        ]);
         $files = $request->file;
         foreach ($files as $key => $file){
             print_r("TEST");

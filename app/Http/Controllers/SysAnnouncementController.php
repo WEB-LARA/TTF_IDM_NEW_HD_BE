@@ -15,7 +15,7 @@ class SysAnnouncementController extends Controller
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
         try{
-            DB::transaction(function () use ($request,$user){
+            DB::transaction(function () use ($request){
                 $announcement = SysAnnouncement::create([
                     'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
                     'ISI_PENGUMUMAN' => $request->isi_pengumuman,

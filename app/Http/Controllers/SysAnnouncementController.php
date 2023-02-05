@@ -21,7 +21,6 @@ class SysAnnouncementController extends Controller
         print_r($request->file_pengumuman);
         if($request->file_pengumuman){
             foreach($request->file_pengumuman as $file){
-                $fileName = time().'.'.$request->file->extension(); 
                 print_r($file);
                 echo "<br>";
             }

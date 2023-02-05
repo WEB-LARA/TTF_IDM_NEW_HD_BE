@@ -20,7 +20,7 @@ class SysAnnouncementController extends Controller
   
         print_r($request->file('file_pengumuman'));
         if($request->file('file_pengumuman')){
-            foreach($request->file as $file){
+            foreach($request->file('file_pengumuman') as $file){
                 print_r($file);
                 echo "<br>";
             }

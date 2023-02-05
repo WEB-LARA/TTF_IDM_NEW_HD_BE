@@ -18,9 +18,9 @@ class SysAnnouncementController extends Controller
         //     'file' => 'required|mimes:pdf|max:2048',
         // ]);
   
-        print_r($request->file_pengumuman);
-        if($request->file_pengumuman){
-            foreach($request->file_pengumuman as $file){
+        print_r($request->file);
+        if($request->file){
+            foreach($request->file as $file){
                 print_r($file);
                 echo "<br>";
             }

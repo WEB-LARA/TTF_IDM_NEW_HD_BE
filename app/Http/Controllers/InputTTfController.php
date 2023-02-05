@@ -152,6 +152,8 @@ class InputTTfController extends Controller
                         'TTF_TYPE' => $ttf_type,
                         'TTF_STATUS' => '',
                         'SOURCE' => "WEB",
+                        'FLAG_GO' => $request->flag_go,
+                        'FLAG_PPN' => $request->flag_ppn,
                         'CREATED_BY' => $user_id,
                         'CREATION_DATE' => date('Y-m-d')
                     ]);

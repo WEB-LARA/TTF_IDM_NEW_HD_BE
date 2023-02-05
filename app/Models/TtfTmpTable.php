@@ -153,7 +153,7 @@ class TtfTmpTable extends Model
     }
 
     public function deleteTmpTableByNoFpAndSessId($no_fp,$sess_id){
-        $delete = TtfTmpTable::where('SESS_ID',$sess_id)->where('NO_FP',$no_fp)->delete();
+        $delete = TtfTmpTable::where('SESS_ID',$sess_id)->whereIn('NO_FP',$no_fp)->delete();
 
         if($delete){
             return 1;

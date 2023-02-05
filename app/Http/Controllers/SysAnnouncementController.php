@@ -14,16 +14,24 @@ class SysAnnouncementController extends Controller
     }
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
-        // $request->validate([
-        //     'file' => 'required|mimes:pdf|max:2048',
-        // ]);
-  
-        print_r($request->file('file_pengumuman'));
-        $files = $request->file('file_pengumuman');
-        foreach($files as $file){
-            print_r($file);
-            echo "<br>";
+        $request->validate([
+            'file_pengumuman' => 'required|mimes:pdf|max:2048',
+        ]);
+        $images = [];
+
+        foreach ($data['file_pengumuman'] as $image) {
+            $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
+            print_r($fileName);
+            // $image_path =  $image->storeAs('images', $fileName,'public');
+
+            // array_push($images, $image_path);
         }
+        // print_r($request->file('file_pengumuman'));
+        // $files = $request->file('file_pengumuman');
+        // foreach($files as $file){
+        //     print_r($file);
+        //     echo "<br>";
+        // }
         // if($request->file('file_pengumuman')){
         //     foreach($request->file('file_pengumuman') as $file){
         //         print_r($file);

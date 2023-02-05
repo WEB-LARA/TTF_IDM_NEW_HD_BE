@@ -14,31 +14,47 @@ class SysAnnouncementController extends Controller
     }
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
-        try{
-            DB::transaction(function () use ($request){
-                $announcement = SysAnnouncement::create([
-                    'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
-                    'ISI_PENGUMUMAN' => $request->isi_pengumuman,
-                    'START_DATE' => $request->start_date,
-                    'END_DATE' => $request->end_date
-                ]);
-
-            },5);
-        }catch (\Exception $e) {
-            return $e->getMessage();
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:2048',
+        ]);
+  
+        if($request->file_pengumuman){
+            foreach($request->file_pengumuman as $file){
+                $fileName = time().'.'.$request->file->extension(); 
+                print_r($fileName);
+                echo "<br>";
+            }
         }
+        $fileName = time().'.'.$request->file->extension();  
+   
+        // try{
+        //     DB::transaction(function () use ($request){
+        //         if($request->file->move(public_path('/file_pengumuman'), $fileName)){
+        //             // Convert Fp ke Gambar
+        //             $announcement = SysAnnouncement::create([
+        //                 'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
+        //                 'ISI_PENGUMUMAN' => $request->isi_pengumuman,
+        //                 'START_DATE' => $request->start_date,
+        //                 'END_DATE' => $request->end_date
+        //             ]);
+        //         }
 
-        if($announcement){
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Announcement Berhasil dibuat!'
-            ],200);
-        }else{
-            return response()->json([
-                'status' => 'gagal',
-                'message' => 'Announcement Gagal dibuat!'
-            ],400);
-        }
+        //     },5);
+        // }catch (\Exception $e) {
+        //     return $e->getMessage();
+        // }
+
+        // if($announcement){
+        //     return response()->json([
+        //         'status' => 'success',
+        //         'message' => 'Announcement Berhasil dibuat!'
+        //     ],200);
+        // }else{
+        //     return response()->json([
+        //         'status' => 'gagal',
+        //         'message' => 'Announcement Gagal dibuat!'
+        //     ],400);
+        // }
     }
 
     public function getDataAnnouncement(){

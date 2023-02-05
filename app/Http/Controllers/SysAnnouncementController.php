@@ -22,7 +22,7 @@ class SysAnnouncementController extends Controller
         $fileName = time().'.'.$request->file_pengumuman->extension();  
    
         try{
-            DB::transaction(function () use ($request){
+            DB::transaction(function () use ($request,$fileName){
                 if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
                     // Convert Fp ke Gambar
                     $announcement = SysAnnouncement::create([

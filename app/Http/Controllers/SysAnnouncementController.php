@@ -20,7 +20,7 @@ class SysAnnouncementController extends Controller
                     'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
                     'ISI_PENGUMUMAN' => $request->isi_pengumuman,
                     'START_DATE' => $request->start_date,
-                    'END_DATE' => Hash::make($request->end_date)
+                    'END_DATE' => $request->end_date
                 ]);
 
             },5);

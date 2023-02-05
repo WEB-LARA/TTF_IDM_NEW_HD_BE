@@ -7,6 +7,10 @@ use App\Models\SysAnnouncement;
 
 class SysAnnouncementController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function createAnnouncement(Request $request){
         $announcement = new SysAnnouncement();
         try{

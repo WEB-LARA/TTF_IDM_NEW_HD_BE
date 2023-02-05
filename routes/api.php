@@ -76,5 +76,8 @@ Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('getDataInquiryTTF', 'getDataInquiryTTF');
     Route::post('getDataInquiryDetailTTF', 'getDataInquiryDetailTTF');
 });
+Route::controller(SysAnnouncementController::class)->group(function () {
+    Route::post('createAnnouncement', 'createAnnouncement');
+});
 
 

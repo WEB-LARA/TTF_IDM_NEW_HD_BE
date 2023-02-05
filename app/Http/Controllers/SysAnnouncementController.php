@@ -22,9 +22,8 @@ class SysAnnouncementController extends Controller
         if ($request->file('file_pengumuman')){
 
             foreach($request->file('file_pengumuman') as $key => $file)
-
             {
-
+                print_r("TEST");
                 $fileName = time().rand(1,99).'.'.$file->extension();  
 
                 print_r($fileName);

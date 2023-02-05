@@ -17,23 +17,10 @@ class SysAnnouncementController extends Controller
         $data = $request->validate([
             'file_pengumuman' => 'required|mimes:pdf|max:2048',
         ]);
-        $images = [];
-        // print_r($request->file('file_pengumuman'));
-        if ($request->file('file_pengumuman')){
-            dd($request->file_pengumuman);
-            foreach($request->file('file_pengumuman') as $key => $file)
-            {
-                print_r("TEST");
-                $fileName = time().rand(1,99).'.'.$file->extension();  
-
-                print_r($fileName);
-                // $file->move(public_path('uploads'), $fileName);
-
-                // $files[]['name'] = $fileName;
-
-            }
-
-        } 
+        $files = $request->file('file_pengumuman');
+        foreach ($files as $file){
+            print_r($file->getClientOriginalExtension());
+        }
         // print_r($request->file('file_pengumuman'));
         // $files = $request->file('file_pengumuman');
         // foreach($files as $file){

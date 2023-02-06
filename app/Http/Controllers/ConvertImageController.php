@@ -33,13 +33,11 @@ class ConvertImageController extends Controller
             // Convert Fp ke Gambar
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
             $linkQr = '';
-            print_r("NAMA_FILE".$fileNameConverted);
             // foreach ($fileNameConverted as $a){
             //     $linkQr .= $this->readQr($a);
             // }
             $linkQr .= $this->readQr($fileNameConverted);
             $explodeLink = explode("/",$linkQr);
-            print_r("LINK".$linkQr);
             $npwp_penjual = substr($explodeLink[5], 0, 2) .
                 "." .
                 substr($explodeLink[5], 2, 3) .
@@ -86,6 +84,7 @@ class ConvertImageController extends Controller
         // }else{
         //     $imgExt->setResolution(125,125);
         // }
+        // Set Resolusi harus 150 x 150
         $imgExt->setResolution(150,150);
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();

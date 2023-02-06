@@ -36,35 +36,36 @@ class ConvertImageController extends Controller
             // foreach ($fileNameConverted as $a){
             //     $linkQr .= $this->readQr($a);
             // }
-            // $explodeLink = explode("/",$linkQr);
-            // $npwp_penjual = substr($explodeLink[5], 0, 2) .
-            //     "." .
-            //     substr($explodeLink[5], 2, 3) .
-            //     "." .
-            //     substr($explodeLink[5], 5, 3) .
-            //     "." .
-            //     substr($explodeLink[5], 8, 1) .
-            //     "-" .
-            //     substr($explodeLink[5], 9, 3) .
-            //     "." .
-            //     substr($explodeLink[5], 12, 3);
-            // $no_faktur =
-            //     substr($explodeLink[6], 0, 3) .
-            //     "-" .
-            //     substr($explodeLink[6], 3, 2) .
-            //     "." .
-            //     substr($explodeLink[6], 5, 8);
-            // if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
-            //     return response()->json([
-            //             'status' => 'success',
-            //             'message' => 'validated',
-            //         ]);
-            // }else{
-            //     return response()->json([
-            //             'status' => 'success',
-            //             'message' => 'rejected',
-            //         ]);
-            // }
+            $linkQr .= $this->readQr($fileNameConverted);
+            $explodeLink = explode("/",$linkQr);
+            $npwp_penjual = substr($explodeLink[5], 0, 2) .
+                "." .
+                substr($explodeLink[5], 2, 3) .
+                "." .
+                substr($explodeLink[5], 5, 3) .
+                "." .
+                substr($explodeLink[5], 8, 1) .
+                "-" .
+                substr($explodeLink[5], 9, 3) .
+                "." .
+                substr($explodeLink[5], 12, 3);
+            $no_faktur =
+                substr($explodeLink[6], 0, 3) .
+                "-" .
+                substr($explodeLink[6], 3, 2) .
+                "." .
+                substr($explodeLink[6], 5, 8);
+            if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'validated',
+                    ]);
+            }else{
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'rejected',
+                    ]);
+            }
         }else{
                 return response()->json([
                     'status' => 'success',

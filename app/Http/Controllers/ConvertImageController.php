@@ -127,6 +127,7 @@ class ConvertImageController extends Controller
         $dir = public_path('/file_temp_fp/'.$year);
         if ( !file_exists( $dir ) && !is_dir( $dir ) ) {
             mkdir( $dir );     
+            chmod($dir, 777);
             print_r("TIDAK ADA");  
         }else{
             print_r("ADA");

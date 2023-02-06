@@ -85,7 +85,7 @@ class ConvertImageController extends Controller
         // }else{
         //     $imgExt->setResolution(125,125);
         // }
-        $imgExt->setResolution(125,125);
+        $imgExt->setResolution(150,150);
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();
         $expLodeFileName = explode(".",$fileNameConverted);

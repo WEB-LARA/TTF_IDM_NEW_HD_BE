@@ -38,6 +38,7 @@ class ConvertImageController extends Controller
             // }
             $linkQr .= $this->readQr($fileNameConverted);
             $explodeLink = explode("/",$linkQr);
+            print_r("LINK".$linkQr);
             $npwp_penjual = substr($explodeLink[5], 0, 2) .
                 "." .
                 substr($explodeLink[5], 2, 3) .

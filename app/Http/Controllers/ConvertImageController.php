@@ -33,6 +33,7 @@ class ConvertImageController extends Controller
             // Convert Fp ke Gambar
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
             $linkQr = '';
+            print_r("NAMA_FILE".$fileNameConverted);
             // foreach ($fileNameConverted as $a){
             //     $linkQr .= $this->readQr($a);
             // }

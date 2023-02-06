@@ -78,18 +78,24 @@ class ConvertImageController extends Controller
         $getNumberPages = new Imagick(public_path('/file_djp_ttf_idm/'.$filename));
         $numOfPages = $getNumberPages->getNumberImages();
         $imgExt = new Imagick();
-        if($numOfPages > 1){
-            $imgExt->setResolution(150,150);
-        }else{
-            $imgExt->setResolution(125,125);
-        }
+        // if($numOfPages > 1){
+        //     $imgExt->setResolution(150,150);
+        // }else{
+        //     $imgExt->setResolution(125,125);
+        // }
+        $imgExt->setResolution(125,125);
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();
         $expLodeFileName = explode(".",$fileNameConverted);
         $namaFile = $expLodeFileName[0];
         $format = $expLodeFileName[1];
         $counter=  1;
-        print_r($numOfPages);
+        $indexBarcode = $numOfPages - 1;
+        $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$indexBarcode.']'));
+        $imgExt->setImageBackgroundColor('white');
+        $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+        $imgExt->setOption('png:bit-depth', '16');
         // for($i = 0 ; $i<$numOfPages ; $i++){
         //     $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
         //     $imgExt->setImageBackgroundColor('white');
@@ -103,9 +109,9 @@ class ConvertImageController extends Controller
         //     }
         //     $counter ++;
         // }
-        // $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
+        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
 
-        // return $arrayFileConverted;
+        return $fileNameConverted;
     }
     public function readQr($filename){
         ini_set('memory_limit', '-1');

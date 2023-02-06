@@ -59,13 +59,13 @@ class SysAnnouncementController extends Controller
         //     print_r("TEST");
         // }
 
-   
+        $fileName = time().'.'.$request->file_pengumuman->extension();
         try{
             DB::transaction(function () use ($request){
                 if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
                     // Convert Fp ke Gambar
                     if($request->file_pengumuman){
-                        $fileName = time().'.'.$request->file_pengumuman->extension();
+                        // $fileName = time().'.'.$request->file_pengumuman->extension();
                         $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
                             'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
                             'ISI_PENGUMUMAN' => $request->isi_pengumuman,

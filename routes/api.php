@@ -59,6 +59,7 @@ Route::controller(InputTTfController::class)->group(function () {
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');
     Route::post('fileUploadPost','fileUploadPost');
+    Route::get('createDirectory','createDirectory');
     Route::get('readQr','readQr');
 });
 Route::controller(PrepopulatedFpController::class)->group(function () {

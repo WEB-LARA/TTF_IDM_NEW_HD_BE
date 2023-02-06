@@ -80,6 +80,7 @@ Route::controller(TtfHeaderController::class)->group(function () {
 Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('createAnnouncement', 'createAnnouncement');
     Route::post('updateAnnouncement', 'updateAnnouncement');
+    Route::post('deleteAnnouncement', 'deleteAnnouncement');
     Route::get('getDataAnnouncement', 'getDataAnnouncement');
 });
 

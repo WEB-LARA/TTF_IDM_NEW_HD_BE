@@ -80,14 +80,12 @@ class SysAnnouncementController extends Controller
         }else{
             try{
                 DB::transaction(function () use ($request){
-                    if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
-                        $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
-                            'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
-                            'ISI_PENGUMUMAN' => $request->isi_pengumuman,
-                            'START_DATE' => $request->start_date,
-                            'END_DATE' => $request->end_date
-                        ]);
-                    }
+                    $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
+                        'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
+                        'ISI_PENGUMUMAN' => $request->isi_pengumuman,
+                        'START_DATE' => $request->start_date,
+                        'END_DATE' => $request->end_date
+                    ]);
 
                 },5);
             }catch (\Exception $e) {

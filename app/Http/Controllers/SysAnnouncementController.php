@@ -96,12 +96,31 @@ class SysAnnouncementController extends Controller
         if($announcement){
             return response()->json([
                 'status' => 'success',
-                'message' => 'Announcement Berhasil dibuat!'
+                'message' => 'Announcement Berhasil di Update!'
             ],200);
         }else{
             return response()->json([
                 'status' => 'gagal',
-                'message' => 'Announcement Gagal dibuat!'
+                'message' => 'Announcement Gagal di Update!'
+            ],400);
+        }
+    }
+
+
+    public function deletePengumuman(Request $request){
+        $announcement = new SysAnnouncement(); 
+
+        $delete = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->delete();
+
+        if($announcement){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Announcement Berhasil di Delete!'
+            ],200);
+        }else{
+            return response()->json([
+                'status' => 'gagal',
+                'message' => 'Announcement Gagal di Delete!'
             ],400);
         }
     }

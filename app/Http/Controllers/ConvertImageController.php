@@ -89,7 +89,7 @@ class ConvertImageController extends Controller
         $namaFile = $expLodeFileName[0];
         $format = $expLodeFileName[1];
         $counter=  1;
-        priont_r($numOfPages);
+        print_r($numOfPages);
         // for($i = 0 ; $i<$numOfPages ; $i++){
         //     $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
         //     $imgExt->setImageBackgroundColor('white');

@@ -79,13 +79,13 @@ class ConvertImageController extends Controller
         $getNumberPages = new Imagick(public_path('/file_djp_ttf_idm/'.$filename));
         $numOfPages = $getNumberPages->getNumberImages();
         $imgExt = new Imagick();
-        // if($numOfPages > 1){
-        //     $imgExt->setResolution(150,150);
-        // }else{
-        //     $imgExt->setResolution(125,125);
-        // }
+        if($numOfPages > 1){
+            $imgExt->setResolution(150,150);
+        }else{
+            $imgExt->setResolution(125,125);
+        }
         // Set Resolusi harus 150 x 150
-        $imgExt->setResolution(150,150);
+        // $imgExt->setResolution(150,150);
         $fileNameConverted = time().'.'.'png';
         $arrayFileConverted =array ();
         $expLodeFileName = explode(".",$fileNameConverted);

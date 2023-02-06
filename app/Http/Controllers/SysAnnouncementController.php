@@ -61,12 +61,9 @@ class SysAnnouncementController extends Controller
 
         if($request->file_pengumuman){
             $fileName = time().'.'.$request->file_pengumuman->extension();
-        }
-            DB::transaction(function () use ($request,$fileName){
-                if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
-                    // Convert Fp ke Gambar
-                    if($request->file_pengumuman){
-                        // $fileName = time().'.'.$request->file_pengumuman->extension();
+            try{
+                DB::transaction(function () use ($request,$fileName){
+                    if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
                         $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
                             'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
                             'ISI_PENGUMUMAN' => $request->isi_pengumuman,
@@ -74,8 +71,16 @@ class SysAnnouncementController extends Controller
                             'END_DATE' => $request->end_date,
                             'FILENAME' => $fileName
                         ]);
+                    }
 
-                    }else{
+                },5);
+            }catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }else{
+            try{
+                DB::transaction(function () use ($request){
+                    if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
                         $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
                             'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
                             'ISI_PENGUMUMAN' => $request->isi_pengumuman,
@@ -83,37 +88,12 @@ class SysAnnouncementController extends Controller
                             'END_DATE' => $request->end_date
                         ]);
                     }
-                }
 
-            },5);
-        // try{
-        //     DB::transaction(function () use ($request,$fileName){
-        //         if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
-        //             // Convert Fp ke Gambar
-        //             if($request->file_pengumuman){
-        //                 // $fileName = time().'.'.$request->file_pengumuman->extension();
-        //                 $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
-        //                     'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
-        //                     'ISI_PENGUMUMAN' => $request->isi_pengumuman,
-        //                     'START_DATE' => $request->start_date,
-        //                     'END_DATE' => $request->end_date,
-        //                     'FILENAME' => $fileName
-        //                 ]);
-
-        //             }else{
-        //                 $announcement = SysAnnouncement::where('ID_PENGUMUMAN',$request->id_pengumuman)->update([
-        //                     'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
-        //                     'ISI_PENGUMUMAN' => $request->isi_pengumuman,
-        //                     'START_DATE' => $request->start_date,
-        //                     'END_DATE' => $request->end_date
-        //                 ]);
-        //             }
-        //         }
-
-        //     },5);
-        // }catch (\Exception $e) {
-        //     return $e->getMessage();
-        // }
+                },5);
+            }catch (\Exception $e) {
+                return $e->getMessage();
+            }
+        }
 
         if($announcement){
             return response()->json([

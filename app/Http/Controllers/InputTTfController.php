@@ -213,12 +213,11 @@ class InputTTfController extends Controller
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                     }
                 }
-
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'TTF Berhasil Disimpan!',
+                    ]);
             },5);
-            return response()->json([
-                    'status' => 'success',
-                    'message' => 'TTF Berhasil Disimpan!',
-                ]);
         }catch (\Exception $e) {
             return $e->getMessage();
         }

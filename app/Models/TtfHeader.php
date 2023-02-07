@@ -202,7 +202,13 @@ class TtfHeader extends Model
 							th.SUM_TAX_FP = (select IFNULL(sum(tf.FP_TAX_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
 							th.JUMLAH_BPB = (select count(*) from ttf_lines tl where tl.TTF_ID=th.TTF_ID)
 							where th.TTF_NUM IN (?)';
-        DB::select($statement,[$ttf_list]);
+        $update = DB::select($statement,[$ttf_list]);
+
+        if($update){
+            return 1;
+        }else{
+            return 0;
+        }
         // $this
         //     ->db
         //     ->query($statement, array(

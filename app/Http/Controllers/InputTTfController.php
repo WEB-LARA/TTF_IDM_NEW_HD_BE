@@ -38,6 +38,7 @@ class InputTTfController extends Controller
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$file){
                 $ttf_param_table = new TtfParamTable();
                 $get_nomor_ttf = $ttf_param_table->getRunningYears();
+                print_r("NOMOR_TTF");
                 print_r($get_nomor_ttf);
                 // $sys_supp_site = new SysSuppSite();
                 // $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);

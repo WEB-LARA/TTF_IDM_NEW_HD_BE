@@ -196,13 +196,12 @@ class TtfHeader extends Model
 
     public function updateTtfInsert($ttf_list)
     {
-        $statement = 'UPDATEE ttf_headers th set
-							th.JUMLAH_FP = (select count(*) from ttf_fp tf where tf.TTF_ID=th.TTF_ID and tf.used_flag = ?),
+        $update = DB::select("UPDATE ttf_headers th set
+							th.JUMLAH_FP = (select count(*) from ttf_fp tf where tf.TTF_ID=th.TTF_ID and tf.used_flag = 'Y'),
 							th.SUM_DPP_FP = (select IFNULL(sum(tf.FP_DPP_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
 							th.SUM_TAX_FP = (select IFNULL(sum(tf.FP_TAX_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
 							th.JUMLAH_BPB = (select count(*) from ttf_lines tl where tl.TTF_ID=th.TTF_ID)
-							where th.TTF_NUM IN (?)';
-        $update = DB::select($statement,[$ttf_list]);
+							where th.TTF_NUM IN (?)",[$ttf_list]);
 
         if($update){
             return 1;

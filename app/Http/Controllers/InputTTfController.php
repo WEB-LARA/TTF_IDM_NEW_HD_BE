@@ -226,11 +226,12 @@ class InputTTfController extends Controller
         }
     }
 
-    public function getTtfNumber($branchCode){
+    public function getTtfNumber(){
         $ttf_param_table = new TtfParamTable();
         $getNumTTf = $ttf_param_table->getRunningYears();
         // print_r($getNumTTf->RUNNING_YEARS);
         // print_r($getNumTTf->YEAR_NOW);
+        $branchCode = '005';
         $running_year = $getNumTTf->RUNNING_YEARS;
         $year_now = $getNumTTf->YEAR_NOW;
         $counter_ttfs = $getNumTTf->COUNTER_TTFS;

@@ -11,6 +11,7 @@ use App\Models\SysSuppSite;
 use App\Models\PrepopulatedFp;
 use App\Models\TtfDataBpb;
 use App\Models\SysFpFisikTemp;
+use App\Models\TtfParamTable;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -35,39 +36,42 @@ class InputTTfController extends Controller
         $file = $request->file;
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$file){
-                $sys_supp_site = new SysSuppSite();
-                $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
-                foreach($data_bpb as $a){
-                    $tmpTable = TtfTmpTable::create([
-                        'SEQ_NUM' => 1,
-                        'FP_TYPE' => $fp_type,
-                        'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
-                        'CABANG' => $branch_code,
-                        'NO_FP' => $no_fp,
-                        'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
-                        'FP_DATE' => $fp_date,
-                        'FP_DPP' => $dpp_fp,
-                        'FP_TAX' => $tax_fp,
-                        'BPB_NUM' => $a['bpb_num'],
-                        'BPB_DATE' => $a['bpb_date'],
-                        'BPB_AMOUNT' => $a['bpb_dpp'],
-                        'BPB_PPN' => $a['bpb_ppn'],
-                        'SESS_ID' => $session_id,
-                        'SCAN_FLAG' => $scan_flag
-                    ]);
-                }
-                // $sys_fp_fisik_temp = new SysFpFisikTemp();
-                $fileNameConverted = time().'.'.'pdf';
-                $real_name = $file->getClientOriginalName();
-                if($file->move(public_path('/file_temp_fp'), $fileNameConverted)){
-                    $createFpFisikTemp = SysFpFisikTemp::create([
-                        "SESSION" => $session_id,
-                        "FP_NUM" => $no_fp,
-                        "FILENAME" => $fileNameConverted,
-                        "REAL_NAME" => $real_name,
-                        "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted)
-                    ]);
-                }
+                $ttf_param_table = new TtfParamTable();
+                $get_nomor_ttf = $ttf_param_table->getRunningYears();
+                print_r($get_nomor_ttf);
+                // $sys_supp_site = new SysSuppSite();
+                // $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
+                // foreach($data_bpb as $a){
+                //     $tmpTable = TtfTmpTable::create([
+                //         'SEQ_NUM' => 1,
+                //         'FP_TYPE' => $fp_type,
+                //         'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
+                //         'CABANG' => $branch_code,
+                //         'NO_FP' => $no_fp,
+                //         'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
+                //         'FP_DATE' => $fp_date,
+                //         'FP_DPP' => $dpp_fp,
+                //         'FP_TAX' => $tax_fp,
+                //         'BPB_NUM' => $a['bpb_num'],
+                //         'BPB_DATE' => $a['bpb_date'],
+                //         'BPB_AMOUNT' => $a['bpb_dpp'],
+                //         'BPB_PPN' => $a['bpb_ppn'],
+                //         'SESS_ID' => $session_id,
+                //         'SCAN_FLAG' => $scan_flag
+                //     ]);
+                // }
+                // // $sys_fp_fisik_temp = new SysFpFisikTemp();
+                // $fileNameConverted = time().'.'.'pdf';
+                // $real_name = $file->getClientOriginalName();
+                // if($file->move(public_path('/file_temp_fp'), $fileNameConverted)){
+                //     $createFpFisikTemp = SysFpFisikTemp::create([
+                //         "SESSION" => $session_id,
+                //         "FP_NUM" => $no_fp,
+                //         "FILENAME" => $fileNameConverted,
+                //         "REAL_NAME" => $real_name,
+                //         "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted)
+                //     ]);
+                // }
 
             },5);
 

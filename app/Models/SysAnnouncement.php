@@ -27,7 +27,7 @@ class SysAnnouncement extends Model
     }
 
     public function getFilename($id){
-        $getData = SysAnnouncement::where('ID_PENGUMUMAN',$id)->select('FILENAME')->get();
+        $getData = SysAnnouncement::where('ID_PENGUMUMAN',$id)->select('FILENAME')->first();
         return $getData;
     }
 }

@@ -21,7 +21,7 @@ class SysAnnouncementController extends Controller
 
         try{
             DB::transaction(function () use ($request){
-                if($request->file_pengumuman){
+                if($request->hasFile('file_pengumuman')){
                     $fileName = time().'.'.$request->file_pengumuman->extension();  
                     if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
                         // Convert Fp ke Gambar

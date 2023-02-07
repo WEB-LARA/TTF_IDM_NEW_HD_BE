@@ -177,9 +177,7 @@ class InputTTfController extends Controller
                     //     'CREATED_BY' => $user_id,
                     //     'CREATION_DATE' => date('Y-m-d')
                     // ]);
-                    // $concat_ttf_num .= $getTtfNumber.',';
-                    // print_r($concat_ttf_num);
-                    // echo "<br>";
+                    $concat_ttf_num .= $getTtfNumber.',';
                     // $idHeader = $insertHeader->TTF_ID;
 
                     // foreach($dataFpTmp as $b){
@@ -219,8 +217,8 @@ class InputTTfController extends Controller
                     //     $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                     // }
                 }
-                $concat_ttf_num .= rtrim($concat_ttf_num, ',');
-                // print_r($concat_ttf_num);
+                $concat_ttf_num = rtrim($concat_ttf_num, ',');
+                print_r($concat_ttf_num);
             },5);
             return response()->json([
                     'status' => 'success',

@@ -55,6 +55,7 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::post('editTmpTTF', 'editTmpTTF');
     Route::post('getDataTtfTmpBYSessionId', 'getDataTtfTmpBYSessionId');
     Route::post('saveTTf', 'saveTTf');
+    Route::get('getTtfNumber','getTtfNumber');
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');

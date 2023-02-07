@@ -225,4 +225,10 @@ class InputTTfController extends Controller
             return $e->getMessage();
         }
     }
+
+    public function getTtfNumber(){
+        $ttf_param_table = new TtfParamTable();
+        $getNumTTf = $ttf_param_table->getRunningYears();
+        print_r($getNumTTf->RUNNING_YEARS);
+    }
 }

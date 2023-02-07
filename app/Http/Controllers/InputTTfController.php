@@ -151,7 +151,7 @@ class InputTTfController extends Controller
         $ttf_headers = new TtfHeader();
         $ttf_fp = new TtfFp();
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
-        $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$$request->session_id);
+        $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
         $user_id = $request->user_id;
         // print_r($data);
         try{

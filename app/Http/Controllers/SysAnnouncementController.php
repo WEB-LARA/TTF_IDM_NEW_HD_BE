@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SysAnnouncement;
 use Illuminate\Support\Facades\DB;
-
+use Response;
 class SysAnnouncementController extends Controller
 {
     // public function __construct()
@@ -161,6 +161,6 @@ class SysAnnouncementController extends Controller
                   'Content-Type: application/pdf',
                 );
 
-        return Response::download($file, 'filename.pdf', $headers);
+        return Response::download($file, $getFilename->FILENAME.'.pdf', $headers);
     }
 }

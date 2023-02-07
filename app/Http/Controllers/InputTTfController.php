@@ -235,7 +235,7 @@ class InputTTfController extends Controller
         $running_year = $getNumTTf->RUNNING_YEARS;
         $year_now = $getNumTTf->YEAR_NOW;
         $counter_ttfs = $getNumTTf->COUNTER_TTFS;
-        $year_use = $getNumTTf->COUNTER_TTFS;
+        $year_use = $getNumTTf->YEAR_USE;
         if ($running_year != $year_now)
         {
             $updateRunningYears = $ttf_param_table->updateRunningYears($year_now);

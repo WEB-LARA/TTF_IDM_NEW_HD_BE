@@ -10,6 +10,7 @@ use App\Models\TtfLines;
 use App\Models\SysSuppSite;
 use App\Models\PrepopulatedFp;
 use App\Models\TtfDataBpb;
+use App\Models\SysFpFisikTemp;
 use Illuminate\Support\Facades\DB;
 
 class InputTTfController extends Controller
@@ -54,6 +55,16 @@ class InputTTfController extends Controller
                         'SCAN_FLAG' => $scan_flag
                     ]);
                 }
+                // $sys_fp_fisik_temp = new SysFpFisikTemp();
+                $fileNameConverted = time().'.'.'pdf';
+                $real_name = $request->file->getClientOriginalName();
+                $createFpFisikTemp = SysFpFisikTemp::create([
+                    "SESSION" => $session_id,
+                    "FP_NUM" => $no_fp,
+                    "FILENAME" => $fileNameConverted,
+                    "REAL_NAME" => $real_name,
+                    "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted)
+                ]);
 
             },5);
 

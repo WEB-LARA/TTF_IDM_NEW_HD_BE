@@ -93,7 +93,7 @@ class ConvertImageController extends Controller
         $format = $expLodeFileName[1];
         $counter=  1;
         $indexBarcode = $numOfPages - 1;
-        $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$indexBarcode.']'));
+        $imgExt->readImage(public_path('/file_temp_fp/'.$filename.'['.$indexBarcode.']'));
         $imgExt->setImageBackgroundColor('white');
         $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
         $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);

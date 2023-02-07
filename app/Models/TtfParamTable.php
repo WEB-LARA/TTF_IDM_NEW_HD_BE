@@ -9,7 +9,7 @@ class TtfParamTable extends Model
 {
     use HasFactory;
 
-    protected $table='ttf_lines';
+    protected $table='ttf_param_table';
     public $timestamps = false;
     protected $primaryKey = 'TTF_LINE_ID';
     protected $fillable = [

@@ -230,5 +230,6 @@ class InputTTfController extends Controller
         $ttf_param_table = new TtfParamTable();
         $getNumTTf = $ttf_param_table->getRunningYears();
         print_r($getNumTTf->RUNNING_YEARS);
+        print_r($getNumTTf->YEAR_NOW);
     }
 }

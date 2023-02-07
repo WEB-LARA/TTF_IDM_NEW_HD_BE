@@ -66,7 +66,8 @@ class InputTTfController extends Controller
                         "FP_NUM" => $no_fp,
                         "FILENAME" => $fileNameConverted,
                         "REAL_NAME" => $real_name,
-                        "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted)
+                        "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted),
+                        "CREATED_DATE" => date('Y-m-d')
                     ]);
                 }
 

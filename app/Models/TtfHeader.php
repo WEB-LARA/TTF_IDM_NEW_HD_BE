@@ -215,12 +215,12 @@ class TtfHeader extends Model
             $update = DB::select("UPDATE ttf_headers th set
 		    					    th.SELISIH_DPP = abs(th.SUM_DPP_FP - th.SUM_DPP_BPB),
 		    					    th.SELISIH_TAX = abs(th.SUM_TAX_FP - th.SUM_TAX_BPB) where th.TTF_NUM IN (?)",[$ttf_list]);
+            if($update){
+                return 1;
+            }else{
+                return 0;
+            }
         },5);
-        if($update){
-            return 1;
-        }else{
-            return 0;
-        }
 
 
         /*$this->db->query("update ttf_headers a set

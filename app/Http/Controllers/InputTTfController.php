@@ -226,10 +226,21 @@ class InputTTfController extends Controller
         }
     }
 
-    public function getTtfNumber(){
+    public function getTtfNumber($branchCode){
         $ttf_param_table = new TtfParamTable();
         $getNumTTf = $ttf_param_table->getRunningYears();
-        print_r($getNumTTf->RUNNING_YEARS);
-        print_r($getNumTTf->YEAR_NOW);
+        // print_r($getNumTTf->RUNNING_YEARS);
+        // print_r($getNumTTf->YEAR_NOW);
+        $running_year = $getNumTTf->RUNNING_YEARS;
+        $year_now = $getNumTTf->YEAR_NOW;
+        $counter_ttfs = $getNumTTf->COUNTER_TTFS;
+        $year_use = $getNumTTf->COUNTER_TTFS;
+        if ($running_year != $year_now)
+        {
+            $updateRunningYears = $ttf_param_table->updateRunningYears($year_now);
+        }
+        $count = strlen($counter_ttfs);
+        $ttf_num = $year_use . $branchCode . str_pad(($counter_ttfs) , $count, '0', STR_PAD_LEFT);
+        print_r($ttf_num);
     }
 }

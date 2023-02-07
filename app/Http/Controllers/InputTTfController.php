@@ -217,6 +217,7 @@ class InputTTfController extends Controller
                     // }
                 }
                 $concat_ttf_num .= rtrim($concat_ttf_num, ',');
+                print_r($concat_ttf_num);
             },5);
             return response()->json([
                     'status' => 'success',

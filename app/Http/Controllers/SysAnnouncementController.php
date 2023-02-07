@@ -67,7 +67,7 @@ class SysAnnouncementController extends Controller
         //     print_r("TEST");
         // }
 
-        if($request->file_pengumuman){
+        if($request->hasFile('file_pengumuman')){
             $fileName = time().'.'.$request->file_pengumuman->extension();
             try{
                 DB::transaction(function () use ($request,$fileName){

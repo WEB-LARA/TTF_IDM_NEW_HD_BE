@@ -154,6 +154,7 @@ class InputTTfController extends Controller
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
         $user_id = $request->user_id;
         // print_r($data);
+        $concat_ttf_num = '';
         try{
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){
@@ -175,7 +176,7 @@ class InputTTfController extends Controller
                         'CREATED_BY' => $user_id,
                         'CREATION_DATE' => date('Y-m-d')
                     ]);
-
+                    $concat_ttf_num .= $getTtfNumber.',';
                     $idHeader = $insertHeader->TTF_ID;
 
                     foreach($dataFpTmp as $b){
@@ -215,6 +216,7 @@ class InputTTfController extends Controller
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                     }
                 }
+                $concat_ttf_num .= rtrim($concat_ttf_num, ',');
             },5);
             return response()->json([
                     'status' => 'success',

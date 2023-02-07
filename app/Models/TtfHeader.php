@@ -38,7 +38,9 @@ class TtfHeader extends Model
         'SUM_DPP_BPB',
         'SUM_TAX_BPB',
         'SELISIH_DPP',
-        'SELISIH_TAX'
+        'SELISIH_TAX',
+        'FLAG_GO',
+        'FLAG_PPN'
     ];
 
 

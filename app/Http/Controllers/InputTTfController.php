@@ -223,7 +223,7 @@ class InputTTfController extends Controller
         }
     }
 
-    public function getTtfNumber($branch_code){
+    public function getTtfNumber($branchCode){
         $ttf_param_table = new TtfParamTable();
         $getNumTTf = $ttf_param_table->getRunningYears();
         // print_r($getNumTTf->RUNNING_YEARS);

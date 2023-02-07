@@ -21,7 +21,7 @@ class TtfParamTable extends Model
 
     public function getRunningYears(){
         // SELECT COUNTER_TTFS,RUNNING_YEARS,DATE_FORMAT(sysdate(),'%Y') YEAR_NOW,DATE_FORMAT(sysdate(),'%y') YEAR_USE FROM ttf_param_table
-        $data = TtfParamTable::where('ID_PARAM',1)->select('COUNTER_TTFS','RUNNING_YEARS')->selectRaw('DATE_FORMAT(sysdate(),\'%Y\') YEAR_NOW')->selectRaw('DATE_FORMAT(sysdate(),\'%y\') YEAR_USE')->get();
+        $data = TtfParamTable::where('ID_PARAM',1)->select('COUNTER_TTFS','RUNNING_YEARS')->selectRaw('DATE_FORMAT(sysdate(),\'%Y\') YEAR_NOW')->selectRaw('DATE_FORMAT(sysdate(),\'%y\') YEAR_USE')->first();
 
         if($data){
             return $data;

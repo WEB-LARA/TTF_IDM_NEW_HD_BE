@@ -170,7 +170,6 @@ class InputTTfController extends Controller
                         'SOURCE' => "WEB",
                         'FLAG_GO' => $request->flag_go,
                         'FLAG_PPN' => $request->flag_ppn,
-                        'JUMLAH_FP' => $a['JUMLAH_FP'],
                         'SUM_DPP_FP' => $a['SUM_DPP_FP'],
                         'SUM_TAX_FP' => $a['SUM_TAX_FP'],
                         'CREATED_BY' => $user_id,

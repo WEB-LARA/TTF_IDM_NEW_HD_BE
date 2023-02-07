@@ -159,6 +159,7 @@ class InputTTfController extends Controller
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num){
                 foreach($dataHeader as $a){
                     $getTtfNumber = $this->getTtfNumber($a['CABANG']);
+                    print_r($a['CABANG']);
                     // // print_r($a['FP_TYPE']);
                     // $ttf_type = $a['FP_TYPE'];
                     // $insertHeader = TtfHeader::create([

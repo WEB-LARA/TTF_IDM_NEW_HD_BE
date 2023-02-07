@@ -155,12 +155,12 @@ class SysAnnouncementController extends Controller
         $announcement = new SysAnnouncement();
         $getFilename = $announcement->getFilename($request->id_pengumuman);
         print_r($getFilename->FILENAME);
-        // $file= public_path(). "/download/info.pdf";
+        $file= public_path('/file_pengumuman/'.$getFilename->FILENAME);
 
-        // $headers = array(
-        //           'Content-Type: application/pdf',
-        //         );
+        $headers = array(
+                  'Content-Type: application/pdf',
+                );
 
-        // return Response::download($file, 'filename.pdf', $headers);
+        return Response::download($file, 'filename.pdf', $headers);
     }
 }

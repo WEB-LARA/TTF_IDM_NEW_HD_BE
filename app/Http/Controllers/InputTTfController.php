@@ -177,6 +177,8 @@ class InputTTfController extends Controller
                     //     'CREATION_DATE' => date('Y-m-d')
                     // ]);
                     $concat_ttf_num .= $getTtfNumber.',';
+                    print_r($concat_ttf_num);
+                    echo "<br>";
                     // $idHeader = $insertHeader->TTF_ID;
 
                     // foreach($dataFpTmp as $b){

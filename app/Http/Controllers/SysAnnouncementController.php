@@ -154,7 +154,7 @@ class SysAnnouncementController extends Controller
         //PDF file is stored under project/public/download/info.pdf
         $announcement = new SysAnnouncement();
         $getFilename = $announcement->getFilename($request->id_pengumuman);
-        print_r($getFilename->FILENAME);
+        print_r($getFilename);
         // $file= public_path(). "/download/info.pdf";
 
         // $headers = array(

@@ -158,7 +158,7 @@ class InputTTfController extends Controller
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 $ttf_param_table = new TtfParamTable();
                 $getNumTTf = $ttf_param_table->getRunningYears();
-                print_r($getNumTTf);
+                print_r($getNumTTf->RUNNING_YEARS);
                 // foreach($dataHeader as $a){
                 //     // print_r($a['FP_TYPE']);
                 //     $ttf_type = $a['FP_TYPE'];

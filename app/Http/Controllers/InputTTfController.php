@@ -159,62 +159,62 @@ class InputTTfController extends Controller
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table){
                 foreach($dataHeader as $a){
                     $getTtfNumber = $this->getTtfNumber($a['CABANG']);
-                    // print_r($a['FP_TYPE']);
-                    $ttf_type = $a['FP_TYPE'];
-                    $insertHeader = TtfHeader::create([
-                        'BRANCH_CODE' => $a['CABANG'],
-                        'VENDOR_SITE_CODE' => $a['SUPP_SITE'],
-                        'TTF_NUM' => $getTtfNumber,
-                        'TTF_DATE' => date('Y-m-d'),
-                        'TTF_TYPE' => $ttf_type,
-                        'TTF_STATUS' => '',
-                        'SOURCE' => "WEB",
-                        'FLAG_GO' => $request->flag_go,
-                        'FLAG_PPN' => $request->flag_ppn,
-                        'SUM_DPP_FP' => $a['SUM_DPP_FP'],
-                        'SUM_TAX_FP' => $a['SUM_TAX_FP'],
-                        'CREATED_BY' => $user_id,
-                        'CREATION_DATE' => date('Y-m-d')
-                    ]);
+                    // // print_r($a['FP_TYPE']);
+                    // $ttf_type = $a['FP_TYPE'];
+                    // $insertHeader = TtfHeader::create([
+                    //     'BRANCH_CODE' => $a['CABANG'],
+                    //     'VENDOR_SITE_CODE' => $a['SUPP_SITE'],
+                    //     'TTF_NUM' => $getTtfNumber,
+                    //     'TTF_DATE' => date('Y-m-d'),
+                    //     'TTF_TYPE' => $ttf_type,
+                    //     'TTF_STATUS' => '',
+                    //     'SOURCE' => "WEB",
+                    //     'FLAG_GO' => $request->flag_go,
+                    //     'FLAG_PPN' => $request->flag_ppn,
+                    //     'SUM_DPP_FP' => $a['SUM_DPP_FP'],
+                    //     'SUM_TAX_FP' => $a['SUM_TAX_FP'],
+                    //     'CREATED_BY' => $user_id,
+                    //     'CREATION_DATE' => date('Y-m-d')
+                    // ]);
                     $concat_ttf_num .= $getTtfNumber.',';
-                    $idHeader = $insertHeader->TTF_ID;
+                    // $idHeader = $insertHeader->TTF_ID;
 
-                    foreach($dataFpTmp as $b){
-                        $insertFp = TtfFp::create([
-                            'TTF_ID' => $idHeader,
-                            'FP_NUM' => $b['NO_FP'],
-                            'FP_TYPE' => $b['FP_TYPE'],
-                            'FP_DATE' => $b['FP_DATE'],
-                            'FP_DPP_AMT' => $b['FP_DPP'],
-                            'FP_TAX_AMT' => $b['FP_TAX'],
-                            'USED_FLAG' => "Y",
-                            'CREATED_BY' => $user_id,
-                            'CREATION_DATE' => date('Y-m-d'),
-                            'TTF_HEADERS_TTF_ID' => $idHeader,
-                            'SCAN_FLAG' => $b['SCAN_FLAG']
-                        ]);
-                        $idFp = $insertFp->TTF_FP_ID;
-                        $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
+                    // foreach($dataFpTmp as $b){
+                    //     $insertFp = TtfFp::create([
+                    //         'TTF_ID' => $idHeader,
+                    //         'FP_NUM' => $b['NO_FP'],
+                    //         'FP_TYPE' => $b['FP_TYPE'],
+                    //         'FP_DATE' => $b['FP_DATE'],
+                    //         'FP_DPP_AMT' => $b['FP_DPP'],
+                    //         'FP_TAX_AMT' => $b['FP_TAX'],
+                    //         'USED_FLAG' => "Y",
+                    //         'CREATED_BY' => $user_id,
+                    //         'CREATION_DATE' => date('Y-m-d'),
+                    //         'TTF_HEADERS_TTF_ID' => $idHeader,
+                    //         'SCAN_FLAG' => $b['SCAN_FLAG']
+                    //     ]);
+                    //     $idFp = $insertFp->TTF_FP_ID;
+                    //     $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
 
-                        foreach ($getDataBPBperFP as $c){
-                            $insertLines = TtfLines::create([
-                                'TTF_ID' => $idHeader,
-                                'TTF_BPB_ID' => $c['BPB_ID'],
-                                'TTF_FP_ID' => $idFp,
-                                'ACTIVE_FLAG' => "Y",
-                                'CREATION_DATE' => date('Y-m-d'),
-                                'CREATED_BY' => $user_id,
-                                'TTF_HEADERS_TTF_ID' => $idHeader,
-                                'TTF_FP_TTF_FP_ID' => $idFp
-                            ]);
+                    //     foreach ($getDataBPBperFP as $c){
+                    //         $insertLines = TtfLines::create([
+                    //             'TTF_ID' => $idHeader,
+                    //             'TTF_BPB_ID' => $c['BPB_ID'],
+                    //             'TTF_FP_ID' => $idFp,
+                    //             'ACTIVE_FLAG' => "Y",
+                    //             'CREATION_DATE' => date('Y-m-d'),
+                    //             'CREATED_BY' => $user_id,
+                    //             'TTF_HEADERS_TTF_ID' => $idHeader,
+                    //             'TTF_FP_TTF_FP_ID' => $idFp
+                    //         ]);
 
-                            $ttf_data_bpb = new TtfDataBpb();
+                    //         $ttf_data_bpb = new TtfDataBpb();
 
-                            $updateDataBpb = $ttf_data_bpb->updateDataBpb($c['BPB_ID'],'Y');
-                        }
-                        $prepopulated_fp = new PrepopulatedFp();
-                        $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
-                    }
+                    //         $updateDataBpb = $ttf_data_bpb->updateDataBpb($c['BPB_ID'],'Y');
+                    //     }
+                    //     $prepopulated_fp = new PrepopulatedFp();
+                    //     $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
+                    // }
                 }
                 $concat_ttf_num .= rtrim($concat_ttf_num, ',');
             },5);

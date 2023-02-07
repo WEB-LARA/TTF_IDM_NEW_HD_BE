@@ -94,7 +94,7 @@ class TtfTmpTable extends Model
         return $getData;
     }
 
-    public function getDataTTFTmpFP($supp_site_code,$branch_code,$session_id){
+    public function getDataTTFTmpFP($supp_site_code,$branch_code,$sess_id){
         $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('SESS_ID',$sess_id)->groupBy('NO_FP')->select('NO_FP','FP_TYPE','NO_NPWP','FP_DATE','FP_DPP','FP_TAX','SCAN_FLAG')->get();
 
         return $getData;

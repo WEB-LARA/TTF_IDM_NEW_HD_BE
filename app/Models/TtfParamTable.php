@@ -31,8 +31,20 @@ class TtfParamTable extends Model
     }
 
     public function updateRunningYears($running_year){
-        $update = TtfParamTable::where('ID_PARAME',1)->update([
+        $update = TtfParamTable::where('ID_PARAM',1)->update([
             'RUNNING_YEARS' => $running_year
+        ]);
+
+        if($update){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function updateCounterTtfs($counter_ttfs){
+        $update = TtfParamTable::where('ID_PARAM',1)->update([
+            'COUNTER_TTFS' => $counter_ttfs
         ]);
 
         if($update){

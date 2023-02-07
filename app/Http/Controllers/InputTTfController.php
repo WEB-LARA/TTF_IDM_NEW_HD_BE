@@ -242,6 +242,8 @@ class InputTTfController extends Controller
         }
         $count = strlen($counter_ttfs);
         $ttf_num = $year_use . $branchCode . str_pad(($counter_ttfs) , $count, '0', STR_PAD_LEFT);
+
+        $updateCounterTtfs = $ttf_param_table->updateCounterTtfs($counter_ttfs+1);
         print_r($ttf_num);
     }
 }

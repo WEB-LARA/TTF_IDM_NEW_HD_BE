@@ -216,7 +216,6 @@ class InputTTfController extends Controller
                     }
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
-                print_r($concat_ttf_num);
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
                 
             },5);

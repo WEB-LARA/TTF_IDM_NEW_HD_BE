@@ -196,7 +196,7 @@ class TtfHeader extends Model
 
     public function updateTtfInsert($ttf_list)
     {
-        DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers){
+        DB::transaction(function () use($ttf_list){
             $update = DB::select("UPDATE ttf_headers th set
 		    					th.JUMLAH_FP = (select count(*) from ttf_fp tf where tf.TTF_ID=th.TTF_ID and tf.used_flag = 'Y'),
 		    					th.SUM_DPP_FP = (select IFNULL(sum(tf.FP_DPP_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),

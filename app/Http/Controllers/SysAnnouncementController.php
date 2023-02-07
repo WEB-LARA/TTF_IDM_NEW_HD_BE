@@ -33,6 +33,14 @@ class SysAnnouncementController extends Controller
                             'FILENAME' => $fileName
                         ]);
                     }
+                }else{
+                        $announcement = SysAnnouncement::create([
+                            'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
+                            'ISI_PENGUMUMAN' => $request->isi_pengumuman,
+                            'START_DATE' => $request->start_date,
+                            'END_DATE' => $request->end_date
+                        ]);
+                    }
                 }
 
             },5);

@@ -32,8 +32,9 @@ class InputTTfController extends Controller
         $scan_flag = $request->scan_flag;
         $ttf_tmp_table = new TtfTmpTable();
         $session_id = $request->session_id;
+        $file = $request->file;
         try{
-            DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id){
+            DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$file){
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 foreach($data_bpb as $a){
@@ -57,7 +58,7 @@ class InputTTfController extends Controller
                 }
                 // $sys_fp_fisik_temp = new SysFpFisikTemp();
                 $fileNameConverted = time().'.'.'pdf';
-                $real_name = $request->file->getClientOriginalName();
+                $real_name = $file->getClientOriginalName();
                 $createFpFisikTemp = SysFpFisikTemp::create([
                     "SESSION" => $session_id,
                     "FP_NUM" => $no_fp,

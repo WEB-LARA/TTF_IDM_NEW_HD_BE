@@ -196,54 +196,35 @@ class TtfHeader extends Model
 
     public function updateTtfInsert($ttf_list)
     {
-        $update = DB::select("*UPDATE ttf_headers th set
-							th.JUMLAH_FP = (select count(*) from ttf_fp tf where tf.TTF_ID=th.TTF_ID and tf.used_flag = 'Y'),
-							th.SUM_DPP_FP = (select IFNULL(sum(tf.FP_DPP_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
-							th.SUM_TAX_FP = (select IFNULL(sum(tf.FP_TAX_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
-							th.JUMLAH_BPB = (select count(*) from ttf_lines tl where tl.TTF_ID=th.TTF_ID)
-							where th.TTF_NUM IN (?)",[$ttf_list]);
+        DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers){
+            $update = DB::select("UPDATE ttf_headers th set
+		    					th.JUMLAH_FP = (select count(*) from ttf_fp tf where tf.TTF_ID=th.TTF_ID and tf.used_flag = 'Y'),
+		    					th.SUM_DPP_FP = (select IFNULL(sum(tf.FP_DPP_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
+		    					th.SUM_TAX_FP = (select IFNULL(sum(tf.FP_TAX_AMT),0) from ttf_fp tf where tf.TTF_FP_ID in (select TTF_FP_ID from ttf_lines where TTF_ID = th.TTF_ID)),
+		    					th.JUMLAH_BPB = (select count(*) from ttf_lines tl where tl.TTF_ID=th.TTF_ID)
+		    					where th.TTF_NUM IN (?)",[$ttf_list]);
+            $update = DB::select("UPDATE ttf_headers th set
+		    					  th.SUM_DPP_BPB = (
+		    					  	select IFNULL(sum(tdb.BPB_DPP),0) from ttf_data_bpb tdb where tdb.BPB_ID in (select tl.TTF_BPB_ID from ttf_lines tl where tl.TTF_ID = th.TTF_ID) AND tdb.VENDOR_SITE_ID IS NOT NULL AND tdb.VENDOR_SITE_ID <> 0 AND tdb.BRANCH_CODE = th.BRANCH_CODE
+		    					  ) where th.TTF_NUM IN (?)",[$ttf_list]);
 
+            $update = DB::select("UPDATE ttf_headers th set
+		    					    th.SUM_TAX_BPB = (
+		    					    	select IFNULL(sum(tdb.BPB_TAX),0) from ttf_data_bpb tdb where tdb.BPB_ID in (select tl.TTF_BPB_ID from ttf_lines tl where tl.TTF_ID = th.TTF_ID) AND tdb.VENDOR_SITE_ID IS NOT NULL AND tdb.VENDOR_SITE_ID <> 0 AND tdb.BRANCH_CODE = th.BRANCH_CODE
+		    					    ) where th.TTF_NUM IN (?)",[$ttf_list]);
+            $update = DB::select("UPDATE ttf_headers th set
+		    					    th.SELISIH_DPP = abs(th.SUM_DPP_FP - th.SUM_DPP_BPB),
+		    					    th.SELISIH_TAX = abs(th.SUM_TAX_FP - th.SUM_TAX_BPB) where th.TTF_NUM IN (?)",[$ttf_list]);
+        },5);
         if($update){
             return 1;
         }else{
             return 0;
         }
-        // $this
-        //     ->db
-        //     ->query($statement, array(
-        //     'Y',
-        //     $ttf_list
-        // ));
-        // $statement = 'UPDATE ttf_headers th set
-		// 					th.SUM_DPP_BPB = (
-		// 						select IFNULL(sum(tdb.BPB_DPP),0) from ttf_data_bpb tdb where tdb.BPB_ID in (select tl.TTF_BPB_ID from ttf_lines tl where tl.TTF_ID = th.TTF_ID) AND tdb.VENDOR_SITE_ID IS NOT NULL AND tdb.VENDOR_SITE_ID <> 0 AND tdb.BRANCH_CODE = th.BRANCH_CODE
-		// 					) where th.TTF_NUM IN (?)';
 
-        // $this
-        //     ->db
-        //     ->query($statement, array(
-        //     $ttf_list
-        // ));
-        // $statement = 'UPDATE ttf_headers th set
-		// 					th.SUM_TAX_BPB = (
-		// 						select IFNULL(sum(tdb.BPB_TAX),0) from ttf_data_bpb tdb where tdb.BPB_ID in (select tl.TTF_BPB_ID from ttf_lines tl where tl.TTF_ID = th.TTF_ID) AND tdb.VENDOR_SITE_ID IS NOT NULL AND tdb.VENDOR_SITE_ID <> 0 AND tdb.BRANCH_CODE = th.BRANCH_CODE
-		// 					) where th.TTF_NUM IN (?)';
-        // $this
-        //     ->db
-        //     ->query($statement, array(
-        //     $ttf_list
-        // ));
 
-        // $statement = 'UPDATE ttf_headers th set
-		// 					th.SELISIH_DPP = abs(th.SUM_DPP_FP - th.SUM_DPP_BPB),
-		// 					th.SELISIH_TAX = abs(th.SUM_TAX_FP - th.SUM_TAX_BPB) where th.TTF_NUM IN (?)';
-        // $this
-        //     ->db
-        //     ->query($statement, array(
-        //     $ttf_list
-        // ));
-        // /*$this->db->query("update ttf_headers a set
-        // a.TTF_STATUS = (case when (a.SELISIH_DPP + a.SELISIH_TAX) > 0 then 'E' else '' end)
-        // where a.TTF_STATUS = '' and a.TTF_NUM IN ($ttf_list)");*/
+        /*$this->db->query("update ttf_headers a set
+        a.TTF_STATUS = (case when (a.SELISIH_DPP + a.SELISIH_TAX) > 0 then 'E' else '' end)
+        where a.TTF_STATUS = '' and a.TTF_NUM IN ($ttf_list)");*/
     }
 }

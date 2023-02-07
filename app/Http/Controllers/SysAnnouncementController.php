@@ -149,4 +149,18 @@ class SysAnnouncementController extends Controller
             ],400);
         }
     }
+    public function getDownload(Request $request)
+    {
+        //PDF file is stored under project/public/download/info.pdf
+        $announcement = new SysAnnouncement();
+        $getFilename = $announcement->getFilename();
+        print_r($getFilename->FILENAME);
+        // $file= public_path(). "/download/info.pdf";
+
+        // $headers = array(
+        //           'Content-Type: application/pdf',
+        //         );
+
+        // return Response::download($file, 'filename.pdf', $headers);
+    }
 }

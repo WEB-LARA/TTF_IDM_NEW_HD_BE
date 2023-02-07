@@ -19,19 +19,20 @@ class SysAnnouncementController extends Controller
         //     print_r("TEST");
         // }
 
-        $fileName = time().'.'.$request->file_pengumuman->extension();  
-   
         try{
             DB::transaction(function () use ($request,$fileName){
-                if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
-                    // Convert Fp ke Gambar
-                    $announcement = SysAnnouncement::create([
-                        'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
-                        'ISI_PENGUMUMAN' => $request->isi_pengumuman,
-                        'START_DATE' => $request->start_date,
-                        'END_DATE' => $request->end_date,
-                        'FILENAME' => $fileName
-                    ]);
+                if($request->file_pengumuman){
+                    $fileName = time().'.'.$request->file_pengumuman->extension();  
+                    if($request->file_pengumuman->move(public_path('/file_pengumuman'), $fileName)){
+                        // Convert Fp ke Gambar
+                        $announcement = SysAnnouncement::create([
+                            'JUDUL_PENGUMUMAN' => $request->judul_pengumuman,
+                            'ISI_PENGUMUMAN' => $request->isi_pengumuman,
+                            'START_DATE' => $request->start_date,
+                            'END_DATE' => $request->end_date,
+                            'FILENAME' => $fileName
+                        ]);
+                    }
                 }
 
             },5);

@@ -59,13 +59,15 @@ class InputTTfController extends Controller
                 // $sys_fp_fisik_temp = new SysFpFisikTemp();
                 $fileNameConverted = time().'.'.'pdf';
                 $real_name = $file->getClientOriginalName();
-                $createFpFisikTemp = SysFpFisikTemp::create([
-                    "SESSION" => $session_id,
-                    "FP_NUM" => $no_fp,
-                    "FILENAME" => $fileNameConverted,
-                    "REAL_NAME" => $real_name,
-                    "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted)
-                ]);
+                if($request->file->move(public_path('/file_temp_fp'), $fileName)){
+                    $createFpFisikTemp = SysFpFisikTemp::create([
+                        "SESSION" => $session_id,
+                        "FP_NUM" => $no_fp,
+                        "FILENAME" => $fileNameConverted,
+                        "REAL_NAME" => $real_name,
+                        "PATH_FILE" => public_path('file_temp_fp/'.$fileNameConverted)
+                    ]);
+                }
 
             },5);
 

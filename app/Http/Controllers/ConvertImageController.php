@@ -29,7 +29,7 @@ class ConvertImageController extends Controller
   
         $fileName = time().'.'.$request->file->extension();  
    
-        if($request->file->move(public_path('/file_djp_ttf_idm'), $fileName)){
+        if($request->file->move(public_path('/file_temp_fp'), $fileName)){
             // Convert Fp ke Gambar
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
             $linkQr = '';
@@ -76,7 +76,7 @@ class ConvertImageController extends Controller
     }
     
     public function convertFpPdfToImage($filename){
-        $getNumberPages = new Imagick(public_path('/file_djp_ttf_idm/'.$filename));
+        $getNumberPages = new Imagick(public_path('/file_temp_fp/'.$filename));
         $numOfPages = $getNumberPages->getNumberImages();
         $imgExt = new Imagick();
         if($numOfPages > 1){
@@ -111,13 +111,13 @@ class ConvertImageController extends Controller
         //     }
         //     $counter ++;
         // }
-        $imgExt->writeImages(public_path('/file_djp_ttf_idm/'.$fileNameConverted), false);
+        $imgExt->writeImages(public_path('/file_temp_fp/'.$fileNameConverted), false);
 
         return $fileNameConverted;
     }
     public function readQr($filename){
         ini_set('memory_limit', '-1');
-        $qrcode = new QrReader(public_path('/file_djp_ttf_idm/'.$filename));
+        $qrcode = new QrReader(public_path('/file_temp_fp/'.$filename));
         $text = $qrcode->text();
         return $text;
     }

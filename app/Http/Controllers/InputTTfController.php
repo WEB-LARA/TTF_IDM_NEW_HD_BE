@@ -290,7 +290,7 @@ class InputTTfController extends Controller
         }
         $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
         File::move($getDataFpFisik->PATH_FILE, $concatPath);
-        return $concatPath;
+        return $dir_no_ttf;
     }
 
     public function saveLampiran($file_lampiran,$path_simpan,$ttf_id){

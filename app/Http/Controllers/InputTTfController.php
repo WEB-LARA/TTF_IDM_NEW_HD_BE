@@ -303,7 +303,7 @@ class InputTTfController extends Controller
                         "TTF_ID" => 71,
                         "REAL_NAME" => $real_name,
                         "PATH_FILE" => public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794/'.$fileName),
-                        "UPDATED_DATE" => date('Y-m-d'),
+                        "UPDATED_DATE" => date('Y-m-d H:i:s'),
                         "FILE_SIZE" =>$size
                     ]);
                 }

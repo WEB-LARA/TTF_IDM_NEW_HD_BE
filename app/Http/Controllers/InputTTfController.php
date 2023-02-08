@@ -214,6 +214,9 @@ class InputTTfController extends Controller
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli
                         $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
+                        // Delete SysFPFisikTemp
+                        $sys_fp_fisik_temp = new SysFpFisikTemp();
+                        $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);
                     }
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');

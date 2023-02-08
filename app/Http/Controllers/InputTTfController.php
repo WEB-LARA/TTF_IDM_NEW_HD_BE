@@ -269,7 +269,7 @@ class InputTTfController extends Controller
             mkdir($dir_bulan);
         }
         $cabang = '005';
-        $dir_cabang = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'.'.$cabang);
+        $dir_cabang = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang);
         if(!file_exists( $dir_cabang ) && !is_dir( $dir_cabang )){
             mkdir($dir_cabang);
         }

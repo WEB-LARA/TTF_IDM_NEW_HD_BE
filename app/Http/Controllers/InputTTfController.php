@@ -13,7 +13,7 @@ use App\Models\TtfDataBpb;
 use App\Models\SysFpFisikTemp;
 use App\Models\TtfParamTable;
 use Illuminate\Support\Facades\DB;
-
+use File;
 class InputTTfController extends Controller
 {
     //
@@ -58,16 +58,24 @@ class InputTTfController extends Controller
                     ]);
                 }
                 // $sys_fp_fisik_temp = new SysFpFisikTemp();
-                if($file->move(public_path('/file_temp_fp'), $nama_file)){
-                    $createFpFisikTemp = SysFpFisikTemp::create([
-                        "SESSION" => $session_id,
-                        "FP_NUM" => $no_fp,
-                        "FILENAME" => $nama_file,
-                        "REAL_NAME" => $real_name,
-                        "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
-                        "CREATED_DATE" => date('Y-m-d')
-                    ]);
-                }
+                $createFpFisikTemp = SysFpFisikTemp::create([
+                    "SESSION" => $session_id,
+                    "FP_NUM" => $no_fp,
+                    "FILENAME" => $nama_file,
+                    "REAL_NAME" => $real_name,
+                    "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
+                    "CREATED_DATE" => date('Y-m-d')
+                ]);
+                // if($file->move(public_path('/file_temp_fp'), $nama_file)){
+                //     $createFpFisikTemp = SysFpFisikTemp::create([
+                //         "SESSION" => $session_id,
+                //         "FP_NUM" => $no_fp,
+                //         "FILENAME" => $nama_file,
+                //         "REAL_NAME" => $real_name,
+                //         "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
+                //         "CREATED_DATE" => date('Y-m-d')
+                //     ]);
+                // }
 
             },5);
 

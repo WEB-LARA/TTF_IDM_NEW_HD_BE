@@ -39,6 +39,7 @@ class InputTTfController extends Controller
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 foreach($data_bpb as $a){
+                    dd($a);
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,
                         'FP_TYPE' => $fp_type,

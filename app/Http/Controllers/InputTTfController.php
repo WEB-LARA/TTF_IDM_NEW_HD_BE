@@ -12,6 +12,7 @@ use App\Models\PrepopulatedFp;
 use App\Models\TtfDataBpb;
 use App\Models\SysFpFisikTemp;
 use App\Models\SysFpFisik;
+use App\Models\TtfLampiran;
 use App\Models\TtfParamTable;
 use Illuminate\Support\Facades\DB;
 use File;
@@ -293,16 +294,17 @@ class InputTTfController extends Controller
                 // $fileName = time().'.'.$file->extension();
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
                 if($file->move(public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794'), $fileName)){
                     $sys_fp_fisik = new SysFpFisik();
 
-                    $insert = SysFpFisik::create([
-                        "FP_NUM" => '010.002-21.53047341',
-                        "FILENAME" => $fileName,
+                    $insert = TtfLampiran::create([
+                        "TTF_ID" => 71,
                         "REAL_NAME" => $real_name,
                         "PATH_FILE" => public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794/'.$fileName),
-                        "CREATION_DATE" => date('Y-m-d')
+                        "UPDATED_DATE" => date('Y-m-d'),
+                        "FILE_SIZE" =>$size
                     ]);
                 }
             }

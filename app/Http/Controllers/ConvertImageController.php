@@ -56,14 +56,15 @@ class ConvertImageController extends Controller
                 "." .
                 substr($explodeLink[6], 5, 8);
             if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
-                unlink(public_path('/file_temp_fp/'.$fileName));
+                // unlink(public_path('/file_temp_fp/'.$fileName));
                 unlink(public_path('/file_temp_fp/'.$fileNameConverted));
                 return response()->json([
                         'status' => 'success',
                         'message' => 'validated',
+                        'nama_file'=> $fileName
                     ]);
             }else{
-                unlink(public_path('/file_temp_fp/'.$fileName));
+                // unlink(public_path('/file_temp_fp/'.$fileName));
                 unlink(public_path('/file_temp_fp/'.$fileNameConverted));
                 return response()->json([
                         'status' => 'success',

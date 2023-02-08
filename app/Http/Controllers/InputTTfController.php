@@ -301,13 +301,13 @@ class InputTTfController extends Controller
                 $real_name = $file->getClientOriginalName();
                 $size = $file->getSize();
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                if($file->move(public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794'), $fileName)){
+                if($file->move($path_simpan, $fileName)){
                     $sys_fp_fisik = new SysFpFisik();
 
                     $insert = TtfLampiran::create([
                         "TTF_ID" => 71,
                         "REAL_NAME" => $real_name,
-                        "PATH_FILE" => public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794/'.$fileName),
+                        "PATH_FILE" => $path_simpan.$fileName,
                         "UPDATED_DATE" => date('Y-m-d H:i:s'),
                         "FILE_SIZE" =>$size
                     ]);

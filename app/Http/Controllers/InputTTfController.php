@@ -292,26 +292,22 @@ class InputTTfController extends Controller
     }
 
     public function saveLampiran($file_lampiran,$path_simpan,$ttf_id){
-        if($request->hasfile('file_lampiran'))
+        foreach($file_lampiran as $key => $file)
         {
-            foreach($request->file('file_lampiran') as $key => $file)
-            {
-                // $fileName = time().'.'.$file->extension();
-                $fileName = $file->hashName();
-                $real_name = $file->getClientOriginalName();
-                $size = $file->getSize();
-                // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                if($file->move($path_simpan, $fileName)){
-                    $sys_fp_fisik = new SysFpFisik();
-
-                    $insert = TtfLampiran::create([
-                        "TTF_ID" => 71,
-                        "REAL_NAME" => $real_name,
-                        "PATH_FILE" => $path_simpan.$fileName,
-                        "UPDATED_DATE" => date('Y-m-d H:i:s'),
-                        "FILE_SIZE" =>$size
-                    ]);
-                }
+            // $fileName = time().'.'.$file->extension();
+            $fileName = $file->hashName();
+            $real_name = $file->getClientOriginalName();
+            $size = $file->getSize();
+            // $request->file->move(public_path('/file_temp_fp'), $fileName)
+            if($file->move($path_simpan, $fileName)){
+                $sys_fp_fisik = new SysFpFisik();
+                $insert = TtfLampiran::create([
+                    "TTF_ID" => 71,
+                    "REAL_NAME" => $real_name,
+                    "PATH_FILE" => $path_simpan.$fileName,
+                    "UPDATED_DATE" => date('Y-m-d H:i:s'),
+                    "FILE_SIZE" =>$size
+                ]);
             }
         }
     }

@@ -215,7 +215,11 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli
-                        $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
+                        if($request->hasfile('file_lampiran'))
+                        {
+                            $this->saveLampiran($request->file_lampiran,$getPath,$idHeader);
+                        }
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
                         $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);
@@ -284,9 +288,10 @@ class InputTTfController extends Controller
         }
         $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
         File::move($getDataFpFisik->PATH_FILE, $concatPath);
+        return $concatPath;
     }
 
-    public function saveLampiran(Request $request){
+    public function saveLampiran($file_lampiran,$path_simpan,$ttf_id){
         if($request->hasfile('file_lampiran'))
         {
             foreach($request->file('file_lampiran') as $key => $file)

@@ -277,7 +277,8 @@ class InputTTfController extends Controller
         if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
             mkdir($dir_no_ttf);
         }
-        File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf.'/'.$getDataFpFisik->FILENAME);
+        $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
+        File::move($getDataFpFisik->PATH_FILE, $concatPath);
     }
 
     public function saveLampiran(Request $request){
@@ -285,6 +286,8 @@ class InputTTfController extends Controller
         {
             foreach($request->file('file_lampiran') as $key => $file)
             {
+                $fileName = time().'.'.$file->extension();  
+                $request->file('file_lampiran')->move('/file_djp_ttf_idm/2022/Feb/005/230052473793', $fileName);
                 print_r("ADA");
                 echo "<br>";
  

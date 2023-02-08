@@ -215,10 +215,8 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
-                        print_r("TEST");
-                        echo "<br>";
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
-                        $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH']);
+                        $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
                         $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);
@@ -227,8 +225,6 @@ class InputTTfController extends Controller
                     {
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                     }
-                    print_r("TEST2");
-                    echo "<br>";
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
@@ -305,17 +301,9 @@ class InputTTfController extends Controller
         foreach($file_lampiran as $key => $file)
         {
             // $fileName = time().'.'.$file->extension();
-            print_r("TESTLAMPIRAN");
-            echo "<br>";
             $fileName = $file->hashName();
-            print_r("FILENAME =".$fileName);
-            echo "<br>";
             $real_name = $file->getClientOriginalName();
-            print_r("TESTLAMPIRAN =".$real_name);
-            echo "<br>";
             $size = $file->getSize();
-            print_r("TESTLAMPIRAN =".$size);
-            echo "<br>";
             // $request->file->move(public_path('/file_temp_fp'), $fileName)
             if($file->move($path_simpan, $fileName)){
                 $sys_fp_fisik = new SysFpFisik();
@@ -327,11 +315,9 @@ class InputTTfController extends Controller
                     "FILE_SIZE" =>$size
                 ]);
             }
-            print_r("TESTLAMPIRAN2");
-            echo "<br>";
         }
     }
-    public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path){
+    public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path,$ttf_number){
         $sys_fp_fisik = new SysFpFisik();
 
         $insert = SysFpFisik::create([
@@ -339,6 +325,7 @@ class InputTTfController extends Controller
             "FILENAME" => $nama_file,
             "REAL_NAME" => $real_name,
             "PATH_FILE" => $path,
+            "TTF_NUMBER" => $ttf_number,
             "CREATED_DATE" => date('Y-m-d')
         ]);
 

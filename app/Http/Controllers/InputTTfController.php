@@ -274,7 +274,7 @@ class InputTTfController extends Controller
             mkdir($dir_cabang);
         }
         $no_ttf = '2909232131231';
-        $dir_no_ttf = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang.'/'.$dir_no_ttf);
+        $dir_no_ttf = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang.'/'.$no_ttf);
         if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
             mkdir($dir_no_ttf);
         }

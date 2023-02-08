@@ -212,9 +212,8 @@ class InputTTfController extends Controller
                         }
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
-                        $sys_fp_fisik_temp = new SysFpFisikTemp();
-                        $getDataFpFisik = $getDataSysFpFisikTmpByNoFp->getDataSysFpFisikTmpByNoFp($b['NO_FP']);
-                        
+                        // Move File FP Fisik dari Temp Ke Folder Asli
+                        $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
                     }
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
@@ -251,11 +250,9 @@ class InputTTfController extends Controller
         return $ttf_num;
     }
 
-    public function moveFile (){
+    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf){
         $sys_fp_fisik_temp = new SysFpFisikTemp();
-        $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp('010.002-21.53047341');
-        print_r($getDataFpFisik->PATH_FILE);
-        print_r($getDataFpFisik->FILENAME);
+        $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
         // Cek Folder Tahun
         $year = date('Y');
         $dir = public_path('/file_djp_ttf_idm/'.$year);

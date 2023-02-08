@@ -49,10 +49,10 @@ class InputTTfController extends Controller
                         'FP_DATE' => $fp_date,
                         'FP_DPP' => $dpp_fp,
                         'FP_TAX' => $tax_fp,
-                        'BPB_NUM' => $a['bpb_num'],
-                        'BPB_DATE' => $a['bpb_date'],
-                        'BPB_AMOUNT' => $a['bpb_dpp'],
-                        'BPB_PPN' => $a['bpb_ppn'],
+                        'BPB_NUM' => $a->bpb_num,
+                        'BPB_DATE' => $a->bpb_date,
+                        'BPB_AMOUNT' => $a->bpb_dpp,
+                        'BPB_PPN' => $a->bpb_ppn,
                         'SESS_ID' => $session_id,
                         'SCAN_FLAG' => $scan_flag
                     ]);

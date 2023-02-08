@@ -270,7 +270,7 @@ class InputTTfController extends Controller
         }
         $cabang = '005';
         $dir_cabang = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'.'.$cabang);
-        if(!file_exists( $dir_bulan ) && !is_dir( $dir_bulan )){
+        if(!file_exists( $dir_cabang ) && !is_dir( $dir_cabang )){
             mkdir($dir_cabang);
         }
         $no_ttf = '2909232131231';

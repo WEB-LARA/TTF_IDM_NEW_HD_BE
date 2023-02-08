@@ -214,16 +214,13 @@ class InputTTfController extends Controller
                         }
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
-                        // Move File FP Fisik dari Temp Ke Folder Asli
+                        // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
-                        print_r("PATH DIR TTF=".$getPath['DIR_NO_TTF']);
-                        echo "<br>";
-                        print_r("PATH REAL FP=".$getPath['CONCAT_PATH']);
-                        echo "<br>";
                         if($request->hasfile('file_lampiran'))
                         {
                             $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                         }
+                        $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH']);
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
                         $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);
@@ -295,6 +292,8 @@ class InputTTfController extends Controller
         File::move($getDataFpFisik->PATH_FILE, $concatPath);
         $return_path['DIR_NO_TTF'] = $dir_no_ttf;
         $return_path['CONCAT_PATH'] = $concatPath;
+        $return_path['FILE_NAME'] = $getDataFpFisik->FILENAME;
+        $return_path['REAL_NAME'] = $getDataFpFisik->REAL_NAME;
         return $return_path;
     }
 
@@ -318,14 +317,14 @@ class InputTTfController extends Controller
             }
         }
     }
-    public function insertToSysFpFisik($fp_num,$nama_file,$real_name){
+    public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path){
         $sys_fp_fisik = new SysFpFisik();
 
         $insert = SysFpFisik::create([
             "FP_NUM" => $fp_num,
             "FILENAME" => $nama_file,
             "REAL_NAME" => $real_name,
-            "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
+            "PATH_FILE" => $path,
             "CREATED_DATE" => date('Y-m-d')
         ]);
 

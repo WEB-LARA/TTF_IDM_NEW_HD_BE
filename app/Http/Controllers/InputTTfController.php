@@ -34,6 +34,7 @@ class InputTTfController extends Controller
         $ttf_tmp_table = new TtfTmpTable();
         $session_id = $request->session_id;
         $file = $request->file;
+        print_r($data_bpb);
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$file){
                 $sys_supp_site = new SysSuppSite();

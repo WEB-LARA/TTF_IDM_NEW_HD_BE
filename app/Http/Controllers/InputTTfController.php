@@ -254,6 +254,6 @@ class InputTTfController extends Controller
     public function moveFile (){
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp('010.002-21.53047341');
-        print_r($getDataFpFisik);
+        print_r($getDataFpFisik->PATH_FILE);
     }
 }

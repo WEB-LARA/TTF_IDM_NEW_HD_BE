@@ -288,7 +288,7 @@ class InputTTfController extends Controller
             {
                 $fileName = time().'.'.$file->extension();  
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                $request->file_lampiran->move(public_path('/file_djp_ttf_idm/2022/Feb/005/230052473793'), $fileName);
+                $file->move(public_path('/file_djp_ttf_idm/2022/Feb/005/230052473793'), $fileName);
                 print_r("ADA");
                 echo "<br>";
  

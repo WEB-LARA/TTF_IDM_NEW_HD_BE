@@ -24,4 +24,10 @@ class SysFpFisikTemp extends Model
         'LAST_UPDATE_DATE',
         'ADDRESS'
     ];
+
+    public function getDataSysFpFisikTmpByNoFp($no_fp){
+        $data = SysFpFisikTemp::where('NO_FP',$no_fp)->first();
+        
+        return $data;
+    }
 }

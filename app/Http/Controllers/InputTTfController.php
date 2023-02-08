@@ -13,7 +13,7 @@ use App\Models\TtfDataBpb;
 use App\Models\SysFpFisikTemp;
 use App\Models\TtfParamTable;
 use Illuminate\Support\Facades\DB;
-
+use File;
 class InputTTfController extends Controller
 {
     //
@@ -212,6 +212,9 @@ class InputTTfController extends Controller
                         }
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
+                        $sys_fp_fisik_temp = new SysFpFisikTemp();
+                        $getDataFpFisik = $getDataSysFpFisikTmpByNoFp->getDataSysFpFisikTmpByNoFp($b['NO_FP']);
+                        
                     }
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
@@ -246,5 +249,11 @@ class InputTTfController extends Controller
         $updateCounterTtfs = $ttf_param_table->updateCounterTtfs($counter_ttfs+1);
 
         return $ttf_num;
+    }
+
+    public function moveFile (){
+        $sys_fp_fisik_temp = new SysFpFisikTemp();
+        $getDataFpFisik = $getDataSysFpFisikTmpByNoFp->getDataSysFpFisikTmpByNoFp('010.002-21.53047341');
+        print_r($getDataBPBperFP);
     }
 }

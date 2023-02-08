@@ -218,17 +218,17 @@ class InputTTfController extends Controller
                         print_r("TEST");
                         echo "<br>";
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
-                        if($request->hasfile('file_lampiran'))
-                        {
-                            $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
-                        }
-                        print_r("TEST2");
-                        echo "<br>";
                         $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH']);
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
                         $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);
                     }
+                    if($request->hasfile('file_lampiran'))
+                    {
+                        $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
+                    }
+                    print_r("TEST2");
+                    echo "<br>";
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
@@ -308,8 +308,14 @@ class InputTTfController extends Controller
             print_r("TESTLAMPIRAN");
             echo "<br>";
             $fileName = $file->hashName();
+            print_r("FILENAME =".$fileName);
+            echo "<br>";
             $real_name = $file->getClientOriginalName();
+            print_r("TESTLAMPIRAN =".$real_name);
+            echo "<br>";
             $size = $file->getSize();
+            print_r("TESTLAMPIRAN =".$size);
+            echo "<br>";
             // $request->file->move(public_path('/file_temp_fp'), $fileName)
             if($file->move($path_simpan, $fileName)){
                 $sys_fp_fisik = new SysFpFisik();

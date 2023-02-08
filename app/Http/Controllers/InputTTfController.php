@@ -216,12 +216,14 @@ class InputTTfController extends Controller
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
                         print_r("TEST");
+                        echo "<br>";
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
                         if($request->hasfile('file_lampiran'))
                         {
                             $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                         }
                         print_r("TEST2");
+                        echo "<br>";
                         $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH']);
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
@@ -304,6 +306,7 @@ class InputTTfController extends Controller
         {
             // $fileName = time().'.'.$file->extension();
             print_r("TESTLAMPIRAN");
+            echo "<br>";
             $fileName = $file->hashName();
             $real_name = $file->getClientOriginalName();
             $size = $file->getSize();
@@ -319,6 +322,7 @@ class InputTTfController extends Controller
                 ]);
             }
             print_r("TESTLAMPIRAN2");
+            echo "<br>";
         }
     }
     public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path){

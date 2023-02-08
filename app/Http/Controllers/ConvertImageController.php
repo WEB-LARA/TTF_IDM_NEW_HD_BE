@@ -28,7 +28,7 @@ class ConvertImageController extends Controller
         ]);
   
         $fileName = time().'.'.$request->file->extension();  
-   
+        $real_name = $request->file->getClientOriginalName();
         if($request->file->move(public_path('/file_temp_fp'), $fileName)){
             // Convert Fp ke Gambar
             $fileNameConverted = $this->convertFpPdfToImage($fileName);
@@ -61,7 +61,8 @@ class ConvertImageController extends Controller
                 return response()->json([
                         'status' => 'success',
                         'message' => 'validated',
-                        'nama_file'=> $fileName
+                        'nama_file'=> $fileName,
+                        'real_name'=> $real_name
                     ]);
             }else{
                 // unlink(public_path('/file_temp_fp/'.$fileName));

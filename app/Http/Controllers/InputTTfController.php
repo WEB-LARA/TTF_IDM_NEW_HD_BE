@@ -266,12 +266,10 @@ class InputTTfController extends Controller
         if(!file_exists( $dir_bulan ) && !is_dir( $dir_bulan )){
             mkdir($dir_bulan);
         }
-        $cabang = '005';
         $dir_cabang = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang);
         if(!file_exists( $dir_cabang ) && !is_dir( $dir_cabang )){
             mkdir($dir_cabang);
         }
-        $no_ttf = '2909232131231';
         $dir_no_ttf = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang.'/'.$no_ttf);
         if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
             mkdir($dir_no_ttf);

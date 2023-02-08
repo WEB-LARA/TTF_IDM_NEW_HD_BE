@@ -281,9 +281,9 @@ class InputTTfController extends Controller
     }
 
     public function saveLampiran(Request $request){
-        if($request->hasfile('files'))
+        if($request->hasfile('file_lampiran'))
         {
-            foreach($request->file('files') as $key => $file)
+            foreach($request->file('file_lampiran') as $key => $file)
             {
                 print_r("ADA");
                 echo "<br>";

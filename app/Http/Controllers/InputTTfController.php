@@ -279,4 +279,16 @@ class InputTTfController extends Controller
         }
         File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf.'/'.$getDataFpFisik->FILENAME);
     }
+
+    public function saveLampiran(Request $request){
+        if($request->hasfile('files'))
+        {
+            foreach($request->file('files') as $key => $file)
+            {
+                print_r("ADA");
+                echo "<br>";
+ 
+            }
+        }
+    }
 }

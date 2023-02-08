@@ -11,6 +11,7 @@ use App\Models\SysSuppSite;
 use App\Models\PrepopulatedFp;
 use App\Models\TtfDataBpb;
 use App\Models\SysFpFisikTemp;
+use App\Models\SysFpFisik;
 use App\Models\TtfParamTable;
 use Illuminate\Support\Facades\DB;
 use File;
@@ -289,21 +290,33 @@ class InputTTfController extends Controller
         {
             foreach($request->file('file_lampiran') as $key => $file)
             {
-                // $fileName = time().'.'.$file->extension(); 
-                $fileName = $file->hashName(); 
-                print_r($fileName);
-                echo "<br>";
+                // $fileName = time().'.'.$file->extension();
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
                 if($file->move(public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794'), $fileName)){
-                    print_r("SUKSES");
-                }else{
-                    print_r("GAGAL");
+                    $sys_fp_fisik = new SysFpFisik();
+
+                    $insert = SysFpFisik::create([
+                        "FP_NUM" => '010.002-21.53047341',
+                        "FILENAME" => $fileName,
+                        "REAL_NAME" => $real_name,
+                        "PATH_FILE" => public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794/'.$fileName),
+                        "CREATED_DATE" => date('Y-m-d')
+                    ]);
                 }
-                echo "<br>";
-                print_r("ADA");
-                echo "<br>";
- 
             }
         }
+    }
+    public function insertToSysFpFisik($fp_num,){
+        $sys_fp_fisik = new SysFpFisik();
+
+        $insert = SysFpFisik::create([
+            "FP_NUM" => '',
+            "FILENAME" => $nama_file,
+            "REAL_NAME" => $real_name,
+            "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
+            "CREATED_DATE" => date('Y-m-d')
+        ]);
     }
 }

@@ -216,6 +216,8 @@ class InputTTfController extends Controller
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
+                        print_r("PATH =".$getPath);
+                        echo "<br>";
                         if($request->hasfile('file_lampiran'))
                         {
                             $this->saveLampiran($request->file_lampiran,$getPath,$idHeader);

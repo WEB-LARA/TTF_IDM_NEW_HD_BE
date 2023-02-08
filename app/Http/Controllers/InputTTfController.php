@@ -218,10 +218,10 @@ class InputTTfController extends Controller
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
                         print_r("PATH =".$getPath);
                         echo "<br>";
-                        // if($request->hasfile('file_lampiran'))
-                        // {
-                        //     $this->saveLampiran($request->file_lampiran,$getPath,$idHeader);
-                        // }
+                        if($request->hasfile('file_lampiran'))
+                        {
+                            $this->saveLampiran($request->file_lampiran,$getPath,$idHeader);
+                        }
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
                         $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);

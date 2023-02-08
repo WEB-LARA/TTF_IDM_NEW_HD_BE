@@ -216,13 +216,11 @@ class InputTTfController extends Controller
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli
                         $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
-                        print_r("PATH DIR TTF=".$getPath['DIR_NO_TTF']);
-                        echo "<br>";
-                        print_r("PATH REAL FP=".$getPath['CONCAT_PATH']);
+                        print_r("PATH =".$getPath);
                         echo "<br>";
                         if($request->hasfile('file_lampiran'))
                         {
-                            $this->saveLampiran($request->file_lampiran,$getPath['CONCAT_PATH'],$idHeader);
+                            $this->saveLampiran($request->file_lampiran,$getPath,$idHeader);
                         }
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
@@ -267,7 +265,6 @@ class InputTTfController extends Controller
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
         // Cek Folder Tahun
-        $return_path = array();
         $year = date('Y');
         $dir = public_path('/file_djp_ttf_idm/'.$year);
         if ( !file_exists( $dir ) && !is_dir( $dir ) ) {
@@ -293,9 +290,7 @@ class InputTTfController extends Controller
         }
         $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
         File::move($getDataFpFisik->PATH_FILE, $concatPath);
-        $return_path['DIR_NO_TTF'] = $dir_no_ttf;
-        $return_path['CONCAT_PATH'] = $concatPath;
-        return $return_path;
+        return $dir_no_ttf;
     }
 
     public function saveLampiran($file_lampiran,$path_simpan,$ttf_id){

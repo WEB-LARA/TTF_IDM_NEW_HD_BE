@@ -79,7 +79,7 @@ class TtfTmpTable extends Model
                     ->where('CABANG',$branch_code)
                     ->where('NO_FP',$no_fp)
                     ->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')
-                    ->selectRaw("(SELECT 
+                    ->selectRaw("*(SELECT 
                                       tdb.BPB_ID
                                   FROM
                                       ttf_data_bpb tdb

@@ -221,6 +221,7 @@ class InputTTfController extends Controller
                         {
                             $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                         }
+                        print_r("TEST2");
                         $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH']);
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();
@@ -302,6 +303,7 @@ class InputTTfController extends Controller
         foreach($file_lampiran as $key => $file)
         {
             // $fileName = time().'.'.$file->extension();
+            print_r("TESTLAMPIRAN");
             $fileName = $file->hashName();
             $real_name = $file->getClientOriginalName();
             $size = $file->getSize();
@@ -316,6 +318,7 @@ class InputTTfController extends Controller
                     "FILE_SIZE" =>$size
                 ]);
             }
+            print_r("TESTLAMPIRAN2");
         }
     }
     public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path){

@@ -279,6 +279,6 @@ class InputTTfController extends Controller
         if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
             mkdir($dir_no_ttf);
         }
-        File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf.'/'.$getDataBPBperFP->FILENAME);
+        File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf.'/'.$getDataFpFisik->FILENAME);
     }
 }

@@ -255,6 +255,7 @@ class InputTTfController extends Controller
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp('010.002-21.53047341');
         print_r($getDataFpFisik->PATH_FILE);
+        print_r($getDataFpFisik->FILENAME);
         // Cek Folder Tahun
         $year = date('Y');
         $dir = public_path('/file_djp_ttf_idm/'.$year);
@@ -278,6 +279,6 @@ class InputTTfController extends Controller
         if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
             mkdir($dir_no_ttf);
         }
-        File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf);
+        File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf.'/'.$getDataBPBperFP->FILENAME);
     }
 }

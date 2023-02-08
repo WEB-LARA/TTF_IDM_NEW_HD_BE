@@ -294,7 +294,7 @@ class InputTTfController extends Controller
                 print_r($fileName);
                 echo "<br>";
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                if($file->move(public_path('/file_djp_ttf_idm/2023/Feb/005/230052473793'), $fileName)){
+                if($file->move(public_path('/file_djp_ttf_idm/2023/Feb/005/230052473794'), $fileName)){
                     print_r("SUKSES");
                 }else{
                     print_r("GAGAL");

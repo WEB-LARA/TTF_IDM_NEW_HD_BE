@@ -222,7 +222,7 @@ class InputTTfController extends Controller
                         echo "<br>";
                         if($request->hasfile('file_lampiran'))
                         {
-                            $this->saveLampiran($request->file_lampiran,$getPath,$idHeader);
+                            $this->saveLampiran($request->file_lampiran,$getPath['CONCAT_PATH'],$idHeader);
                         }
                         // Delete SysFPFisikTemp
                         $sys_fp_fisik_temp = new SysFpFisikTemp();

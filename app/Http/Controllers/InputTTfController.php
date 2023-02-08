@@ -287,7 +287,7 @@ class InputTTfController extends Controller
             foreach($request->file('file_lampiran') as $key => $file)
             {
                 $fileName = time().'.'.$file->extension();  
-                $request->file('file_lampiran')->move('/file_djp_ttf_idm/2022/Feb/005/230052473793', $fileName);
+                $request->file('file_lampiran')->move(public_path('/file_djp_ttf_idm/2022/Feb/005/230052473793'), $fileName);
                 print_r("ADA");
                 echo "<br>";
  

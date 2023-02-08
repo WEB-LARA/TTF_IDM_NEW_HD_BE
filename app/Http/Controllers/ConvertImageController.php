@@ -27,7 +27,7 @@ class ConvertImageController extends Controller
             'file' => 'required|mimes:pdf|max:2048',
         ]);
   
-        $fileName = time().'.'.$request->file->extension();  
+        $fileName = $request->file->hashName();  
         $real_name = $request->file->getClientOriginalName();
         if($request->file->move(public_path('/file_temp_fp'), $fileName)){
             // Convert Fp ke Gambar

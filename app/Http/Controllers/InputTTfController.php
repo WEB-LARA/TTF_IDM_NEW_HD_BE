@@ -255,5 +255,29 @@ class InputTTfController extends Controller
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp('010.002-21.53047341');
         print_r($getDataFpFisik->PATH_FILE);
+        // Cek Folder Tahun
+        $year = date('Y');
+        $dir = public_path('/file_djp_ttf_idm/'.$year);
+        if ( !file_exists( $dir ) && !is_dir( $dir ) ) {
+            mkdir( $dir );     
+            chmod($dir, 0777);
+        }
+        // Cek Folder Bulan
+        $month = date('M');
+        $dir_bulan = public_path('/file_djp_ttf_idm/'.$year.'/'.$month);
+        if(!file_exists( $dir_bulan ) && !is_dir( $dir_bulan )){
+            mkdir($dir_bulan);
+        }
+        $cabang = '005';
+        $dir_cabang = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'.'.$cabang);
+        if(!file_exists( $dir_bulan ) && !is_dir( $dir_bulan )){
+            mkdir($dir_cabang);
+        }
+        $no_ttf = '2909232131231';
+        $dir_no_ttf = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang.'/'.$dir_no_ttf);
+        if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
+            mkdir($dir_no_ttf);
+        }
+        File::move($getDataFpFisik->PATH_FILE, $dir_no_ttf);
     }
 }

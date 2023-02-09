@@ -276,17 +276,17 @@ class InputTTfController extends Controller
         $dir_bulan = public_path('/file_djp_ttf_idm/'.$year.'/'.$month);
         if(!file_exists( $dir_bulan ) && !is_dir( $dir_bulan )){
             mkdir($dir_bulan);
-            chmod($dir, 0777);
+            chmod($dir_bulan, 0777);
         }
         $dir_cabang = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang);
         if(!file_exists( $dir_cabang ) && !is_dir( $dir_cabang )){
             mkdir($dir_cabang);
-            chmod($dir, 0777);
+            chmod($dir_cabang, 0777);
         }
         $dir_no_ttf = public_path('/file_djp_ttf_idm/'.$year.'/'.$month.'/'.$cabang.'/'.$no_ttf);
         if(!file_exists( $dir_no_ttf ) && !is_dir( $dir_no_ttf )){
             mkdir($dir_no_ttf);
-            chmod($dir, 0777);
+            chmod($dir_no_ttf, 0777);
         }
         $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
         File::move($getDataFpFisik->PATH_FILE, $concatPath);

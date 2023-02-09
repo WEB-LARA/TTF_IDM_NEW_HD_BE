@@ -14,6 +14,7 @@ use App\Http\Controllers\TtfDataBpbController;
 use App\Http\Controllers\TtfTmpTableController;
 use App\Http\Controllers\TtfHeaderController;
 use App\Http\Controllers\SysAnnouncementController;
+use App\Http\Controllers\testController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -49,6 +50,9 @@ Route::controller(SysMapSupplierController::class)->group(function () {
 });
 Route::controller(SysRefBranchController::class)->group(function () {
     Route::get('getAllBranch', 'getAllBranch');
+});
+Route::controller(testController::class)->group(function () {
+    Route::get('get', 'get');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

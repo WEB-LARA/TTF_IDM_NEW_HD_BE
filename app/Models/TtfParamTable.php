@@ -53,4 +53,14 @@ class TtfParamTable extends Model
             return 0;
         }
     }
+
+    public function getMaxBpbAndPpn(){
+        $data = TtfParamTable::where('ID_PARAM',1)->select('MAX_SELISIH_DPP','MAX_SELISIH_TAX')->get();
+
+        if($data){
+            return $data;
+        }else{
+            return 0;
+        }
+    }
 }

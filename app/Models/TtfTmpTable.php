@@ -109,10 +109,7 @@ class TtfTmpTable extends Model
                                     END FP_TYPE,
                                     NO_FP,
                                     DATE_FORMAT(FP_DATE, '%d-%b-%Y') TANGGAL_FP,
-                                    CASE
-                                        WHEN FP_TYPE = 1 THEN FP_DPP
-                                        ELSE 0
-                                    END FP_DPP,
+                                    FP_DPP,
                                     CASE
                                         WHEN FP_TYPE = 1 THEN FP_TAX
                                         ELSE 0

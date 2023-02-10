@@ -15,7 +15,7 @@ class TtfDataBpbController extends Controller
                 array_push($id_bpb,$a['bpb_id']);
             }
         }
-        $getData = $ttf_data_bpb->getDataBPBPerSupplier($request->supp_site_code,$request->branch_code,$id_bpb,$request->session_id,$request->flag_go,$request->flag_ppn);
+        $getData = $ttf_data_bpb->getDataBPBPerSupplier($request->supp_site_code,$request->branch_code,$id_bpb,$request->session_id,$request->flag_go,$request->flag_ppn,$request->tipe_faktur);
         return response()->json([
                 'status' => 'success',
                 'data' => $getData,

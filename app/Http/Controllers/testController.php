@@ -45,10 +45,6 @@ class testController extends Controller
         // $test_model = new testModel();
         // $data = $test_model->joindata();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
-
+        return $data;
     }
 }

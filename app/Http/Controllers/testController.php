@@ -38,7 +38,7 @@ class testController extends Controller
     public function joindata(){
         $data = DB::table('ttf_data_bpb')
             ->crossJoin('ttf_lines')
-            ->take(3)
+            ->limit(3)
             ->get();
         // $data = testModel::crossJoin('ttf_lines')->get();
         // $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')

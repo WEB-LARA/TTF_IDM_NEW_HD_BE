@@ -366,6 +366,7 @@ class InputTTfController extends Controller
 
     public function cekUploadLampiran(Request $request){
         if($request->hasfile('file_lampiran')){
+            $i = 0;
             foreach($request->file_lampiran as $key => $file)
             {
                 // $fileName = time().'.'.$file->extension();
@@ -374,10 +375,14 @@ class InputTTfController extends Controller
                 $size = $file->getSize();
                 // print_r($fileName);
                 // echo "<br>";
+                $data = array();
                 if($file->move(public_path('/file_temp_fp'), $fileName)){
 
                 }
+                $data[$i]=$fileName;
+                $i++;
             }
+            return $data;
         }
     }
 }

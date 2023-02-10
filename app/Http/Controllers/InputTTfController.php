@@ -227,6 +227,8 @@ class InputTTfController extends Controller
                     {
                         print_r("MASOK");
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
+                    }else{
+                        print_r("tidak masok");
                     }
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');

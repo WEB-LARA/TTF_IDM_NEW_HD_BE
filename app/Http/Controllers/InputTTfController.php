@@ -364,4 +364,29 @@ class InputTTfController extends Controller
 
         }
     }
+
+    public function cekUploadLampiran(Request $request){
+        if($request->hasfile('file_lampiran')){
+            foreach($request->file_lampiran as $key => $file)
+            {
+                // $fileName = time().'.'.$file->extension();
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
+                print_r($fileName);
+                echo "<br>";
+                // $request->file->move(public_path('/file_temp_fp'), $fileName)
+                // if($file->move($path_simpan, $fileName)){
+                //     $sys_fp_fisik = new SysFpFisik();
+                //     $insert = TtfLampiran::create([
+                //         "TTF_ID" => $ttf_id,
+                //         "REAL_NAME" => $real_name,
+                //         "PATH_FILE" => $path_simpan.'/'.$fileName,
+                //         "UPDATED_DATE" => date('Y-m-d H:i:s'),
+                //         "FILE_SIZE" =>$size
+                //     ]);
+                // }
+            }
+        }
+    }
 }

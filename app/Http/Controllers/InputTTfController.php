@@ -381,7 +381,7 @@ class InputTTfController extends Controller
                 }
                 // $data[$i]=$fileName;
                 array_push($data,$fileName);
-                $i++;
+
             }
         }
     }

@@ -375,7 +375,7 @@ class InputTTfController extends Controller
                 $size = $file->getSize();
                 // print_r($fileName);
                 // echo "<br>";
-                if($request->file->move(public_path('/file_temp_fp'), $fileName)){
+                if($request->file_lampiran->move(public_path('/file_temp_fp'), $fileName)){
 
                 }
             }

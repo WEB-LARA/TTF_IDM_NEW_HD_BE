@@ -34,12 +34,15 @@ class testController extends Controller
     }
 
     public function joindata(){
-        $test_model = new testModel();
-        $data = $test_model->joindata();
+        $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
+              		->get(['ttf_data_bpb.BPB_NUMBER', 'ttf_lines.CREATION_DATE']);
+        // $test_model = new testModel();
+        // $data = $test_model->joindata();
 
         return response()->json([
             'status' => 'success',
             'data' => $data
         ]);
+
     }
 }

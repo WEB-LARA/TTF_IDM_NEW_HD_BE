@@ -36,20 +36,20 @@ class testModel extends Model
         return $data;
     }
 
-    public function joindata(){
-        $data = testModel::crossJoin('ttf_lines')->get();
-        // $data = DB::table('ttf_data_bpb')
-        //     ->join('ttf_lines', 'ttf_data_bpb.ID', '=', 'ttf_lines.TTF_BPB_ID')
-        //     ->select('ttf_data_bpb.*', 'ttf_lines.CREATED_BY')
-        //     ->get();
-        // $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
-        //             ->get(); // berhasil tanpa data
-        //$data = testModel::addSelect(['last_flight' => Flight::select('name')
-        // ->whereColumn('destination_id', 'destinations.id')
-        // ->orderByDesc('arrived_at')
-        // ->limit(1)
-        // ])->get();
-        return $data;
-    }
+    // public function joindata(){
+    //     $data = testModel::crossJoin('ttf_lines')->get();
+    //     // $data = DB::table('ttf_data_bpb')
+    //     //     ->join('ttf_lines', 'ttf_data_bpb.ID', '=', 'ttf_lines.TTF_BPB_ID')
+    //     //     ->select('ttf_data_bpb.*', 'ttf_lines.CREATED_BY')
+    //     //     ->get();
+    //     // $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
+    //     //             ->get(); // berhasil tanpa data
+    //     //$data = testModel::addSelect(['last_flight' => Flight::select('name')
+    //     // ->whereColumn('destination_id', 'destinations.id')
+    //     // ->orderByDesc('arrived_at')
+    //     // ->limit(1)
+    //     // ])->get();
+    //     return $data;
+    // }
     
 }

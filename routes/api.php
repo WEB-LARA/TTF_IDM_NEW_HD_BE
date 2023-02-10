@@ -63,6 +63,7 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveTTf', 'saveTTf');
     Route::get('getTtfNumber','getTtfNumber');
     Route::post('saveLampiran','saveLampiran');
+    Route::post('uploadTTF','uploadTTF');
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');

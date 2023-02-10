@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class testModel extends Model
 {
     use HasFactory;
-    protected $connection = mysql2;
+    protected $connection = 'mysql2';
     protected $table = 'ttf_data_bpb'; //specify the model's table name
     protected $primaryKey = 'ID'; //The primary key associated with the table.
     public $incrementing = false; //Indicates if the model's ID is auto-incrementing.

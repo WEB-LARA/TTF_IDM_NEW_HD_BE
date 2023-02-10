@@ -366,26 +366,23 @@ class InputTTfController extends Controller
 
     public function cekUploadLampiran(Request $request){
         $data = array();
-        dd($request->file_lampiran);
-        // if($request->hasfile('file_lampiran')){
-        //     $i = 0;
-        //     foreach($request->file_lampiran as $key => $file)
-        //     {
-        //         // $fileName = time().'.'.$file->extension();
-        //         $fileName = $file->hashName();
-        //         $real_name = $file->getClientOriginalName();
-        //         $size = $file->getSize();
-        //         // print_r($fileName);
-        //         // echo "<br>";
-        //         $data = array();
-        //         if($file->move(public_path('/file_temp_fp'), $fileName)){
+        if($request->hasfile('file_lampiran')){
+            foreach($request->file_lampiran as $key => $file)
+            {
+                // $fileName = time().'.'.$file->extension();
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
+                // print_r($fileName);
+                // echo "<br>";
+                $data = array();
+                if($file->move(public_path('/file_temp_fp'), $fileName)){
 
-        //         }
-        //         // $data[$i]=$fileName;
-        //         array_push($data,$fileName);
-        //         $i++;
-        //     }
-        //     return $data;
-        
+                }
+                // $data[$i]=$fileName;
+                array_push($data,$fileName);
+                $i++;
+            }
+        }
     }
 }

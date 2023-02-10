@@ -37,7 +37,7 @@ class TtfDataBpb extends Model
                        ttf_tmp_table
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
-                           AND SESS_ID = ?) AND BPB_YAX != 0',[$supp_site_code,$branch_code,$sess_id])->get();
+                           AND SESS_ID = ?) AND BPB_TAX != 0',[$supp_site_code,$branch_code,$sess_id])->get();
         }else{
             $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
                        BPB_NUM

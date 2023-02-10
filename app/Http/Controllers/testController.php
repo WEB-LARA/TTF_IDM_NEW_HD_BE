@@ -36,7 +36,7 @@ class testController extends Controller
     }
 
     public function joindata(){
-        $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
+        $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
                 ->get();
         // $data = testModel::crossJoin('ttf_lines')
         //     ->limit(3)

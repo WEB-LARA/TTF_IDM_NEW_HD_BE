@@ -36,9 +36,11 @@ class testController extends Controller
     }
 
     public function joindata(){
-        $data = testModel::crossJoin('ttf_lines')
-            ->limit(3)
-            ->get();
+        $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
+                ->get();
+        // $data = testModel::crossJoin('ttf_lines')
+        //     ->limit(3)
+        //     ->get();
         // $data = DB::table('ttf_data_bpb')
         //     ->crossJoin('ttf_lines')
         //     ->limit(3)
@@ -49,21 +51,21 @@ class testController extends Controller
         // $test_model = new testModel();
         // $data = $test_model->joindata();
 
-        // return response()->json([
-        //     'status' => 'OK',
-        //     'data' => $data
-        // ]);
+        return response()->json([
+            'status' => 'OK',
+            'data' => $data
+        ]);
 
-        if($data == 0){
-            return response()->json([
-                'status' => 'GAGAL',
-                'message' => 'Gagal Mengambil Data',
-            ],400);
-        }else{
-            return response()->json([
-                'status' => 'OK',
-                'data' => $data
-            ],200);
-        }
+        // if($data == 0){
+        //     return response()->json([
+        //         'status' => 'GAGAL',
+        //         'message' => 'Gagal Mengambil Data',
+        //     ],400);
+        // }else{
+        //     return response()->json([
+        //         'status' => 'OK',
+        //         'data' => $data
+        //     ],200);
+        // }
     }
 }

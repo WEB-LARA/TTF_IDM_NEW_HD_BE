@@ -36,16 +36,22 @@ class testController extends Controller
     }
 
     public function joindata(){
-        $data = DB::table('ttf_data_bpb')
-            ->crossJoin('ttf_lines')
+        $data = testModel::crossJoin('ttf_lines')
             ->limit(3)
             ->get();
+        // $data = DB::table('ttf_data_bpb')
+        //     ->crossJoin('ttf_lines')
+        //     ->limit(3)
+        //     ->get();
         // $data = testModel::crossJoin('ttf_lines')->get();
         // $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
         //       		->get(['ttf_data_bpb.BPB_NUMBER', 'ttf_lines.CREATION_DATE']);
         // $test_model = new testModel();
         // $data = $test_model->joindata();
 
-        return $data;
+        return response()->json([
+            'status' => 'OK',
+            'data' => $data
+        ]);
     }
 }

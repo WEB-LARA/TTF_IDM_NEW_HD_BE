@@ -54,16 +54,16 @@ class testController extends Controller
         //     'data' => $data
         // ]);
 
-        if($data !== 0){
-            return response()->json([
-                'status' => 'success',
-                'data' => $data
-            ],200);
-        }else{
+        if($data == 0){
             return response()->json([
                 'status' => 'GAGAL',
                 'message' => 'Gagal Mengambil Data',
             ],400);
+        }else{
+            return response()->json([
+                'status' => 'OK',
+                'data' => $data
+            ],200);
         }
     }
 }

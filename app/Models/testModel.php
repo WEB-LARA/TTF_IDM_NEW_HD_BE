@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 // use Ramsey\Uuid\Uuid; //UUIDs are universally unique alpha-numeric identifiers that are 36 characters long
 
 class testModel extends Model
@@ -36,16 +37,18 @@ class testModel extends Model
     }
 
     public function joindata(){
-        // $data = testModel::join('ttf_lines', 'da.id', '=', 'posts.user_id')
-        //        ->get(['users.*', 'posts.descrption']);
-        $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
-                    ->get(['ttf_data_bpb.*','ttf_lines.ACTIVE_FLAG']);
+        $data = testModel::crossJoin('ttf_lines')->get();
+        // $data = DB::table('ttf_data_bpb')
+        //     ->join('ttf_lines', 'ttf_data_bpb.ID', '=', 'ttf_lines.TTF_BPB_ID')
+        //     ->select('ttf_data_bpb.*', 'ttf_lines.CREATED_BY')
+        //     ->get();
+        // $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
+        //             ->get(); // berhasil tanpa data
         //$data = testModel::addSelect(['last_flight' => Flight::select('name')
         // ->whereColumn('destination_id', 'destinations.id')
         // ->orderByDesc('arrived_at')
         // ->limit(1)
         // ])->get();
-
         return $data;
     }
     

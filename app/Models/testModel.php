@@ -39,7 +39,7 @@ class testModel extends Model
         // $data = testModel::join('ttf_lines', 'da.id', '=', 'posts.user_id')
         //        ->get(['users.*', 'posts.descrption']);
         $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
-                    ->get();
+                    ->get(['ttf_data_bpb.*','ttf_lines.ACTIVE_FLAG']);
         //$data = testModel::addSelect(['last_flight' => Flight::select('name')
         // ->whereColumn('destination_id', 'destinations.id')
         // ->orderByDesc('arrived_at')

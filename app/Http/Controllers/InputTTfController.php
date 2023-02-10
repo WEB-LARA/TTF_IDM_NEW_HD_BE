@@ -288,10 +288,10 @@ class InputTTfController extends Controller
             mkdir($dir_no_ttf);
             chmod($dir_no_ttf, 0777);
         }
-        $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
         if($tipe_faktur == 1){
             $sys_fp_fisik_temp = new SysFpFisikTemp();
             $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
+            $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
             File::move($getDataFpFisik->PATH_FILE, $concatPath);
             $return_path['CONCAT_PATH'] = $concatPath;
             $return_path['FILE_NAME'] = $getDataFpFisik->FILENAME;

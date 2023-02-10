@@ -223,7 +223,7 @@ class InputTTfController extends Controller
                         }
                         // Delete SysFPFisikTemp
                     }
-                    if($request->hasfile('file_lampiran'))
+                    if($request->hasFile('file_lampiran'))
                     {
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                     }

@@ -225,6 +225,7 @@ class InputTTfController extends Controller
                     }
                     if($request->hasFile('file_lampiran'))
                     {
+                        print_r("MASOK");
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                     }
                 }

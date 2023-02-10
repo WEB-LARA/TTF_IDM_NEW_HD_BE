@@ -9,17 +9,23 @@ use App\Models\testModel;
 class testController extends Controller
 {
     //
-    public function testFUnction(){
-        print_r("TEST");
-    }
-
-    public function get(){
+    public function testFunction(){
         print_r("TEST");
     }
 
     public function getdata(){
         $test_model = new testModel();
         $data = $test_model->getdata();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
+
+    public function selectdata(){
+        $test_model = new testModel();
+        $data = $test_model->selectdata();
 
         return response()->json([
             'status' => 'success',

@@ -23,9 +23,9 @@ class ConvertImageController extends Controller
     }
     public function fileUploadPost(Request $request)
     {
-        $request->validate([
-            'file' => 'required|mimes:pdf|max:2048',
-        ]);
+        // $request->validate([
+        //     'file' => 'required|mimes:pdf|max:2048',
+        // ]);
   
         $fileName = $request->file->hashName();  
         $real_name = $request->file->getClientOriginalName();

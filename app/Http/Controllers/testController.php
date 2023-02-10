@@ -32,4 +32,14 @@ class testController extends Controller
             'data' => $data
         ]);
     }
+
+    public function joindata(){
+        $test_model = new testModel();
+        $data = $test_model->joindata();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
 }

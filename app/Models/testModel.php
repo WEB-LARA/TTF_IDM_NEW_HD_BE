@@ -28,7 +28,25 @@ class testModel extends Model
 
     public function selectdata(){
         $data = testModel::where('BRANCH_CODE', '006')->take(10)->get();
-        // ->orderBy('---')->take(10)->get();
+        // ->orderBy('---')->...
+        //->take(10)->...
+        //->first(); //the first model matching the query constraints
+        //->count(); //you may also use the count, sum, max, and other aggregate methods
         return $data;
     }
+
+    public function joindata(){
+        // $data = testModel::join('ttf_lines', 'da.id', '=', 'posts.user_id')
+        //        ->get(['users.*', 'posts.descrption']);
+        $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.ID')
+                    ->get();
+        //$data = testModel::addSelect(['last_flight' => Flight::select('name')
+        // ->whereColumn('destination_id', 'destinations.id')
+        // ->orderByDesc('arrived_at')
+        // ->limit(1)
+        // ])->get();
+
+        return $data;
+    }
+    
 }

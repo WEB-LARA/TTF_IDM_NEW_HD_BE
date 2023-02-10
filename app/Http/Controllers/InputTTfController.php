@@ -215,8 +215,8 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
                         if($ttf_type == 1){
-                            $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
                             $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
                             $sys_fp_fisik_temp = new SysFpFisikTemp();
                             $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);

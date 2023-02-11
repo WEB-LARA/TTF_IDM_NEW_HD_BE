@@ -215,15 +215,15 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE']);
                         if($ttf_type == 1){
-                            $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber);
                             $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
                             $sys_fp_fisik_temp = new SysFpFisikTemp();
                             $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($request->session_id,$b['NO_FP']);
                         }
                         // Delete SysFPFisikTemp
                     }
-                    if($request->hasfile('file_lampiran'))
+                    if($request->hasFile('file_lampiran'))
                     {
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
                     }
@@ -262,9 +262,7 @@ class InputTTfController extends Controller
         return $ttf_num;
     }
 
-    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf){
-        $sys_fp_fisik_temp = new SysFpFisikTemp();
-        $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
+    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf,$tipe_faktur){
         // Cek Folder Tahun
         $return_path = array();
         $year = date('Y');
@@ -290,12 +288,16 @@ class InputTTfController extends Controller
             mkdir($dir_no_ttf);
             chmod($dir_no_ttf, 0777);
         }
-        $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
-        File::move($getDataFpFisik->PATH_FILE, $concatPath);
+        if($tipe_faktur == 1){
+            $sys_fp_fisik_temp = new SysFpFisikTemp();
+            $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
+            $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
+            File::move($getDataFpFisik->PATH_FILE, $concatPath);
+            $return_path['CONCAT_PATH'] = $concatPath;
+            $return_path['FILE_NAME'] = $getDataFpFisik->FILENAME;
+            $return_path['REAL_NAME'] = $getDataFpFisik->REAL_NAME;
+        }
         $return_path['DIR_NO_TTF'] = $dir_no_ttf;
-        $return_path['CONCAT_PATH'] = $concatPath;
-        $return_path['FILE_NAME'] = $getDataFpFisik->FILENAME;
-        $return_path['REAL_NAME'] = $getDataFpFisik->REAL_NAME;
         return $return_path;
     }
 
@@ -359,6 +361,28 @@ class InputTTfController extends Controller
             }
         }else{
 
+        }
+    }
+
+    public function cekUploadLampiran(Request $request){
+        $data = array();
+        if($request->hasfile('file_lampiran')){
+            foreach($request->file_lampiran as $key => $file)
+            {
+                // $fileName = time().'.'.$file->extension();
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
+                // print_r($fileName);
+                // echo "<br>";
+                $data = array();
+                if($file->move(public_path('/file_temp_fp'), $fileName)){
+
+                }
+                // $data[$i]=$fileName;
+                array_push($data,$fileName);
+
+            }
         }
     }
 }

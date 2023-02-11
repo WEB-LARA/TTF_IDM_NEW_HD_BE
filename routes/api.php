@@ -57,6 +57,7 @@ Route::controller(testController::class)->group(function () {
     Route::get('selectdata1', 'selectdata');
     Route::get('joindata1', 'joindata');
     Route::get('inquirydata1', 'inquirydata');
+    Route::get('filterdata1', 'filterdata');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

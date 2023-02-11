@@ -69,7 +69,7 @@ class testController extends Controller
     public function filterdata(Request $request){
         $test_model = new testModel();
 
-        $data = $test_model->filterdata($request->branch,$request->nobpb,$request->tglbpb,$request->nobpb,$request->nofp,$request->session_id);
+        $data = $test_model->filterdata($request->branch,$request->nobpb,$request->tglbpb,$request->nottf,$request->nofp,$request->session_id);
 
         return response()->json([
                 'status' => 'success',

@@ -33,6 +33,7 @@ class testModel extends Model
               ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE','sys_supplier.SUPP_NAME','ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE','ttf_headers.TTF_STATUS')
+              ->take(10)
               ->get();
 
         return $data;

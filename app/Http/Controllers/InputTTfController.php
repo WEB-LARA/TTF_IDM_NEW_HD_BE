@@ -369,6 +369,7 @@ class InputTTfController extends Controller
             $real_name = $request->file_csv->getClientOriginalName();
             $size = $request->file_csv->getSize();
             // print_r($fileName);
+            $row = 1;
             $error_arr = array();
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
@@ -379,8 +380,22 @@ class InputTTfController extends Controller
 			    	$result['msg'] = "Isi file kosong atau separator tidak sesuai.";
 			    	array_push($error_arr,$result);
 			    	$flag_error=true;
-			    }
-                print_r($error_arr);
+			    }else{
+				    if((strtoupper($isi[0]) !='NO BPB' || strtoupper($isi[1])!='JENIS FAKTUR PAJAK' || strtoupper($isi[2])!='NO FAKTUR PAJAK' || strtoupper($isi[3])!='TGL FAKTUR PAJAK' || strtoupper($isi[4])!='NILAI DPP' || strtoupper($isi[5])!='NILAI PPN') && $row==1){
+				    	$result['status'] = 'ERROR';
+				    	$result['msg'] = "Template baris pertama CSV tidak sesuai format.";	
+				    	array_push($error_arr,$result);
+				    	$flag_error=true;	
+				    }else{
+                        $line = 1;
+                        if($flag_error == false){
+                            while (!feof($file_handle)) {
+                                $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
+                                print_r($data_csv);
+                            }
+                        }
+                    }
+                }
                 // while (!feof($file_handle)) {
                 //     $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
                 //     print_r($data_csv);

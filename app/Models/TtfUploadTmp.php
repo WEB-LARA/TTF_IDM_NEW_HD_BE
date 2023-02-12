@@ -45,4 +45,9 @@ class TtfUploadTmp extends Model
 
         return $data;
     }
+    public function checkDoubleBpbForUpload($session_id,$bpb_num,$id){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('BPB_NUM',$bpb_num)->where('ID','=',$id)->count();
+
+        return $data;
+    }
 }

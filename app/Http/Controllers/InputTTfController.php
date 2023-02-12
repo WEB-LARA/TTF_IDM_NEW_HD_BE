@@ -669,7 +669,7 @@ class InputTTfController extends Controller
                 }
 
             }
-
+            //no fp harus terdaftar di table prepopulated fp
             if ($error == '' && $a->FP_TYPE == 1)
             {
                 $prepopulated_fp = new PrepopulatedFp();

@@ -506,7 +506,7 @@ class InputTTfController extends Controller
                                 if($getDataTempBySessionId){
                                     print_r("NO_FAKTUR = ".$getDataTempBySessionId->NO_FP);
                                 }else{
-                                    $errorValidasiDjp .= "<br> File DJP ' . $getDataTempBySessionId->NO_FP . ' tidak terdaftar pada CSV";
+                                    $errorValidasiDjp .= "<br> File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
                                     $counter_error_djp ++;
                                 }
                             }

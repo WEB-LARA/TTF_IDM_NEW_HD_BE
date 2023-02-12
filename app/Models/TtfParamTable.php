@@ -65,7 +65,7 @@ class TtfParamTable extends Model
     }
 
     public function getMaxSelisih(){
-        $data = TtfParamTable::where('ID_PARAM',1)->selectRaw('(MAX_SELISIH_DPSP + MAX_SELISIH_TAX) as MAX_SELISIH')->first();
+        $data = TtfParamTable::where('ID_PARAM',1)->selectRaw('(MAX_SELISIH_DPP + MAX_SELISIH_TAX) as MAX_SELISIH')->first();
         if($data){
             return $data;
         }else{

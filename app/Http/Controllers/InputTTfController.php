@@ -775,7 +775,7 @@ class InputTTfController extends Controller
                 }
             }
             $ttf_param_table = new TtfParamTable();
-            $selisih = $ttf_param_table->getMaxSelisih();
+            $selisih = $ttf_param_table->getMaxSelisih()->MAX_SELISIH;
 
             if ($error == '' && $a->FP_TYPE == 1)
             {

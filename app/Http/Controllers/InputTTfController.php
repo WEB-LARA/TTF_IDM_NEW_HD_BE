@@ -449,13 +449,17 @@ class InputTTfController extends Controller
                                         }
                                         $line++;
                                 }
-                                $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id);
+                                $error = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id);
                             }
                         },5);
                     }
                 }
             }
         }
+        return response()->json([
+                'status' => 'success',
+                'message' => $error,
+            ]);
     }
 
     public function cekUploadLampiran(Request $request){
@@ -561,12 +565,7 @@ class InputTTfController extends Controller
             }
         }
 
-        print_r("TEST");
-        return response()->json([
-                'status' => 'success',
-                'message' => 'TEST',
-        ]);
-        print_r("TEST2");
+        return $error;
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

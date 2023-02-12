@@ -83,7 +83,7 @@ class TtfUploadTmp extends Model
         ->groupBy('ttf_upload_tmp.SEQ_NUM','ttf_upload_tmp.NO_FP')
         ->select('ttf_upload_tmp.NO_FP','ttf_upload_tmp.FP_DPP','ttf_upload_tmp.FP_TAX')
         ->selectRaw('abs(ttf_upload_tmp.FP_DPP - sum(ttf_upload_tmp.BPB_AMOUNT))  SELISIH_DPP')
-        ->selectRaw('abs(a.FP_TAX - sum(a.BPB_PSPN)) SELISIH_PPN')
+        ->selectRaw('abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN')
         ->get();
         return $data;
     }

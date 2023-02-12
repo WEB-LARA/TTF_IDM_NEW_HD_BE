@@ -31,6 +31,11 @@ class TtfTmpTable extends Model
         'SCAN_FLAG'
     ];
 
+    public function getTtfTmpBySessionId($session_id){
+        $data = TtfTmpTable::where('SESS_ID',$session_id)->get();
+
+        return $data;
+    }
     // public function saveToTmpTable($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){
     //     $session_id = session()->getId();
     //         try{

@@ -448,10 +448,10 @@ class InputTTfController extends Controller
                                         }
                                         }
                                         $line++;
-                                    }
                                 }
+                                $this->validateUploadTemp($request->jumlah_fp_yang_diupload);
                             }
-                        ,5);
+                        },5);
                     }
                 }
             }
@@ -480,6 +480,12 @@ class InputTTfController extends Controller
         }
     }
 
+    public function validateUploadTemp($jumlah_fp_yg_diupload,$session_id){
+        $ttf_upload_tmp = new TtfUploadTmp();
+        $getDataTempBySessionId= $ttf_upload_tmp->getTtfTmpBySessionId($session_id);
+
+        print_r($getDataTempBySessionId);
+    }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();
         $real_name = $request->file_csv->getClientOriginalName();

@@ -85,6 +85,7 @@ class TtfUploadTmp extends Model
         ->selectRaw('abs(ttf_upload_tmp.FP_DPP - sum(ttf_upload_tmp.BPB_AMOUNT))  SELISIH_DPP')
         ->selectRaw('abs(ttf_upload_tmp.FP_TAX - sum(ttf_upload_tmp.BPB_PPN)) SELISIH_PPN')
         ->get();
-        return $data;
+        print_r($data);
+        // return $data;
     }
 }

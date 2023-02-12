@@ -193,7 +193,7 @@ class ConvertImageController extends Controller
         // Set Resolusi harus 150 x 150
         // $imgExt->setResolution(150,150);
         $arrayFileConverted =array ();
-        $expLodeFileName = explode(".",$fileNameConverted);
+        $expLodeFileName = explode(".",$filename);
         $namaFile = $expLodeFileName[0];
         $format = $expLodeFileName[1];
         $fileNameConverted = $expLodeFileName.'.'.'png';

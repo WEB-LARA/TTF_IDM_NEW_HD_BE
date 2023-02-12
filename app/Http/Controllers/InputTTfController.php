@@ -15,6 +15,7 @@ use App\Models\SysFpFisik;
 use App\Models\TtfLampiran;
 use App\Models\TtfParamTable;
 use App\Models\TtfUploadTmp;
+use App\Models\SysMapSupplier;
 use Illuminate\Support\Facades\DB;
 use File;
 class InputTTfController extends Controller
@@ -449,7 +450,7 @@ class InputTTfController extends Controller
                                         }
                                         $line++;
                                 }
-                                $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id);
+                                $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
                             }
                         },5);
                     }
@@ -484,7 +485,7 @@ class InputTTfController extends Controller
         }
     }
 
-    public function validateUploadTemp($jumlah_fp_yg_diupload,$session_id){
+    public function validateUploadTemp($jumlah_fp_yg_diupload,$session_id,$user_id){
         $fp_date = '';
         $bpb_date = '';
         $error = '';
@@ -560,24 +561,22 @@ class InputTTfController extends Controller
                 }
             }
             if ($error == ''){
-                // $statement = 'SELECT tdb.BPB_ID from ttf_data_bpb tdb, ttf_lines tl, ttf_headers th where tdb.BPB_ID = tl.TTF_BPB_ID and tl.TTF_ID = th.TTF_ID and th.TTF_STATUS not in (?, ?) and tdb.BPB_NUMBER = ? and tdb.USED_FLAG = ?';
-                // $row = $this
-                //     ->db
-                //     ->query($statement, array(
-                //     'R',
-                //     'C',
-                //     $a->BPB_NUM,
-                //     'Y'
-                // ))
-                //     ->num_rows();
+                // Validasi Apakah BPB Sudah Digunakan Atau Belum
                 $ttf_data_bpb = new TtfDataBpb();
 
-                $getDataBpb= $ttf_data_bpb->validateCountBPBByBPBNumber($a->BPB_NUM);
-                print_r($getDataBpb);
-                // if ($row > 0)
-                // {
-                //     $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' telah digunakan';
-                // }
+                $getCountDataBpb= $ttf_data_bpb->validateCountBPBByBPBNumber($a->BPB_NUM);
+                if($getCountDataBpb > 0){
+                    $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' telah digunakan';
+                }
+            }
+            if ($error == '')
+            {
+                $sys_mapp_supplier = new SysMapSupplier();
+                $getCountMapSuppForBpb =  $sys_mapp_supplier->validateUploadBpbByUserId($user_id,$a->SUPP_SITE,$a->CABANG);
+                if ($getCountMapSuppForBpb == 0)
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak dapat digunakan oleh akun ini';
+                }
             }
         }
 

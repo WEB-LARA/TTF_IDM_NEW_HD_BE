@@ -77,4 +77,9 @@ class SysMapSupplier extends Model
                     ->get();
         return $getData;
     }
+    public function validateUploadBpbByUserId($user_id,$site_code,$branch_code){
+        $data = SysMapSupplier::where('USER_ID',$user_id)->where('SUPP_SITE_CODE',$site_code)->where('BRANCH_CODE',$branch_code)->count();
+
+        return $data;
+    }
 }

@@ -782,31 +782,30 @@ class InputTTfController extends Controller
                 $ttf_upload_tmp = new TtfUploadTmp();
                 $getSelisih = $ttf_upload_tmp->checkSelisihFP($session_id);
                 
-                print_r($getSelisih);
-                // foreach ($query_selisih_result as $row)
-                // {
-                //     if ($error == '')
-                //     {
-                //         if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)
-                //         {
-                //             $error .= '<br> Error Selisih : Faktur ' . $row->NO_FP . ' selisih dengan nilai dari DJP ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',');
-                //         }
-                //     }
+                foreach ($getSelisih as $row)
+                {
+                    if ($error == '')
+                    {
+                        if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)
+                        {
+                            $error .= '<br> Error Selisih : Faktur ' . $row->NO_FP . ' selisih dengan nilai dari DJP ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',');
+                        }
+                    }
 
-                //     if ($error == '')
-                //     {
-                //         if ($row->NO_FP == '-' && $row->FP_TAX != '0')
-                //         {
-                //             $error .= '<br>Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!';
-                //         }
-                //     }
+                    if ($error == '')
+                    {
+                        if ($row->NO_FP == '-' && $row->FP_TAX != '0')
+                        {
+                            $error .= '<br>Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!';
+                        }
+                    }
 
-                //     if ($row->NO_FP != '-' && ($row->FP_DPP == '0' || $row->FP_TAX == '0'))
-                //     {
-                //         $error .= '<br>Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0.';
-                //     }
+                    if ($row->NO_FP != '-' && ($row->FP_DPP == '0' || $row->FP_TAX == '0'))
+                    {
+                        $error .= '<br>Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0.';
+                    }
 
-                // }
+                }
             }
         }
         //SEQ NUMBER

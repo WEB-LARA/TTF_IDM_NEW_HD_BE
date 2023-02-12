@@ -63,4 +63,13 @@ class TtfParamTable extends Model
             return 0;
         }
     }
+
+    public function getMaxSelisih(){
+        $data = TtfParamTable::where('ID_PARAM',1)->selectRaw('(MAX_SELISIH_DPSP + MAX_SELISIH_TAX) as MAX_SELISIH')->first();
+        if($data){
+            return $data;
+        }else{
+            return 0;
+        }
+    }
 }

@@ -774,6 +774,8 @@ class InputTTfController extends Controller
                     $error .= '<br> Error Line ' . $a->LINE . ': Satu faktur hanya boleh satu supplier ';
                 }
             }
+            $ttf_param_table = new TtfParamTable();
+            $selisih = $ttf_param_table->getMaxSelisih();
         }
         //SEQ NUMBER
         $status = 'VALID';

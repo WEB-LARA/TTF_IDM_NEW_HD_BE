@@ -155,8 +155,10 @@ class InputTTfController extends Controller
         $ttf_tmp_table = new TtfTmpTable();
         $ttf_headers = new TtfHeader();
         $ttf_fp = new TtfFp();
-        $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
-        $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
+        // $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
+        // $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
+        $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->session_id);
+        $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->session_id);
         $user_id = $request->user_id;
         // print_r($data);
         $concat_ttf_num = '';
@@ -198,8 +200,8 @@ class InputTTfController extends Controller
                             'SCAN_FLAG' => $b['SCAN_FLAG']
                         ]);
                         $idFp = $insertFp->TTF_FP_ID;
-                        $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
-
+                        // $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
+                        $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->session_id,$b['NO_FP']);
                         foreach ($getDataBPBperFP as $c){
                             $insertLines = TtfLines::create([
                                 'TTF_ID' => $idHeader,
@@ -511,7 +513,7 @@ class InputTTfController extends Controller
             }
         }
         if($message['status']=='OK'){
-            $this->approveUpload($request->session_id);
+            $this->approveUpload($request->session_id,$request->user_id);
             return response()->json([
                     'status' => 'success',
                     'message' => $message,
@@ -882,9 +884,10 @@ class InputTTfController extends Controller
         return $data;
     }
 
-    public function approveUpload($session_id){
+    public function approveUpload($session_id,$user_id){
         $ttf_tmp_table = new TtfTmpTable();
         $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
+        $this->saveTTf($session_id,$user_id);
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

@@ -68,15 +68,37 @@ class TtfTmpTable extends Model
         return $getData;
     }
 
-    public function getDataTTfTmpForInsertTTf($supp_site_code,$branch_code,$sess_id){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('SESS_ID',$sess_id)->groupBy('SUPP_SITE','CABANG','FP_TYPE')->select('SUPP_SITE','CABANG','FP_TYPE')->selectRaw('SUM(BPB_AMOUNT) SUM_DPP_FP')->selectRaw('SUM(BPB_PPN) SUM_TAX_FP')->get();
+    // public function getDataTTfTmpForInsertTTf($supp_site_code,$branch_code,$sess_id){
+    //     $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('SESS_ID',$sess_id)->groupBy('SUPP_SITE','CABANG','FP_TYPE')->select('SUPP_SITE','CABANG','FP_TYPE')->selectRaw('SUM(BPB_AMOUNT) SUM_DPP_FP')->selectRaw('SUM(BPB_PPN) SUM_TAX_FP')->get();
+
+    //     return $getData;
+    // }
+    public function getDataTTfTmpForInsertTTf($sess_id){
+        $getData = TtfTmpTable::where('SESS_ID',$sess_id)->groupBy('SUPP_SITE','CABANG','FP_TYPE')->select('SUPP_SITE','CABANG','FP_TYPE')->selectRaw('SUM(BPB_AMOUNT) SUM_DPP_FP')->selectRaw('SUM(BPB_PPN) SUM_TAX_FP')->get();
 
         return $getData;
     }
+    // public function getDataTTFTmpBPB($supp_site_code,$branch_code,$no_fp){
+    //     $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)
+    //                 ->where('CABANG',$branch_code)
+    //                 ->where('NO_FP',$no_fp)
+    //                 ->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')
+    //                 ->selectRaw("(SELECT 
+    //                                   tdb.BPB_ID
+    //                               FROM
+    //                                   ttf_data_bpb tdb
+    //                               WHERE
+    //                                   tdb.BPB_NUMBER = BPB_NUM AND tdb.BRANCH_CODE = ?
+    //                                       AND tdb.VENDOR_SITE_CODE = ?
+    //                                       AND tdb.VENDOR_SITE_ID IS NOT NULL
+    //                                       AND tdb.VENDOR_SITE_ID <> 0
+    //                               ) as BPB_ID",[$branch_code, $supp_site_code])
+    //                 ->get();
 
-    public function getDataTTFTmpBPB($supp_site_code,$branch_code,$no_fp){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)
-                    ->where('CABANG',$branch_code)
+    //     return $getData;
+    // }
+    public function getDataTTFTmpBPB($session_id,$no_fp){
+        $getData = TtfTmpTable::where('SESS_ID',$session_id)
                     ->where('NO_FP',$no_fp)
                     ->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')
                     ->selectRaw("(SELECT 
@@ -93,9 +115,8 @@ class TtfTmpTable extends Model
 
         return $getData;
     }
-
-    public function getDataTTFTmpFP($supp_site_code,$branch_code,$sess_id){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('SESS_ID',$sess_id)->groupBy('NO_FP')->select('NO_FP','FP_TYPE','NO_NPWP','FP_DATE','FP_DPP','FP_TAX','SCAN_FLAG')->get();
+    public function getDataTTFTmpFP($sess_id){
+        $getData = TtfTmpTable::where('SESS_ID',$sess_id)->groupBy('NO_FP')->select('NO_FP','FP_TYPE','NO_NPWP','FP_DATE','FP_DPP','FP_TAX','SCAN_FLAG')->get();
 
         return $getData;
     }

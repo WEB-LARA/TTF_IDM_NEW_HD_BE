@@ -452,16 +452,12 @@ class InputTTfController extends Controller
                                         $line++;
                                 }
                                 $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
-                                print_r($message);
-                                return response()->json([
-                                        'status' => 'success',
-                                        'message' => $message
-                                    ]);
                             }
                         },5);
                     }
                 }
             }
+            print_r($message);
         }
     }
 

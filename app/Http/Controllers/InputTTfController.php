@@ -481,7 +481,11 @@ class InputTTfController extends Controller
     }
 
     public function validateUploadTemp($jumlah_fp_yg_diupload,$session_id){
+        $fp_date = '';
+        $bpb_date = '';
         $error = '';
+        $fp_dicsv = [];
+        $jumlah_fp_dicsv = 0;
         $ttf_upload_tmp = new TtfUploadTmp();
         $ttf_data_bpb = new TtfDataBpb();
         $getDataTempBySessionId= $ttf_upload_tmp->getTtfTmpBySessionId($session_id);

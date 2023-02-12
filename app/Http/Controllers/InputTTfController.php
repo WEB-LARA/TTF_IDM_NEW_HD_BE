@@ -282,6 +282,7 @@ class InputTTfController extends Controller
                     $idHeader = $insertHeader->TTF_ID;
 
                     foreach($dataFpTmp as $b){
+                        print_r($b);
                         $insertFp = TtfFp::create([
                             'TTF_ID' => $idHeader,
                             'FP_NUM' => $b['NO_FP'],

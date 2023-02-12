@@ -370,6 +370,7 @@ class InputTTfController extends Controller
             $size = $request->file_csv->getSize();
             // print_r($fileName);
             $row = 1;
+            $flag_error=false;
             $error_arr = array();
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');

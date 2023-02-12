@@ -395,7 +395,7 @@ class InputTTfController extends Controller
                                 while (!feof($file_handle)) {
                                     $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
                                     if($data_csv != false){
-                                        $fp_type = 1;
+                                        $fp_type = 0;
                                         if ($data_csv[1] == 'STD')
                                         {
                                             $fp_type = 1;
@@ -423,7 +423,8 @@ class InputTTfController extends Controller
                                                 ]);
                                             
                                             }
-                                        }else if($fp_type == 2){
+                                        }else{
+                                            if($fp_type == 2){
                                                 $insertToUploadTmp = TtfUploadTmp::create([
                                                     "SESS_ID" => $request->session_id,
                                                     "LINE" => $line,
@@ -435,19 +436,20 @@ class InputTTfController extends Controller
                                                     "FP_TAX" => 0,
                                                     "STATUS" => "VALID",
                                                 ]);
-                                        }else{
-                                            print_r("MASOK");
-                                                $insertToUploadTmp = TtfUploadTmp::create([
-                                                    "SESS_ID" => $request->session_id,
-                                                    "LINE" => $line,
-                                                    "BPB_NUM" => $data_csv[0],
-                                                    "FP_TYPE" => $data_csv[1],
-                                                    "NO_FP" => $data_csv[2],
-                                                    "FP_DATE" => $data_csv[3],
-                                                    "FP_DPP" => $data_csv[4],
-                                                    "FP_TAX" => $data_csv[5],
-                                                    "STATUS" => "VALID",
-                                                ]);
+                                            }else{
+                                                print_r("MASOK");
+                                                    $insertToUploadTmp = TtfUploadTmp::create([
+                                                        "SESS_ID" => $request->session_id,
+                                                        "LINE" => $line,
+                                                        "BPB_NUM" => $data_csv[0],
+                                                        "FP_TYPE" => $data_csv[1],
+                                                        "NO_FP" => $data_csv[2],
+                                                        "FP_DATE" => $data_csv[3],
+                                                        "FP_DPP" => $data_csv[4],
+                                                        "FP_TAX" => $data_csv[5],
+                                                        "STATUS" => "VALID",
+                                                    ]);   
+                                            }
                                         }
                                         $line++;
                                     }

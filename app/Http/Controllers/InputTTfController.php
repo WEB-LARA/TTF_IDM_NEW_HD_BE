@@ -259,7 +259,7 @@ class InputTTfController extends Controller
         // print_r($data);
         $concat_ttf_num = '';
         try{
-            DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers){
+            DB::transaction(function () use($dataHeader,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers,$session_id){
                 foreach($dataHeader as $a){
                     $getTtfNumber = $this->getTtfNumber($a['CABANG']);
                     $ttf_type = $a['FP_TYPE'];

@@ -832,7 +832,6 @@ class InputTTfController extends Controller
             foreach ($getSeqNum as $tu)
             {
                 $getSumBPbAndPPN = $ttf_upload_tmp->getSumAmountForNoFp($session_id,$tu->SEQ_NUM);
-                $sum_tnp = $query_sum_tnp->row();
 
                 $update = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_TYPE',2)->where('SEQ_NUM',$tu->SEQ_NUM)->update([
                     "FP_DPP" => $getSumBPbAndPPN->SUM_BPB_AMOUNT,

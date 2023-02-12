@@ -394,8 +394,7 @@ class InputTTfController extends Controller
                             if($flag_error == false){
                                 while (!feof($file_handle)) {
                                     $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
-                                    print_r($data_csv[1]);
-                                    // $jenis_faktur =  $data_csv[1];
+                                    $jenis_faktur =  $data_csv[1];
                                     if($data_csv != false){
                                         $fp_type = 0;
                                         if ($jenis_faktur == 'STD')

@@ -507,7 +507,7 @@ class InputTTfController extends Controller
                 ]);
             }
         }
-
+        $getDataTempBySessionId= $ttf_upload_tmp->getTtfTmpBySessionId($session_id);
         foreach($getDataTempBySessionId as $a){
             if ($a->FP_TYPE == 0)
             {

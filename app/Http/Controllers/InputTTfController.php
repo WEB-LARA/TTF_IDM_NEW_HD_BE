@@ -495,6 +495,7 @@ class InputTTfController extends Controller
         $jumlah_fp_dicsv = 0;
         $ttf_upload_tmp = new TtfUploadTmp();
         $ttf_data_bpb = new TtfDataBpb();
+        $data = array();
         $getDataTempBySessionId= $ttf_upload_tmp->getTtfTmpBySessionId($session_id);
         // Update Tmp Untuk Melengkapi data BPB
         foreach($getDataTempBySessionId as $a){

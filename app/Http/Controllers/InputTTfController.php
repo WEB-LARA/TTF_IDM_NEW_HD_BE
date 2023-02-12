@@ -457,11 +457,17 @@ class InputTTfController extends Controller
                     }
                 }
             }
-            print_r($message);
-            return response()->json([
-                    'status' => 'success',
-                    'message' => $message,
-                ]);
+            if($message['status']=='OK'){
+                return response()->json([
+                        'status' => 'success',
+                        'message' => $message,
+                    ]);
+            }else{
+                return response()->json([
+                        'status' => 'error',
+                        'message' => $message,
+                    ]);
+            }
         }
     }
 
@@ -614,7 +620,7 @@ class InputTTfController extends Controller
         if ($error == '')
         {
             $data['status'] = 'OK';
-            $data['msg'] = 'TTF berhasil di upload.<br><br> <br>Jumlah TTF = ' . $no . '. <br>Nilai keseluruhan TTF = ' . number_format($nilai_ttf, 0, '.', ',') . '. <br>Lanjut Simpan TTF menjadi Draft?';
+            $data['msg'] = 'TTF berhasil di upload.<br><br> <br>Jumlah TTF = ' . $no . '. <br>Nilai keseluruhan TTF = ' . number_format($nilai_ttf, 0, '.', ',') . '. <br>';
         }
         else
         {

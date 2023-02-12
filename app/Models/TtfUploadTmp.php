@@ -50,4 +50,8 @@ class TtfUploadTmp extends Model
 
         return $data;
     }
+    public function validateDoubleDPP($session_id,$dpp,$no_fp){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_DPP',$dpp)->where('NO_FP',$no_fp)->count();
+        return $data;
+    }
 }

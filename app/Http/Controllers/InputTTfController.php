@@ -710,6 +710,17 @@ class InputTTfController extends Controller
             $error .= '<br> Error : Jumlah Faktur yang diupload di csv tidak sama dengan Jumlah File DJP yang diupload';
 
         }
+        foreach($getDataTempBySessionId as $a){
+            if ($error == '')
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkDoubleDpp = $ttf_upload_tmp->validateDoubleDPP($session_id,$a->FP_DPP,$a->NO_FP);
+                if ($checkDoubleDpp > 0)
+                {
+                    $error .= '<br> Error Line ' . $a->LINE . ': Nilai DPP Satu Faktur harus sama';
+                }
+            }
+        }
         //SEQ NUMBER
         $status = 'VALID';
         $ttf_upload_tmp = new TtfUploadTmp();

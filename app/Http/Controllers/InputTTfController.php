@@ -731,7 +731,7 @@ class InputTTfController extends Controller
                     $error .= '<br>Error Line ' . $a->LINE . ':Nilai PPN Satu Faktur harus sama';
                 }
             }
-
+            // satu faktur hanya boleh satu tanggal
             if ($error == '')
             {
                 $ttf_upload_tmp = new TtfUploadTmp();
@@ -739,6 +739,28 @@ class InputTTfController extends Controller
                 if ($checkDoubleDate > 0)
                 {
                     $error .= '<br>Error Line ' . $a->LINE . ': Satu Faktur harus memiliki tanggal yang sama';
+                }
+            }
+
+            // satu bpb hanya dalam satu faktur
+            if ($error == '')
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkDoubleBpb = $ttf_upload_tmp->validateDoubleBPB($session_id,$a->NO_FP,$a->BPB_NUM);
+                if ($checkDoubleBpb > 0)
+                {
+                    $error .= '<br> Error Line ' . $a->LINE . ': Satu BPB hanya boleh untuk satu faktur';
+                }
+            }
+
+            // satu faktur hanya boleh satu cabang
+            if ($error == '' && $a->FP_TYPE == 1)
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkBranchInOneFp = $ttf_upload_tmp->validateBranchInOneFp($session_id,$a->NO_FP,$a->CABANG);
+                if ($checkBranchInOneFp > 0)
+                {
+                    $error .= '<br> Error Line ' . $a->LINE . ' : Satu faktur hanya boleh satu cabang ';
                 }
             }
         }

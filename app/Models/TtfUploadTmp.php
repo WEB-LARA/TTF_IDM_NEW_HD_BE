@@ -62,4 +62,20 @@ class TtfUploadTmp extends Model
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_DATE','<>',$date)->where('NO_FP',$no_fp)->count();
         return $data;
     }
+    public function validateDoubleBPB($session_id,$no_fp,$bpb_num){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('NO_FP','<>',$no_fp)->where('BPB_NUM',$bpb_num)->count();
+        return $data;
+                // $statement = 'SELECT * from ttf_upload_tmp where SESS_ID = ? and BPB_NUM = ? and NO_FP <> ?';
+                // $row = $this
+                //     ->db
+                //     ->query($statement, array(
+                //     $sess_id,
+                //     $a->BPB_NUM,
+                //     $a->NO_FP
+                // ));
+    }
+    public function validateBranchInOneFp($session_id,$no_fp,$branch){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('CABANG','<>',$branch)->where('NO_FP',$no_fp)->count();
+        return $data;
+    }
 }

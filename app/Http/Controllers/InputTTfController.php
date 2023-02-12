@@ -396,15 +396,15 @@ class InputTTfController extends Controller
                                     $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
                                     if($data_csv != false){
                                         $fp_type = 0;
-                                        if ($jenis_faktur == 'STD')
+                                        if ($data_csv[1] == 'STD')
                                         {
                                             $fp_type = 1;
                                         }
-                                        else if ($jenis_faktur == 'NFP')
+                                        else if ($data_csv[1] == 'NFP')
                                         {
                                             $fp_type = 2;
                                         }
-                                        else if ($jenis_faktur == 'KHS')
+                                        else if ($data_csv[1] == 'KHS')
                                         {
                                             $fp_type = 3;
                                         }

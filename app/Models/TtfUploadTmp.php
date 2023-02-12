@@ -78,4 +78,8 @@ class TtfUploadTmp extends Model
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('CABANG','<>',$branch)->where('NO_FP',$no_fp)->count();
         return $data;
     }
+    public function checkSuppInFp($session_id,$no_fp,$supp_site){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('SUPP_SITE','<>',$supp_site)->where('NO_FP',$no_fp)->count();
+        return $data;
+    }
 }

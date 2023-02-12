@@ -763,6 +763,17 @@ class InputTTfController extends Controller
                     $error .= '<br> Error Line ' . $a->LINE . ' : Satu faktur hanya boleh satu cabang ';
                 }
             }
+
+            // satu faktur hanya boleh satu supplier
+            if ($error == '' && $a->FP_TYPE == 1)
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkSuppInFP = $ttf_upload_tmp->checkSuppInFp($session_id,$a->NO_FP,$a->SUPP_SITE);
+                if ($checkSuppInFP > 0)
+                {
+                    $error .= '<br> Error Line ' . $a->LINE . ': Satu faktur hanya boleh satu supplier ';
+                }
+            }
         }
         //SEQ NUMBER
         $status = 'VALID';

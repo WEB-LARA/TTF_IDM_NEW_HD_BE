@@ -14,6 +14,7 @@ use App\Models\SysFpFisikTemp;
 use App\Models\SysFpFisik;
 use App\Models\TtfLampiran;
 use App\Models\TtfParamTable;
+use App\Models\TtfUploadTmp;
 use Illuminate\Support\Facades\DB;
 use File;
 class InputTTfController extends Controller
@@ -394,8 +395,37 @@ class InputTTfController extends Controller
                                 $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
                                 print_r($data_csv);
                                 if($data_csv != false){
-                                    
+                                    $fp_type = 0;
+                                    if ($jenis_faktur == 'STD')
+                                    {
+                                        $fp_type = 1;
+                                    }
+                                    else if ($jenis_faktur == 'NFP')
+                                    {
+                                        $fp_type = 2;
+                                    }
+                                    else if ($jenis_faktur == 'KHS')
+                                    {
+                                        $fp_type = 3;
+                                    }
+                                    if($fp_type == 0){
+                                        DB::transaction(function () use ($data_csv,$request){
+                                            $insertToUploadTmp = TtfUploadTmp::create([
+                                                "SESS_ID" => $request->session_id,
+                                                "LINE" => $line,
+                                                "BPB_NUM" => $data_csv[0],
+                                                "FP_TYPE" => $data_csv[1],
+                                                "NO_FP" => $data_csv[2],
+                                                "FP_DATE" => $data_csv[3],
+                                                "FP_DPP" => $data_csv[4],
+                                                "FP_TAX" => $data_csv[5],
+                                                "STATUS" => "ERROR",
+                                            ]);
+                                        
+                                        },5);
+                                    }
                                 }
+                                $line++;
                             }
                         }
                     }

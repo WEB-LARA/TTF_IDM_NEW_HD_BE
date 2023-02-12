@@ -704,7 +704,12 @@ class InputTTfController extends Controller
             }
             $nilai_ttf = $a->FP_DPP;
         }
+        $jumlah_fp_dicsv = count(array_unique($fp_dicsv));
+        if ($jumlah_fp_yg_diupload != $jumlah_fp_dicsv)
+        {
+            $error .= '<br> Error : Jumlah Faktur yang diupload di csv tidak sama dengan Jumlah File DJP yang diupload';
 
+        }
         //SEQ NUMBER
         $status = 'VALID';
         $ttf_upload_tmp = new TtfUploadTmp();

@@ -52,7 +52,7 @@ class TtfDataBpb extends Model
     }
 
     public function getDataBpbByNoBPB($bpb_number){
-        $data = TtfDataBpb::where('BPB_NUMBER',$bpb_number)->first();
+        $data = TtfDataBpb::where('BPB_NUMBER',$bpb_number)->whereRaw('BPB_NUMBER IS NOT NULL')->whereRaw('VENDOR_SITE_ID <> 0')->first();
 
         return $data;
     }

@@ -31,7 +31,7 @@ class TtfUploadTmp extends Model
         'STATUS'
     ];
     public function getTtfTmpBySessionId($session_id){
-        $data = TtfUploadTmp::where('SESS_ID',$session_id)->get();
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->select('ID','LINE', 'FP_DATE','FP_DPP', 'FP_TAX', 'BPB_NUM', 'NO_FP','FP_TYPE','SUPP_SITE','CABANG')->selectRaw('STR_TO_DATE(FP_DATE,\'%d/%m/%Y\') as FORMAT_DATE')->get();
 
         return $data;
     }

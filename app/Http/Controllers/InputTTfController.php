@@ -455,11 +455,11 @@ class InputTTfController extends Controller
                     }
                 }
             }
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $error
+                ]);
         }
-        return response()->json([
-                'status' => 'success',
-                'message' => $error,
-            ]);
     }
 
     public function cekUploadLampiran(Request $request){

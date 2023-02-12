@@ -481,10 +481,11 @@ class InputTTfController extends Controller
     }
 
     public function validateUploadTemp($jumlah_fp_yg_diupload,$session_id){
+        $error = '';
         $ttf_upload_tmp = new TtfUploadTmp();
         $ttf_data_bpb = new TtfDataBpb();
         $getDataTempBySessionId= $ttf_upload_tmp->getTtfTmpBySessionId($session_id);
-
+        // Update Tmp Untuk Melengkapi data BPB
         foreach($getDataTempBySessionId as $a){
             $getDataBpbByBpbNum = $ttf_data_bpb->getDataBpbByNoBPB($a->BPB_NUM);
             if($getDataBpbByBpbNum){
@@ -497,6 +498,65 @@ class InputTTfController extends Controller
                 ]);
             }
         }
+
+        foreach($getDataTempBySessionId as $a){
+            if ($a->FP_TYPE == 0)
+            {
+                $error .= '<br>Error Line ' . $a->LINE . ' : Tipe Faktur Pajak tidak diketahui';
+            }
+            if ($a->FP_TYPE == 3)
+            {
+                $error .= '<br>Error Line ' . $a->LINE . ' : Tipe Faktur Pajak Khusus harap di input manual</br>';
+            }
+
+            if ($a->FP_TYPE == 2)
+            {
+                if ($a->NO_FP != '-' || $a->FP_DPP != '0' || $a->FP_TAX != '0')
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ' : No Faktur Pajak dengan Tipe NFP harus berisi strip (-)';
+                }
+            }
+
+            if ($a->FP_TYPE == 1)
+            {
+                $regex = '^[0-9]{3}.[0-9]{3}-[0-9]{2}.[0-9]{8}$^';
+                if (preg_match($regex, $a->NO_FP))
+                {
+                    array_push($fp_dicsv, $a->NO_FP);
+                }
+                else
+                {
+                    $error .= '<br> Error  Line ' . $a->LINE . ' : Format No Faktur ' . $a->NO_FP . ' tidak sesuai';
+                }
+            }
+            if ($a->FORMAT_DATE == '')
+            {
+                $error .= '<br>Error Line ' . $a->LINE . ': Tanggal tidak valid, format yang seharusnya adalah dd/mm/yyyy';
+            }
+
+            if (!is_numeric($a->FP_DPP) || !is_numeric($a->FP_TAX))
+            {
+                $error .= '<br>Error Line ' . $a->LINE . ': Nilai DPP atau Nilai PPN bukan angka';
+            }
+
+            if ($a->BPB_DATE == '')
+            {
+                $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak ditemukan';
+            }
+
+            $fp_date = date_create($a->FORMAT_DATE);
+            $bpb_date = date_create($a->BPB_DATE);
+            if ($a->FP_DATE < $a->BPB_DATE)
+            {
+
+                if (date_diff($fp_date, $bpb_date)->days > 89)
+                {
+
+                    $error .= '<br>Error Line ' . $a->LINE . ': Tanggal faktur sudah expired';
+                }
+            }
+        }
+
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

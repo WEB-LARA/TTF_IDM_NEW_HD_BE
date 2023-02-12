@@ -437,6 +437,7 @@ class InputTTfController extends Controller
                                                     "STATUS" => "VALID",
                                                 ]);
                                         }else{
+                                            print_r("MASOK");
                                                 $insertToUploadTmp = TtfUploadTmp::create([
                                                     "SESS_ID" => $request->session_id,
                                                     "LINE" => $line,

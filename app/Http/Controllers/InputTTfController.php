@@ -500,7 +500,7 @@ class InputTTfController extends Controller
                                     "." .
                                     substr($explodeLink[6], 5, 8);
                                 $ttf_upload_tmp = new TtfUploadTmp();
-                                $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($session_id,$no_faktur);
+                                $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_faktur);
                                 print_r("NO_FAKTUR = ".$getDataTempBySessionId->NO_FP);
                             }
                         }

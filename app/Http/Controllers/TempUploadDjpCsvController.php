@@ -49,4 +49,21 @@ class TempUploadDjpCsvController extends Controller
             ]);
         }
     }
+    public function deleteFileDjp(Request $request){
+        $temp_upload_djp_csv = new TempUploadDjpCsv();
+
+        $delete = TempUploadDjpCsv::where('ID',$request->id)->delete();
+
+        if($delete){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Berhasil di hapus',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Gagal di hapus',
+            ]);
+        }
+    }
 }

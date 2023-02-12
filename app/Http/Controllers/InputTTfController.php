@@ -255,7 +255,6 @@ class InputTTfController extends Controller
         // $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($session_id);
         $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($session_id);
-        print_r($dataFpTmp);
         $user_id = $user_id;
         // print_r($data);
         $concat_ttf_num = '';
@@ -283,7 +282,6 @@ class InputTTfController extends Controller
                     $idHeader = $insertHeader->TTF_ID;
 
                     foreach($dataFpTmp as $b){
-                        dd($b);
                         $insertFp = TtfFp::create([
                             'TTF_ID' => $idHeader,
                             'FP_NUM' => $b['NO_FP'],

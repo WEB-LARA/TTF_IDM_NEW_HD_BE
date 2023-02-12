@@ -41,7 +41,7 @@ class TtfUploadTmp extends Model
         return $data;
     }
     public function getNoFpTmpBySessionIdAndNoFp($session_id,$no_fp){
-        $data = TtfUploadTmp::where('SESSS_ID',$session_id)->whereRaw('SUBSTR(NO_FP,5) = ?',[$no_fp])->select('NO_FP')->first();
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->whereRaw('SUBSTR(NO_FP,5) = ?',[$no_fp])->select('NO_FP')->first();
 
         return $data;
     }

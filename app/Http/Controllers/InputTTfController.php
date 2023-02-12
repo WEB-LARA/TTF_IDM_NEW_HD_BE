@@ -482,9 +482,13 @@ class InputTTfController extends Controller
 
     public function validateUploadTemp($jumlah_fp_yg_diupload,$session_id){
         $ttf_upload_tmp = new TtfUploadTmp();
+        $ttf_data_bpb = new TtfDataBpb();
         $getDataTempBySessionId= $ttf_upload_tmp->getTtfTmpBySessionId($session_id);
 
-        print_r($getDataTempBySessionId);
+        foreach($getDataTempBySessionId as $a){
+            $getDataBpbByBpbNum = $ttf_data_bpb->getDataBpbByNoBPB($a->BPB_NUM);
+            print_r($getDataBpbByBpbNum);
+        }
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

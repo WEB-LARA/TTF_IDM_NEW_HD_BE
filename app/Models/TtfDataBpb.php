@@ -50,4 +50,10 @@ class TtfDataBpb extends Model
 
         return $data;
     }
+
+    public function getDataBpbByNoBPB($bpb_number){
+        $data = TtfDataBpb::where('BPB_NUMBER',$bpb_number)->first();
+
+        return $data;
+    }
 }

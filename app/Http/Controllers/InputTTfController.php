@@ -579,7 +579,7 @@ class InputTTfController extends Controller
                 }
             }
         }
-
+        print_r($error);
         // return $error;
     }
     public function testAPIUploadCSV(){

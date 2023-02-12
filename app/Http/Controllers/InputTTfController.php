@@ -530,17 +530,17 @@ class InputTTfController extends Controller
                 }
             }
         }
-        if($message['status']=='OK'){
-            return response()->json([
-                    'status' => 'success',
-                    'message' => $message,
-                ]);
-        }else{
-            return response()->json([
-                    'status' => 'error',
-                    'message' => $message,
-                ]);
-        }
+        // if($message['status']=='OK'){
+        //     return response()->json([
+        //             'status' => 'success',
+        //             'message' => $message,
+        //         ]);
+        // }else{
+        //     return response()->json([
+        //             'status' => 'error',
+        //             'message' => $message,
+        //         ]);
+        // }
     }
 
     public function cekUploadLampiran(Request $request){
@@ -782,10 +782,9 @@ class InputTTfController extends Controller
             {
                 $ttf_upload_tmp = new TtfUploadTmp();
                 $getSelisih = $ttf_upload_tmp->checkSelisihFP($session_id);
-                
+                print_r($getSelisih);
                 foreach ($getSelisih as $row)
                 {
-                    print_r($row);
                     if ($error == '')
                     {
                         if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)

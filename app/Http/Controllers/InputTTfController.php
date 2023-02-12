@@ -691,6 +691,17 @@ class InputTTfController extends Controller
                     $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' Ganda dalam file ini ';
                 }
             }
+            // cek supplier exist
+            if ($error == '')
+            {
+                $sys_supp_site = new SysSuppSite();
+
+                $getCountSupplier = $sys_supp_site->valdiateSupplierExists($a->SUPP_SITE,$a->CABANG);
+                if ($getCountSupplier == 0)
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ': Kombinasi kode supplier dan cabang tidak ditemukan<';
+                }
+            }
             $nilai_ttf = $a->FP_DPP;
         }
 

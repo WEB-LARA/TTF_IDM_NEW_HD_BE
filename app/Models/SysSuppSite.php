@@ -18,4 +18,10 @@ class SysSuppSite extends Model
 
         return $getData;
     }
+
+    public function valdiateSupplierExists($site_code,$branch_code){
+        $data = SysSuppSite::where('SUPP_SITE_CODE',$site_code)->where('SUPP_BRANCH_CODE',$branch_code)->count();
+
+        return $data;
+    }
 }

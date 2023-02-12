@@ -479,5 +479,33 @@ class InputTTfController extends Controller
             }
         }
     }
+
+    public function testAPIUploadCSV(){
+        $fileName = $request->file_csv->hashName();
+        $real_name = $request->file_csv->getClientOriginalName();
+        $size = $request->file_csv->getSize();
+        if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
+            print_r("Nama File Yang diUpload =".$real_name);
+            echo "<br>";
+            if($request->hasfile('file_djp')){
+                foreach($request->file_lampiran as $key => $file)
+                {
+                    // $fileName = time().'.'.$file->extension();
+                    $fileName = $file->hashName();
+                    $real_name = $file->getClientOriginalName();
+                    $size = $file->getSize();
+                    // print_r($fileName);
+                    // echo "<br>";
+                    $data = array();
+                    if($file->move(public_path('/file_temp_fp'), $fileName)){
+
+                    }
+                    // $data[$i]=$fileName;
+                    array_push($data,$fileName);
+
+                }
+            }
+        }
+    }
     
 }

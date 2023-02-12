@@ -196,7 +196,7 @@ class ConvertImageController extends Controller
         $expLodeFileName = explode(".",$filename);
         $namaFile = $expLodeFileName[0];
         $format = $expLodeFileName[1];
-        $fileNameConverted = $expLodeFileName.'.'.'png';
+        $fileNameConverted = $namaFile.'.'.'png';
         $counter=  1;
         $indexBarcode = $numOfPages - 1;
         $imgExt->readImage(public_path('/file_temp_fp/'.$filename.'['.$indexBarcode.']'));

@@ -823,6 +823,66 @@ class InputTTfController extends Controller
         }
         $no--;
 
+        // UPDATE NILAI FP UNTUK TANPA FP
+        if ($error == '')
+        {
+            $ttf_upload_tmp = new TtfUploadTmp();
+            $getSeqNum = $ttf_upload_tmp->getSeqNumBySessionId($session_id);
+            
+            foreach ($getSeqNum as $tu)
+            {
+                $getSumBPbAndPPN = $ttf_upload_tmp->getSumAmountForNoFp($session_id,$tu->SEQ_NUM);
+                $sum_tnp = $query_sum_tnp->row();
+
+                $update = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_TYPE',2)->where('SEQ_NUM',$tu->SEQ_NUM)->update([
+                    "FP_DPP" => $getSumBPbAndPPN->SUM_BPB_AMOUNT,
+                    "FP_TAX" => $getSumBPbAndPPN->SUM_BPB_PPN
+                ]);
+            }
+        }
+
+        //GET MAX SELISIH
+        $ttf_param_table = new TtfParamTable();
+        $selisih = $ttf_param_table->getMaxSelisih()->MAX_SELISIH;
+
+        //VALIDASI FAKTUR SELISIH dan DPP FP tidak boleh 0 dan PPN harus
+        $nilai_ttf = 0;
+        if ($error == '')
+        {
+            $ttf_upload_tmp = new TtfUploadTmp();
+            $getCheckUploadTmp = $ttf_upload_tmp->checkDataUploadTmp($session_id);
+            
+            foreach ($getCheckUploadTmp as $row)
+            {
+                if ($error == '')
+                {
+                    if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)
+                    {
+                        $error .= '<br> Error Selisih : Faktur ' . $row->NO_FP . ' selisih ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',');
+                    }
+                }
+
+                if ($error == '')
+                {
+                    if ($row->NO_FP == '-' && $row->FP_TAX != '0')
+                    {
+                        $error .= '<br>Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!';
+                    }
+                }
+
+                // if($error == ''){
+                // 	if($row->NO_FP != '-' && ($row->FP_DPP == '0' || $row->FP_TAX == '0')){
+                // 		$error = ' \n Error Faktur : Nilai DPP atau PPN Faktur Pajak '.$row->NO_FP.' Tidak boleh 0.';
+                // 	}
+                // }
+                if ($row->NO_FP != '-' && ($row->FP_DPP == '0' || $row->FP_TAX == '0'))
+                {
+                    $error .= '<br>Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0.';
+                }
+
+                $nilai_ttf += $row->NILAI_FP;
+            }
+        }
         if ($error == '')
         {
             $data['status'] = 'OK';

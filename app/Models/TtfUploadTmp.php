@@ -89,4 +89,22 @@ class TtfUploadTmp extends Model
         // print_r($data);
         return $data;
     }
+
+    public function getSeqNumBySessionId($session_id){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->groupBy('SEQ_NUM')->select('SEQ_NUM')->get();
+        return $data;
+    }
+
+    public function getSumAmountForNoFp($session_id,$seq_num){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_TYPE',2)->where('SEQ_NUM',$seq_num)
+        ->selectRaw('sum(a.BPB_AMOUNT) SUM_BPB_AMOUNT')
+        ->selectRaw('sum(a.BPB_PPN) SUM_BPB_PPN')
+        ->first();
+        return $data;
+    }
+
+    public function checkDataUploadTmp($session_id){
+        $data = DB::select('SELECT a.NO_FP,a.FP_DPP,a.FP_TAX,(a.FP_DPP + a.FP_TAX) NILAI_FP, abs(a.FP_DPP - sum(a.BPB_AMOUNT))  SELISIH_DPP, abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN from ttf_upload_tmp a where   a.SESS_ID = ? group by a.SEQ_NUM, a.NO_FP',[$session_id]);
+        return $data;
+    }
 }

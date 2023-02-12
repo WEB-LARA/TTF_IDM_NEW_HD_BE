@@ -380,6 +380,7 @@ class InputTTfController extends Controller
 			    	array_push($error_arr,$result);
 			    	$flag_error=true;
 			    }
+                print_r($error_arr);
                 // while (!feof($file_handle)) {
                 //     $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
                 //     print_r($data_csv);

@@ -711,6 +711,7 @@ class InputTTfController extends Controller
 
         }
         foreach($getDataTempBySessionId as $a){
+            // satu faktur hanya boleh satu dpp
             if ($error == '')
             {
                 $ttf_upload_tmp = new TtfUploadTmp();
@@ -720,6 +721,7 @@ class InputTTfController extends Controller
                     $error .= '<br> Error Line ' . $a->LINE . ': Nilai DPP Satu Faktur harus sama';
                 }
             }
+            // satu faktur hanya boleh satu ppn
             if ($error == '')
             {
                 $ttf_upload_tmp = new TtfUploadTmp();
@@ -727,6 +729,16 @@ class InputTTfController extends Controller
                 if ($checkDoublePpn > 0)
                 {
                     $error .= '<br>Error Line ' . $a->LINE . ':Nilai PPN Satu Faktur harus sama';
+                }
+            }
+
+            if ($error == '')
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkDoubleDate = $ttf_upload_tmp->validateDoubleDate($session_id,$a->FP_DATE,$a->NO_FP);
+                if ($checkDoubleDate > 0)
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ': Satu Faktur harus memiliki tanggal yang sama';
                 }
             }
         }

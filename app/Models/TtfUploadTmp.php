@@ -58,4 +58,8 @@ class TtfUploadTmp extends Model
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_TAX','<>',$ppn)->where('NO_FP',$no_fp)->count();
         return $data;
     }
+    public function validateDoubleDate($session_id,$date,$no_fp){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_DATE','<>',$date)->where('NO_FP',$no_fp)->count();
+        return $data;
+    }
 }

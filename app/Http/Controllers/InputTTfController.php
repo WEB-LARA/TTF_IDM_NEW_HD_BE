@@ -389,53 +389,48 @@ class InputTTfController extends Controller
 				    	array_push($error_arr,$result);
 				    	$flag_error=true;	
 				    }else{
-                        $line = 1;
-                        if($flag_error == false){
-                            while (!feof($file_handle)) {
-                                $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
-                                print_r($data_csv);
-                                if($data_csv != false){
-                                    $fp_type = 0;
-                                    if ($jenis_faktur == 'STD')
-                                    {
-                                        $fp_type = 1;
-                                    }
-                                    else if ($jenis_faktur == 'NFP')
-                                    {
-                                        $fp_type = 2;
-                                    }
-                                    else if ($jenis_faktur == 'KHS')
-                                    {
-                                        $fp_type = 3;
-                                    }
-                                    if($fp_type == 0){
-                                        DB::transaction(function () use ($data_csv,$request){
-                                            $insertToUploadTmp = TtfUploadTmp::create([
-                                                "SESS_ID" => $request->session_id,
-                                                "LINE" => $line,
-                                                "BPB_NUM" => $data_csv[0],
-                                                "FP_TYPE" => $data_csv[1],
-                                                "NO_FP" => $data_csv[2],
-                                                "FP_DATE" => $data_csv[3],
-                                                "FP_DPP" => $data_csv[4],
-                                                "FP_TAX" => $data_csv[5],
-                                                "STATUS" => "ERROR",
-                                            ]);
-                                        
-                                        },5);
+                        DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
+                            $line = 1;
+                            if($flag_error == false){
+                                while (!feof($file_handle)) {
+                                    $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
+                                    print_r($data_csv);
+                                    if($data_csv != false){
+                                        $fp_type = 0;
+                                        if ($jenis_faktur == 'STD')
+                                        {
+                                            $fp_type = 1;
+                                        }
+                                        else if ($jenis_faktur == 'NFP')
+                                        {
+                                            $fp_type = 2;
+                                        }
+                                        else if ($jenis_faktur == 'KHS')
+                                        {
+                                            $fp_type = 3;
+                                        }
+                                        if($fp_type == 0){
+                                                $insertToUploadTmp = TtfUploadTmp::create([
+                                                    "SESS_ID" => $request->session_id,
+                                                    "LINE" => $line,
+                                                    "BPB_NUM" => $data_csv[0],
+                                                    "FP_TYPE" => $data_csv[1],
+                                                    "NO_FP" => $data_csv[2],
+                                                    "FP_DATE" => $data_csv[3],
+                                                    "FP_DPP" => $data_csv[4],
+                                                    "FP_TAX" => $data_csv[5],
+                                                    "STATUS" => "ERROR",
+                                                ]);
+                                            
+                                            }
+                                        }
+                                        $line++;
                                     }
                                 }
-                                $line++;
                             }
-                        }
+                        ,5);
                     }
                 }
-                // while (!feof($file_handle)) {
-                //     $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
-                //     print_r($data_csv);
-                // }
-                // fclose($file_handle);
-                // return $line_of_text;
             }
         }
     }

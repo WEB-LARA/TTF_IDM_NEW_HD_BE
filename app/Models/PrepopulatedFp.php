@@ -44,4 +44,9 @@ class PrepopulatedFp extends Model
 
         return $data;
     }
+
+    public function checkPrepopulatedFPByNoFakturAndUsedFlag($no_faktur){
+        $data = PrepopulatedFp::whereRaw('SUBSTR(nomor_faktur,5,18) = ?',[$no_faktur])->where('USED_FLAG','N')->count();
+        return $data;
+    }
 }

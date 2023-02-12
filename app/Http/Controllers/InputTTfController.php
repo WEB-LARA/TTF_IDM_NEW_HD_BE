@@ -488,7 +488,6 @@ class InputTTfController extends Controller
         foreach($getDataTempBySessionId as $a){
             $getDataBpbByBpbNum = $ttf_data_bpb->getDataBpbByNoBPB($a->BPB_NUM);
             if($getDataBpbByBpbNum){
-                print_r($getDataBpbByBpbNum);
                 $insertToUploadTmp = TtfUploadTmp::where('ID',$a->ID)->update([
                     "SUPP_SITE" => $getDataBpbByBpbNum->VENDOR_SITE_CODE,
                     "BPB_DATE" => $getDataBpbByBpbNum->BPB_DATE,
@@ -496,8 +495,6 @@ class InputTTfController extends Controller
                     "BPB_PPN" => $getDataBpbByBpbNum->BPB_TAX,
                     "BPB_AMOUNT" => $getDataBpbByBpbNum->BPB_DPP
                 ]);
-            }else{
-                print_r("NOMOR BPB TIDAK DITEMUKAN");
             }
         }
     }

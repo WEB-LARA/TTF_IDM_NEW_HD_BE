@@ -449,7 +449,7 @@ class InputTTfController extends Controller
                                         }
                                         $line++;
                                 }
-                                $error_arr = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id);
+                                $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id);
                             }
                         },5);
                     }

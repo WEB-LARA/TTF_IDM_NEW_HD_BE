@@ -13,7 +13,7 @@ class TempUploadDjpCsvController extends Controller
             $fileName = $file->hashName();
             $real_name = $file->getClientOriginalName();
             $size = $file->getSize();
-            if($request->file->move(public_path('/file_temp_fp'), $fileName)){
+            if($file->move(public_path('/file_temp_fp'), $fileName)){
                 $create = TempUploadDjpCsv::create([
                     "PATH_FILE" => public_path('/file_temp_fp/'.$fileName),
                     "FILE_NAME" =>$fileName,

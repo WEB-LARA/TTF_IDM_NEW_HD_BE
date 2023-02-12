@@ -17,6 +17,7 @@ use App\Models\TtfParamTable;
 use App\Models\TtfUploadTmp;
 use App\Models\SysMapSupplier;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ConvertImageController;
 use File;
 class InputTTfController extends Controller
 {
@@ -457,17 +458,17 @@ class InputTTfController extends Controller
                     }
                 }
             }
-            if($message['status']=='OK'){
-                return response()->json([
-                        'status' => 'success',
-                        'message' => $message,
-                    ]);
-            }else{
-                return response()->json([
-                        'status' => 'error',
-                        'message' => $message,
-                    ]);
-            }
+        }
+        if($message['status']=='OK'){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $message,
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'error',
+                    'message' => $message,
+                ]);
         }
     }
 

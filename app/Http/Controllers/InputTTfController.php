@@ -368,138 +368,155 @@ class InputTTfController extends Controller
         // }else{
 
         // }
-        
-        if($request->hasFile('file_djp')){
-            $convert_image_controller = new ConvertImageController();
-            foreach($request->file('file_djp') as $key => $file)
-            {
-                // $fileName = time().'.'.$file->extension();
-                $fileName = $file->hashName();
-                $real_name = $file->getClientOriginalName();
-                $size = $file->getSize();
-                // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                if($file->move(public_path('/file_temp_fp'), $fileName)){
-                    $sys_fp_fisik = new SysFpFisik();
-                    $create = TempUploadDjpCsv::create([
-                        "PATH_FILE" => public_path('/file_temp_fp/'.$fileName),
-                        "FILE_NAME" =>$fileName,
-                        "REAL_NAME" =>$real_name,
-                        "SESSION_ID" => $request->session_id
-                    ]);
+           
+        if($request->hasFile('file_csv')){
+            $fileName = $request->file_csv->hashName();
+            $real_name = $request->file_csv->getClientOriginalName();
+            $size = $request->file_csv->getSize();
+            // print_r($fileName);
+            $row = 1;
+            $flag_error=false;
+            $error_arr = array();
+            $message = '';
+            if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
+                $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
+                $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
+
+			    if(!isset($data_csv[1])){
+			    	$result['status'] = 'ERROR';
+			    	$result['msg'] = "Isi file kosong atau separator tidak sesuai.";
+			    	array_push($error_arr,$result);
+			    	$flag_error=true;
+			    }else{
+				    if((strtoupper($data_csv[0]) !='NO BPB' || strtoupper($data_csv[1])!='JENIS FAKTUR PAJAK' || strtoupper($data_csv[2])!='NO FAKTUR PAJAK' || strtoupper($data_csv[3])!='TGL FAKTUR PAJAK' || strtoupper($data_csv[4])!='NILAI DPP' || strtoupper($data_csv[5])!='NILAI PPN') && $row==1){
+				    	$result['status'] = 'ERROR';
+				    	$result['msg'] = "Template baris pertama CSV tidak sesuai format.";	
+				    	array_push($error_arr,$result);
+				    	$flag_error=true;	
+				    }else{
+                        DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
+                            $line = 1;
+                            if($flag_error == false){
+                                while (!feof($file_handle)) {
+                                    $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
+                                    if($data_csv != false){
+                                        $fp_type = 0;
+                                        if ($data_csv[1] == 'STD')
+                                        {
+                                            $fp_type = 1;
+                                        }
+                                        else if ($data_csv[1] == 'NFP')
+                                        {
+                                            $fp_type = 2;
+                                        }
+                                        else if ($data_csv[1] == 'KHS')
+                                        {
+                                            $fp_type = 3;
+                                        }
+                                        if($fp_type == 0){
+                                                $insertToUploadTmp = TtfUploadTmp::create([
+                                                    "SESS_ID" => $request->session_id,
+                                                    "LINE" => $line,
+                                                    "BPB_NUM" => $data_csv[0],
+                                                    "FP_TYPE" => $fp_type,
+                                                    "NO_FP" => $data_csv[2],
+                                                    "FP_DATE" => $data_csv[3],
+                                                    "FP_DPP" => $data_csv[4],
+                                                    "FP_TAX" => $data_csv[5],
+                                                    "STATUS" => "ERROR"
+                                                ]);
+                                            
+                                        }else if($fp_type == 2){
+                                            $insertToUploadTmp = TtfUploadTmp::create([
+                                                "SESS_ID" => $request->session_id,
+                                                "LINE" => $line,
+                                                "BPB_NUM" => $data_csv[0],
+                                                "FP_TYPE" => $fp_type,
+                                                "NO_FP" => $data_csv[2],
+                                                "FP_DATE" => $data_csv[3],
+                                                "FP_DPP" => 0,
+                                                "FP_TAX" => 0,
+                                                "STATUS" => "VALID"
+                                            ]);
+                                        }else{
+                                                $insertToUploadTmp = TtfUploadTmp::create([
+                                                    "SESS_ID" => $request->session_id,
+                                                    "LINE" => $line,
+                                                    "BPB_NUM" => $data_csv[0],
+                                                    "FP_TYPE" => $fp_type,
+                                                    "NO_FP" => $data_csv[2],
+                                                    "FP_DATE" => $data_csv[3],
+                                                    "FP_DPP" => $data_csv[4],
+                                                    "FP_TAX" => $data_csv[5],
+                                                    "STATUS" => "VALID"
+                                                ]);
+                                        }
+                                        }
+                                        $line++;
+                                }
+                            }
+                        },5);
+                        if($request->hasFile('file_djp')){
+                            $convert_image_controller = new ConvertImageController();
+                            foreach($request->file('file_djp') as $key => $file)
+                            {
+                                // $fileName = time().'.'.$file->extension();
+                                $fileName = $file->hashName();
+                                $real_name = $file->getClientOriginalName();
+                                $size = $file->getSize();
+                                // $request->file->move(public_path('/file_temp_fp'), $fileName)
+                                if($file->move(public_path('/file_temp_fp'), $fileName)){
+                                    $sys_fp_fisik = new SysFpFisik();
+                                    $create = TempUploadDjpCsv::create([
+                                        "PATH_FILE" => public_path('/file_temp_fp/'.$fileName),
+                                        "FILE_NAME" =>$fileName,
+                                        "REAL_NAME" =>$real_name,
+                                        "SESSION_ID" => $request->session_id
+                                    ]);
+                                }
+                            }
+                            $temp_upload_djp_csv = new TempUploadDjpCsv();
+                            $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessId($request->session_id);
+                            // fileUploadPostUploadCsv
+                            foreach($getDataTempUploadCsv as $a){
+                                $fileNameConverted = $convert_image_controller->convertFpPdfToImageUploadCsv($a->FILE_NAME);
+                                $cek_qr = $convert_image_controller->readQr($fileNameConverted);
+                                $explodeLink = explode("/",$linkQr);
+                                $npwp_penjual = substr($explodeLink[5], 0, 2) .
+                                    "." .
+                                    substr($explodeLink[5], 2, 3) .
+                                    "." .
+                                    substr($explodeLink[5], 5, 3) .
+                                    "." .
+                                    substr($explodeLink[5], 8, 1) .
+                                    "-" .
+                                    substr($explodeLink[5], 9, 3) .
+                                    "." .
+                                    substr($explodeLink[5], 12, 3);
+                                $no_faktur =
+                                    substr($explodeLink[6], 0, 3) .
+                                    "-" .
+                                    substr($explodeLink[6], 3, 2) .
+                                    "." .
+                                    substr($explodeLink[6], 5, 8);
+                            }
+                        }
+                        $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                    }
                 }
             }
-            $temp_upload_djp_csv = new TempUploadDjpCsv();
-            $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessId($request->session_id);
-            // fileUploadPostUploadCsv
-            foreach($getDataTempUploadCsv as $a){
-                $fileNameConverted = $convert_image_controller->convertFpPdfToImageUploadCsv($a->FILE_NAME);
-                $cek_qr = $convert_image_controller->readQr($fileNameConverted);
-                print_r($cek_qr);
-            }
-        }   
-        // if($request->hasFile('file_csv')){
-        //     $fileName = $request->file_csv->hashName();
-        //     $real_name = $request->file_csv->getClientOriginalName();
-        //     $size = $request->file_csv->getSize();
-        //     // print_r($fileName);
-        //     $row = 1;
-        //     $flag_error=false;
-        //     $error_arr = array();
-        //     $message = '';
-        //     if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
-        //         $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
-        //         $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
-
-		// 	    if(!isset($data_csv[1])){
-		// 	    	$result['status'] = 'ERROR';
-		// 	    	$result['msg'] = "Isi file kosong atau separator tidak sesuai.";
-		// 	    	array_push($error_arr,$result);
-		// 	    	$flag_error=true;
-		// 	    }else{
-		// 		    if((strtoupper($data_csv[0]) !='NO BPB' || strtoupper($data_csv[1])!='JENIS FAKTUR PAJAK' || strtoupper($data_csv[2])!='NO FAKTUR PAJAK' || strtoupper($data_csv[3])!='TGL FAKTUR PAJAK' || strtoupper($data_csv[4])!='NILAI DPP' || strtoupper($data_csv[5])!='NILAI PPN') && $row==1){
-		// 		    	$result['status'] = 'ERROR';
-		// 		    	$result['msg'] = "Template baris pertama CSV tidak sesuai format.";	
-		// 		    	array_push($error_arr,$result);
-		// 		    	$flag_error=true;	
-		// 		    }else{
-        //                 DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
-        //                     $line = 1;
-        //                     if($flag_error == false){
-        //                         while (!feof($file_handle)) {
-        //                             $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
-        //                             if($data_csv != false){
-        //                                 $fp_type = 0;
-        //                                 if ($data_csv[1] == 'STD')
-        //                                 {
-        //                                     $fp_type = 1;
-        //                                 }
-        //                                 else if ($data_csv[1] == 'NFP')
-        //                                 {
-        //                                     $fp_type = 2;
-        //                                 }
-        //                                 else if ($data_csv[1] == 'KHS')
-        //                                 {
-        //                                     $fp_type = 3;
-        //                                 }
-        //                                 if($fp_type == 0){
-        //                                         $insertToUploadTmp = TtfUploadTmp::create([
-        //                                             "SESS_ID" => $request->session_id,
-        //                                             "LINE" => $line,
-        //                                             "BPB_NUM" => $data_csv[0],
-        //                                             "FP_TYPE" => $fp_type,
-        //                                             "NO_FP" => $data_csv[2],
-        //                                             "FP_DATE" => $data_csv[3],
-        //                                             "FP_DPP" => $data_csv[4],
-        //                                             "FP_TAX" => $data_csv[5],
-        //                                             "STATUS" => "ERROR"
-        //                                         ]);
-                                            
-        //                                 }else if($fp_type == 2){
-        //                                     $insertToUploadTmp = TtfUploadTmp::create([
-        //                                         "SESS_ID" => $request->session_id,
-        //                                         "LINE" => $line,
-        //                                         "BPB_NUM" => $data_csv[0],
-        //                                         "FP_TYPE" => $fp_type,
-        //                                         "NO_FP" => $data_csv[2],
-        //                                         "FP_DATE" => $data_csv[3],
-        //                                         "FP_DPP" => 0,
-        //                                         "FP_TAX" => 0,
-        //                                         "STATUS" => "VALID"
-        //                                     ]);
-        //                                 }else{
-        //                                         $insertToUploadTmp = TtfUploadTmp::create([
-        //                                             "SESS_ID" => $request->session_id,
-        //                                             "LINE" => $line,
-        //                                             "BPB_NUM" => $data_csv[0],
-        //                                             "FP_TYPE" => $fp_type,
-        //                                             "NO_FP" => $data_csv[2],
-        //                                             "FP_DATE" => $data_csv[3],
-        //                                             "FP_DPP" => $data_csv[4],
-        //                                             "FP_TAX" => $data_csv[5],
-        //                                             "STATUS" => "VALID"
-        //                                         ]);
-        //                                 }
-        //                                 }
-        //                                 $line++;
-        //                         }
-        //                     }
-        //                 },5);
-        //                 $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
-        //             }
-        //         }
-        //     }
-        // }
-        // if($message['status']=='OK'){
-        //     return response()->json([
-        //             'status' => 'success',
-        //             'message' => $message,
-        //         ]);
-        // }else{
-        //     return response()->json([
-        //             'status' => 'error',
-        //             'message' => $message,
-        //         ]);
-        // }
+        }
+        if($message['status']=='OK'){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $message,
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'error',
+                    'message' => $message,
+                ]);
+        }
     }
 
     public function cekUploadLampiran(Request $request){

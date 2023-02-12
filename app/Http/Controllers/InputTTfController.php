@@ -381,7 +381,7 @@ class InputTTfController extends Controller
 			    	array_push($error_arr,$result);
 			    	$flag_error=true;
 			    }else{
-				    if((strtoupper($isi[0]) !='NO BPB' || strtoupper($isi[1])!='JENIS FAKTUR PAJAK' || strtoupper($isi[2])!='NO FAKTUR PAJAK' || strtoupper($isi[3])!='TGL FAKTUR PAJAK' || strtoupper($isi[4])!='NILAI DPP' || strtoupper($isi[5])!='NILAI PPN') && $row==1){
+				    if((strtoupper($data_csv[0]) !='NO BPB' || strtoupper($data_csv[1])!='JENIS FAKTUR PAJAK' || strtoupper($data_csv[2])!='NO FAKTUR PAJAK' || strtoupper($data_csv[3])!='TGL FAKTUR PAJAK' || strtoupper($data_csv[4])!='NILAI DPP' || strtoupper($data_csv[5])!='NILAI PPN') && $row==1){
 				    	$result['status'] = 'ERROR';
 				    	$result['msg'] = "Template baris pertama CSV tidak sesuai format.";	
 				    	array_push($error_arr,$result);

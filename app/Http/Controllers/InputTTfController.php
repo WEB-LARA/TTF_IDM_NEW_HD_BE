@@ -685,7 +685,7 @@ class InputTTfController extends Controller
             if ($error == '')
             {
                 $ttf_upload_tmp = new TtfUploadTmp();
-                $checkDoubleBPB = $ttf_upload_tmp->checkDoubleBpbForUpload($request->session_id,$a->BPB_NUM,$a->ID);
+                $checkDoubleBPB = $ttf_upload_tmp->checkDoubleBpbForUpload($session_id,$a->BPB_NUM,$a->ID);
                 if ($checkDoubleBPB > 0)
                 {
                     $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' Ganda dalam file ini ';

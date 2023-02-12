@@ -422,6 +422,30 @@ class InputTTfController extends Controller
                                                 ]);
                                             
                                             }
+                                        }else if($fp_type == 2){
+                                                $insertToUploadTmp = TtfUploadTmp::create([
+                                                    "SESS_ID" => $request->session_id,
+                                                    "LINE" => $line,
+                                                    "BPB_NUM" => $data_csv[0],
+                                                    "FP_TYPE" => $data_csv[1],
+                                                    "NO_FP" => $data_csv[2],
+                                                    "FP_DATE" => $data_csv[3],
+                                                    "FP_DPP" => 0,
+                                                    "FP_TAX" => 0,
+                                                    "STATUS" => "VALID",
+                                                ]);
+                                        }else{
+                                                $insertToUploadTmp = TtfUploadTmp::create([
+                                                    "SESS_ID" => $request->session_id,
+                                                    "LINE" => $line,
+                                                    "BPB_NUM" => $data_csv[0],
+                                                    "FP_TYPE" => $data_csv[1],
+                                                    "NO_FP" => $data_csv[2],
+                                                    "FP_DATE" => $data_csv[3],
+                                                    "FP_DPP" => $data_csv[4],
+                                                    "FP_TAX" => $data_csv[5],
+                                                    "STATUS" => "VALID",
+                                                ]);
                                         }
                                         $line++;
                                     }

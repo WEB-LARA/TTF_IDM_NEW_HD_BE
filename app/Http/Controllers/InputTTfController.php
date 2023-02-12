@@ -784,6 +784,7 @@ class InputTTfController extends Controller
                 
                 foreach ($getSelisih as $row)
                 {
+                    print_r($row);
                     if ($error == '')
                     {
                         if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)

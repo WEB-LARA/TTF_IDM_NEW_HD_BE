@@ -192,7 +192,7 @@ class TtfTmpTable extends Model
 										BPB_AMOUNT,
 										BPB_PPN,
 										SESS_ID
-									from ttf_upload_tmp where SESS_ID = ? and STATUS = \'VALID\''",$session_id);
+									from ttf_upload_tmp where SESS_ID = ? and STATUS = \'VALID\''",[$session_id]);
         if($insert){
             return 1;
         }else{

@@ -98,5 +98,6 @@ Route::controller(SysAnnouncementController::class)->group(function () {
     Route::get('getDataAnnouncement', 'getDataAnnouncement');
     Route::post('getDownload','getDownload');
 });
-
-
+Route::controller(TempUploadDjpCsvController::class)->group(function () {
+    Route::post('insertFileDjp', 'insertFileDjp');
+});

@@ -39,4 +39,9 @@ class PrepopulatedFp extends Model
 
         return $data;
     }
+    public function getPrepopulatedFpByNoFpAndNpwp($npwp,$no_faktur){
+        $data = PrepopulatedFp::where('NPWP_PENJUAL',$npwp)->whereRaw('SUBSTR(nomor_faktur,5,18)',$no_faktur)->count();
+
+        return $data;
+    }
 }

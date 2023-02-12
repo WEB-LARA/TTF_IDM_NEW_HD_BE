@@ -56,4 +56,12 @@ class TtfDataBpb extends Model
 
         return $data;
     }
+
+    public function validateBPB(){
+        $statement = "SELECT tdb.BPB_ID from ttf_data_bpb tdb, ttf_lines tl, ttf_headers th where tdb.BPB_ID = tl.TTF_BPB_ID and tl.TTF_ID = th.TTF_ID and th.TTF_STATUS not in (?, ?) and tdb.BPB_NUMBER = ? and tdb.USED_FLAG = ?";
+
+        $data = TtfDataBpb::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
+              ->join('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')->whereNotIn('ttf_headers.TTF_STATUS',['R','C'])->where('ttf_data_bpb.USED_FLAG','Y')->get();
+        return $data;
+    }
 }

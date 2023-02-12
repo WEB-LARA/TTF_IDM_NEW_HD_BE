@@ -554,14 +554,30 @@ class InputTTfController extends Controller
 
             $fp_date = date_create($a->FORMAT_DATE);
             $bpb_date = date_create($a->BPB_DATE);
-            if ($a->FP_DATE < $a->BPB_DATE)
-            {
-
-                if (date_diff($fp_date, $bpb_date)->days > 89)
-                {
-
+            if ($a->FP_DATE < $a->BPB_DATE){
+                if (date_diff($fp_date, $bpb_date)->days > 89){
                     $error .= '<br>Error Line ' . $a->LINE . ': Tanggal faktur sudah expired';
                 }
+            }
+            if ($error == ''){
+                // $statement = 'SELECT tdb.BPB_ID from ttf_data_bpb tdb, ttf_lines tl, ttf_headers th where tdb.BPB_ID = tl.TTF_BPB_ID and tl.TTF_ID = th.TTF_ID and th.TTF_STATUS not in (?, ?) and tdb.BPB_NUMBER = ? and tdb.USED_FLAG = ?';
+                // $row = $this
+                //     ->db
+                //     ->query($statement, array(
+                //     'R',
+                //     'C',
+                //     $a->BPB_NUM,
+                //     'Y'
+                // ))
+                //     ->num_rows();
+                $ttf_data_bpb = new TtfDataBpb();
+
+                $getDataBpb= $ttf_data_bpb->validateBPB();
+                print_r($getDataBpb);
+                // if ($row > 0)
+                // {
+                //     $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' telah digunakan';
+                // }
             }
         }
 

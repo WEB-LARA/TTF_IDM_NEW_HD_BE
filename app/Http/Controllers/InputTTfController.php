@@ -563,6 +563,10 @@ class InputTTfController extends Controller
 
         print_R($fp_dicsv);
 
+        return response()->json([
+                'status' => 'success',
+                'message' => $error,
+            ]);
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

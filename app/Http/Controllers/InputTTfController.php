@@ -381,10 +381,10 @@ class InputTTfController extends Controller
                 if($file->move(public_path('/file_temp_fp'), $fileName)){
                     $sys_fp_fisik = new SysFpFisik();
                     $create = TempUploadDjpCsv::create([
-                        "PATH_FILE" => public_path('/file_temp_fp'.$fileName),
+                        "PATH_FILE" => public_path('/file_temp_fp/'.$fileName),
                         "FILE_NAME" =>$fileName,
                         "REAL_NAME" =>$real_name,
-                        "SESS_ID" => $request->session_id
+                        "SESSION_ID" => $request->session_id
                     ]);
                 }
             }

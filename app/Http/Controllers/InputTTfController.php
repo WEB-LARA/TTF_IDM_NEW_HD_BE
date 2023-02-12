@@ -365,7 +365,7 @@ class InputTTfController extends Controller
 
         // }
         if($request->hasFile('file_csv')){
-            $fileName = $request->file_name->hashName();
+            $fileName = $request->file_csv->hashName();
             $real_name = $request->file_csv->getClientOriginalName();
             $size = $request->file_csv->getSize();
             print_r($fileName);

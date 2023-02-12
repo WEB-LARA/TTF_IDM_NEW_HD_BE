@@ -561,10 +561,12 @@ class InputTTfController extends Controller
             }
         }
 
+        print_r("TEST");
         return response()->json([
                 'status' => 'success',
                 'message' => $error,
-            ]);
+        ]);
+        print_r("TEST2");
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

@@ -481,7 +481,7 @@ class InputTTfController extends Controller
                             foreach($getDataTempUploadCsv as $a){
                                 $fileNameConverted = $convert_image_controller->convertFpPdfToImageUploadCsv($a->FILE_NAME);
                                 $cek_qr = $convert_image_controller->readQr($fileNameConverted);
-                                $explodeLink = explode("/",$linkQr);
+                                $explodeLink = explode("/",$cek_qr);
                                 $npwp_penjual = substr($explodeLink[5], 0, 2) .
                                     "." .
                                     substr($explodeLink[5], 2, 3) .

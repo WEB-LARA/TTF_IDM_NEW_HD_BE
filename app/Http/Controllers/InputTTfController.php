@@ -451,9 +451,9 @@ class InputTTfController extends Controller
                                         }
                                         $line++;
                                 }
-                                $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
                             }
                         },5);
+                        $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
                     }
                 }
             }

@@ -889,14 +889,10 @@ class InputTTfController extends Controller
         }
         else
         {
-            // $status = 'ERROR';
-            // $statement = 'UPDATE ttf_upload_tmp set STATUS=? where SESS_ID =?';
-            // $this
-            //     ->db
-            //     ->query($statement, array(
-            //     $status,
-            //     $sess_id
-            // ));
+            $status = 'ERROR';
+            $updateUploadTmp = TtfUploadTmp::where('SESS_ID',$session_id)->update([
+                "STATUS" => $status
+            ]);
             $data['status'] = 'ERROR';
             $data['msg'] = $error;
         }

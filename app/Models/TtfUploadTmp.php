@@ -35,4 +35,9 @@ class TtfUploadTmp extends Model
 
         return $data;
     }
+
+    public function getSiteCodeAndBranch($session_id,$status){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('STATUS',$status)->groupBy('SUPP_SITE','CABANG')->select('SUPP_SITE','CABANG')->get();
+        return $data;
+    }
 }

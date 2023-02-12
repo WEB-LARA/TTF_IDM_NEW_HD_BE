@@ -591,7 +591,24 @@ class InputTTfController extends Controller
                 }
 
             }
+            $nilai_ttf = $a->FP_DPP;
         }
+
+        //SEQ NUMBER
+        $status = 'VALID';
+        $ttf_upload_tmp = new TtfUploadTmp();
+        $getDataSiteAndBranchFromUpload = $ttf_upload_tmp->getSiteCodeAndBranch($session_id,$status);
+        $no = 1;
+
+        foreach ($getDataSiteAndBranchFromUpload as $b)
+        {
+            $updateTtfUploadTmp = TtfUploadTmp::where('SESS_ID',$session_id)->where('SUPP_SITE',$b->SUPP_SITE)->where('CABANG',$b->CABANG)->update([
+                "SEQ_NUM" => $no
+            ]);
+            $no++;
+        }
+        $no--;
+
         if ($error == '')
         {
             $data['status'] = 'OK';
@@ -599,14 +616,14 @@ class InputTTfController extends Controller
         }
         else
         {
-            $status = 'ERROR';
-            $statement = 'UPDATE ttf_upload_tmp set STATUS=? where SESS_ID =?';
-            $this
-                ->db
-                ->query($statement, array(
-                $status,
-                $sess_id
-            ));
+            // $status = 'ERROR';
+            // $statement = 'UPDATE ttf_upload_tmp set STATUS=? where SESS_ID =?';
+            // $this
+            //     ->db
+            //     ->query($statement, array(
+            //     $status,
+            //     $sess_id
+            // ));
             $data['status'] = 'ERROR';
             $data['msg'] = $error;
         }

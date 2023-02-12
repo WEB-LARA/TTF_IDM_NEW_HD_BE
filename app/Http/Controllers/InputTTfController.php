@@ -371,7 +371,7 @@ class InputTTfController extends Controller
             print_r($fileName);
 
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
-                $file_handle = fopen($csvFile, 'r');
+                $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
                 while (!feof($file_handle)) {
                     $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
                     print_r($line_of_text);

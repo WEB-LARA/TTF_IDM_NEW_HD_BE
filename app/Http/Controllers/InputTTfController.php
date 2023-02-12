@@ -564,7 +564,7 @@ class InputTTfController extends Controller
         print_r("TEST");
         return response()->json([
                 'status' => 'success',
-                'message' => $error,
+                'message' => 'TEST',
         ]);
         print_r("TEST2");
     }

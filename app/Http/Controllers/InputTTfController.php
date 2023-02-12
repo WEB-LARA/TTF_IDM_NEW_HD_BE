@@ -348,6 +348,7 @@ class InputTTfController extends Controller
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
                 $size = $file->getSize();
+                print_r($fileName);
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
                 if($file->move(public_path('/file_upload_csv'), $fileName)){
                     $file_handle = fopen($csvFile, 'r');

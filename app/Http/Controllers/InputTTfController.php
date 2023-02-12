@@ -342,27 +342,33 @@ class InputTTfController extends Controller
 
     public function uploadTTF(Request $request){
         print_r("TEST");
-        if($request->hasfile('file_csv')){
-            foreach($request->file('file_csv') as $key => $file)
-            {
-                // $fileName = time().'.'.$file->extension();
-                $fileName = $file->hashName();
-                $real_name = $file->getClientOriginalName();
-                $size = $file->getSize();
-                print_r($fileName);
-                // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                if($file->move(public_path('/file_upload_csv'), $fileName)){
-                    $file_handle = fopen($csvFile, 'r');
-                    while (!feof($file_handle)) {
-                        // $line_of_text[] = fgetcsv($file_handle, 0, $array['delimiter']);
-                        print_r($line_of_text);
-                    }
-                    fclose($file_handle);
-                    // return $line_of_text;
-                }
-            }
-        }else{
+        // if($request->hasfile('file_csv')){
+        //     foreach($request->file('file_csv') as $key => $file)
+        //     {
+        //         // $fileName = time().'.'.$file->extension();
+        //         $fileName = $file->hashName();
+        //         $real_name = $file->getClientOriginalName();
+        //         $size = $file->getSize();
+        //         print_r($fileName);
+        //         // $request->file->move(public_path('/file_temp_fp'), $fileName)
+        //         if($file->move(public_path('/file_upload_csv'), $fileName)){
+        //             $file_handle = fopen($csvFile, 'r');
+        //             while (!feof($file_handle)) {
+        //                 // $line_of_text[] = fgetcsv($file_handle, 0, $array['delimiter']);
+        //                 print_r($line_of_text);
+        //             }
+        //             fclose($file_handle);
+        //             // return $line_of_text;
+        //         }
+        //     }
+        // }else{
 
+        // }
+        if($request->hasFile('file_csv')){
+            $fileName = $file->hashName();
+            $real_name = $file->getClientOriginalName();
+            $size = $file->getSize();
+            print_r($fileName);
         }
     }
 

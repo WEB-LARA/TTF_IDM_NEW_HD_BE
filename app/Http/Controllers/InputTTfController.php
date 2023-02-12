@@ -572,7 +572,7 @@ class InputTTfController extends Controller
                 //     ->num_rows();
                 $ttf_data_bpb = new TtfDataBpb();
 
-                $getDataBpb= $ttf_data_bpb->validateBPB();
+                $getDataBpb= $ttf_data_bpb->validateBPBByBPBNumber();
                 print_r($getDataBpb);
                 // if ($row > 0)
                 // {

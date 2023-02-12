@@ -511,6 +511,7 @@ class InputTTfController extends Controller
             }
         }
         if($message['status']=='OK'){
+            $this->approveUpload();
             return response()->json([
                     'status' => 'success',
                     'message' => $message,
@@ -879,6 +880,11 @@ class InputTTfController extends Controller
         }
         // print_r($error);
         return $data;
+    }
+
+    public function approveUpload(){
+        $ttf_tmp_table = new TtfTmpTable();
+        $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv();
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

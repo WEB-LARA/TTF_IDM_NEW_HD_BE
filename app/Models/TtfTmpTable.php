@@ -158,4 +158,45 @@ class TtfTmpTable extends Model
             return 0;
         }
     }
+
+    public function insertFromUploadCsv($session_id){
+        $insert = DB::select("INSERT into ttf_tmp_table (
+										ID,
+										SEQ_NUM,
+										FP_TYPE,
+										SUPP_SITE,
+										CABANG,
+										NO_FP,
+										NO_NPWP,
+										FP_DATE,
+										FP_DPP,
+										FP_TAX,
+										BPB_NUM,
+										BPB_DATE,
+										BPB_AMOUNT,
+										BPB_PPN,
+										SESS_ID)
+									select 
+										NULL,
+										SEQ_NUM,
+										FP_TYPE,
+										SUPP_SITE,
+										CABANG,
+										(case when NO_FP = \'-\' then \'0\' else NO_FP end) NO_FP,
+										NO_NPWP,
+										STR_TO_DATE(FP_DATE,\'%d/%m/%Y\'),
+										FP_DPP,
+										FP_TAX,
+										BPB_NUM,
+										BPB_DATE,
+										BPB_AMOUNT,
+										BPB_PPN,
+										SESS_ID
+									from ttf_upload_tmp where SESS_ID = ? and STATUS = \'VALID\''",$session_id);
+        if($insert){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

@@ -409,6 +409,7 @@ class InputTTfController extends Controller
                                         {
                                             $fp_type = 3;
                                         }
+                                        print_r($fp_type);
                                         if($fp_type == 0){
                                                 $insertToUploadTmp = TtfUploadTmp::create([
                                                     "SESS_ID" => $request->session_id,

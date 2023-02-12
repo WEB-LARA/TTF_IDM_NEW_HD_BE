@@ -388,6 +388,13 @@ class InputTTfController extends Controller
                     ]);
                 }
             }
+            $temp_upload_djp_csv = new TempUploadDjpCsv();
+            $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessId($request->session_id);
+            // fileUploadPostUploadCsv
+            foreach($getDataTempUploadCsv as $a){
+                print_r($a);
+                echo "<br>";
+            }
         }   
         // if($request->hasFile('file_csv')){
         //     $fileName = $request->file_csv->hashName();

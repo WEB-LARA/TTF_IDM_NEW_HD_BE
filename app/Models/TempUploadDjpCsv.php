@@ -19,4 +19,10 @@ class TempUploadDjpCsv extends Model
         'REAL_NAME',
         'SESSION_ID'
     ];
+
+    public function getDataTempUploadDjpCsvBySessId($session_id){
+        $data = TempUploadDjpCsv::where('SESSION_ID',$session_id)->get();
+
+        return $data;
+    }
 }

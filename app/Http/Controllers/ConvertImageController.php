@@ -80,6 +80,66 @@ class ConvertImageController extends Controller
         }
    
     }
+
+    public function fileUploadPostUploadCsv($file_djp,$no_npwp,$no_faktur)
+    {
+        $request->validate([
+            'file' => 'required|mimes:pdf|max:2048',
+        ]);
+  
+        $fileName = $file_djp->hashName();  
+        $real_name = $file_djp->getClientOriginalName();
+        if($file_djp->move(public_path('/file_temp_fp'), $fileName)){
+            // Convert Fp ke Gambar
+            $fileNameConverted = $this->convertFpPdfToImage($fileName);
+            $linkQr = '';
+            // foreach ($fileNameConverted as $a){
+            //     $linkQr .= $this->readQr($a);
+            // }
+            $linkQr .= $this->readQr($fileNameConverted);
+            $explodeLink = explode("/",$linkQr);
+            $npwp_penjual = substr($explodeLink[5], 0, 2) .
+                "." .
+                substr($explodeLink[5], 2, 3) .
+                "." .
+                substr($explodeLink[5], 5, 3) .
+                "." .
+                substr($explodeLink[5], 8, 1) .
+                "-" .
+                substr($explodeLink[5], 9, 3) .
+                "." .
+                substr($explodeLink[5], 12, 3);
+            $no_faktur =
+                substr($explodeLink[6], 0, 3) .
+                "-" .
+                substr($explodeLink[6], 3, 2) .
+                "." .
+                substr($explodeLink[6], 5, 8);
+            if($request->no_npwp == $npwp_penjual && substr($request->no_faktur, 4) == $no_faktur){
+                // unlink(public_path('/file_temp_fp/'.$fileName));
+                unlink(public_path('/file_temp_fp/'.$fileNameConverted));
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'validated',
+                        'nama_file'=> $fileName,
+                        'real_name'=> $real_name
+                    ]);
+            }else{
+                // unlink(public_path('/file_temp_fp/'.$fileName));
+                unlink(public_path('/file_temp_fp/'.$fileNameConverted));
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'rejected',
+                    ]);
+            }
+        }else{
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'gagal membaca file',
+                ]);
+        }
+   
+    }
     
     public function convertFpPdfToImage($filename){
         $getNumberPages = new Imagick(public_path('/file_temp_fp/'.$filename));

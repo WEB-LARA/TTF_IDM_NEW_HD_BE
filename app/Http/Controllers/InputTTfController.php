@@ -983,7 +983,7 @@ class InputTTfController extends Controller
     public function approveUpload($session_id,$user_id){
         $ttf_tmp_table = new TtfTmpTable();
         $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
-        $this->saveTTf($session_id,$user_id);
+        $this->saveTTfUpload($session_id,$user_id);
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

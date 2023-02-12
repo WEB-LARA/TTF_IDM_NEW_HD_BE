@@ -341,7 +341,7 @@ class InputTTfController extends Controller
     }
 
     public function uploadTTF(Request $request){
-        print_r("TEST");
+        // print_r("TEST");
         // if($request->hasfile('file_csv')){
         //     foreach($request->file('file_csv') as $key => $file)
         //     {
@@ -369,6 +369,16 @@ class InputTTfController extends Controller
             $real_name = $request->file_csv->getClientOriginalName();
             $size = $request->file_csv->getSize();
             print_r($fileName);
+
+            if($file->move(public_path('/file_upload_csv'), $fileName)){
+                $file_handle = fopen($csvFile, 'r');
+                while (!feof($file_handle)) {
+                    $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
+                    print_r($line_of_text);
+                }
+                fclose($file_handle);
+                // return $line_of_text;
+            }
         }
     }
 

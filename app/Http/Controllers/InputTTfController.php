@@ -340,7 +340,7 @@ class InputTTfController extends Controller
         }
     }
 
-    public function uploadTTF(){
+    public function uploadTTF(Request $request){
         if($request->hasfile('file_csv')){
             foreach($request->file('file_csv') as $key => $file)
             {
@@ -385,4 +385,5 @@ class InputTTfController extends Controller
             }
         }
     }
+    
 }

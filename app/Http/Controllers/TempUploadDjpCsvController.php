@@ -9,6 +9,7 @@ class TempUploadDjpCsvController extends Controller
 {
     public function insertFileDjp(Request $request){
         if($request->hasFile('file_djp')){
+            $file = $request->file_djp;
             $fileName = $file->hashName();
             $real_name = $file->getClientOriginalName();
             $size = $file->getSize();

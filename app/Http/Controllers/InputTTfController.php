@@ -675,7 +675,7 @@ class InputTTfController extends Controller
                 $prepopulated_fp = new PrepopulatedFp();
 
                 $getCountPrepopulatedFp = $prepopulated_fp->checkPrepopulatedFPByNoFakturAndUsedFlag($a->NO_FP);
-                if ($getCountPrepopulatedFp = 0)
+                if ($getCountPrepopulatedFp == 0)
                 {
                     $error .= '<br>Error Line ' . $a->LINE . ': No Faktur ' . $a->NO_FP . ' belum terdaftar.';
                 }

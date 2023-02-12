@@ -392,7 +392,8 @@ class InputTTfController extends Controller
             $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessId($request->session_id);
             // fileUploadPostUploadCsv
             foreach($getDataTempUploadCsv as $a){
-                $cek_qr = $convert_image_controller->readQr($a->FILE_NAME);
+                $fileNameConverted = $convert_image_controller->convertFpPdfToImageUploadCsv($a->FILE_NAME);
+                $cek_qr = $convert_image_controller->readQr($fileNameConverted);
                 print_r($cek_qr);
             }
         }   

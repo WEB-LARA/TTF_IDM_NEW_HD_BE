@@ -181,6 +181,46 @@ class ConvertImageController extends Controller
 
         return $fileNameConverted;
     }
+    public function convertFpPdfToImageUploadCsv($filename){
+        $getNumberPages = new Imagick(public_path('/file_temp_fp/'.$filename));
+        $numOfPages = $getNumberPages->getNumberImages();
+        $imgExt = new Imagick();
+        if($numOfPages > 1){
+            $imgExt->setResolution(150,150);
+        }else{
+            $imgExt->setResolution(125,125);
+        }
+        // Set Resolusi harus 150 x 150
+        // $imgExt->setResolution(150,150);
+        $arrayFileConverted =array ();
+        $expLodeFileName = explode(".",$fileNameConverted);
+        $namaFile = $expLodeFileName[0];
+        $format = $expLodeFileName[1];
+        $fileNameConverted = $expLodeFileName.'.'.'png';
+        $counter=  1;
+        $indexBarcode = $numOfPages - 1;
+        $imgExt->readImage(public_path('/file_temp_fp/'.$filename.'['.$indexBarcode.']'));
+        $imgExt->setImageBackgroundColor('white');
+        $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+        $imgExt->setOption('png:bit-depth', '16');
+        // for($i = 0 ; $i<$numOfPages ; $i++){
+        //     $imgExt->readImage(public_path('/file_djp_ttf_idm/'.$filename.'['.$i.']'));
+        //     $imgExt->setImageBackgroundColor('white');
+        //     $imgExt->mergeImageLayers(Imagick::LAYERMETHOD_FLATTEN);
+        //     $imgExt->setImageAlphaChannel(Imagick::ALPHACHANNEL_REMOVE);
+        //     $imgExt->setOption('png:bit-depth', '16');
+        //     if($numOfPages>1){
+        //         array_push($arrayFileConverted,$namaFile.'-'.$counter.'.'.$format);
+        //     }else{
+        //         array_push($arrayFileConverted,$fileNameConverted);
+        //     }
+        //     $counter ++;
+        // }
+        $imgExt->writeImages(public_path('/file_temp_fp/'.$fileNameConverted), false);
+
+        return $fileNameConverted;
+    }
     public function readQr($filename){
         ini_set('memory_limit', '-1');
         $qrcode = new QrReader(public_path('/file_temp_fp/'.$filename));

@@ -102,4 +102,5 @@ Route::controller(SysAnnouncementController::class)->group(function () {
 });
 Route::controller(TempUploadDjpCsvController::class)->group(function () {
     Route::post('insertFileDjp', 'insertFileDjp');
+    Route::post('getFileDjpBySessionId','getFileDjpBySessionId');
 });

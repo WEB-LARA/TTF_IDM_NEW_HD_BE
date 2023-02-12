@@ -20,12 +20,33 @@ class TempUploadDjpCsvController extends Controller
                     "REAL_NAME" =>$real_name,
                     "SESSION_ID" => $request->session_id
                 ]);
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Sukses Menyimpan File!',
+                ]);
             }else{
                 return response()->json([
                     'status' => 'success',
                     'message' => 'gagal membaca file',
                 ]);
             }
+        }
+    }
+
+    public function getFileDjpBySessionId(Request $request){
+        $temp_upload_djp_csv = new TempUploadDjpCsv();
+        $getData = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessId($request->session_id);
+
+        if($getData){
+            return response()->json([
+                'status' => 'success',
+                'data' => $getData,
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Gagal Membaca File!'
+            ]);
         }
     }
 }

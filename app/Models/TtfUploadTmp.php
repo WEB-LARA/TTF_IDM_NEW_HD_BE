@@ -97,8 +97,8 @@ class TtfUploadTmp extends Model
 
     public function getSumAmountForNoFp($session_id,$seq_num){
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_TYPE',2)->where('SEQ_NUM',$seq_num)
-        ->selectRaw('sum(a.BPB_AMOUNT) SUM_BPB_AMOUNT')
-        ->selectRaw('sum(a.BPB_PPN) SUM_BPB_PPN')
+        ->selectRaw('sum(BPB_AMOUNT) SUM_BPB_AMOUNT')
+        ->selectRaw('sum(BPB_PPN) SUM_BPB_PPN')
         ->first();
         return $data;
     }

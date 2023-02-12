@@ -458,6 +458,10 @@ class InputTTfController extends Controller
                 }
             }
             print_r($message);
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $message,
+                ]);
         }
     }
 

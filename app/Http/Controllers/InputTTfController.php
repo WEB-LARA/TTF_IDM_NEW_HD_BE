@@ -341,6 +341,7 @@ class InputTTfController extends Controller
     }
 
     public function uploadTTF(Request $request){
+        print_r("TEST");
         if($request->hasfile('file_csv')){
             foreach($request->file('file_csv') as $key => $file)
             {

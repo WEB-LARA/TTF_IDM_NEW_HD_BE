@@ -182,9 +182,9 @@ class TtfTmpTable extends Model
 										FP_TYPE,
 										SUPP_SITE,
 										CABANG,
-										(case when NO_FP = \'-\' then \'0\' else NO_FP end) NO_FP,
+										(case when NO_FP = '-' then '0' else NO_FP end) NO_FP,
 										NO_NPWP,
-										STR_TO_DATE(FP_DATE,\'%d/%m/%Y\'),
+										STR_TO_DATE(FP_DATE,'%d/%m/%Y'),
 										FP_DPP,
 										FP_TAX,
 										BPB_NUM,
@@ -192,7 +192,7 @@ class TtfTmpTable extends Model
 										BPB_AMOUNT,
 										BPB_PPN,
 										SESS_ID
-									from ttf_upload_tmp where SESS_ID = ? and STATUS = \'VALID\''",[$session_id]);
+									from ttf_upload_tmp where SESS_ID = ? and STATUS = 'VALID''",[$session_id]);
         if($insert){
             return 1;
         }else{

@@ -368,15 +368,23 @@ class InputTTfController extends Controller
             $fileName = $request->file_csv->hashName();
             $real_name = $request->file_csv->getClientOriginalName();
             $size = $request->file_csv->getSize();
-            print_r($fileName);
-
+            // print_r($fileName);
+            $error_arr = array();
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
-                while (!feof($file_handle)) {
-                    $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
-                    print_r($data_csv);
-                }
-                fclose($file_handle);
+                $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
+
+			    if(!isset($data_csv[1])){
+			    	$result['status'] = 'ERROR';
+			    	$result['msg'] = "Isi file kosong atau separator tidak sesuai.";
+			    	array_push($error_arr,$result);
+			    	$flag_error=true;
+			    }
+                // while (!feof($file_handle)) {
+                //     $data_csv = fgetcsv($file_handle, 0, $request->delimiter);
+                //     print_r($data_csv);
+                // }
+                // fclose($file_handle);
                 // return $line_of_text;
             }
         }

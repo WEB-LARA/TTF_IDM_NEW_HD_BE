@@ -393,6 +393,9 @@ class InputTTfController extends Controller
                             while (!feof($file_handle)) {
                                 $data_csv = fgetcsv($file_handle, 1000, $request->delimiter);
                                 print_r($data_csv);
+                                if($data_csv != false){
+                                    
+                                }
                             }
                         }
                     }

@@ -74,7 +74,7 @@ class TtfTmpTable extends Model
     //     return $getData;
     // }
     public function getDataTTfTmpForInsertTTf($sess_id){
-        $getData = TtfTmpTable::where('SESS_DID',$sess_id)->groupBy('SUPP_SITE','CABANG','FP_TYPE')->select('SUPP_SITE','CABANG','FP_TYPE')->selectRaw('SUM(BPB_AMOUNT) SUM_DPP_FP')->selectRaw('SUM(BPB_PPN) SUM_TAX_FP')->get();
+        $getData = TtfTmpTable::where('SESS_ID',$sess_id)->groupBy('SUPP_SITE','CABANG','FP_TYPE')->select('SUPP_SITE','CABANG','FP_TYPE')->selectRaw('SUM(BPB_AMOUNT) SUM_DPP_FP')->selectRaw('SUM(BPB_PPN) SUM_TAX_FP')->get();
 
         return $getData;
     }
@@ -99,7 +99,7 @@ class TtfTmpTable extends Model
     // }
     public function getDataTTFTmpBPB($session_id,$no_fp){
         $getData = TtfTmpTable::where('SESS_ID',$session_id)
-                    ->where('NO_FP',$no_fp)
+                    ->where('NO_FPP',$no_fp)
                     ->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')
                     ->selectRaw("(SELECT 
                                       tdb.BPB_ID

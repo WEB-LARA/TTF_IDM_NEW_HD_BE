@@ -40,4 +40,9 @@ class TtfUploadTmp extends Model
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('STATUS',$status)->groupBy('SUPP_SITE','CABANG')->select('SUPP_SITE','CABANG')->get();
         return $data;
     }
+    public function getNoFpTmpBySessionIdAndNoFp($session_id,$no_fp){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->whereRaw('SUBSTR(NO_FP,5)',$no_fp)->select('NO_FP')->first();
+
+        return $data;
+    }
 }

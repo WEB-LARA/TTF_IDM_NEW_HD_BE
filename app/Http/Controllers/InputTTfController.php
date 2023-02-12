@@ -499,6 +499,9 @@ class InputTTfController extends Controller
                                     substr($explodeLink[6], 3, 2) .
                                     "." .
                                     substr($explodeLink[6], 5, 8);
+                                $ttf_upload_tmp = new TtfUploadTmp();
+                                $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($session_id,$no_faktur);
+                                print_r("NO_FAKTUR = ".$getDataTempBySessionId->NO_FP);
                             }
                         }
                         $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);

@@ -561,6 +561,8 @@ class InputTTfController extends Controller
             }
         }
 
+        print_R($fp_dicsv);
+
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

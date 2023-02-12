@@ -247,6 +247,102 @@ class InputTTfController extends Controller
         }
     }
 
+    public function saveTTfUpload($session_id,$user_id){
+        $ttf_tmp_table = new TtfTmpTable();
+        $ttf_headers = new TtfHeader();
+        $ttf_fp = new TtfFp();
+        // $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
+        // $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
+        $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($session_id);
+        $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($session_id);
+        $user_id = $user_id;
+        // print_r($data);
+        $concat_ttf_num = '';
+        try{
+            DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers){
+                foreach($dataHeader as $a){
+                    $getTtfNumber = $this->getTtfNumber($a['CABANG']);
+                    $ttf_type = $a['FP_TYPE'];
+                    $insertHeader = TtfHeader::create([
+                        'BRANCH_CODE' => $a['CABANG'],
+                        'VENDOR_SITE_CODE' => $a['SUPP_SITE'],
+                        'TTF_NUM' => $getTtfNumber,
+                        'TTF_DATE' => date('Y-m-d'),
+                        'TTF_TYPE' => $ttf_type,
+                        'TTF_STATUS' => '',
+                        'SOURCE' => "WEB",
+                        'FLAG_GO' => $request->flag_go,
+                        'FLAG_PPN' => $request->flag_ppn,
+                        'SUM_DPP_FP' => $a['SUM_DPP_FP'],
+                        'SUM_TAX_FP' => $a['SUM_TAX_FP'],
+                        'CREATED_BY' => $user_id,
+                        'CREATION_DATE' => date('Y-m-d')
+                    ]);
+                    $concat_ttf_num .= $getTtfNumber.',';
+                    $idHeader = $insertHeader->TTF_ID;
+
+                    foreach($dataFpTmp as $b){
+                        $insertFp = TtfFp::create([
+                            'TTF_ID' => $idHeader,
+                            'FP_NUM' => $b['NO_FP'],
+                            'FP_TYPE' => $b['FP_TYPE'],
+                            'FP_DATE' => $b['FP_DATE'],
+                            'FP_DPP_AMT' => $b['FP_DPP'],
+                            'FP_TAX_AMT' => $b['FP_TAX'],
+                            'USED_FLAG' => "Y",
+                            'CREATED_BY' => $user_id,
+                            'CREATION_DATE' => date('Y-m-d'),
+                            'TTF_HEADERS_TTF_ID' => $idHeader,
+                            'SCAN_FLAG' => $b['SCAN_FLAG']
+                        ]);
+                        $idFp = $insertFp->TTF_FP_ID;
+                        // $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
+                        $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($session_id,$b['NO_FP']);
+                        foreach ($getDataBPBperFP as $c){
+                            $insertLines = TtfLines::create([
+                                'TTF_ID' => $idHeader,
+                                'TTF_BPB_ID' => $c['BPB_ID'],
+                                'TTF_FP_ID' => $idFp,
+                                'ACTIVE_FLAG' => "Y",
+                                'CREATION_DATE' => date('Y-m-d'),
+                                'CREATED_BY' => $user_id,
+                                'TTF_HEADERS_TTF_ID' => $idHeader,
+                                'TTF_FP_TTF_FP_ID' => $idFp
+                            ]);
+
+                            $ttf_data_bpb = new TtfDataBpb();
+
+                            $updateDataBpb = $ttf_data_bpb->updateDataBpb($c['BPB_ID'],'Y');
+                        }
+                        $prepopulated_fp = new PrepopulatedFp();
+                        $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
+                        // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE']);
+                        if($ttf_type == 1){
+                            $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
+                            $sys_fp_fisik_temp = new SysFpFisikTemp();
+                            $deleteTempFisik = $sys_fp_fisik_temp->deleteSysFpFisikBySessionAndFpNum($session_id,$b['NO_FP']);
+                        }
+                        // Delete SysFPFisikTemp
+                    }
+                    // if($request->hasFile('file_lampiran'))
+                    // {
+                    //     $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
+                    // }
+                }
+                $concat_ttf_num = rtrim($concat_ttf_num, ',');
+                $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
+                
+            },5);
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'TTF Berhasil Disimpan!',
+                ]);
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
     public function getTtfNumber($branchCode){
         $ttf_param_table = new TtfParamTable();
         $getNumTTf = $ttf_param_table->getRunningYears();

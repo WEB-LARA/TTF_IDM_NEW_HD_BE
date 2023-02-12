@@ -51,7 +51,11 @@ class TtfUploadTmp extends Model
         return $data;
     }
     public function validateDoubleDPP($session_id,$dpp,$no_fp){
-        $data = TtfUploadTmp::where('SESS_IDD',$session_id)->where('FP_DPP',$dpp)->where('NO_FP',$no_fp)->count();
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_DPP','<>',$dpp)->where('NO_FP',$no_fp)->count();
+        return $data;
+    }
+    public function validateDoublePPN($session_id,$ppn,$no_fp){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('FP_TAX','<>',$ppn)->where('NO_FP',$no_fp)->count();
         return $data;
     }
 }

@@ -720,6 +720,15 @@ class InputTTfController extends Controller
                     $error .= '<br> Error Line ' . $a->LINE . ': Nilai DPP Satu Faktur harus sama';
                 }
             }
+            if ($error == '')
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkDoublePpn = $ttf_upload_tmp->validateDoublePPN($session_id,$a->FP_TAX,$a->NO_FP);
+                if ($checkDoublePpn > 0)
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ':Nilai PPN Satu Faktur harus sama';
+                }
+            }
         }
         //SEQ NUMBER
         $status = 'VALID';

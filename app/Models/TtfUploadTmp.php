@@ -76,15 +76,16 @@ class TtfUploadTmp extends Model
     }
 
     public function checkSelisihFP($session_id){
-        $data = TtfUploadTmp::join('prepopulated_fp', 'prepopulated_fp.NOMOR_FAKTUR', '=', 'ttf_upload_tmp.NO_FP')
-        ->where('ttf_upload_tmp.FP_DPP','=','prepopulated_fp.JUMLAH_DPP')
-        ->where('ttf_upload_tmp.FP_TAX','=','prepopulated_fp.JUMLAH_PPN')
-        ->where('ttf_upload_tmp.SESS_ID',$session_id)
-        ->groupBy('ttf_upload_tmp.SEQ_NUM','ttf_upload_tmp.NO_FP')
-        ->select('ttf_upload_tmp.NO_FP','ttf_upload_tmp.FP_DPP','ttf_upload_tmp.FP_TAX')
-        ->selectRaw('abs(ttf_upload_tmp.FP_DPP - sum(ttf_upload_tmp.BPB_AMOUNT))  SELISIH_DPP')
-        ->selectRaw('abs(ttf_upload_tmp.FP_TAX - sum(ttf_upload_tmp.BPB_PPN)) SELISIH_PPN')
-        ->get();
+        // $data = TtfUploadTmp::join('prepopulated_fp', 'prepopulated_fp.NOMOR_FAKTUR', '=', 'ttf_upload_tmp.NO_FP')
+        // ->where('ttf_upload_tmp.FP_DPP','=','prepopulated_fp.JUMLAH_DPP')
+        // ->where('ttf_upload_tmp.FP_TAX','=','prepopulated_fp.JUMLAH_PPN')
+        // ->where('ttf_upload_tmp.SESS_ID',$session_id)
+        // ->groupBy('ttf_upload_tmp.SEQ_NUM','ttf_upload_tmp.NO_FP')
+        // ->select('ttf_upload_tmp.NO_FP','ttf_upload_tmp.FP_DPP','ttf_upload_tmp.FP_TAX')
+        // ->selectRaw('abs(ttf_upload_tmp.FP_DPP - sum(ttf_upload_tmp.BPB_AMOUNT))  SELISIH_DPP')
+        // ->selectRaw('abs(ttf_upload_tmp.FP_TAX - sum(ttf_upload_tmp.BPB_PPN)) SELISIH_PPN')
+        // ->get();
+        $data = DB::select('SELECT a.NO_FP,a.FP_DPP,a.FP_TAX,(a.FP_DPP + a.FP_TAX) NILAI_FP, abs(a.FP_DPP - sum(a.BPB_AMOUNT))  SELISIH_DPP, abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN from ttf_upload_tmp a,prepopulated_fp fp where a.NO_FP=fp.NOMOR_FAKTUR AND a.FP_DPP=fp.JUMLAH_DPP AND a.FP_TAX=fp.JUMLAH_PPN AND  a.SESS_ID = ? group by a.SEQ_NUM, a.NO_FP',[$session_id]);
         print_r($data);
         // return $data;
     }

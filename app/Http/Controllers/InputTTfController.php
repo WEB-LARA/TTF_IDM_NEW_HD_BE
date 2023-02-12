@@ -419,12 +419,14 @@ class InputTTfController extends Controller
                                                     "FP_DATE" => $data_csv[3],
                                                     "FP_DPP" => $data_csv[4],
                                                     "FP_TAX" => $data_csv[5],
-                                                    "STATUS" => "ERROR",
+                                                    "STATUS" => "ERROR"
                                                 ]);
                                             
                                             }
                                         }else{
+                                            print_r("SINI");
                                             if($fp_type == 2){
+                                                print_r("SINI3");
                                                 $insertToUploadTmp = TtfUploadTmp::create([
                                                     "SESS_ID" => $request->session_id,
                                                     "LINE" => $line,
@@ -434,10 +436,10 @@ class InputTTfController extends Controller
                                                     "FP_DATE" => $data_csv[3],
                                                     "FP_DPP" => 0,
                                                     "FP_TAX" => 0,
-                                                    "STATUS" => "VALID",
+                                                    "STATUS" => "VALID"
                                                 ]);
                                             }else{
-                                                print_r("MASOK");
+                                                print_r("SINI4");
                                                     $insertToUploadTmp = TtfUploadTmp::create([
                                                         "SESS_ID" => $request->session_id,
                                                         "LINE" => $line,
@@ -447,7 +449,7 @@ class InputTTfController extends Controller
                                                         "FP_DATE" => $data_csv[3],
                                                         "FP_DPP" => $data_csv[4],
                                                         "FP_TAX" => $data_csv[5],
-                                                        "STATUS" => "VALID",
+                                                        "STATUS" => "VALID"
                                                     ]);   
                                             }
                                         }

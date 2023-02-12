@@ -15,6 +15,8 @@ use App\Http\Controllers\TtfTmpTableController;
 use App\Http\Controllers\TtfHeaderController;
 use App\Http\Controllers\SysAnnouncementController;
 use App\Http\Controllers\testController;
+use App\Http\Controllers\TempUploadDjpCsvController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes

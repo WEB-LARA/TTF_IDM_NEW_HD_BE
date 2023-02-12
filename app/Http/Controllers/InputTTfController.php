@@ -487,7 +487,11 @@ class InputTTfController extends Controller
 
         foreach($getDataTempBySessionId as $a){
             $getDataBpbByBpbNum = $ttf_data_bpb->getDataBpbByNoBPB($a->BPB_NUM);
-            print_r($getDataBpbByBpbNum);
+            if($getDataBpbByBpbNum){
+                            print_r($getDataBpbByBpbNum);
+            }else{
+                print_r("NOMOR BPB TIDAK DITEMUKAN");
+            }
         }
     }
     public function testAPIUploadCSV(){

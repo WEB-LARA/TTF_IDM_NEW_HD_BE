@@ -374,6 +374,7 @@ class InputTTfController extends Controller
             $row = 1;
             $flag_error=false;
             $error_arr = array();
+            $message = '';
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
                 $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
@@ -450,16 +451,16 @@ class InputTTfController extends Controller
                                         }
                                         $line++;
                                 }
-                                $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                                $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
                             }
                         },5);
                     }
                 }
             }
-            // return response()->json([
-            //         'status' => 'success',
-            //         'message' => $error_arr
-            //     ]);
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $message
+                ]);
         }
     }
 
@@ -560,8 +561,8 @@ class InputTTfController extends Controller
                     $error .= '<br>Error Line ' . $a->LINE . ': Tanggal faktur sudah expired';
                 }
             }
+            // Validasi Apakah BPB Sudah Digunakan Atau Belum (harus ada di ttf_data_bpb dan used flag nya N)
             if ($error == ''){
-                // Validasi Apakah BPB Sudah Digunakan Atau Belum
                 $ttf_data_bpb = new TtfDataBpb();
 
                 $getCountDataBpb= $ttf_data_bpb->validateCountBPBByBPBNumber($a->BPB_NUM);
@@ -569,6 +570,7 @@ class InputTTfController extends Controller
                     $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' telah digunakan';
                 }
             }
+            // no bpb harus milik user
             if ($error == '')
             {
                 $sys_mapp_supplier = new SysMapSupplier();
@@ -578,9 +580,38 @@ class InputTTfController extends Controller
                     $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak dapat digunakan oleh akun ini';
                 }
             }
+            // faktur tidak boleh ada di ttf_fp
+            if ($error == '' && $a->FP_TYPE == 1)
+            {
+                $ttf_fp = new TtfFp();
+                $getCountTtfFp = $ttf_fp->validateFPisUsedByFpNum($a->NO_FP);
+                if ($getCountTtfFp > 0)
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ': No Faktur ' . $a->NO_FP . ' telah digunakan';
+                }
+
+            }
         }
-        print_r($error);
-        // return $error;
+        if ($error == '')
+        {
+            $data['status'] = 'OK';
+            $data['msg'] = 'TTF berhasil di upload.<br><br> <br>Jumlah TTF = ' . $no . '. <br>Nilai keseluruhan TTF = ' . number_format($nilai_ttf, 0, '.', ',') . '. <br>Lanjut Simpan TTF menjadi Draft?';
+        }
+        else
+        {
+            $status = 'ERROR';
+            $statement = 'UPDATE ttf_upload_tmp set STATUS=? where SESS_ID =?';
+            $this
+                ->db
+                ->query($statement, array(
+                $status,
+                $sess_id
+            ));
+            $data['status'] = 'ERROR';
+            $data['msg'] = $error;
+        }
+        // print_r($error);
+        return $data;
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

@@ -27,4 +27,11 @@ class TtfFp extends Model
         'TTF_HEADERS_TTF_ID',
         'SCAN_FLAG'
     ];
+
+    public function validateFPisUsedByFpNum($fp_number){
+
+        $data = TtfFp::where('FP_NUM',$fp_number)->where('USED_FLAG','Y')->count();
+
+        return $data;
+    }
 }

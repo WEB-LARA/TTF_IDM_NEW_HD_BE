@@ -378,6 +378,7 @@ class InputTTfController extends Controller
             $flag_error=false;
             $error_arr = array();
             $message = '';
+            $counter_error_djp = 0;
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
                 $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
@@ -501,10 +502,21 @@ class InputTTfController extends Controller
                                     substr($explodeLink[6], 5, 8);
                                 $ttf_upload_tmp = new TtfUploadTmp();
                                 $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_faktur);
-                                print_r("NO_FAKTUR = ".$getDataTempBySessionId->NO_FP);
+                                if($getDataTempBySessionId){
+                                    // print_r("NO_FAKTUR = ".$getDataTempBySessionId->NO_FP);
+                                }else{
+                                    $errorValidasiDjp .= "<br> File DJP ' . $a->NO_FP . ' tidak terdaftar pada CSV";
+                                }
                             }
                         }
-                        $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                        if($counter_error_djp > 0){
+                            return response()->json([
+                                    'status' => 'error',
+                                    'message' => $message,
+                                ]);
+                        }else{
+                            $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                        }
                     }
                 }
             }

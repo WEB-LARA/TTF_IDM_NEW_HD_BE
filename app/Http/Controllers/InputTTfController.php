@@ -418,7 +418,7 @@ class InputTTfController extends Controller
                                                     "FP_DATE" => $data_csv[3],
                                                     "FP_DPP" => $data_csv[4],
                                                     "FP_TAX" => $data_csv[5],
-                                                    "STATUS" => "ERROR",
+                                                    "STATUS" => "ERROR"
                                                 ]);
                                             
                                         }else if($fp_type == 2){
@@ -431,7 +431,7 @@ class InputTTfController extends Controller
                                                 "FP_DATE" => $data_csv[3],
                                                 "FP_DPP" => 0,
                                                 "FP_TAX" => 0,
-                                                "STATUS" => "VALID",
+                                                "STATUS" => "VALID"
                                             ]);
                                         }else{
                                                 $insertToUploadTmp = TtfUploadTmp::create([
@@ -443,7 +443,7 @@ class InputTTfController extends Controller
                                                     "FP_DATE" => $data_csv[3],
                                                     "FP_DPP" => $data_csv[4],
                                                     "FP_TAX" => $data_csv[5],
-                                                    "STATUS" => "VALID",
+                                                    "STATUS" => "VALID"
                                                 ]);
                                         }
                                         }

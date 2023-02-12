@@ -27,7 +27,8 @@ class TtfUploadTmp extends Model
         'BPB_NUM',
         'BPB_DATE',
         'BPB_AMOUNT',
-        'BPB_PPN'
+        'BPB_PPN',
+        'STATUS'
     ];
     public function getTtfTmpBySessionId($session_id){
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->get();

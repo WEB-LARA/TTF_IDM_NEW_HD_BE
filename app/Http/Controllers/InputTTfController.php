@@ -681,6 +681,16 @@ class InputTTfController extends Controller
                 }
 
             }
+            // no bpb tidak boleh ganda
+            if ($error == '')
+            {
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $checkDoubleBPB = $ttf_upload_tmp->checkDoubleBpbForUpload();
+                if ($checkDoubleBPB > 0)
+                {
+                    $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' Ganda dalam file ini ';
+                }
+            }
             $nilai_ttf = $a->FP_DPP;
         }
 

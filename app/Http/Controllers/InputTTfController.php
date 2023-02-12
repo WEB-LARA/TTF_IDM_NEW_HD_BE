@@ -524,23 +524,22 @@ class InputTTfController extends Controller
                                 ]);
                         }else{
                             $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
-                            print_r($message);
                         }
                     }
                 }
             }
         }
-        // if($message['status']=='OK'){
-        //     return response()->json([
-        //             'status' => 'success',
-        //             'message' => $message,
-        //         ]);
-        // }else{
-        //     return response()->json([
-        //             'status' => 'error',
-        //             'message' => $message,
-        //         ]);
-        // }
+        if($message['status']=='OK'){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $message,
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'error',
+                    'message' => $message,
+                ]);
+        }
     }
 
     public function cekUploadLampiran(Request $request){
@@ -782,10 +781,9 @@ class InputTTfController extends Controller
             {
                 $ttf_upload_tmp = new TtfUploadTmp();
                 $getSelisih = $ttf_upload_tmp->checkSelisihFP($session_id);
-                print_r($getSelisih);
+                
                 foreach ($getSelisih as $row)
                 {
-                    print_r("TEST");
                     if ($error == '')
                     {
                         if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)
@@ -844,7 +842,7 @@ class InputTTfController extends Controller
             $data['msg'] = $error;
         }
         // print_r($error);
-        // return $data;
+        return $data;
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();

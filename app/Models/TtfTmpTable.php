@@ -196,6 +196,8 @@ class TtfTmpTable extends Model
 										BPB_DATE,
 										BPB_AMOUNT,
 										BPB_PPN,
+                                        FLAG_GO,
+                                        FLAG_PPN,
 										SESS_ID)
 									select 
 										NULL,
@@ -212,6 +214,8 @@ class TtfTmpTable extends Model
 										BPB_DATE,
 										BPB_AMOUNT,
 										BPB_PPN,
+                                        FLAG_GO,
+                                        FLAG_PPN,
 										SESS_ID
 									from ttf_upload_tmp where SESS_ID = ? and STATUS = 'VALID'",[$session_id]);
         if($insert){

@@ -48,9 +48,18 @@ class TtfHeaderController extends Controller
 
         
         $zip->close();
+        $file= public_path('trigger_zip/test_new.zip');
+        $headers = array(
+            "Content-type"        => "application/pdf",
+            "Content-Disposition" => "attachment; filename=test_zip.zip",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
 
-        header('Content-disposition: attachment; filename=download.zip');
-        header('Content-type: application/zip');
-        readfile(public_path('trigger_zip/test_new.zip'));
+        return Response::download($file,'test_zip.zip' ,$headers);
+        // header('Content-disposition: attachment; filename=download.zip');
+        // header('Content-type: application/zip');
+        // readfile(public_path('trigger_zip/test_new.zip'));
     }
 }

@@ -110,16 +110,16 @@ class testModel extends Model
     }
 
     public function filterlampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
-        $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
-              ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
-              ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
+        $data = testModel::join('ttf_headers', 'ttf_headers.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
+              ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
+              ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_data_bpb.ID')
               ->where('ttf_headers.BRANCH_CODE',$branch)
-              ->orwhere('ttf_data_bpb.BPB_NUMBER',$nobpb)
-              ->orwhere('ttf_data_bpb.BPB_DATE',$tglbpb)
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
-              ->orwhere('ttf_fp.FP_NUM',$nofp)
-              ->select('ttf_data_bpb.VENDOR_SITE_CODE',
-              'sys_supplier.SUPP_NAME','ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',\DB::raw(
+              ->orwhere('sys_supplier.SUPP_CODE',$kodesupp)
+              ->orwhere('ttf_headers.TTF_NUM',$username)
+              ->orwherebetween('ttf_headers.CREATION_DATE',[$tglttf_from, $tglttf_to])
+              ->orwhere('ttf_headers.TTF_STATUS',$status)
+              ->select('ttf_headers.TTF_NUM',\DB::raw(
                 '( 
                     CASE 
                          WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"
@@ -130,7 +130,7 @@ class testModel extends Model
                          ELSE "VALIDATED"
                     END
                 ) AS STATUS_TTF'
-            ))
+                ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB')
               ->take(10)
               ->get();
 

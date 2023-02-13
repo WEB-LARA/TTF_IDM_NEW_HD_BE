@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TtfHeader;
+use App\Models\SysFpFisik;
 use ZipArchive;
 class TtfHeaderController extends Controller
 {

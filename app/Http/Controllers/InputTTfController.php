@@ -1060,7 +1060,7 @@ class InputTTfController extends Controller
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($session_id);
         $ttf_tmp_table = new SysFpFisikTemp();
-        $deleteTtfTmpTable = $ttf_tmp_table->deleteTempUploadDjpCsvBySessId($session_id);
+        $deleteTtfTmpTable = $ttf_tmp_table->deleteSysFpFisikTempBySessId($session_id);
     }
     
 }

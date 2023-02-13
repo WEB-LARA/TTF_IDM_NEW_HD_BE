@@ -33,14 +33,7 @@ class TtfHeaderController extends Controller
         $zip = new \ZipArchive();
         if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
         {
-            // Add files to the zip file
-            // $zip->addFromString("testfilephp.txt" . time(), "#1 This is a test string added as testfilephp.txt.\n");
             $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
-        
-            // Add random.txt file to zip and rename it to newfile.txt
-        
-            // All files are added, so close the zip file.
-            // if (file_exists($file) && is_file($file))
         }
         $zip->close();
         // $filename = "test.zip";

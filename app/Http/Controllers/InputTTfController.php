@@ -595,7 +595,7 @@ class InputTTfController extends Controller
                                     ]);
                                 }
                             }else{
-                                $errorValidasiDjp .= "<br> File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
+                                $errorValidasiDjp .= " File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
                                 $counter_error_djp ++;
                             }
                         }
@@ -640,7 +640,7 @@ class InputTTfController extends Controller
                 $real_name = $file->getClientOriginalName();
                 $size = $file->getSize();
                 // print_r($fileName);
-                // echo "<br>";
+                // echo "";
                 $data = array();
                 if($file->move(public_path('/file_temp_fp'), $fileName)){
                 }
@@ -680,18 +680,18 @@ class InputTTfController extends Controller
         foreach($getDataTempBySessionId as $a){
             if ($a->FP_TYPE == 0)
             {
-                $error .= '<br>Error Line ' . $a->LINE . ' : Tipe Faktur Pajak tidak diketahui';
+                $error .= 'Error Line ' . $a->LINE . ' : Tipe Faktur Pajak tidak diketahui<br>';
             }
             if ($a->FP_TYPE == 3)
             {
-                $error .= '<br>Error Line ' . $a->LINE . ' : Tipe Faktur Pajak Khusus harap di input manual</br>';
+                $error .= 'Error Line ' . $a->LINE . ' : Tipe Faktur Pajak Khusus harap di input manual<br>';
             }
 
             if ($a->FP_TYPE == 2)
             {
                 if ($a->NO_FP != '-' || $a->FP_DPP != '0' || $a->FP_TAX != '0')
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ' : No Faktur Pajak dengan Tipe NFP harus berisi strip (-)';
+                    $error .= 'Error Line ' . $a->LINE . ' : No Faktur Pajak dengan Tipe NFP harus berisi strip (-)<br>';
                 }
             }
 
@@ -704,29 +704,29 @@ class InputTTfController extends Controller
                 }
                 else
                 {
-                    $error .= '<br> Error  Line ' . $a->LINE . ' : Format No Faktur ' . $a->NO_FP . ' tidak sesuai';
+                    $error .= ' Error  Line ' . $a->LINE . ' : Format No Faktur ' . $a->NO_FP . ' tidak sesuai<br>';
                 }
             }
             if ($a->FORMAT_DATE == '')
             {
-                $error .= '<br>Error Line ' . $a->LINE . ': Tanggal tidak valid, format yang seharusnya adalah dd/mm/yyyy';
+                $error .= 'Error Line ' . $a->LINE . ': Tanggal tidak valid, format yang seharusnya adalah dd/mm/yyyy<br>';
             }
 
             if (!is_numeric($a->FP_DPP) || !is_numeric($a->FP_TAX))
             {
-                $error .= '<br>Error Line ' . $a->LINE . ': Nilai DPP atau Nilai PPN bukan angka';
+                $error .= 'Error Line ' . $a->LINE . ': Nilai DPP atau Nilai PPN bukan angka<br>';
             }
 
             if ($a->BPB_DATE == '')
             {
-                $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak ditemukan';
+                $error .= 'Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak ditemukan<br>';
             }
 
             $fp_date = date_create($a->FORMAT_DATE);
             $bpb_date = date_create($a->BPB_DATE);
             if ($a->FP_DATE < $a->BPB_DATE){
                 if (date_diff($fp_date, $bpb_date)->days > 89){
-                    $error .= '<br>Error Line ' . $a->LINE . ': Tanggal faktur sudah expired';
+                    $error .= 'Error Line ' . $a->LINE . ': Tanggal faktur sudah expired<br>';
                 }
             }
             // Validasi Apakah BPB Sudah Digunakan Atau Belum (harus ada di ttf_data_bpb dan used flag nya N)
@@ -735,7 +735,7 @@ class InputTTfController extends Controller
 
                 $getCountDataBpb= $ttf_data_bpb->validateCountBPBByBPBNumber($a->BPB_NUM);
                 if($getCountDataBpb > 0){
-                    $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' telah digunakan';
+                    $error .= 'Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' telah digunakan<br>';
                 }
             }
             // no bpb harus milik user
@@ -745,7 +745,7 @@ class InputTTfController extends Controller
                 $getCountMapSuppForBpb =  $sys_mapp_supplier->validateUploadBpbByUserId($user_id,$a->SUPP_SITE,$a->CABANG);
                 if ($getCountMapSuppForBpb == 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak dapat digunakan oleh akun ini';
+                    $error .= 'Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' tidak dapat digunakan oleh akun ini<br>';
                 }
             }
             // faktur tidak boleh ada di ttf_fp
@@ -755,7 +755,7 @@ class InputTTfController extends Controller
                 $getCountTtfFp = $ttf_fp->validateFPisUsedByFpNum($a->NO_FP);
                 if ($getCountTtfFp > 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ': No Faktur ' . $a->NO_FP . ' telah digunakan';
+                    $error .= 'Error Line ' . $a->LINE . ': No Faktur ' . $a->NO_FP . ' telah digunakan<br>';
                 }
 
             }
@@ -767,7 +767,7 @@ class InputTTfController extends Controller
                 $getCountPrepopulatedFp = $prepopulated_fp->checkPrepopulatedFPByNoFakturAndUsedFlag($a->NO_FP);
                 if ($getCountPrepopulatedFp == 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ': No Faktur ' . $a->NO_FP . ' belum terdaftar.';
+                    $error .= 'Error Line ' . $a->LINE . ': No Faktur ' . $a->NO_FP . ' belum terdaftar.<br>';
                 }
 
             }
@@ -778,7 +778,7 @@ class InputTTfController extends Controller
                 $checkDoubleBPB = $ttf_upload_tmp->checkDoubleBpbForUpload($session_id,$a->BPB_NUM,$a->ID);
                 if ($checkDoubleBPB > 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' Ganda dalam file ini ';
+                    $error .= 'Error Line ' . $a->LINE . ': No BPB ' . $a->BPB_NUM . ' Ganda dalam file ini <br>';
                 }
             }
             // cek supplier exist
@@ -789,7 +789,7 @@ class InputTTfController extends Controller
                 $getCountSupplier = $sys_supp_site->valdiateSupplierExists($a->SUPP_SITE,$a->CABANG);
                 if ($getCountSupplier == 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ': Kombinasi kode supplier dan cabang tidak ditemukan<';
+                    $error .= 'Error Line ' . $a->LINE . ': Kombinasi kode supplier dan cabang tidak ditemukan<br>';
                 }
             }
             $nilai_ttf = $a->FP_DPP;
@@ -797,7 +797,7 @@ class InputTTfController extends Controller
         $jumlah_fp_dicsv = count(array_unique($fp_dicsv));
         if ($jumlah_fp_yg_diupload != $jumlah_fp_dicsv)
         {
-            $error .= '<br> Error : Jumlah Faktur yang diupload di csv tidak sama dengan Jumlah File DJP yang diupload';
+            $error .= ' Error : Jumlah Faktur yang diupload di csv tidak sama dengan Jumlah File DJP yang diupload <br>';
 
         }
         foreach($getDataTempBySessionId as $a){
@@ -806,7 +806,7 @@ class InputTTfController extends Controller
                 $ttf_upload_tmp = new TtfUploadTmp();
                 $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->NO_FP);
                 if($count[0]->COUNT_DATA > 1){
-                     $error .= '<br> Error Flag Go : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag GO yang Seragam';
+                     $error .= ' Error Flag Go : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag GO yang Seragam <br>';
                 }
             }
             // Validate Flag PPn
@@ -814,7 +814,7 @@ class InputTTfController extends Controller
                 $ttf_upload_tmp = new TtfUploadTmp();
                 $count = $ttf_upload_tmp->validateFlagPpnPerFp($session_id,$a->NO_FP);
                 if($count[0]->COUNT_DATA > 1){
-                     $error .= '<br> Error Flag Ppn : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag PPN yang Seragam';
+                     $error .= ' Error Flag Ppn : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag PPN yang Seragam <br>';
                 }
             }
             // satu faktur hanya boleh satu dpp
@@ -824,7 +824,7 @@ class InputTTfController extends Controller
                 $checkDoubleDpp = $ttf_upload_tmp->validateDoubleDPP($session_id,$a->FP_DPP,$a->NO_FP);
                 if ($checkDoubleDpp > 0)
                 {
-                    $error .= '<br> Error Line ' . $a->LINE . ': Nilai DPP Satu Faktur harus sama';
+                    $error .= ' Error Line ' . $a->LINE . ': Nilai DPP Satu Faktur harus sama <br>';
                 }
             }
             // satu faktur hanya boleh satu ppn
@@ -834,7 +834,7 @@ class InputTTfController extends Controller
                 $checkDoublePpn = $ttf_upload_tmp->validateDoublePPN($session_id,$a->FP_TAX,$a->NO_FP);
                 if ($checkDoublePpn > 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ':Nilai PPN Satu Faktur harus sama';
+                    $error .= 'Error Line ' . $a->LINE . ':Nilai PPN Satu Faktur harus sama <br>';
                 }
             }
             // satu faktur hanya boleh satu tanggal
@@ -844,7 +844,7 @@ class InputTTfController extends Controller
                 $checkDoubleDate = $ttf_upload_tmp->validateDoubleDate($session_id,$a->FP_DATE,$a->NO_FP);
                 if ($checkDoubleDate > 0)
                 {
-                    $error .= '<br>Error Line ' . $a->LINE . ': Satu Faktur harus memiliki tanggal yang sama';
+                    $error .= 'Error Line ' . $a->LINE . ': Satu Faktur harus memiliki tanggal yang sama <br>';
                 }
             }
 
@@ -855,7 +855,7 @@ class InputTTfController extends Controller
                 $checkDoubleBpb = $ttf_upload_tmp->validateDoubleBPB($session_id,$a->NO_FP,$a->BPB_NUM);
                 if ($checkDoubleBpb > 0)
                 {
-                    $error .= '<br> Error Line ' . $a->LINE . ': Satu BPB hanya boleh untuk satu faktur';
+                    $error .= ' Error Line ' . $a->LINE . ': Satu BPB hanya boleh untuk satu faktur <br>';
                 }
             }
 
@@ -866,7 +866,7 @@ class InputTTfController extends Controller
                 $checkBranchInOneFp = $ttf_upload_tmp->validateBranchInOneFp($session_id,$a->NO_FP,$a->CABANG);
                 if ($checkBranchInOneFp > 0)
                 {
-                    $error .= '<br> Error Line ' . $a->LINE . ' : Satu faktur hanya boleh satu cabang ';
+                    $error .= ' Error Line ' . $a->LINE . ' : Satu faktur hanya boleh satu cabang <br>';
                 }
             }
 
@@ -877,7 +877,7 @@ class InputTTfController extends Controller
                 $checkSuppInFP = $ttf_upload_tmp->checkSuppInFp($session_id,$a->NO_FP,$a->SUPP_SITE);
                 if ($checkSuppInFP > 0)
                 {
-                    $error .= '<br> Error Line ' . $a->LINE . ': Satu faktur hanya boleh satu supplier ';
+                    $error .= ' Error Line ' . $a->LINE . ': Satu faktur hanya boleh satu supplier <br>';
                 }
             }
             $ttf_param_table = new TtfParamTable();
@@ -894,7 +894,7 @@ class InputTTfController extends Controller
                     {
                         if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)
                         {
-                            $error .= '<br> Error Selisih : Faktur ' . $row->NO_FP . ' selisih dengan nilai dari DJP ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',');
+                            $error .= ' Error Selisih : Faktur ' . $row->NO_FP . ' selisih dengan nilai dari DJP ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',').'<br>';
                         }
                     }
 
@@ -902,13 +902,13 @@ class InputTTfController extends Controller
                     {
                         if ($row->NO_FP == '-' && $row->FP_TAX != '0')
                         {
-                            $error .= '<br>Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!';
+                            $error .= 'Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!<br>';
                         }
                     }
 
                     if ($row->NO_FP != '-' && ($row->FP_DPP == '0' || $row->FP_TAX == '0'))
                     {
-                        $error .= '<br>Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0.';
+                        $error .= 'Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0. <br>';
                     }
 
                 }
@@ -963,7 +963,7 @@ class InputTTfController extends Controller
                 {
                     if (($row->SELISIH_DPP + $row->SELISIH_PPN) > $selisih)
                     {
-                        $error .= '<br> Error Selisih : Faktur ' . $row->NO_FP . ' selisih ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',');
+                        $error .= ' Error Selisih : Faktur ' . $row->NO_FP . ' selisih ' . number_format(($row->SELISIH_DPP + $row->SELISIH_PPN) , 0, '.', ',').'<br>';
                     }
                 }
 
@@ -971,7 +971,7 @@ class InputTTfController extends Controller
                 {
                     if ($row->NO_FP == '-' && $row->FP_TAX != '0')
                     {
-                        $error .= '<br>Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!';
+                        $error .= 'Error Faktur : Nilai PPN Tanpa Faktur Pajak Harus 0. Periksa kembali BPB yang dipilih!<br>';
                     }
                 }
 
@@ -982,7 +982,7 @@ class InputTTfController extends Controller
                 // }
                 if ($row->NO_FP != '-' && ($row->FP_DPP == '0' || $row->FP_TAX == '0'))
                 {
-                    $error .= '<br>Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0.';
+                    $error .= 'Error Faktur : Nilai DPP atau PPN Faktur Pajak ' . $row->NO_FP . ' Tidak boleh 0.<br>';
                 }
 
                 $nilai_ttf += $row->NILAI_FP;

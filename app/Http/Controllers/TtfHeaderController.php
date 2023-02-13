@@ -53,6 +53,7 @@ class TtfHeaderController extends Controller
         $headers = array(
             "Content-type"        => "application/zip",
             "Content-Disposition" => "attachment; filename=test_zip.zip",
+            "Content-Transfer-Encoding" => "Binary",
             "Pragma"              => "no-cache",
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
             "Expires"             => "0"

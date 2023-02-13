@@ -126,4 +126,19 @@ class TtfUploadTmp extends Model
                                 GROUP BY NO_FP , FLAG_GO) asd",[$session_id,$no_fp]);
         return $data;
     }
+    public function validateFlagPpnPerFp($session_id,$no_fp){
+        // $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('NO_FP',$no_fp)->groupBy('FLAG_GO','NO_FP')->count();
+        $data = DB::select("SELECT 
+                                COUNT(*) COUNT_DATA
+                            FROM
+                                (SELECT 
+                                    FLAG_PPN
+                                FROM
+                                    ttf_upload_tmp
+                                WHERE
+                                    SESS_ID = ?
+                                        AND NO_FP = ?
+                                GROUP BY NO_FP , FLAG_PPN) asd",[$session_id,$no_fp]);
+        return $data;
+    }
 }

@@ -765,13 +765,6 @@ class InputTTfController extends Controller
                 }
 
             }
-            if($error == ''){
-                $ttf_upload_tmp = new TtfUploadTmp();
-                $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->NO_FP);
-                if($count[0]->COUNT_DATA > 0){
-                     $error .= '<br> Error Flag Go : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag GO yang Seragam';
-                }
-            }
             // no bpb tidak boleh ganda
             if ($error == '')
             {
@@ -802,6 +795,22 @@ class InputTTfController extends Controller
 
         }
         foreach($getDataTempBySessionId as $a){
+            // Validate Flag Go
+            if($error == ''){
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->NO_FP);
+                if($count[0]->COUNT_DATA > 1){
+                     $error .= '<br> Error Flag Go : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag GO yang Seragam';
+                }
+            }
+            // Validate Flag PPn
+            if($error == ''){
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $count = $ttf_upload_tmp->validateFlagPpnPerFp($session_id,$a->NO_FP);
+                if($count[0]->COUNT_DATA > 1){
+                     $error .= '<br> Error Flag Ppn : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag PPN yang Seragam';
+                }
+            }
             // satu faktur hanya boleh satu dpp
             if ($error == '')
             {

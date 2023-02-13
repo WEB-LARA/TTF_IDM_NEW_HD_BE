@@ -605,7 +605,7 @@ class InputTTfController extends Controller
                                     'message' => $errorValidasiDjp,
                                 ]);
                         }else{
-                            $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id)['message'];
+                            $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
                         }
                     }
                 }
@@ -618,7 +618,7 @@ class InputTTfController extends Controller
             $this->deleteTmpAfterApproveCsv($request->session_id);
             return response()->json([
                     'status' => 'success',
-                    'message' => $message,
+                    'message' => $message['message'],
                 ]);
         }else{
             $ttf_upload_tmp = new TtfUploadTmp();

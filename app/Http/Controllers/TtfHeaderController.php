@@ -30,8 +30,8 @@ class TtfHeaderController extends Controller
     public function downloadLampiran(Request $request){
         // $zip = new ZipArchive();
 
-        $zip = new ZipArchive;
-        if ($zip->open(public_path('trigger_zip/test_new.zip'), ZipArchive::CREATE) === TRUE)
+        $zip = new \ZipArchive();
+        if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
         {
             // Add files to the zip file
             $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");

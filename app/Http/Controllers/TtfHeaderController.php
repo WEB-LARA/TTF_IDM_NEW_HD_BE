@@ -27,19 +27,26 @@ class TtfHeaderController extends Controller
             ]);
     }
 
-    public function downloadLampiran(Request $request){
-        $zip = new ZipArchive();
+    public function downloadLampiran(){
+        // $zip = new ZipArchive();
 
-        $filename = "test.zip";
-
-        if ($zip->open(public_path($filename), ZipArchive::CREATE)==TRUE) {
-            $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
-            $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
-        
+        $zip = new \ZipArchive();
+        if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
+        {
+            $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf","TEST.pdf");
         }
+        $zip->close();
+
+        // $filename = "test.zip";
+
+        // if ($zip->open(public_path($filename), ZipArchive::CREATE)===TRUE) {
+        //     $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
+        //     $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
+        
+        // }
 
         header('Content-disposition: attachment; filename=download.zip');
         header('Content-type: application/zip');
-        readfile($filename);
+        readfile(public_path('trigger_zip/test_new.zip'));
     }
 }

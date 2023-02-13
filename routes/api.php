@@ -95,7 +95,7 @@ Route::controller(TtfTmpTableController::class)->group(function () {
 Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('getDataInquiryTTF', 'getDataInquiryTTF');
     Route::post('getDataInquiryDetailTTF', 'getDataInquiryDetailTTF');
-    Route::post('downloadLampiran','downloadLampiran');
+    Route::get('downloadLampiran','downloadLampiran');
 });
 Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('createAnnouncement', 'createAnnouncement');

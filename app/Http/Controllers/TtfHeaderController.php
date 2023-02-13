@@ -31,9 +31,9 @@ class TtfHeaderController extends Controller
 
     public function downloadLampiran(Request $request){
         $sys_fp_fisik = new SysFpFisik();
-        $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber($request->nomor_ttf);
+        $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber('230022473841');
         $ttf_lampiran = new TtfLampiran();
-        $getDataTtfLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($request->id_ttf);
+        $getDataTtfLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID(176);
         // $zip = new ZipArchive();
         $zip = new \ZipArchive();
         if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)

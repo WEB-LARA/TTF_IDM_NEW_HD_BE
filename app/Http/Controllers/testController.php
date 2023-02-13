@@ -66,6 +66,16 @@ class testController extends Controller
         // }
     }
 
+    public function inquirydata(){
+        $test_model = new testModel();
+        $data = $test_model->inquirydata();
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
+
     public function filterdata(Request $request){
         $test_model = new testModel();
 
@@ -77,13 +87,24 @@ class testController extends Controller
         ]);
     }
 
-    public function inquirydata(){
+    public function inquirylampiran(){
         $test_model = new testModel();
-        $data = $test_model->inquirydata();
+        $data = $test_model->inquirylampiran();
 
         return response()->json([
             'status' => 'success',
             'data' => $data
+        ]);
+    }
+
+    public function filterlampiran(Request $request){
+        $test_model = new testModel();
+
+        $data = $test_model->filterlampiran($request->branch,$request->nottf,$request->kodesupp,$request->username,$request->tglttf_from,$request->tglttf_to,$request->status,$request->session_id);
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data,
         ]);
     }
         // $data = testModel::join('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_data_bpb.BPB_ID')
@@ -97,10 +118,4 @@ class testController extends Controller
     //           ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
     //           ->select('ttf_data_bpb.VENDOR_SITE_CODE','ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE','ttf_headers.TTF_STATUS','sys_supplier.SUPP_NAME')
     //           ->get();
-
-    //     return response()->json([
-    //         'status' => 'OK',
-    //         'data' => $data
-    //     ]);
-    // }
 }

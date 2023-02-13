@@ -60,6 +60,8 @@ Route::controller(testController::class)->group(function () {
     Route::get('joindata1', 'joindata');
     Route::get('inquirydata1', 'inquirydata');
     Route::get('filterdata1', 'filterdata');
+    Route::get('inquirylampiran1', 'inquirylampiran');
+    Route::get('filterlampiran1', 'filterlampiran');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

@@ -117,7 +117,7 @@ class testModel extends Model
               ->where('ttf_headers.BRANCH_CODE',$branch)
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
               ->orwhere('sys_supplier.SUPP_CODE',$kodesupp)
-              ->orwhere('sys_user.ID_USER',$username)
+              ->orwhere('sys_user.USERNAME',$username)
               ->orwherebetween('ttf_headers.CREATION_DATE',[$tglttf_from, $tglttf_to])
               ->orwhere('ttf_headers.TTF_STATUS',$status)
               ->select('ttf_headers.TTF_NUM',\DB::raw(

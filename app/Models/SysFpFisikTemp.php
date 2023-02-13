@@ -40,4 +40,22 @@ class SysFpFisikTemp extends Model
             return 0;
         }
     }
+    public function insertFromTempDjpCsv($session_id){
+        $insert = DB::select("INSERT INTO sys_fp_fisik_temp (SESSION,FP_NUM,FILENAME,REAL_NAME,PATH_FILE,CREATION_DATE) SELECT 
+                                  SESSION_ID,
+                                  NO_FP,
+                                  FILE_NAME,
+                                  REAL_NAME,
+                                  PATH_FILE,
+                                  ?
+                              FROM
+                                  temp_upload_djp_csv
+                              WHERE
+                                  SESSION_ID = ?;",[date('Y-m-d'),$session_id]);
+        if($insert){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

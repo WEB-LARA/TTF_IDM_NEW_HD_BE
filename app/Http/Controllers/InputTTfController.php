@@ -1009,7 +1009,7 @@ class InputTTfController extends Controller
         $ttf_tmp_table = new TtfTmpTable();
         $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
         $sys_fp_fisik_temp = new SysFpFisikTemp();
-        // $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp
+        $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp->insertFromTempDjpCsv($session_id);
         print_r($this->saveTTfUpload($session_id,$user_id));
     }
     public function testAPIUploadCSV(){

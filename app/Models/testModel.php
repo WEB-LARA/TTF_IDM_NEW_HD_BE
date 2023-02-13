@@ -132,7 +132,6 @@ class testModel extends Model
                     END
                 ) AS STATUS_TTF'
                 ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB')
-              ->take(10)
               ->get();
 
               return $data;

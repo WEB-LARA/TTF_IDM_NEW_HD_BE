@@ -10,7 +10,7 @@ class testModel2 extends Model
 {
     use HasFactory;
     protected $connection = 'mysql2';
-    protected $table = 'ttf_header';
+    protected $table = 'ttf_headers';
     protected $primaryKey = 'TTD_ID';
     public $incrementing = false;
     public $timestamps = false;

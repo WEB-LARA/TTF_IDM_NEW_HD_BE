@@ -27,7 +27,7 @@ class TtfHeaderController extends Controller
             ]);
     }
 
-    public function downloadLampiran(Request $request){
+    public function downloadLampiran(){
         // $zip = new ZipArchive();
 
         $zip = new \ZipArchive();

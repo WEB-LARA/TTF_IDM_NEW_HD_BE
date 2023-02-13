@@ -7,6 +7,7 @@ use App\Models\TtfHeader;
 use App\Models\SysFpFisik;
 use App\Models\TtfLampiran;
 use ZipArchive;
+use Response;
 class TtfHeaderController extends Controller
 {
     public function getDataInquiryTTF(Request $request){

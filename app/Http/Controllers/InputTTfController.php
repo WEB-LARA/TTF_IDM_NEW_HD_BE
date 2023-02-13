@@ -610,23 +610,23 @@ class InputTTfController extends Controller
                 }
             }
         }
-        print_r($message);
-        // if($message['status']=='OK'){
-        //     // $this->approveUpload($request->session_id,$request->user_id);
-        //     $this->approveUpload($request->session_id,$request->user_id);
-        //     $this->deleteTmpAfterApproveCsv($request->session_id);
-        //     return response()->json([
-        //             'status' => 'success',
-        //             'message' => $message,
-        //         ]);
-        // }else{
-        //     $ttf_upload_tmp = new TtfUploadTmp();
-        //     $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($request->session_id);
-        //     return response()->json([
-        //             'status' => 'error',
-        //             'message' => $message,
-        //         ]);
-        // }
+        // print_r($message);
+        if($message['status']=='OK'){
+            // $this->approveUpload($request->session_id,$request->user_id);
+            $this->approveUpload($request->session_id,$request->user_id);
+            $this->deleteTmpAfterApproveCsv($request->session_id);
+            return response()->json([
+                    'status' => 'success',
+                    'message' => $message,
+                ]);
+        }else{
+            $ttf_upload_tmp = new TtfUploadTmp();
+            $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($request->session_id);
+            return response()->json([
+                    'status' => 'error',
+                    'message' => $message,
+                ]);
+        }
     }
 
     public function cekUploadLampiran(Request $request){

@@ -297,8 +297,8 @@ class InputTTfController extends Controller
                             'SCAN_FLAG' => $b['SCAN_FLAG']
                         ]);
                         $idFp = $insertFp->TTF_FP_ID;
-                        // $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($request->supp_site_code,$request->branch_code,$b['NO_FP']);
-                        $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($session_id,$b['NO_FP']);
+                        $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($a['SUPP_SITE'],$a['CABANG'],$b['NO_FP']);
+                        // $getDataBPBperFP = $ttf_tmp_table->getDataTTFTmpBPB($session_id,$b['NO_FP']);
                         foreach ($getDataBPBperFP as $c){
                             $insertLines = TtfLines::create([
                                 'TTF_ID' => $idHeader,
@@ -335,10 +335,6 @@ class InputTTfController extends Controller
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
                 
             },5);
-            return response()->json([
-                    'status' => 'success',
-                    'message' => 'TTF Berhasil Disimpan!',
-                ]);
         }catch (\Exception $e) {
             return $e->getMessage();
         }

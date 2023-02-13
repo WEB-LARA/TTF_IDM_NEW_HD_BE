@@ -51,7 +51,7 @@ class TtfHeaderController extends Controller
         $zip->close();
         $file= public_path('trigger_zip/test_new.zip');
         $headers = array(
-            "Content-type"        => "application/pdf",
+            "Content-type"        => "application/zip",
             "Content-Disposition" => "attachment; filename=test_zip.zip",
             "Pragma"              => "no-cache",
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",

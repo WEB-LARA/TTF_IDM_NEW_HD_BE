@@ -46,7 +46,8 @@ class SysMapSupplier extends Model
                                     ttf_data_bpb c
                                 WHERE
                                     c.VENDOR_SITE_CODE = a.SUPP_SITE_CODE
-                                        AND c.BRANCH_CODE = a.BRANCH_CODE) JUMLAH_BPB')
+                                        AND c.BRANCH_CODE = a.BRANCH_CODE
+                                        and c.USED_FLAG =\'N\') JUMLAH_BPB')
                    ->selectRaw('(SELECT 
                                     b.SUPP_PKP_NUM
                                 FROM

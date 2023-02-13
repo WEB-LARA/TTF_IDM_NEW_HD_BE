@@ -24,4 +24,10 @@ class SysFpFisik extends Model
         'CREATION_DATE',
         'LAST_UPDATE_DATE',
     ];
+
+    public function getDataByTtfNumber($ttf_number){
+        $data = SysFpFisik::where('TTF_NUMBER',$ttf_number)->get();
+
+        return $data;
+    }
 }

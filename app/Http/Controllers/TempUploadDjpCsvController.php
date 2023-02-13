@@ -66,4 +66,22 @@ class TempUploadDjpCsvController extends Controller
             ]);
         }
     }
+
+    public function deleteTableTempDjpCsv(Request $request){
+        $temp_upload_djp_csv = new TempUploadDjpCsv();
+
+        $delete = TempUploadDjpCsv::where('SESSION_ID',$request->session_id)->delete();
+
+        if($delete){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Berhasil di hapus',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data Gagal di hapus',
+            ]);
+        }
+    }
 }

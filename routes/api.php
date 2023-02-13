@@ -105,4 +105,5 @@ Route::controller(TempUploadDjpCsvController::class)->group(function () {
     Route::post('insertFileDjp', 'insertFileDjp');
     Route::post('getFileDjpBySessionId','getFileDjpBySessionId');
     Route::post('deleteFileDjp', 'deleteFileDjp');
+    Route::post('deleteTableTempDjpCsv','deleteTableTempDjpCsv');
 });

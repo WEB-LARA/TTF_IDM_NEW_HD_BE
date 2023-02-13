@@ -479,6 +479,11 @@ class InputTTfController extends Controller
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
                 $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
                 print_r($data_csv);
+                if(!isset($data_csv[1])){
+                    print_r("SINI 1");
+                }else{
+                    print_r("SINI 2");
+                }
 			    // if(!isset($data_csv[1])){
 			    // 	$result['status'] = 'ERROR';
 			    // 	$result['msg'] = "Isi file kosong atau separator tidak sesuai.";

@@ -36,7 +36,7 @@ class testModel2 extends Model
     }
 
     public function filterlampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
-        $data = testModel2::join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
+        $data = testModel2::join('syss_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_headers.TTF_ID')
               ->join('sys_user', 'sys_user.ID_USER', '=', 'ttf_headers.CREATED_BY')
               ->where('ttf_headers.BRANCH_CODE',$branch)

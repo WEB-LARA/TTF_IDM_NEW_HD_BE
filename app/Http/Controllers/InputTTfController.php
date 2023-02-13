@@ -1015,14 +1015,14 @@ class InputTTfController extends Controller
     }
 
     public function downloadTemplateCsv(){
+        $file= public_path('/template_csv_ttf.csv');
         $headers = array(
             "Content-type"        => "text/csv",
-            "Content-Disposition" => "attachment; filename=$fileName",
+            "Content-Disposition" => "attachment; filename=template_csv_ttf.csv",
             "Pragma"              => "no-cache",
             "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
             "Expires"             => "0"
         );
-        $file= public_path('/template_csv_ttf.csv');
 
         return Response::download($file, $headers);
     }

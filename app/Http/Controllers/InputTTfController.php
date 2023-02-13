@@ -625,7 +625,7 @@ class InputTTfController extends Controller
             $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($request->session_id);
             return response()->json([
                     'status' => 'error',
-                    'message' => $message,
+                    'message' => $message['message'],
                 ]);
         }
     }

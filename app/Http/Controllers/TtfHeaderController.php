@@ -30,7 +30,7 @@ class TtfHeaderController extends Controller
     public function downloadLampiran(Request $request){
         $zip = new ZipArchive();
 
-        $filename = public_path("test112.zip");
+        $filename = "test.zip";
 
         if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
             exit("cannot open <$filename>\n");

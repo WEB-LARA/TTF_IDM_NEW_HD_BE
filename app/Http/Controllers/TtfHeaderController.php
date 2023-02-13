@@ -25,4 +25,20 @@ class TtfHeaderController extends Controller
                 'data' => $data,
             ]);
     }
+
+    public function downloadLampiran(Request $request){
+        $zip = new ZipArchive();
+
+        $filename = "./test112.zip";
+
+        if ($zip->open($filename, ZipArchive::CREATE)!==TRUE) {
+            exit("cannot open <$filename>\n");
+        }
+        $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
+        $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
+
+        header('Content-disposition: attachment; filename=download.zip');
+        header('Content-type: application/zip');
+        readfile($filename);
+    }
 }

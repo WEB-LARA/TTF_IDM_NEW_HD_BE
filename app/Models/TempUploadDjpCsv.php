@@ -31,4 +31,14 @@ class TempUploadDjpCsv extends Model
 
         return $data;
     }
+
+    public function deleteTempUploadDjpCsvBySessId($session_id){
+        $delete = TempUploadDjpCsv::where('SESSION_ID',$session_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

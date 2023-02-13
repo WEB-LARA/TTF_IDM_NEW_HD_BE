@@ -58,4 +58,13 @@ class SysFpFisikTemp extends Model
             return 0;
         }
     }
+    public function deleteSysFpFisikTempBySessId($session_id){
+        $delete = SysFpFisikTemp::where('SESSION',$session_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

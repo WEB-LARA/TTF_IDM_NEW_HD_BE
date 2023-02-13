@@ -141,4 +141,13 @@ class TtfUploadTmp extends Model
                                 GROUP BY NO_FP , FLAG_PPN) asd",[$session_id,$no_fp]);
         return $data;
     }
+    public function deleteTtfUploadTmpBySessId($session_id){
+        $delete = TtfUploadTmp::where('SESS_ID',$session_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

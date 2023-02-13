@@ -612,7 +612,8 @@ class InputTTfController extends Controller
         }
         if($message['status']=='OK'){
             // $this->approveUpload($request->session_id,$request->user_id);
-            print_r($this->approveUpload($request->session_id,$request->user_id));
+            $this->approveUpload($request->session_id,$request->user_id);
+            $this->deleteTmpAfterApproveCsv($request->session_id);
             return response()->json([
                     'status' => 'success',
                     'message' => $message,
@@ -1006,7 +1007,7 @@ class InputTTfController extends Controller
         $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp->insertFromTempDjpCsv($session_id);
-        print_r($this->saveTTfUpload($session_id,$user_id));
+        $this->saveTTfUpload($session_id,$user_id);
     }
     public function testAPIUploadCSV(){
         $fileName = $request->file_csv->hashName();
@@ -1049,5 +1050,15 @@ class InputTTfController extends Controller
         return Response::download($file,'template_csv_ttf.csv' ,$headers);
     }
 
+    public function deleteTmpAfterApproveCsv($session_id){
+        $ttf_upload_tmp = new TtfUploadTmp();
+        $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($session_id);
+        $temp_upload_djp_csv = new TempUploadDjpCsv();
+        $deleteUploadDjpCsv = $temp_upload_djp_csv->deleteTempUploadDjpCsvBySessId($session_id);
+        $sys_fp_fisik_temp = new SysFpFisikTemp();
+        $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($session_id);
+        $ttf_tmp_table = new SysFpFisikTemp();
+        $deleteTtfTmpTable = $ttf_tmp_table->deleteTempUploadDjpCsvBySessId($session_id);
+    }
     
 }

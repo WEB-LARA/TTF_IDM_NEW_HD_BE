@@ -224,4 +224,14 @@ class TtfTmpTable extends Model
             return 0;
         }
     }
+
+    public function deleteTempUploadDjpCsvBySessId($session_id){
+        $delete = TtfTmpTable::where('SESS_ID',$session_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

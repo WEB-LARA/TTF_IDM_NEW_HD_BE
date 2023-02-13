@@ -70,7 +70,7 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveLampiran','saveLampiran');
     Route::post('uploadTTF','uploadTTF');
     Route::post('cekUploadLampiran','cekUploadLampiran');
-    Route::post('downloadTemplateCsv','downloadTemplateCsv');
+    Route::get('downloadTemplateCsv','downloadTemplateCsv');
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');

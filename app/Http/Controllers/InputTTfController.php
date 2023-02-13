@@ -478,15 +478,6 @@ class InputTTfController extends Controller
             if($request->file_csv->move(public_path('/file_upload_csv'), $fileName)){
                 $file_handle = fopen(public_path('/file_upload_csv/'.$fileName), 'r');
                 $data_csv =fgetcsv($file_handle, 0, $request->delimiter);
-                print_r($data_csv);
-                if(!isset($data_csv[1])){
-                    return response()->json([
-                            'status' => 'error',
-                            'message' => $errorValidasiDjp,
-                        ]);
-                }else{
-                    print_r("SINI 2");
-                }
 			    if(!isset($data_csv[1])){
                     return response()->json([
                             'status' => 'error',

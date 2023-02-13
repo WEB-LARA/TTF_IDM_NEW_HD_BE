@@ -34,14 +34,10 @@ class TtfHeaderController extends Controller
         if ($zip->open('test_new.zip', ZipArchive::CREATE) === TRUE)
         {
             // Add files to the zip file
-            $zip->addFile('test.txt');
-            $zip->addFile('test.pdf');
+            $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
+            $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/","IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
         
             // Add random.txt file to zip and rename it to newfile.txt
-            $zip->addFile('random.txt', 'newfile.txt');
-        
-            // Add a file new.txt file to zip using the text specified
-            $zip->addFromString('new.txt', 'text to be added to the new.txt file');
         
             // All files are added, so close the zip file.
             $zip->close();
@@ -54,8 +50,8 @@ class TtfHeaderController extends Controller
         
         // }
 
-        // header('Content-disposition: attachment; filename=download.zip');
-        // header('Content-type: application/zip');
-        // readfile($filename);
+        header('Content-disposition: attachment; filename=download.zip');
+        header('Content-type: application/zip');
+        readfile($filename);
     }
 }

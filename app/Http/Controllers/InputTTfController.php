@@ -610,7 +610,7 @@ class InputTTfController extends Controller
             }
         }
         if($message['status']=='OK'){
-            $this->approveUpload($request->session_id,$request->user_id);
+            // $this->approveUpload($request->session_id,$request->user_id);
             print_r($this->approveUpload($request->session_id,$request->user_id));
             return response()->json([
                     'status' => 'success',

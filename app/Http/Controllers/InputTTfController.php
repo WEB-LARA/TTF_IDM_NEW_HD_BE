@@ -239,6 +239,7 @@ class InputTTfController extends Controller
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
                 
             },5);
+            $this->deleteTmpAfterSave($request->session_id);
             return response()->json([
                     'status' => 'success',
                     'message' => 'TTF Berhasil Disimpan!',
@@ -1061,8 +1062,17 @@ class InputTTfController extends Controller
         $deleteUploadDjpCsv = $temp_upload_djp_csv->deleteTempUploadDjpCsvBySessId($session_id);
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($session_id);
-        $ttf_tmp_table = new SysFpFisikTemp();
-        $deleteTtfTmpTable = $ttf_tmp_table->deleteSysFpFisikTempBySessId($session_id);
+        $ttf_tmp_table = new TtfTmpTable();
+        $deleteTtfTmpTable = $ttf_tmp_table->deleteTmpTableSessId($session_id);
+    }
+
+    public function deleteTmpAfterSave($session_id){
+        $ttf_upload_tmp = new TtfUploadTmp();
+        $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($session_id);
+        $sys_fp_fisik_temp = new SysFpFisikTemp();
+        $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($session_id);
+        $ttf_tmp_table = new TtfTmpTable();
+        $deleteTtfTmpTable = $ttf_tmp_table->deleteTmpTableSessId($session_id);
     }
     
 }

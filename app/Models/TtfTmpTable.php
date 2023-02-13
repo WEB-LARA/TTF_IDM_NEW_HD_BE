@@ -225,7 +225,7 @@ class TtfTmpTable extends Model
         }
     }
 
-    public function deleteTempUploadDjpCsvBySessId($session_id){
+    public function deleteTmpTableSessId($session_id){
         $delete = TtfTmpTable::where('SESS_ID',$session_id)->delete();
 
         if($delete){

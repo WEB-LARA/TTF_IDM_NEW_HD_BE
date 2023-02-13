@@ -113,7 +113,7 @@ class testModel extends Model
         $data = testModel::join('ttf_headers', 'ttf_headers.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
               ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_data_bpb.ID')
-              ->join('sys_user', 'sys_user.ID_USER', '=', 'ttf_headers.TTF_ID')
+              ->join('sys_user', 'sys_user.ID_USER', '=', 'ttf_headers.CREATED_BY')
               ->where('ttf_headers.BRANCH_CODE',$branch)
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
               ->orwhere('sys_supplier.SUPP_CODE',$kodesupp)

@@ -33,7 +33,7 @@ class TtfHeaderController extends Controller
         $zip = new \ZipArchive();
         if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
         {
-            $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
+            $zip->addFile("IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf");
         }
         $zip->close();
         // $filename = "test.zip";

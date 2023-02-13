@@ -163,7 +163,7 @@ class InputTTfController extends Controller
         $user_id = $request->user_id;
         // print_r($data);
         $concat_ttf_num = '';
-        try{
+        // try{
             DB::transaction(function () use($dataHeader,$request,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers){
                 foreach($dataHeader as $a){
                     $getTtfNumber = $this->getTtfNumber($a['CABANG']);
@@ -243,9 +243,9 @@ class InputTTfController extends Controller
                     'status' => 'success',
                     'message' => 'TTF Berhasil Disimpan!',
                 ]);
-        }catch (\Exception $e) {
-            return $e->getMessage();
-        }
+        // }catch (\Exception $e) {
+        //     return $e->getMessage();
+        // }
     }
 
     public function saveTTfUpload($session_id,$user_id){

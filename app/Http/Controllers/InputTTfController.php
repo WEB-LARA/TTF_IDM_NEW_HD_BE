@@ -1025,7 +1025,7 @@ class InputTTfController extends Controller
             "Expires"             => "0"
         );
 
-        return Response::download($file, $headers);
+        return Response::download($file,'template_csv_ttf.csv' ,$headers);
     }
 
     

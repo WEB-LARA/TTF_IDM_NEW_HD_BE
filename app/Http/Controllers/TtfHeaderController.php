@@ -53,6 +53,6 @@ class TtfHeaderController extends Controller
 
         header('Content-disposition: attachment; filename=download.zip');
         header('Content-type: application/zip');
-        readfile($filename);
+        readfile(public_path('trigger_zip/test_new.zip'));
     }
 }

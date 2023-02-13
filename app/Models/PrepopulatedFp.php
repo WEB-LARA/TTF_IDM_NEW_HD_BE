@@ -17,7 +17,7 @@ class PrepopulatedFp extends Model
     ];
 
     public function updatePrepopulatedFP($nomor_fp,$status){
-        $data = PrepopulatedFp::where('NOMOR_FAKTUR',$nomor_fp)->update([
+        $data = PrepopulatedFp::where('NOMOR_SFAKTUR',$nomor_fp)->update([
                 'USED_FLAG' => $status
         ]);
 

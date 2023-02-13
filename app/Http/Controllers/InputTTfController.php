@@ -559,7 +559,7 @@ class InputTTfController extends Controller
                         },5);
                         $convert_image_controller = new ConvertImageController();
                         $temp_upload_djp_csv = new TempUploadDjpCsv();
-                        $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessId($request->session_id);
+                        $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessIdForUpload($request->session_id);
                         // fileUploadPostUploadCsv
                         $ttf_upload_tmp = new TtfUploadTmp();
                         $prepopulated_fp = new PrepopulatedFp();

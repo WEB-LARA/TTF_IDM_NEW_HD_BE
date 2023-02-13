@@ -27,7 +27,7 @@ class TtfHeaderController extends Controller
     }
 
     public function downloadLampiran(Request $request){
-        $zip = new ZipArchive();
+        $zip = new \ZipArchive();
 
         $filename = "./test112.zip";
 

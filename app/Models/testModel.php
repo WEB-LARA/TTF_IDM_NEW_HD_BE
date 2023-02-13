@@ -61,7 +61,7 @@ class testModel extends Model
     }
 
     public function filterdata($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        $data = testModel::join('ttf_headerss', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
+        $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
               ->where('ttf_headers.BRANCH_CODE',$branch)

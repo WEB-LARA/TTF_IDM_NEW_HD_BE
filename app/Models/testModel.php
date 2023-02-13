@@ -60,13 +60,13 @@ class testModel extends Model
         return $data;
     }
 
-    public function filterdata($branch, $nobpb, $tglbpb, $nottf, $nofp, $session_id){
+    public function filterdata($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
         $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
               ->where('ttf_headers.BRANCH_CODE',$branch)
               ->orwhere('ttf_data_bpb.BPB_NUMBER',$nobpb)
-              ->orwhere('ttf_data_bpb.BPB_DATE',$tglbpb)
+              ->orwherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
               ->orwhere('ttf_fp.FP_NUM',$nofp)
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
@@ -113,10 +113,11 @@ class testModel extends Model
         $data = testModel::join('ttf_headers', 'ttf_headers.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
               ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_data_bpb.ID')
+              ->join('sys_user', 'sys_user.ID_USER', '=', 'ttf_data_bpb.ID')
               ->where('ttf_headers.BRANCH_CODE',$branch)
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
               ->orwhere('sys_supplier.SUPP_CODE',$kodesupp)
-              ->orwhere('ttf_headers.TTF_NUM',$username)
+              ->orwhere('sys_user.USERNAME',$username)
               ->orwherebetween('ttf_headers.CREATION_DATE',[$tglttf_from, $tglttf_to])
               ->orwhere('ttf_headers.TTF_STATUS',$status)
               ->select('ttf_headers.TTF_NUM',\DB::raw(

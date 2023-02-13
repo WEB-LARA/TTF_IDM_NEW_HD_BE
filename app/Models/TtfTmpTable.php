@@ -99,7 +99,7 @@ class TtfTmpTable extends Model
     // }
     public function getDataTTFTmpBPB($session_id,$no_fp){
         $getData = TtfTmpTable::where('SESS_ID',$session_id)
-                    ->where('NO_FPD',$no_fp)
+                    ->where('NO_FP',$no_fp)
                     ->select('BPB_NUM','BPB_DATE','BPB_AMOUNT')
                     ->selectRaw("(SELECT 
                                       tdb.BPB_ID

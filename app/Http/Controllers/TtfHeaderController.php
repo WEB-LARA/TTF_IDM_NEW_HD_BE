@@ -40,8 +40,9 @@ class TtfHeaderController extends Controller
             // Add random.txt file to zip and rename it to newfile.txt
         
             // All files are added, so close the zip file.
-            $zip->close();
+            // if (file_exists($file) && is_file($file))
         }
+        $zip->close();
         // $filename = "test.zip";
 
         // if ($zip->open(public_path($filename), ZipArchive::CREATE)===TRUE) {

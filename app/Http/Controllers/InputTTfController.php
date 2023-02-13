@@ -1024,7 +1024,7 @@ class InputTTfController extends Controller
         );
         $file= public_path('/template_csv_ttf.csv');
 
-        return Response::download($file, $getFilename->FILENAME.'.pdf', $headers);
+        return Response::download($file, $headers);
     }
 
     

@@ -32,21 +32,20 @@ class TtfHeaderController extends Controller
         $sys_fp_fisik = new SysFpFisik();
         $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber($request->nomor_ttf);
         
-        foreach($getDataFpFisik as $a){
-            print_r($a);
-        }
         // $zip = new ZipArchive();
+        $zip = new \ZipArchive();
+        if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
+        {
+            foreach($getDataFpFisik as $a){
+                $zip->addFile($a->PATH_FILE,$a->REAL_NAME);
+            }
+        }
 
         
-        // $zip = new \ZipArchive();
-        // if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
-        // {
-        //     $zip->addFile("/usr/src/app/public/file_djp_ttf_idm/2023/Feb/002/230022473841/IVTBy80U2SpaliM1nJvSDdbTkuQTiJ6JD726LMsp.pdf","TEST.pdf");
-        // }
-        // $zip->close();
+        $zip->close();
 
-        // header('Content-disposition: attachment; filename=download.zip');
-        // header('Content-type: application/zip');
-        // readfile(public_path('trigger_zip/test_new.zip'));
+        header('Content-disposition: attachment; filename=download.zip');
+        header('Content-type: application/zip');
+        readfile(public_path('trigger_zip/test_new.zip'));
     }
 }

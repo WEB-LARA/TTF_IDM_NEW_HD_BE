@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class SysFpFisikTemp extends Model
 {
     use HasFactory;
@@ -41,7 +41,7 @@ class SysFpFisikTemp extends Model
         }
     }
     public function insertFromTempDjpCsv($session_id){
-        $insert = DB::select("*INSERT INTO sys_fp_fisik_temp (SESSION,FP_NUM,FILENAME,REAL_NAME,PATH_FILE,CREATION_DATE) SELECT 
+        $insert = DB::select("INSERT INTO sys_fp_fisik_temp (SESSION,FP_NUM,FILENAME,REAL_NAME,PATH_FILE,CREATION_DATE) SELECT 
                                   SESSION_ID,
                                   NO_FP,
                                   FILE_NAME,

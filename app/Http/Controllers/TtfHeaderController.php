@@ -37,7 +37,6 @@ class TtfHeaderController extends Controller
         }
         $zip->close();
 
-        unlink(public_path('trigger_zip/test_new.zip'));
         // $filename = "test.zip";
 
         // if ($zip->open(public_path($filename), ZipArchive::CREATE)===TRUE) {

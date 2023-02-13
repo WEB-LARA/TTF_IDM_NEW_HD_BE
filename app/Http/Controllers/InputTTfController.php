@@ -605,7 +605,7 @@ class InputTTfController extends Controller
                                     'message' => $errorValidasiDjp,
                                 ]);
                         }else{
-                            $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                            $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id)['message'];
                         }
                     }
                 }

@@ -30,7 +30,7 @@ class TtfHeaderController extends Controller
 
     public function downloadLampiran(Request $request){
         $sys_fp_fisik = new SysFpFisik();
-        $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber($request->ttf_number);
+        $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber($request->nomor_ttf);
         
         foreach($getDataFpFisik as $a){
             print_r($a);

@@ -765,6 +765,13 @@ class InputTTfController extends Controller
                 }
 
             }
+            if($error == ''){
+                $ttf_upload_tmp = new TtfUploadTmp();
+                $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->NO_FP);
+                if($count > 0){
+                     $error .= '<br> Error Flag Go : Faktur ' . $row->NO_FP . ' harus memiliki BPB Flag GO yang Seragam';
+                }
+            }
             // no bpb tidak boleh ganda
             if ($error == '')
             {
@@ -892,6 +899,18 @@ class InputTTfController extends Controller
                 }
             }
         }
+
+        // Validate FLAG GO
+
+        $ttf_upload_tmp = new TtfUploadTmp();
+        $getDataPerTtf = $ttf_upload_tmp->getSiteCodeAndBranchForValidateFlag($session_id);
+        foreach($getDataPerTtf as $a){
+            $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->SUPP_SITE,$a->CABANG);
+            if ($checkSuppInFP > 0)
+            {
+                $error .= '<br> Ttf Pada Cabang ' . $a->CABANG . ': Harus Memiliki Flag Go yang seragam!';
+            }
+        }
         //SEQ NUMBER
         $status = 'VALID';
         $ttf_upload_tmp = new TtfUploadTmp();
@@ -906,7 +925,6 @@ class InputTTfController extends Controller
             $no++;
         }
         $no--;
-
         // UPDATE NILAI FP UNTUK TANPA FP
         if ($error == '')
         {

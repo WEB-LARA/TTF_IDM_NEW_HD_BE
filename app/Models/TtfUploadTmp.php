@@ -40,6 +40,10 @@ class TtfUploadTmp extends Model
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->where('STATUS',$status)->groupBy('SUPP_SITE','CABANG')->select('SUPP_SITE','CABANG')->get();
         return $data;
     }
+    public function getSiteCodeAndBranchForValidateFlag($session_id){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->groupBy('SUPP_SITE','CABANG')->select('SUPP_SITE','CABANG')->get();
+        return $data;
+    }
     public function getNoFpTmpBySessionIdAndNoFp($session_id,$no_fp){
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->whereRaw('SUBSTR(NO_FP,5) = ?',[$no_fp])->select('NO_FP')->first();
 
@@ -105,6 +109,10 @@ class TtfUploadTmp extends Model
 
     public function checkDataUploadTmp($session_id){
         $data = DB::select('SELECT a.NO_FP,a.FP_DPP,a.FP_TAX,(a.FP_DPP + a.FP_TAX) NILAI_FP, abs(a.FP_DPP - sum(a.BPB_AMOUNT))  SELISIH_DPP, abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN from ttf_upload_tmp a where   a.SESS_ID = ? group by a.SEQ_NUM, a.NO_FP',[$session_id]);
+        return $data;
+    }
+    public function validateFlagGoPerFp($session_id,$no_fp){
+        $data = TtfUploadTmp::where('SESS_IDD',$session_id)->where('NO_FP',$no_fp)->groupBy('FLAG_GO','NO_FP')->count();
         return $data;
     }
 }

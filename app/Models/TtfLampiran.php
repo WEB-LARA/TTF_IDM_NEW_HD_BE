@@ -20,4 +20,10 @@ class TtfLampiran extends Model
         'UPDATED_DATE',
         'REAL_NAME'
     ];
+
+    public function getDataTtfLampiranByTTfID($ttf_id){
+        $data = TtfLampiran::where('TTF_ID')->get();
+
+        return $data;
+    }
 }

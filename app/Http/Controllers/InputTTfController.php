@@ -769,7 +769,7 @@ class InputTTfController extends Controller
                 $ttf_upload_tmp = new TtfUploadTmp();
                 $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->NO_FP);
                 if($count[0]->COUNT_DATA > 0){
-                     $error .= '<br> Error Flag Go : Faktur ' . $row->NO_FP . ' harus memiliki BPB Flag GO yang Seragam';
+                     $error .= '<br> Error Flag Go : Faktur ' . $a->NO_FP . ' harus memiliki BPB Flag GO yang Seragam';
                 }
             }
             // no bpb tidak boleh ganda

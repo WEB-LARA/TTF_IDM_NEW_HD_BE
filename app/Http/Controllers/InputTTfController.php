@@ -900,17 +900,6 @@ class InputTTfController extends Controller
             }
         }
 
-        // Validate FLAG GO
-
-        $ttf_upload_tmp = new TtfUploadTmp();
-        $getDataPerTtf = $ttf_upload_tmp->getSiteCodeAndBranchForValidateFlag($session_id);
-        foreach($getDataPerTtf as $a){
-            $count = $ttf_upload_tmp->validateFlagGoPerFp($session_id,$a->SUPP_SITE,$a->CABANG);
-            if ($checkSuppInFP > 0)
-            {
-                $error .= '<br> Ttf Pada Cabang ' . $a->CABANG . ': Harus Memiliki Flag Go yang seragam!';
-            }
-        }
         //SEQ NUMBER
         $status = 'VALID';
         $ttf_upload_tmp = new TtfUploadTmp();

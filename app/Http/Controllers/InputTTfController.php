@@ -664,7 +664,9 @@ class InputTTfController extends Controller
                     "BPB_DATE" => $getDataBpbByBpbNum->BPB_DATE,
                     "CABANG" => $getDataBpbByBpbNum->BRANCH_CODE,
                     "BPB_PPN" => $getDataBpbByBpbNum->BPB_TAX,
-                    "BPB_AMOUNT" => $getDataBpbByBpbNum->BPB_DPP
+                    "BPB_AMOUNT" => $getDataBpbByBpbNum->BPB_DPP,
+                    "FLAG_GO" => $getDataBpbByBpbNum->FLAG_GO,
+                    "FLAG_PPN" => $getDataBpbByBpbNum->FLAG_PPN
                 ]);
             }
         }

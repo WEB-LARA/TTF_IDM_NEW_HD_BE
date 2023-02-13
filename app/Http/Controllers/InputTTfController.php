@@ -591,6 +591,11 @@ class InputTTfController extends Controller
                                 if($validateUploadDjp==0){
                                     $counter_error_djp ++;
                                     $errorValidasiDjp .= "<br> NO_FP ' . $getDataTempBySessionId->NO_FP . ' Tidak terdaftar pada Prepopulated FP";
+                                }else{
+                                    $getNomorFp = $prepopulated_fp->getFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+                                    $updateTempDjpFisikCsv =  TempUploadDjpCsv::where('ID',$a->ID)->update([
+                                        "NO_FP" => $getNomorFp->NOMOR_FAKTUR
+                                    ]);
                                 }
                             }else{
                                 $errorValidasiDjp .= "<br> File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
@@ -1003,6 +1008,8 @@ class InputTTfController extends Controller
     public function approveUpload($session_id,$user_id){
         $ttf_tmp_table = new TtfTmpTable();
         $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
+        $sys_fp_fisik_temp = new SysFpFisikTemp();
+        $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp
         print_r($this->saveTTfUpload($session_id,$user_id));
     }
     public function testAPIUploadCSV(){

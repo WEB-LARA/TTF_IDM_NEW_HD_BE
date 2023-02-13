@@ -17,7 +17,7 @@ class PrepopulatedFp extends Model
     ];
 
     public function updatePrepopulatedFP($nomor_fp,$status){
-        $data = PrepopulatedFp::where('NOMOR_SFAKTUR',$nomor_fp)->update([
+        $data = PrepopulatedFp::where('NOMOR_FAKTUR',$nomor_fp)->update([
                 'USED_FLAG' => $status
         ]);
 
@@ -44,7 +44,11 @@ class PrepopulatedFp extends Model
 
         return $data;
     }
+    public function getFpByNoFpAndNpwp($npwp,$no_faktur){
+        $data = PrepopulatedFp::where('NPWP_PENJUAL',$npwp)->whereRaw('SUBSTR(nomor_faktur,5,18) = ?',[$no_faktur])->select('NOMOR_FAKTUR')->first();
 
+        return $data;
+    }
     public function checkPrepopulatedFPByNoFakturAndUsedFlag($no_faktur){
         $data = PrepopulatedFp::where('NOMOR_FAKTUR',$no_faktur)->where('USED_FLAG','N')->count();
         return $data;

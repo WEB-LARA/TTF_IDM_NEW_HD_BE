@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TtfHeader;
+use ZipArchive;
 class TtfHeaderController extends Controller
 {
     public function getDataInquiryTTF(Request $request){
@@ -27,7 +28,7 @@ class TtfHeaderController extends Controller
     }
 
     public function downloadLampiran(Request $request){
-        $zip = new \ZipArchive();
+        $zip = new ZipArchive();
 
         $filename = "./test112.zip";
 

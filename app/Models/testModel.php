@@ -89,8 +89,9 @@ class testModel extends Model
     }
 
     public function inquirylampiran(){
-        $data = testModel::join('ttf_headers', 'ttf_headers.BRANCH_CODE', '=', 'sys_ref_branch.BRANCH_CODE')
-              ->select('ttf_headers.TTF_NUM',\DB::raw(
+        $data = testModel::join('ttf_headers', 'ttf_headers.BRANCH_CODE', '=', 'ttf_data_bpb.BRANCH_CODE')
+                ->join('ttf_data_bpb', 'ttf_data_bpb.BRANCH_CODE', '=', 'sys_ref_branch.BRANCH_CODE')
+                ->select('ttf_headers.TTF_NUM',\DB::raw(
                 '( 
                     CASE 
                          WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"

@@ -252,8 +252,6 @@ class InputTTfController extends Controller
     public function saveTTfUpload($session_id,$user_id){
         $ttf_tmp_table = new TtfTmpTable();
         $ttf_headers = new TtfHeader();
-        $ttf_upload_tmp = new TtfUploadTmp();
-        $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($session_id);
         $ttf_fp = new TtfFp();
         // $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
         // $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
@@ -443,30 +441,8 @@ class InputTTfController extends Controller
     }
 
     public function uploadTTF(Request $request){
-        // print_r("TEST");
-        // if($request->hasfile('file_csv')){
-        //     foreach($request->file('file_csv') as $key => $file)
-        //     {
-        //         // $fileName = time().'.'.$file->extension();
-        //         $fileName = $file->hashName();
-        //         $real_name = $file->getClientOriginalName();
-        //         $size = $file->getSize();
-        //         print_r($fileName);
-        //         // $request->file->move(public_path('/file_temp_fp'), $fileName)
-        //         if($file->move(public_path('/file_upload_csv'), $fileName)){
-        //             $file_handle = fopen($csvFile, 'r');
-        //             while (!feof($file_handle)) {
-        //                 // $line_of_text[] = fgetcsv($file_handle, 0, $array['delimiter']);
-        //                 print_r($line_of_text);
-        //             }
-        //             fclose($file_handle);
-        //             // return $line_of_text;
-        //         }
-        //     }
-        // }else{
-
-        // }
-           
+        $ttf_upload_tmp = new TtfUploadTmp();
+        $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($session_id);   
         if($request->hasFile('file_csv')){
             $fileName = $request->file_csv->hashName();
             $real_name = $request->file_csv->getClientOriginalName();
@@ -622,7 +598,7 @@ class InputTTfController extends Controller
         }
         if($message['status']=='OK'){
             // $this->approveUpload($request->session_id,$request->user_id);
-            $this->approveUpload($request->session_id,$request->user_id);
+            // $this->approveUpload($request->session_id,$request->user_id);
             $this->deleteTmpAfterApproveCsv($request->session_id);
             return response()->json([
                     'status' => 'success',

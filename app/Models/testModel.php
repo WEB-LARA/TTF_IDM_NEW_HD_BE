@@ -39,7 +39,7 @@ class testModel extends Model
 
     public function getDataInquiryTtf(){
         $data = testModel::select("SELECT
-                ttf_data_bpb.VENDOR_SITE_CODE,
+                'ttf_data_bpb.VENDOR_SITE_CODE',
                 (SELECT 
                     SUPP_NAME
                 FROM
@@ -51,19 +51,20 @@ class testModel extends Model
                                     sys_supp_site b
                                 WHERE
                                 b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
-                                AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME,
-                ttf_data_bpb.BPB_NUMBER,
-                ttf_data_bpb.BPB_DATE,
-                ttf_data_bpb.BPB_DPP,
-                ttf_data_bpb.BPB_TAX,
-                ttf_data_bpb.BPB_ID,
-                ttf_fp.FP_NUM,
-                ttf_fp.FP_DATE,
-                ttf_fp.FP_DPP_AMT,
-                ttf_fp.FP_TAX_AMT,
-                ttf_headers.TTF_NUM,
-                ttf_headers.TTF_DATE`,
-                ttf_headers.TTF_RETURN_DATE,
+                                AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE))
+                'SUPP_NAME',
+                'ttf_data_bpb.BPB_NUMBER',
+                'ttf_data_bpb.BPB_DATE',
+                'ttf_data_bpb.BPB_DPP',
+                'ttf_data_bpb.BPB_TAX',
+                'ttf_data_bpb.BPB_ID',
+                'ttf_fp.FP_NUM',
+                'ttf_fp.FP_DATE',
+                'ttf_fp.FP_DPP_AMT',
+                'ttf_fp.FP_TAX_AMT',
+                'ttf_headers.TTF_NUM',
+                'ttf_headers.TTF_DATE',
+                'ttf_headers.TTF_RETURN_DATE',
                 (CASE
                     WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
                     WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'
@@ -73,7 +74,7 @@ class testModel extends Model
                     WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
                 END) AS STATUS_TTF
             FROM
-                ttf_data_bpb
+                'ttf_data_bpb'
                     LEFT JOIN
                 ttf_lines ON ttf_lines.TTF_BPB_ID = ttf_data_bpb.BPB_ID
                     LEFT JOIN

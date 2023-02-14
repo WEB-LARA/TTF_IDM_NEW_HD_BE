@@ -556,6 +556,7 @@ class InputTTfController extends Controller
                                     }
                                 }
                                 $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                                return $message;
                             }catch (\Exception $e) {
                                 return $e->getMessage();
                             }

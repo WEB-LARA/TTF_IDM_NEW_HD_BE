@@ -39,7 +39,7 @@ class testModel extends Model
 
     public function getDataInquiryTtf(){
         $data = DB::select("SELECT
-                'ttf_data_bpb.VENDOR_SITE_CODE',
+                ttf_data_bpb.VENDOR_SITE_CODE,
                 (SELECT 
                     SUPP_NAME
                 FROM
@@ -52,18 +52,18 @@ class testModel extends Model
                                 WHERE
                                 b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
                                 AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) SUPP_NAME,
-                'ttf_data_bpb.BPB_NUMBER',
-                'ttf_data_bpb.BPB_DATE',
-                'ttf_data_bpb.BPB_DPP',
-                'ttf_data_bpb.BPB_TAX',
-                'ttf_data_bpb.BPB_ID',
-                'ttf_fp.FP_NUM',
-                'ttf_fp.FP_DATE',
-                'ttf_fp.FP_DPP_AMT',
-                'ttf_fp.FP_TAX_AMT',
-                'ttf_headers.TTF_NUM',
-                'ttf_headers.TTF_DATE',
-                'ttf_headers.TTF_RETURN_DATE',
+                ttf_data_bpb.BPB_NUMBER,
+                ttf_data_bpb.BPB_DATE,
+                ttf_data_bpb.BPB_DPP,
+                ttf_data_bpb.BPB_TAX,
+                ttf_data_bpb.BPB_ID,
+                ttf_fp.FP_NUM,
+                ttf_fp.FP_DATE,
+                ttf_fp.FP_DPP_AMT,
+                ttf_fp.FP_TAX_AMT,
+                ttf_headers.TTF_NUM,
+                ttf_headers.TTF_DATE,
+                ttf_headers.TTF_RETURN_DAT',
                 (CASE
                     WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
                     WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'
@@ -75,14 +75,11 @@ class testModel extends Model
             FROM
                 ttf_data_bpb
                     LEFT JOIN
-                ttf_headers ON ttf_headers.VENDOR_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
+                ttf_lines ON ttf_lines.TTF_BPB_ID = ttf_data_bpb.BPB_ID
                     LEFT JOIN
-                ttf_fp ON ttf_fp.TTF_ID = ttf_headers.TTF_ID"
-                // ttf_lines ON ttf_lines.TTF_BPB_ID = ttf_data_bpb.BPB_ID
-                //     LEFT JOIN
-                // ttf_fp ON ttf_fp.TTF_FP_ID = ttf_lines.TTF_FP_ID
-                //      LEFT JOIN
-                //  ttf_headers ON ttf_headers.TTF_ID = ttf_fp.TTF_ID"
+                ttf_fp ON ttf_fp.TTF_FP_ID = ttf_lines.TTF_FP_ID
+                    LEFT JOIN
+                ttf_headers ON ttf_headers.TTF_ID = ttf_fp.TTF_ID"
             );
 
         // $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')

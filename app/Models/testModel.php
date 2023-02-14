@@ -38,7 +38,7 @@ class testModel extends Model
         $data = testModel::leftjoin('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
-              DB::raw("SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT SUPP_ID
+              \DB::raw("SELECT SUPP_NAME FROM sys_supplier WHERE sys_supplier.SUPP_ID = (SELECT SUPP_ID
                                         FROM
                                            sys_supp_site b
                                         WHERE

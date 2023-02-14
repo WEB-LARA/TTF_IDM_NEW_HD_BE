@@ -508,10 +508,10 @@ class InputTTfController extends Controller
                                         {
                                             $fp_type = 2;
                                         }
-                                        else if ($data_csv[1] == 'KHS')
-                                        {
-                                            $fp_type = 3;
-                                        }
+                                        // else if ($data_csv[1] == 'KHS')
+                                        // {
+                                        //     $fp_type = 3;
+                                        // }
                                         if($fp_type == 0){
                                                 $insertToUploadTmp = TtfUploadTmp::create([
                                                     "SESS_ID" => $request->session_id,

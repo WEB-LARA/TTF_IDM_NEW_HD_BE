@@ -101,8 +101,8 @@ class testModel extends Model
     }
 
     public function searchDataTtfbyFilter($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        $data = testModel::leftjoin('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
-              ->leftjoin('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
+        $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
+              ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->where('ttf_data_bpb.BRANCH_CODE',$branch)
               ->orwhere('ttf_data_bpb.BPB_NUMBER',$nobpb)
               ->orwherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
@@ -129,7 +129,8 @@ class testModel extends Model
                     END
                 ) AS STATUS_TTF'
             ))
-              ->get();
+                ->take(10)
+                ->get();
 
         // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,

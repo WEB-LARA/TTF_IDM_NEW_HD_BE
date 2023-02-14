@@ -493,7 +493,7 @@ class InputTTfController extends Controller
                         ]);
 				    	$flag_error=true;	
 				    }else{
-                        DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
+                        $message = DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
                             try{
                                 $line = 1;
                                 if($flag_error == false){
@@ -556,7 +556,6 @@ class InputTTfController extends Controller
                                     }
                                 }
                                 $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
-                                print_r($message);
                                 return $message;
                             }catch (\Exception $e) {
                                 return $e->getMessage();

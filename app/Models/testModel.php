@@ -35,7 +35,7 @@ class testModel extends Model
     }
 
     public function getDataInquiryTtf(){
-        $data = testModel::leftjoin('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
+        $data = DB::leftjoin('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
             //   ->leftjoin('sys_supp_site', 'sys_supp_site.SUPP_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
@@ -54,7 +54,7 @@ class testModel extends Model
                          WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
                          WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
                          WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
-                         ELSE "VALIDATED"
+                         WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
                     END
                 ) AS STATUS_TTF'
             ))

@@ -104,11 +104,6 @@ class testModel extends Model
         $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
-              ->where('ttf_data_bpb.BRANCH_CODE',$branch)
-              ->where('ttf_data_bpb.BPB_NUMBER',$nobpb)
-              ->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
-              ->where('ttf_headers.TTF_NUM',$nottf)
-              ->where('ttf_fp.FP_NUM',$nofp)
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
               \DB::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
                     SUPP_ID
@@ -129,9 +124,11 @@ class testModel extends Model
                          WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
                     END
                 ) AS STATUS_TTF'
-            ))
-                ->get();
-
+            ));
+        if($branch){
+            $data = $data->where('ttf_data_bpb.BRANCH_CODE',$branch);
+        }
+        $data = $data->get();
         // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 

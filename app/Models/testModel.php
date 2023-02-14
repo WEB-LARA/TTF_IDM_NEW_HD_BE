@@ -63,7 +63,7 @@ class testModel extends Model
                 ttf_fp.FP_TAX_AMT,
                 ttf_headers.TTF_NUM,
                 ttf_headers.TTF_DATE,
-                ttf_headers.TTF_RETURN_DAT',
+                ttf_headers.TTF_RETURN_DATE,
                 (CASE
                     WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
                     WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'

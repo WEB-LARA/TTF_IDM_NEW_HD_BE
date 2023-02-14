@@ -442,7 +442,7 @@ class InputTTfController extends Controller
 
     public function uploadTTF(Request $request){
         $ttf_upload_tmp = new TtfUploadTmp();
-        $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($session_id);   
+        $deleteUploadTmp = $ttf_upload_tmp->deleteTtfUploadTmpBySessId($request->session_id);   
         if($request->hasFile('file_csv')){
             $fileName = $request->file_csv->hashName();
             $real_name = $request->file_csv->getClientOriginalName();

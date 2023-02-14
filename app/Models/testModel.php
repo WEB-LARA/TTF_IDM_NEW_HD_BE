@@ -128,6 +128,18 @@ class testModel extends Model
         if($branch){
             $data = $data->where('ttf_data_bpb.BRANCH_CODE',$branch);
         }
+        if($nobpb){
+            $data = $data->where('ttf_data_bpb.BPB_NUMBER',$nobpb);
+        }
+        if($tglbpb_from && $tglbpb_to){
+            $data = $data->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to]);
+        }
+        if($nottf){
+            $data = $data->where('ttf_headers.TTF_NUM',$nottf);
+        }
+        if($nofp){
+            $data = $data->where('ttf_fp.FP_NUM',$nofp);
+        }
         $data = $data->get();
         // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,

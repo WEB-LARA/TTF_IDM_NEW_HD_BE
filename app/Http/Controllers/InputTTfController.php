@@ -493,8 +493,8 @@ class InputTTfController extends Controller
                         ]);
 				    	$flag_error=true;	
 				    }else{
-                        try{
-                            DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
+                        DB::transaction(function () use ($flag_error,$data_csv,$request,$file_handle){
+                            try{
                                 $line = 1;
                                 if($flag_error == false){
                                     while (!feof($file_handle)) {
@@ -556,10 +556,10 @@ class InputTTfController extends Controller
                                     }
                                 }
                                 $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                            }catch (\Exception $e) {
+                                return $e->getMessage();
+                            }
                             },5);
-                        }catch (\Exception $e) {
-                            return $e->getMessage();
-                        }
                         // $convert_image_controller = new ConvertImageController();
                         // $temp_upload_djp_csv = new TempUploadDjpCsv();
                         // $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessIdForUpload($request->session_id);

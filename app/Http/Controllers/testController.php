@@ -51,18 +51,6 @@ class testController extends Controller
             'status' => 'OK',
             'data' => $data
         ]);
-
-        // if($data == 0){
-        //     return response()->json([
-        //         'status' => 'GAGAL',
-        //         'message' => 'Gagal Mengambil Data',
-        //     ],400);
-        // }else{
-        //     return response()->json([
-        //         'status' => 'OK',
-        //         'data' => $data
-        //     ],200);
-        // }
     }
 
     public function getDataInquiryTtf(){

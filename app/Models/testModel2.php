@@ -34,16 +34,9 @@ class testModel2 extends Model
         return $data;
     }
 
-<<<<<<< HEAD
     public function searchDataInquiryLampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
         $data = testModel2::join('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
               ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'sys_mapp_supp.BRANCH_CODE')
-=======
-    public function filterlampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
-        $data = testModel2::join('syss_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
-              ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_headers.TTF_ID')
-              ->join('sys_user', 'sys_user.ID_USER', '=', 'ttf_headers.CREATED_BY')
->>>>>>> 2a5f24bb165faa4824cb8da81a31082c09c528e4
               ->where('ttf_headers.BRANCH_CODE',$branch)
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
               ->orwhere('ttf_headers.VENDOR_SITE_CODE',$kodesupp)

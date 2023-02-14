@@ -1010,7 +1010,6 @@ class InputTTfController extends Controller
             $data['message'] = $error;
         }
         // print_r($error);
-        print_r($data);
         return $data;
     }
 

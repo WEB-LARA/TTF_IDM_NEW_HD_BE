@@ -38,7 +38,7 @@ class testModel extends Model
     }
 
     public function getDataInquiryTtf(){
-        $data = testModel::select("SELECT
+        $data = DB::select("SELECT
                 'ttf_data_bpb.VENDOR_SITE_CODE',
                 (SELECT 
                     SUPP_NAME

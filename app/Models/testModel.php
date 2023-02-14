@@ -103,11 +103,11 @@ class testModel extends Model
     public function searchDataTtfbyFilter($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
         $data = testModel::leftjoin('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
-              ->where('ttf_data_bpb.BRANCH_CODE',$branch)
-              ->where('ttf_data_bpb.BPB_NUMBER',$nobpb)
-              ->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
-              ->where('ttf_headers.TTF_NUM',$nottf)
-              ->where('ttf_fp.FP_NUM',$nofp)
+              ->whereraw('ttf_data_bpb.BRANCH_CODE',$branch)
+              ->whereraw('ttf_data_bpb.BPB_NUMBER',$nobpb)
+              ->whererawbetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
+              ->whereraw('ttf_headers.TTF_NUM',$nottf)
+              ->whereraw('ttf_fp.FP_NUM',$nofp)
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
               \DB::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
                     SUPP_ID

@@ -37,9 +37,13 @@ class testModel extends Model
     public function getDataInquiryTtf(){
         $data = testModel::leftjoin('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
-              ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'sys_supp_site.SUPP_ID')
-              ->where('sys_supp_site.SUPP_SITE_CODE','=','ttf_data_bpb.VENDOR_SITE_CODE')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
+              DB::raw("SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT SUPP_ID
+                                        FROM
+                                           sys_supp_site b
+                                        WHERE
+                                            b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
+                                        AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME"),
               'sys_supplier.SUPP_NAME','ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',\DB::raw(
                 '( 
                     CASE 

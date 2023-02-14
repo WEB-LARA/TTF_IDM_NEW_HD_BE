@@ -556,11 +556,12 @@ class InputTTfController extends Controller
                                     }
                                 }
                                 $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+                                print_r($message);
                                 return $message;
                             }catch (\Exception $e) {
                                 return $e->getMessage();
                             }
-                            },5);
+                        },5);
                         // $convert_image_controller = new ConvertImageController();
                         // $temp_upload_djp_csv = new TempUploadDjpCsv();
                         // $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessIdForUpload($request->session_id);

@@ -51,8 +51,7 @@ class testModel extends Model
                                     sys_supp_site b
                                 WHERE
                                 b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
-                                AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE))
-                'SUPP_NAME',
+                                AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) SUPP_NAME,
                 'ttf_data_bpb.BPB_NUMBER',
                 'ttf_data_bpb.BPB_DATE',
                 'ttf_data_bpb.BPB_DPP',
@@ -74,7 +73,7 @@ class testModel extends Model
                     WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
                 END) AS STATUS_TTF
             FROM
-                'ttf_data_bpb'
+                ttf_data_bpb
                     LEFT JOIN
                 ttf_lines ON ttf_lines.TTF_BPB_ID = ttf_data_bpb.BPB_ID
                     LEFT JOIN

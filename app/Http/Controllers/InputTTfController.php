@@ -994,6 +994,7 @@ class InputTTfController extends Controller
                 $nilai_ttf += $row->NILAI_FP;
             }
         }
+        print_r($error);
         if ($error == '')
         {
             $data['status'] = 'OK';

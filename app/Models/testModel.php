@@ -140,7 +140,7 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $data = $data->take(10)->get();
+        $data = $data->get();
         // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 

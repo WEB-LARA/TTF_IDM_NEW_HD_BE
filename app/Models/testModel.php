@@ -105,7 +105,7 @@ class testModel extends Model
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->whereraw('ttf_data_bpb.BRANCH_CODE',$branch)
               ->whereraw('ttf_data_bpb.BPB_NUMBER',$nobpb)
-              ->whererawbetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
+              ->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
               ->whereraw('ttf_headers.TTF_NUM',$nottf)
               ->whereraw('ttf_fp.FP_NUM',$nofp)
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',

@@ -104,10 +104,10 @@ class testModel extends Model
         $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->where('ttf_data_bpb.BRANCH_CODE',$branch)
-              ->orwhere('ttf_data_bpb.BPB_NUMBER',$nobpb)
-              ->orwherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
-              ->orwhere('ttf_headers.TTF_NUM',$nottf)
-              ->orwhere('ttf_fp.FP_NUM',$nofp)
+              ->where('ttf_data_bpb.BPB_NUMBER',$nobpb)
+              ->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
+              ->where('ttf_headers.TTF_NUM',$nottf)
+              ->where('ttf_fp.FP_NUM',$nofp)
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
               \DB::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
                     SUPP_ID

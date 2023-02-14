@@ -75,9 +75,11 @@ class testModel extends Model
             FROM
                 ttf_data_bpb
                     LEFT JOIN
-                ttf_headers ON ttf_headers.VENDOR_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
+                ttf_lines ON ttf_lines.TTF_BPB_ID = ttf_data_bpb.BPB_ID
                     LEFT JOIN
-                ttf_fp ON ttf_fp.TTF_ID = ttf_headers.TTF_ID"
+                ttf_fp ON ttf_fp.TTF_FP_ID = ttf_lines.TTF_FP_ID
+                        LEFT JOIN
+                ttf_headers ON ttf_headers.TTF_ID = ttf_fp.TTF_ID"
             );
 
         // $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')

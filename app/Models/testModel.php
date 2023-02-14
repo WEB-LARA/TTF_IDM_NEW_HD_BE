@@ -101,7 +101,7 @@ class testModel extends Model
     }
 
     public function searchDataTtfbyFilter($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        $data = testModel::leftjoin('ttf_linees', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
+        $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',

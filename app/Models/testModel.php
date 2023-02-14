@@ -129,7 +129,6 @@ class testModel extends Model
                     END
                 ) AS STATUS_TTF'
             ))
-                ->take(10)
                 ->get();
 
         // $data = DB::select("SELECT

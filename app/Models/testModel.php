@@ -37,34 +37,77 @@ class testModel extends Model
         return $data;
     }
 
-    public function inquirydata(){
-        $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
-              ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
-              ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
-              ->select('ttf_data_bpb.VENDOR_SITE_CODE',
-              'sys_supplier.SUPP_NAME','ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',\DB::raw(
-                '( 
-                    CASE 
-                         WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"
-                         WHEN ttf_headers.TTF_STATUS = "C" THEN "CANCEL"
-                         WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
-                         WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
-                         WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
-                         ELSE "VALIDATED"
-                    END
-                ) AS STATUS_TTF'
-            ))
-              ->take(10)
-              ->get();
+    public function getDataInquiryTtf(){
+        $data = testModel::select("SELECT
+                ttf_data_bpb.VENDOR_SITE_CODE,
+                (SELECT 
+                    SUPP_NAME
+                FROM
+                    sys_supplier
+                WHERE
+                    SUPP_ID = (SELECT 
+                                    SUPP_ID
+                                FROM
+                                    sys_supp_site b
+                                WHERE
+                                b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME,
+                ttf_data_bpb.BPB_NUMBER,
+                ttf_data_bpb.BPB_DATE,
+                ttf_data_bpb.BPB_DPP,
+                ttf_data_bpb.BPB_TAX,
+                ttf_data_bpb.BPB_ID,
+                ttf_fp.FP_NUM,
+                ttf_fp.FP_DATE,
+                ttf_fp.FP_DPP_AMT,
+                ttf_fp.FP_TAX_AMT,
+                ttf_headers.TTF_NUM,
+                ttf_headers.TTF_DATE`,
+                ttf_headers.TTF_RETURN_DATE,
+                (CASE
+                    WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
+                    WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'
+                    WHEN ttf_headers.TTF_STATUS = 'E' THEN 'EXPIRED'
+                    WHEN ttf_headers.TTF_STATUS = 'R' THEN 'REJECTED'
+                    WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
+                    WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
+                END) AS STATUS_TTF
+            FROM
+                ttf_data_bpb
+                    LEFT JOIN
+                ttf_lines ON ttf_lines.TTF_BPB_ID = ttf_data_bpb.BPB_ID
+                    LEFT JOIN
+                ttf_fp ON ttf_fp.TTF_FP_ID = ttf_lines.TTF_FP_ID
+                    LEFT JOIN
+                ttf_headers ON ttf_headers.TTF_ID = ttf_fp.TTF_ID"
+            );
 
+        // $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
+        //       ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
+        //       ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
+        //       ->select('ttf_data_bpb.VENDOR_SITE_CODE',
+        //       'sys_supplier.SUPP_NAME','ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',\DB::raw(
+        //         '( 
+        //             CASE 
+        //                  WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"
+        //                  WHEN ttf_headers.TTF_STATUS = "C" THEN "CANCEL"
+        //                  WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
+        //                  WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
+        //                  WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
+        //                  ELSE "VALIDATED"
+        //             END
+        //         ) AS STATUS_TTF'
+        //     ))
+        //       ->take(10)
+        //       ->get();
         return $data;
     }
 
-    public function filterdata($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
+    public function searchDataTtfbyFilter($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
         $data = testModel::join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'ttf_data_bpb.VENDOR_SITE_CODE')
               ->join('ttf_fp', 'ttf_fp.TTF_ID', '=', 'ttf_headers.TTF_ID')
               ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_fp.TTF_ID')
-              ->where('ttf_headers.BRANCH_CODE',$branch)
+              ->where('ttf_data_bpb.BRANCH_CODE',$branch)
               ->orwhere('ttf_data_bpb.BPB_NUMBER',$nobpb)
               ->orwherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to])
               ->orwhere('ttf_headers.TTF_NUM',$nottf)

@@ -15,7 +15,7 @@ class testModel2 extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    public function inquirylampiran(){
+    public function getDataInquiryLampiran(){
         $data = testModel2::join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
                 ->select('ttf_headers.TTF_NUM',\DB::raw(
                 '( 
@@ -29,21 +29,19 @@ class testModel2 extends Model
                     END
                 ) AS STATUS_TTF'
                 ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB')
-              ->take(10)
               ->get();
 
         return $data;
     }
 
-    public function filterlampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
-        $data = testModel2::join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
-              ->join('sys_supplier', 'sys_supplier.SUPP_ID', '=', 'ttf_headers.TTF_ID')
-              ->join('sys_user', 'sys_user.ID_USER', '=', 'ttf_headers.CREATED_BY')
+    public function searchDataInquiryLampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
+        $data = testModel2::join('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
+              ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'sys_mapp_supp.BRANCH_CODE')
               ->where('ttf_headers.BRANCH_CODE',$branch)
               ->orwhere('ttf_headers.TTF_NUM',$nottf)
-              ->orwhere('sys_supplier.SUPP_CODE',$kodesupp)
-              ->orwhere('sys_user.USERNAME',$username)
-              ->orwherebetween('ttf_headers.CREATION_DATE',[$tglttf_from, $tglttf_to])
+              ->orwhere('ttf_headers.VENDOR_SITE_CODE',$kodesupp)
+              ->orwhere('sys_mapp_supp.USER_ID',$username)
+              ->orwherebetween('ttf_headers.TTF_DATE',[$tglttf_from, $tglttf_to])
               ->orwhere('ttf_headers.TTF_STATUS',$status)
               ->select('ttf_headers.TTF_NUM',\DB::raw(
                 '( 

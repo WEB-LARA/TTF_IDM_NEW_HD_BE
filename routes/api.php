@@ -59,14 +59,12 @@ Route::controller(testController::class)->group(function () {
     Route::get('getdata1', 'getdata');
     Route::get('selectdata1', 'selectdata');
     Route::get('joindata1', 'joindata');
-    Route::get('inquirydata1', 'inquirydata');
-    Route::get('filterdata1', 'filterdata');
-    // Route::get('inquirylampiran1', 'inquirylampiran');
-    // Route::get('filterlampiran1', 'filterlampiran');
+    Route::get('getDataInquiryTtf', 'getDataInquiryTtf');
+    Route::get('searchDataTtfbyFilter', 'searchDataTtfbyFilter');
 });
 Route::controller(testController2::class)->group(function () {
-    Route::get('inquirylampiran1', 'inquirylampiran');
-    Route::get('filterlampiran1', 'filterlampiran');
+    Route::get('getDataInquiryLampiran', 'getDataInquiryLampiran');
+    Route::get('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

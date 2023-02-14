@@ -7,9 +7,9 @@ use App\Models\testModel2;
 
 class testController2 extends Controller
 {
-    public function inquirylampiran(){
+    public function getDataInquiryLampiran(){
         $test_model2 = new testModel2();
-        $data = $test_model2->inquirylampiran();
+        $data = $test_model2->getDataInquiryLampiran();
 
         return response()->json([
             'status' => 'success',
@@ -17,10 +17,10 @@ class testController2 extends Controller
         ]);
     }
 
-    public function filterlampiran(Request $request){
+    public function searchDataInquiryLampiran(Request $request){
         $test_model2 = new testModel2();
 
-        $data = $test_model2->filterlampiran($request->branch,$request->nottf,$request->kodesupp,$request->username,$request->tglttf_from,$request->tglttf_to,$request->status,$request->session_id);
+        $data = $test_model2->searchDataInquiryLampiran($request->branch,$request->nottf,$request->kodesupp,$request->username,$request->tglttf_from,$request->tglttf_to,$request->status,$request->session_id);
 
         return response()->json([
                 'status' => 'success',

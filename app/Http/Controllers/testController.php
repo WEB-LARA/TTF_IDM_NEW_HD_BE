@@ -7,7 +7,6 @@ use App\Models\testModel;
 
 class testController extends Controller
 {
-    //
     public function testFunction(){
         print_r("TEST");
     }
@@ -66,9 +65,9 @@ class testController extends Controller
         // }
     }
 
-    public function inquirydata(){
+    public function getDataInquiryTtf(){
         $test_model = new testModel();
-        $data = $test_model->inquirydata();
+        $data = $test_model->getDataInquiryTtf();
 
         return response()->json([
             'status' => 'success',
@@ -76,10 +75,10 @@ class testController extends Controller
         ]);
     }
 
-    public function filterdata(Request $request){
+    public function searchDataTtfbyFilter(Request $request){
         $test_model = new testModel();
 
-        $data = $test_model->filterdata($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp,$request->session_id);
+        $data = $test_model->searchDataTtfbyFilter($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp,$request->session_id);
 
         return response()->json([
                 'status' => 'success',

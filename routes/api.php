@@ -118,5 +118,5 @@ Route::controller(TempUploadDjpCsvController::class)->group(function () {
     Route::post('deleteTableTempDjpCsv','deleteTableTempDjpCsv');
 });
 Route::controller(TtfUploadTmpController::class)->group(function () {
-    Route::get('getDataForInquiryUpload', 'getDataForInquiryUpload');
+    Route::post('getDataForInquiryUpload', 'getDataForInquiryUpload');
 });

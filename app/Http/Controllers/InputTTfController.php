@@ -565,6 +565,10 @@ class InputTTfController extends Controller
 
     public function verifikasiDJP(Request $request){
         $sys_fp_fisik_temp = new SysFpFisikTemp();
+        $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
+        foreach($getDataFpFisikBySess as $a){
+            unlink($a->PATH_FILE);
+        }
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
         if($request->hasFile('file_djp')){
             foreach($request->file_djp as $key => $file)

@@ -67,4 +67,9 @@ class SysFpFisikTemp extends Model
             return 0;
         }
     }
+    public function getSysFpFisikTempBySessId($session_id){
+        $data = SysFpFisikTemp::where('SESSION',$session_id)->get();
+
+        return $data;
+    }
 }

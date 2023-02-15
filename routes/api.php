@@ -65,6 +65,7 @@ Route::controller(testController::class)->group(function () {
 Route::controller(testController2::class)->group(function () {
     Route::get('getDataInquiryLampiran', 'getDataInquiryLampiran');
     Route::get('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
+    Route::get('downloadInquiryLampiran', 'downloadInquiryLampiran');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

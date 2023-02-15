@@ -150,4 +150,9 @@ class TtfUploadTmp extends Model
             return 0;
         }
     }
+
+    public function getFPYangdiUploadBySessionId($session_id){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->groupBy('NO_FP')->count();
+        return $data;
+    }
 }

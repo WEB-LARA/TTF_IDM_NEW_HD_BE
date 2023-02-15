@@ -562,14 +562,22 @@ class InputTTfController extends Controller
                 ]);
         }
     }
-
+    
     public function verifikasiDJP(Request $request){
         $sys_fp_fisik_temp = new SysFpFisikTemp();
+        $ttf_upload_tmp = new TtfUploadTmp();
+        // Get Data Dari Sys Fp Fisik Temp
         $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
+        // Delete Dulu data fisik yang ada di folder
         foreach($getDataFpFisikBySess as $a){
             unlink($a->PATH_FILE);
         }
+        // Delete Data yang ada di tabel Fp Fisik temp
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
+
+        $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId();
+        print_r($getJumlahFpdiCsv);
+        echo "<br>";
         if($request->hasFile('file_djp')){
             foreach($request->file_djp as $key => $file)
             {
@@ -591,7 +599,6 @@ class InputTTfController extends Controller
                     $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
                     $result = preg_grep('~' . $input . '~', $explode);
                     // print_r($result);
-                    $ttf_upload_tmp = new TtfUploadTmp();
                     foreach($result as $a){
                         print_r($a);
                         echo "<br>";
@@ -837,12 +844,12 @@ class InputTTfController extends Controller
             }
             $nilai_ttf = $a->FP_DPP;
         }
-        $jumlah_fp_dicsv = count(array_unique($fp_dicsv));
-        if ($jumlah_fp_yg_diupload != $jumlah_fp_dicsv)
-        {
-            $error .= ' Error : Jumlah Faktur yang diupload di csv tidak sama dengan Jumlah File DJP yang diupload <br>';
+        // $jumlah_fp_dicsv = count(array_unique($fp_dicsv));
+        // if ($jumlah_fp_yg_diupload != $jumlah_fp_dicsv)
+        // {
+        //     $error .= ' Error : Jumlah Faktur yang diupload di csv tidak sama dengan Jumlah File DJP yang diupload <br>';
 
-        }
+        // }
         foreach($getDataTempBySessionId as $a){
             // Validate Flag Go
             if($error == ''){

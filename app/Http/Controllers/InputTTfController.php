@@ -579,7 +579,7 @@ class InputTTfController extends Controller
                     $pdf = $pdfParser->parseFile(public_path('/file_temp_fp/'.$fileName));
                     $content = $pdf->getText();
                     print_r($content);
-                    $explode = explode("<br>", $content);
+                    $explode = explode(PHP_EOL, $content);
                     print_r($content);
                     // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                 }

@@ -585,6 +585,7 @@ class InputTTfController extends Controller
                     $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
                     $result = preg_grep('~' . $input . '~', $explode);
                     // print_r($result);
+                    $ttf_upload_tmp = new TtfUploadTmp();
                     foreach($result as $a){
                         print_r($a);
                         echo "<br>";

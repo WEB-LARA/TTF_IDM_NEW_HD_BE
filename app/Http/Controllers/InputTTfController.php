@@ -627,32 +627,32 @@ class InputTTfController extends Controller
             //         substr($explodeLink[6], 3, 2) .
             //         "." .
             //         substr($explodeLink[6], 5, 8);
-                $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_faktur);
-                if($getDataTempBySessionId){
+            //     $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_faktur);
+            //     if($getDataTempBySessionId){
                     
-                    $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
-                    if($validateUploadDjp==0){
-                        $counter_error_djp ++;
-                        $errorValidasiDjp .= "<br> NO_FP ' . $getDataTempBySessionId->NO_FP . ' Tidak terdaftar pada Prepopulated FP";
-                    }else{
-                        $getNomorFp = $prepopulated_fp->getFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
-                        $updateTempDjpFisikCsv =  TempUploadDjpCsv::where('ID',$a->ID)->update([
-                            "NO_FP" => $getNomorFp->NOMOR_FAKTUR
-                        ]);
-                    }
-                }else{
-                    $errorValidasiDjp .= " File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
-                    $counter_error_djp ++;
-                }
-            }
-            if($counter_error_djp > 0){
-                return response()->json([
-                        'status' => 'error',
-                        'message' => $errorValidasiDjp,
-                    ]);
-            }else{
-                $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
-            }
+            //         $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+            //         if($validateUploadDjp==0){
+            //             $counter_error_djp ++;
+            //             $errorValidasiDjp .= "<br> NO_FP ' . $getDataTempBySessionId->NO_FP . ' Tidak terdaftar pada Prepopulated FP";
+            //         }else{
+            //             $getNomorFp = $prepopulated_fp->getFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+            //             $updateTempDjpFisikCsv =  TempUploadDjpCsv::where('ID',$a->ID)->update([
+            //                 "NO_FP" => $getNomorFp->NOMOR_FAKTUR
+            //             ]);
+            //         }
+            //     }else{
+            //         $errorValidasiDjp .= " File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
+            //         $counter_error_djp ++;
+            //     }
+            // }
+            // if($counter_error_djp > 0){
+            //     return response()->json([
+            //             'status' => 'error',
+            //             'message' => $errorValidasiDjp,
+            //         ]);
+            // }else{
+            //     $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+            // }
     }
     public function cekUploadLampiran(Request $request){
         $data = array();

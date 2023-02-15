@@ -59,11 +59,11 @@ Route::controller(testController::class)->group(function () {
     Route::get('getdata1', 'getdata');
     Route::get('selectdata1', 'selectdata');
     Route::get('joindata1', 'joindata');
-    Route::get('getDataInquiryTtf', 'getDataInquiryTtf');
+    // Route::get('getDataInquiryTtf', 'getDataInquiryTtf');
     Route::get('searchDataTtf', 'searchDataTtf');
 });
 Route::controller(testController2::class)->group(function () {
-    Route::get('getDataInquiryLampiran', 'getDataInquiryLampiran');
+    // Route::get('getDataInquiryLampiran', 'getDataInquiryLampiran');
     Route::get('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
     Route::get('downloadInquiryLampiran', 'downloadInquiryLampiran');
 });

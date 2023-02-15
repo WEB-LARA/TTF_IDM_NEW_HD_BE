@@ -576,57 +576,63 @@ class InputTTfController extends Controller
         }
         // Delete Data yang ada di tabel Fp Fisik temp
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
-
+        // getJumlah FP yang diupload pada CSV
         $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId($request->session_id);
-        print_r($getJumlahFpdiCsv);
-        echo "<br>";
-        if($request->hasFile('file_djp')){
-            foreach($request->file_djp as $key => $file)
-            {
-                // $fileName = time().'.'.$file->extension();
-                $fileName = $file->hashName();
-                $real_name = $file->getClientOriginalName();
-                $size = $file->getSize();
-                // print_r($fileName);
-                // echo "";
-                $data = array();
-                if($file->move(public_path('/file_temp_fp'), $fileName)){
-                    $pdfParser = new Parser();
-                    $pdf = $pdfParser->parseFile(public_path('/file_temp_fp/'.$fileName));
-                    $content = $pdf->getText();
-                    // print_r($content);
-                    $explode = explode(PHP_EOL, $content);
-                    // print_r($explode);
-                    // $search_index_nomor_faktur = array_search('Kode dan Nomor Seri Faktur Pajak :', $explode);
-                    $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
-                    $result = preg_grep('~' . $input . '~', $explode);
-                    // print_r($result);
-                    foreach($result as $a){
-                        print_r($a);
-                        echo "<br>";
-                        print_r(substr($a,35,19));
-                        $no_fp = substr($a,35,19);
-                        echo "<br>";
-                        $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
-                        print_r($getDataTempBySessionId);
-                        if($getDataTempBySessionId){
-                            // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
-                            $createFpFisikTemp = SysFpFisikTemp::create([
-                                "SESSION" => $request->session_id,
-                                "FP_NUM" => $no_fp,
-                                "FILENAME" => $fileName,
-                                "REAL_NAME" => $real_name,
-                                "PATH_FILE" => public_path('file_temp_fp/'.$fileName),
-                                "CREATED_DATE" => date('Y-m-d')
-                            ]);
+        // Cek Jumlah FP di Csv sama dengan Fp yang diupload??
+        if($getJumlahFpdiCsv == $request->jumlah_fp_yang_di_upload){
+            if($request->hasFile('file_djp')){
+                foreach($request->file_djp as $key => $file)
+                {
+                    // $fileName = time().'.'.$file->extension();
+                    $fileName = $file->hashName();
+                    $real_name = $file->getClientOriginalName();
+                    $size = $file->getSize();
+                    // print_r($fileName);
+                    // echo "";
+                    $data = array();
+                    if($file->move(public_path('/file_temp_fp'), $fileName)){
+                        $pdfParser = new Parser();
+                        $pdf = $pdfParser->parseFile(public_path('/file_temp_fp/'.$fileName));
+                        $content = $pdf->getText();
+                        // print_r($content);
+                        $explode = explode(PHP_EOL, $content);
+                        // print_r($explode);
+                        // $search_index_nomor_faktur = array_search('Kode dan Nomor Seri Faktur Pajak :', $explode);
+                        $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
+                        $result = preg_grep('~' . $input . '~', $explode);
+                        // print_r($result);
+                        foreach($result as $a){
+                            print_r($a);
+                            echo "<br>";
+                            print_r(substr($a,35,19));
+                            $no_fp = substr($a,35,19);
+                            echo "<br>";
+                            $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
+                            print_r($getDataTempBySessionId);
+                            if($getDataTempBySessionId){
+                                // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+                                $createFpFisikTemp = SysFpFisikTemp::create([
+                                    "SESSION" => $request->session_id,
+                                    "FP_NUM" => $no_fp,
+                                    "FILENAME" => $fileName,
+                                    "REAL_NAME" => $real_name,
+                                    "PATH_FILE" => public_path('file_temp_fp/'.$fileName),
+                                    "CREATED_DATE" => date('Y-m-d')
+                                ]);
+                            }
+                            echo "<br>";
                         }
-                        echo "<br>";
+                        // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                     }
-                    // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
+                    // $data[$i]=$fileName;
+    
                 }
-                // $data[$i]=$fileName;
-
             }
+        }else{
+            return response()->json([
+                    'status' => 'error',
+                    'message' => 'Jumlah FP yang ada di CSV tidak sesuai dengan jumlah FP yang di upload!',
+                ]);
         }
             // $convert_image_controller = new ConvertImageController();
             // $temp_upload_djp_csv = new TempUploadDjpCsv();
@@ -1048,7 +1054,7 @@ class InputTTfController extends Controller
         }
         else
         {
-            $status = 'ERROR';
+            $status = 'VALID_CSV';
             $updateUploadTmp = TtfUploadTmp::where('SESS_ID',$session_id)->update([
                 "STATUS" => $status
             ]);

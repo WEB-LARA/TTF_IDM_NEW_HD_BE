@@ -250,10 +250,12 @@ class InputTTfController extends Controller
         }
     }
 
-    public function saveTTfUpload($session_id,$user_id){
+    public function saveTTfUpload(Request $request){
         $ttf_tmp_table = new TtfTmpTable();
         $ttf_headers = new TtfHeader();
         $ttf_fp = new TtfFp();
+        $session_id =$request->session_id;
+        $user_id = $request->user_id;
         // $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
         // $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($session_id);

@@ -14,11 +14,11 @@ class testModel extends Model
     protected $primaryKey = 'ID';
     public $incrementing = false; 
     public $timestamps = false;
-    protected $fillable = [
-        'BPB_ID',
-        'BPB_NUMBER',
-        'BPB_DATE',
-    ];
+    // protected $fillable = [
+    //     'BPB_ID',
+    //     'BPB_NUMBER',
+    //     'BPB_DATE',
+    // ];
 
     public function getdata(){
         $data = testModel::get();

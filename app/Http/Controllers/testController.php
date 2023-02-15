@@ -63,10 +63,10 @@ class testController extends Controller
         ]);
     }
 
-    public function searchDataTtfbyFilter(Request $request){
+    public function searchDataTtf(Request $request){
         $test_model = new testModel();
 
-        $data = $test_model->searchDataTtfbyFilter($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp,$request->session_id);
+        $data = $test_model->searchDataTtf($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp,$request->session_id);
 
         return response()->json([
                 'status' => 'success',

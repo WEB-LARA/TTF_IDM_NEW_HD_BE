@@ -77,6 +77,7 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::post('uploadTTF','uploadTTF');
     Route::post('cekUploadLampiran','cekUploadLampiran');
     Route::get('downloadTemplateCsv','downloadTemplateCsv');
+    Route::post('verifikasiDJP','verifikasiDJP');
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');

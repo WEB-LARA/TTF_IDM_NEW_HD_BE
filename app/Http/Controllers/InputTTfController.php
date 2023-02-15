@@ -599,7 +599,7 @@ class InputTTfController extends Controller
         if($message['status']=='OK'){
             // $this->approveUpload($request->session_id,$request->user_id);
             // $this->approveUpload($request->session_id,$request->user_id);
-            $this->deleteTmpAfterApproveCsv($request->session_id);
+            // $this->deleteTmpAfterApproveCsv($request->session_id);
             return response()->json([
                     'status' => 'success',
                     'message' => $message['message'],

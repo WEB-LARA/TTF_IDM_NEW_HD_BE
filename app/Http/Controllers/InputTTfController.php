@@ -570,7 +570,9 @@ class InputTTfController extends Controller
         $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
         // Delete Dulu data fisik yang ada di folder
         foreach($getDataFpFisikBySess as $a){
-            unlink($a->PATH_FILE);
+            if(file_exists($a->PATH_FILE)){
+                unlink($a->PATH_FILE);
+            }
         }
         // Delete Data yang ada di tabel Fp Fisik temp
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);

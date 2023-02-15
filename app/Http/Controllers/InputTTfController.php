@@ -515,7 +515,7 @@ class InputTTfController extends Controller
                                                     "FP_DATE" => $data_csv[3],
                                                     "FP_DPP" => 0,
                                                     "FP_TAX" => 0,
-                                                    "STATUS" => "VALID"
+                                                    "STATUS" => "VALID_CSV"
                                                 ]);
                                             }else{
                                                     $insertToUploadTmp = TtfUploadTmp::create([
@@ -527,7 +527,7 @@ class InputTTfController extends Controller
                                                         "FP_DATE" => $data_csv[3],
                                                         "FP_DPP" => $data_csv[4],
                                                         "FP_TAX" => $data_csv[5],
-                                                        "STATUS" => "VALID"
+                                                        "STATUS" => "VALID_CSV"
                                                     ]);
                                             }
                                             }
@@ -1054,7 +1054,7 @@ class InputTTfController extends Controller
         }
         else
         {
-            $status = 'VALID_CSV';
+            $status = 'ERROR';
             $updateUploadTmp = TtfUploadTmp::where('SESS_ID',$session_id)->update([
                 "STATUS" => $status
             ]);

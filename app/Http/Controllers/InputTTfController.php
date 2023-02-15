@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ConvertImageController;
 use File;
 use Response;
+use Smalot\PdfParser\Parser;
 class InputTTfController extends Controller
 {
     //
@@ -539,59 +540,7 @@ class InputTTfController extends Controller
                                 return $e->getMessage();
                             }
                         },5);
-                        // $convert_image_controller = new ConvertImageController();
-                        // $temp_upload_djp_csv = new TempUploadDjpCsv();
-                        // $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessIdForUpload($request->session_id);
-                        // // fileUploadPostUploadCsv
-                        // $ttf_upload_tmp = new TtfUploadTmp();
-                        // $prepopulated_fp = new PrepopulatedFp();
-                        // foreach($getDataTempUploadCsv as $a){
-                        //     $fileNameConverted = $convert_image_controller->convertFpPdfToImageUploadCsv($a->FILE_NAME);
-                        //     $cek_qr = $convert_image_controller->readQr($fileNameConverted);
-                        //     $explodeLink = explode("/",$cek_qr);
-                        //     $npwp_penjual = substr($explodeLink[5], 0, 2) .
-                        //         "." .
-                        //         substr($explodeLink[5], 2, 3) .
-                        //         "." .
-                        //         substr($explodeLink[5], 5, 3) .
-                        //         "." .
-                        //         substr($explodeLink[5], 8, 1) .
-                        //         "-" .
-                        //         substr($explodeLink[5], 9, 3) .
-                        //         "." .
-                        //         substr($explodeLink[5], 12, 3);
-                        //     $no_faktur =
-                        //         substr($explodeLink[6], 0, 3) .
-                        //         "-" .
-                        //         substr($explodeLink[6], 3, 2) .
-                        //         "." .
-                        //         substr($explodeLink[6], 5, 8);
-                        //     $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_faktur);
-                        //     if($getDataTempBySessionId){
-                                
-                        //         $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
-                        //         if($validateUploadDjp==0){
-                        //             $counter_error_djp ++;
-                        //             $errorValidasiDjp .= "<br> NO_FP ' . $getDataTempBySessionId->NO_FP . ' Tidak terdaftar pada Prepopulated FP";
-                        //         }else{
-                        //             $getNomorFp = $prepopulated_fp->getFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
-                        //             $updateTempDjpFisikCsv =  TempUploadDjpCsv::where('ID',$a->ID)->update([
-                        //                 "NO_FP" => $getNomorFp->NOMOR_FAKTUR
-                        //             ]);
-                        //         }
-                        //     }else{
-                        //         $errorValidasiDjp .= " File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
-                        //         $counter_error_djp ++;
-                        //     }
-                        // }
-                        // if($counter_error_djp > 0){
-                        //     return response()->json([
-                        //             'status' => 'error',
-                        //             'message' => $errorValidasiDjp,
-                        //         ]);
-                        // }else{
-                        //     $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
-                        // }
+
                     }
                 }
             }
@@ -614,6 +563,78 @@ class InputTTfController extends Controller
         }
     }
 
+    public function verifikasiDJP(Request $request){
+        if($request->hasFile('file_djp')){
+            foreach($request->file_djp as $key => $file)
+            {
+                // $fileName = time().'.'.$file->extension();
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
+                // print_r($fileName);
+                // echo "";
+                $data = array();
+                if($file->move(public_path('/file_temp_fp'), $fileName)){
+                    print_r("SUKSES");
+                }
+                // $data[$i]=$fileName;
+
+            }
+        }
+            // $convert_image_controller = new ConvertImageController();
+            // $temp_upload_djp_csv = new TempUploadDjpCsv();
+            // $getDataTempUploadCsv = $temp_upload_djp_csv->getDataTempUploadDjpCsvBySessIdForUpload($request->session_id);
+            // // fileUploadPostUploadCsv
+            // $ttf_upload_tmp = new TtfUploadTmp();
+            // $prepopulated_fp = new PrepopulatedFp();
+            // foreach($getDataTempUploadCsv as $a){
+            //     $fileNameConverted = $convert_image_controller->convertFpPdfToImageUploadCsv($a->FILE_NAME);
+            //     $cek_qr = $convert_image_controller->readQr($fileNameConverted);
+            //     $explodeLink = explode("/",$cek_qr);
+            //     $npwp_penjual = substr($explodeLink[5], 0, 2) .
+            //         "." .
+            //         substr($explodeLink[5], 2, 3) .
+            //         "." .
+            //         substr($explodeLink[5], 5, 3) .
+            //         "." .
+            //         substr($explodeLink[5], 8, 1) .
+            //         "-" .
+            //         substr($explodeLink[5], 9, 3) .
+            //         "." .
+            //         substr($explodeLink[5], 12, 3);
+            //     $no_faktur =
+            //         substr($explodeLink[6], 0, 3) .
+            //         "-" .
+            //         substr($explodeLink[6], 3, 2) .
+            //         "." .
+            //         substr($explodeLink[6], 5, 8);
+            //     $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_faktur);
+            //     if($getDataTempBySessionId){
+                    
+            //         $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+            //         if($validateUploadDjp==0){
+            //             $counter_error_djp ++;
+            //             $errorValidasiDjp .= "<br> NO_FP ' . $getDataTempBySessionId->NO_FP . ' Tidak terdaftar pada Prepopulated FP";
+            //         }else{
+            //             $getNomorFp = $prepopulated_fp->getFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+            //             $updateTempDjpFisikCsv =  TempUploadDjpCsv::where('ID',$a->ID)->update([
+            //                 "NO_FP" => $getNomorFp->NOMOR_FAKTUR
+            //             ]);
+            //         }
+            //     }else{
+            //         $errorValidasiDjp .= " File DJP ' . $a->REAL_NAME . ' tidak terdaftar pada CSV";
+            //         $counter_error_djp ++;
+            //     }
+            // }
+            // if($counter_error_djp > 0){
+            //     return response()->json([
+            //             'status' => 'error',
+            //             'message' => $errorValidasiDjp,
+            //         ]);
+            // }else{
+            //     $message = $this->validateUploadTemp($request->jumlah_fp_yang_diupload,$request->session_id,$request->user_id);
+            // }
+    }
     public function cekUploadLampiran(Request $request){
         $data = array();
         if($request->hasfile('file_lampiran')){

@@ -603,13 +603,8 @@ class InputTTfController extends Controller
                         $result = preg_grep('~' . $input . '~', $explode);
                         // print_r($result);
                         foreach($result as $a){
-                            print_r($a);
-                            echo "<br>";
-                            print_r(substr($a,35,19));
                             $no_fp = substr($a,35,19);
-                            echo "<br>";
                             $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
-                            print_r($getDataTempBySessionId);
                             if($getDataTempBySessionId){
                                 // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
                                 $createFpFisikTemp = SysFpFisikTemp::create([
@@ -627,7 +622,6 @@ class InputTTfController extends Controller
                             }else{
                                 $error .= "Error File ".$real_name." Tidak terdaftar Pada CSV!";
                             }
-                            echo "<br>";
                         }
                         // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                     }

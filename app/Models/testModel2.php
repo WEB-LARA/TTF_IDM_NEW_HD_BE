@@ -68,7 +68,7 @@ class testModel2 extends Model
                     $data = $data->where('ttf_headers.TTF_STATUS',$status);
                 }
                 elseif($status == ''){
-                    $data = $data->where('ttf_headers.TTF_STATUS','!=', '');
+                    $data = $data->where('ttf_headers.TTF_STATUSS','!=', '');
                 }
                 $data = $data->get();
 

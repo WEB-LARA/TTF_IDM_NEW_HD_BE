@@ -81,4 +81,21 @@ class TtfHeaderController extends Controller
                 ]);
         }
     }
+
+    public function cancelTtf(Request $request){
+        $validate = TtfHeader::where('TTF_ID',$request->ttf_id)->update([
+            'STATUS'=>'C'
+        ]);
+        if($validate){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data Ttf Berhasil di Cancel!'
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data Ttf Gagal di Cancel!'
+                ]);
+        }
+    }
 }

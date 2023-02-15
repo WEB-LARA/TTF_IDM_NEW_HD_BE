@@ -53,15 +53,15 @@ class testController extends Controller
         ]);
     }
 
-    public function getDataInquiryTtf(){
-        $test_model = new testModel();
-        $data = $test_model->getDataInquiryTtf();
+    // public function getDataInquiryTtf(){
+    //     $test_model = new testModel();
+    //     $data = $test_model->getDataInquiryTtf();
 
-        return response()->json([
-            'status' => 'success',
-            'data' => $data
-        ]);
-    }
+    //     return response()->json([
+    //         'status' => 'success',
+    //         'data' => $data
+    //     ]);
+    // }
 
     public function searchDataTtf(Request $request){
         $test_model = new testModel();

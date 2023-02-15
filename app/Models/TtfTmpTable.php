@@ -181,7 +181,7 @@ class TtfTmpTable extends Model
     }
 
     public function insertFromUploadCsv($session_id){
-        $insert = DB::select("INSERT into ttf_tmp_table (
+        $insert = DB::select("*INSERT into ttf_tmp_table (
 										ID,
 										SEQ_NUM,
 										FP_TYPE,

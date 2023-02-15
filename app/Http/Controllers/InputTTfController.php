@@ -254,6 +254,8 @@ class InputTTfController extends Controller
         $ttf_tmp_table = new TtfTmpTable();
         $ttf_headers = new TtfHeader();
         $ttf_fp = new TtfFp();
+        $ttf_tmp_table = new TtfTmpTable();
+        $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
         $session_id =$request->session_id;
         $user_id = $request->user_id;
         // $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
@@ -1081,8 +1083,8 @@ class InputTTfController extends Controller
     }
 
     public function approveUpload($session_id,$user_id){
-        // $ttf_tmp_table = new TtfTmpTable();
-        // $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
+        $ttf_tmp_table = new TtfTmpTable();
+        $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
         // $sys_fp_fisik_temp = new SysFpFisikTemp();
         // $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp->insertFromTempDjpCsv($session_id);
         $this->saveTTfUpload($session_id,$user_id);

@@ -588,7 +588,7 @@ class InputTTfController extends Controller
                     foreach($result as $a){
                         print_r($a);
                         echo "<br>";
-                        print_r(substr($a,0,35));
+                        print_r(substr($a,35,19));
                         echo "<br>";
                     }
                     // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");

@@ -577,7 +577,7 @@ class InputTTfController extends Controller
         // Delete Data yang ada di tabel Fp Fisik temp
         $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
 
-        $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId();
+        $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId($request->session_id);
         print_r($getJumlahFpdiCsv);
         echo "<br>";
         if($request->hasFile('file_djp')){

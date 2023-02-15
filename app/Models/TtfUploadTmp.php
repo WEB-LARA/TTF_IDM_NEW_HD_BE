@@ -155,4 +155,10 @@ class TtfUploadTmp extends Model
         $data = TtfUploadTmp::where('SESS_ID',$session_id)->groupBy('NO_FP')->count();
         return $data;
     }
+
+    public function getDataForInquiryUpload($session_id){
+        $data = TtfUploadTmp::where('SESS_ID',$session_id)->groupBy('NO_FP','STATUS')->select('NO_FP','STATUS')->get();
+
+        return $data;
+    }
 }

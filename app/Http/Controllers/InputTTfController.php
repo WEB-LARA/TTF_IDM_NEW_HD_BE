@@ -590,8 +590,9 @@ class InputTTfController extends Controller
                         print_r($a);
                         echo "<br>";
                         print_r(substr($a,35,19));
+                        $no_fp = substr($a,35,19);
                         echo "<br>";
-                        $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$a);
+                        $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
                         print_r($getDataTempBySessionId);
                         echo "<br>";
                     }

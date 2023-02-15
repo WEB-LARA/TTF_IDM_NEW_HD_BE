@@ -592,6 +592,7 @@ class InputTTfController extends Controller
                         echo "<br>";
                         $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$a);
                         print_r($getDataTempBySessionId);
+                        echo "<br>";
                     }
                     // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                 }

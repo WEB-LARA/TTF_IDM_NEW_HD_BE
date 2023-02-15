@@ -64,4 +64,21 @@ class TtfHeaderController extends Controller
         // header('Content-type: application/zip');
         // readfile(public_path('trigger_zip/test_new.zip'));
     }
+    
+    public function validateTtf(Request $request){
+        $validate = TtfHeader::where('TTF_ID',$request->ttf_id)->update([
+            'STATUS'=>'V'
+        ]);
+        if($validate){
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data Ttf Berhasil di Validasi!'
+                ]);
+        }else{
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data Ttf Gagal di Validasi!'
+                ]);
+        }
+    }
 }

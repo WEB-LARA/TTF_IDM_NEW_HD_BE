@@ -575,7 +575,7 @@ class InputTTfController extends Controller
                 // echo "";
                 $data = array();
                 if($file->move(public_path('/file_temp_fp'), $fileName)){
-                    $pdfParser = new \Smalot\PdfParser\Parser();
+                    $pdfParser = new Parser();
                     $pdf = $pdfParser->parseFile(public_path('/file_temp_fp/'.$fileName));
                     $content = $pdf->getText();
                     print_r($content);

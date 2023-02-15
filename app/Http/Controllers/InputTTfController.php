@@ -577,8 +577,9 @@ class InputTTfController extends Controller
                 if($file->move(public_path('/file_temp_fp'), $fileName)){
                     $pdfParser = new Parser();
                     $pdf = $pdfParser->parseFile(public_path('/file_temp_fp/'.$fileName));
-                    $content = $pdf->getText();
-                    $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
+                    $content = $pdf->getDataTm();
+                    print_r($content);
+                    // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                 }
                 // $data[$i]=$fileName;
 

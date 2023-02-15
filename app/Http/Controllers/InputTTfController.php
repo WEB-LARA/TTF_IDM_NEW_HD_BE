@@ -619,6 +619,10 @@ class InputTTfController extends Controller
                                     "PATH_FILE" => public_path('file_temp_fp/'.$fileName),
                                     "CREATED_DATE" => date('Y-m-d')
                                 ]);
+
+                                $update = TtfUploadTmp::where('NO_FP',$no_fp)->update([
+                                    "STATUS" => "VALID_DJP"
+                                ]);
                             }
                             echo "<br>";
                         }

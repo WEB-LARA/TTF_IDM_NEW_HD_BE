@@ -1078,10 +1078,10 @@ class InputTTfController extends Controller
     }
 
     public function approveUpload($session_id,$user_id){
-        $ttf_tmp_table = new TtfTmpTable();
-        $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
-        $sys_fp_fisik_temp = new SysFpFisikTemp();
-        $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp->insertFromTempDjpCsv($session_id);
+        // $ttf_tmp_table = new TtfTmpTable();
+        // $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
+        // $sys_fp_fisik_temp = new SysFpFisikTemp();
+        // $moveDjpFileTmpToSysFpTemp = $sys_fp_fisik_temp->insertFromTempDjpCsv($session_id);
         $this->saveTTfUpload($session_id,$user_id);
     }
     public function testAPIUploadCSV(){

@@ -11,12 +11,12 @@ class testModel2 extends Model
     use HasFactory;
     protected $connection = 'mysql2';
     protected $table = 'ttf_headers';
-    protected $primaryKey = 'TTD_ID';
+    protected $primaryKey = 'TTF_ID';
     public $incrementing = false;
     public $timestamps = false;
 
     public function getDataInquiryLampiran(){
-        $data = testModel2::join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
+        $data = testModel2::leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
                 ->select('ttf_headers.TTF_NUM',\DB::raw(
                 '( 
                     CASE 
@@ -25,7 +25,7 @@ class testModel2 extends Model
                          WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
                          WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
                          WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
-                         ELSE "VALIDATED"
+                         WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
                     END
                 ) AS STATUS_TTF'
                 ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB')
@@ -35,14 +35,8 @@ class testModel2 extends Model
     }
 
     public function searchDataInquiryLampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
-        $data = testModel2::join('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
-              ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'sys_mapp_supp.BRANCH_CODE')
-              ->where('ttf_headers.BRANCH_CODE',$branch)
-              ->orwhere('ttf_headers.TTF_NUM',$nottf)
-              ->orwhere('ttf_headers.VENDOR_SITE_CODE',$kodesupp)
-              ->orwhere('sys_mapp_supp.USER_ID',$username)
-              ->orwherebetween('ttf_headers.TTF_DATE',[$tglttf_from, $tglttf_to])
-              ->orwhere('ttf_headers.TTF_STATUS',$status)
+        $data = testModel2::leftjoin('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
+              ->leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'sys_mapp_supp.BRANCH_CODE')
               ->select('ttf_headers.TTF_NUM',\DB::raw(
                 '( 
                     CASE 
@@ -51,11 +45,29 @@ class testModel2 extends Model
                          WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
                          WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
                          WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
-                         ELSE "VALIDATED"
+                         WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
                     END
                 ) AS STATUS_TTF'
-                ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB')
-              ->get();
+                ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB');
+                if($branch){
+                    $data = $data->where('ttf_data_bpb.BRANCH_CODE',$branch);
+                }
+                if($nottf){
+                    $data = $data->where('ttf_headers.TTF_NUM',$nottf);
+                }
+                if($kodesupp){
+                    $data = $data->where('ttf_headers.VENDOR_SITE_CODE',$kodesupp);
+                }
+                if($username){
+                    $data = $data->where('sys_mapp_supp.USER_ID',$username);
+                }
+                if($tglttf_from && $tglttf_to){
+                    $data = $data->wherebetween('ttf_headers.TTF_DATE',[$tglttf_from, $tglttf_to]);
+                }
+                if($status){
+                    $data = $data->where('ttf_headers.TTF_STATUS',$status);
+                }
+                $data = $data->get();
 
               return $data;
     }

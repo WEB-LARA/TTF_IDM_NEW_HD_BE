@@ -181,7 +181,7 @@ class TtfTmpTable extends Model
     }
 
     public function insertFromUploadCsv($session_id){
-        $insert = DB::select("*INSERT into ttf_tmp_table (
+        $insert = DB::select("INSERT into ttf_tmp_table (
 										ID,
 										SEQ_NUM,
 										FP_TYPE,
@@ -217,7 +217,7 @@ class TtfTmpTable extends Model
                                         FLAG_GO,
                                         FLAG_PPN,
 										SESS_ID
-									from ttf_upload_tmp where SESS_ID = ? and STATUS = 'VALID'",[$session_id]);
+									from ttf_upload_tmp where SESS_ID = ? and STATUS = 'VALID_DJP'",[$session_id]);
         if($insert){
             return 1;
         }else{

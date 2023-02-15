@@ -255,9 +255,9 @@ class InputTTfController extends Controller
         $ttf_headers = new TtfHeader();
         $ttf_fp = new TtfFp();
         $ttf_tmp_table = new TtfTmpTable();
-        $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
         $session_id =$request->session_id;
         $user_id = $request->user_id;
+        $insertToTtfTmpTable = $ttf_tmp_table->insertFromUploadCsv($session_id);
         // $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($request->supp_site_code,$request->branch_code,$request->session_id);
         // $dataFpTmp = $ttf_tmp_table->getDataTTFTmpFP($request->supp_site_code,$request->branch_code,$request->session_id);
         $dataHeader = $ttf_tmp_table->getDataTTfTmpForInsertTTf($session_id);

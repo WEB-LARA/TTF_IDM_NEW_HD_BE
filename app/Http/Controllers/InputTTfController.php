@@ -594,6 +594,17 @@ class InputTTfController extends Controller
                         echo "<br>";
                         $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
                         print_r($getDataTempBySessionId);
+                        if($getDataTempBySessionId){
+                            // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+                            $createFpFisikTemp = SysFpFisikTemp::create([
+                                "SESSION" => $request->session_id,
+                                "FP_NUM" => $no_fp,
+                                "FILENAME" => $fileName,
+                                "REAL_NAME" => $real_name,
+                                "PATH_FILE" => public_path('file_temp_fp/'.$fileName),
+                                "CREATED_DATE" => date('Y-m-d')
+                            ]);
+                        }
                         echo "<br>";
                     }
                     // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");

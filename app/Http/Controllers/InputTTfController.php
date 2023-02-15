@@ -566,6 +566,7 @@ class InputTTfController extends Controller
     public function verifikasiDJP(Request $request){
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $ttf_upload_tmp = new TtfUploadTmp();
+        $error = '';
         // Get Data Dari Sys Fp Fisik Temp
         $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
         // Delete Dulu data fisik yang ada di folder
@@ -623,6 +624,8 @@ class InputTTfController extends Controller
                                 $update = TtfUploadTmp::where('NO_FP',$no_fp)->update([
                                     "STATUS" => "VALID_DJP"
                                 ]);
+                            }else{
+                                $error .= "Error File ".$real_name." Tidak terdaftar Pada CSV!";
                             }
                             echo "<br>";
                         }
@@ -630,6 +633,17 @@ class InputTTfController extends Controller
                     }
                     // $data[$i]=$fileName;
     
+                }
+                if($error != ''){
+                    return response()->json([
+                            'status' => 'error',
+                            'message' => $error,
+                        ]);
+                }else{
+                    return response()->json([
+                            'status' => 'error',
+                            'message' => "Data CSV Berhasil di Validasi!",
+                        ]);
                 }
             }
         }else{

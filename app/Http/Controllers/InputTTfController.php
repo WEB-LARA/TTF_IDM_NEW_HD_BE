@@ -342,7 +342,7 @@ class InputTTfController extends Controller
         }catch (\Exception $e) {
             return $e->getMessage();
         }
-        $this->deleteTmpAfterApproveCsv();
+        $this->deleteTmpAfterApproveCsv($session_id);
     }
 
     public function getTtfNumber($branchCode){

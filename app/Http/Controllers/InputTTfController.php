@@ -581,8 +581,10 @@ class InputTTfController extends Controller
                     // print_r($content);
                     $explode = explode(PHP_EOL, $content);
                     // print_r($explode);
-                    $search_index_nomor_faktur = array_search('Kode dan Nomor Seri Faktur Pajak :', $explode);
-                    print_r($search_index_nomor_faktur);
+                    // $search_index_nomor_faktur = array_search('Kode dan Nomor Seri Faktur Pajak :', $explode);
+                    $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
+                    $result = preg_grep('~' . $input . '~', $explode);
+                    print_r($result);
                     // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                 }
                 // $data[$i]=$fileName;

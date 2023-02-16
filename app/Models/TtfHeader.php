@@ -291,10 +291,16 @@ class TtfHeader extends Model
     }
 
     public function getTtfNumByTtfId($ttf_id){
-        // $data = TtfHeader::where('TTF_ID',$ttf_id)->get();
+        $data = TtfHeader::where('TTF_ID',$ttf_id)->get();
 
-        $data = DB::select('SELECT * FROM ttf_headers WHERE TTF_ID = ?',[$ttf_id]);
+        // $data = DB::select('SELECT * FROM ttf_headers WHERE TTF_ID = ?',[$ttf_id]);
         // print_r($data);
+        return $data;
+    }
+
+    public function getPathDirByTtfId($ttf_id){
+        $data = TtfHeader::where('TTF_ID',$ttf_id)->select('PATH_NOTTF')->first;
+
         return $data;
     }
 }

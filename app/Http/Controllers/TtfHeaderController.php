@@ -102,22 +102,24 @@ class TtfHeaderController extends Controller
                 'TTF_STATUS'=>'C'
             ]);
             $ttf_lines = new TtfLines();
-            $getDataBpb = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
-            // Update Used Flag jadi N
-            foreach ($getDataBpb as $a){
-                $update = TtfDataBpb::where('BPB_ID',$a->TTF_BPB_ID)->update([
-                    'USED_FLAG'=>'N'
-                ]);
-            }
-            // Ambil Data Fp per Ttf
-            $ttf_fp = new TtfFp();
-            $getDataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
-             // Update Prepopulated => Used Flag jadi N
-            foreach ($getDataFp as $a){
-                if($a->TIPE_FAKTUR == 'STANDARD'){
-                    $update = PrepopulatedFp::where('NOMOR_FAKTUR',$a->FP_NUM)->update([
+            foreach($request->ttf_id as $ttf_id){
+                $getDataBpb = $ttf_lines->getDataBpbByTtfId($ttf_id);
+                // Update Used Flag jadi N
+                foreach ($getDataBpb as $a){
+                    $update = TtfDataBpb::where('BPB_ID',$a->TTF_BPB_ID)->update([
                         'USED_FLAG'=>'N'
                     ]);
+                }
+                // Ambil Data Fp per Ttf
+                $ttf_fp = new TtfFp();
+                $getDataFp = $ttf_fp->getFpByTtfId($ttf_id);
+                 // Update Prepopulated => Used Flag jadi N
+                foreach ($getDataFp as $a){
+                    if($a->TIPE_FAKTUR == 'STANDARD'){
+                        $update = PrepopulatedFp::where('NOMOR_FAKTUR',$a->FP_NUM)->update([
+                            'USED_FLAG'=>'N'
+                        ]);
+                    }
                 }
             }
             return $validate;

@@ -580,8 +580,6 @@ class InputTTfController extends Controller
                 unlink($a->PATH_FILE);
             }
         }
-        // Delete Data yang ada di tabel Fp Fisik temp
-        $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
         // getJumlah FP yang diupload pada CSV
         $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId($request->session_id);
         // Cek Jumlah FP di Csv sama dengan Fp yang diupload??
@@ -643,6 +641,8 @@ class InputTTfController extends Controller
                             'status' => 'success',
                             'message' => "Data CSV Berhasil di Validasi!",
                         ]);
+                    // Delete Data yang ada di tabel Fp Fisik temp
+                    $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
                 }
             }
         }else{

@@ -1,0 +1,2 @@
+No BPB;Jenis Faktur Pajak;No Faktur Pajak;Tgl Faktur Pajak;Nilai DPP;Nilai PPN
+2019-141206-G001;STD;010.002-21.53047341;31/07/2022;3452946;345295

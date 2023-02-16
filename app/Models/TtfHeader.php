@@ -299,7 +299,7 @@ class TtfHeader extends Model
     }
 
     public function getPathDirByTtfId($ttf_id){
-        $data = TtfHeader::where('TTF_ID',$ttf_id)->select('PATH_NOTTF')->first;
+        $data = TtfHeader::where('TTF_ID',$ttf_id)->select('PATH_NOTTF')->first();
 
         return $data;
     }

@@ -37,9 +37,9 @@ class TtfHeaderController extends Controller
 
     public function downloadLampiran(Request $request){
         $sys_fp_fisik = new SysFpFisik();
-        $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber('230022473841');
+        $getDataFpFisik = $sys_fp_fisik->getDataByTtfNumber($request->nomor_ttf);
         $ttf_lampiran = new TtfLampiran();
-        $getDataTtfLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID(176);
+        $getDataTtfLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($request->id_ttf);
         // $zip = new ZipArchive();
         $zip = new \ZipArchive();
         if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
@@ -91,7 +91,7 @@ class TtfHeaderController extends Controller
         }else{
                 return response()->json([
                         'status' => 'success',
-                        'message' => 'Data Ttf Gagal di Validasi!'
+                        'message' => 'Tidak Ada Lampiran yang diupload pada TTF Ini!'
                     ]);
         }
     }

@@ -572,14 +572,14 @@ class InputTTfController extends Controller
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $ttf_upload_tmp = new TtfUploadTmp();
         $error = '';
-        // Get Data Dari Sys Fp Fisik Temp
-        $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
-        // Delete Dulu data fisik yang ada di folder
-        foreach($getDataFpFisikBySess as $a){
-            if(file_exists($a->PATH_FILE)){
-                unlink($a->PATH_FILE);
-            }
-        }
+        // // Get Data Dari Sys Fp Fisik Temp
+        // $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
+        // // Delete Dulu data fisik yang ada di folder
+        // foreach($getDataFpFisikBySess as $a){
+        //     if(file_exists($a->PATH_FILE)){
+        //         unlink($a->PATH_FILE);
+        //     }
+        // }
         // getJumlah FP yang diupload pada CSV
         $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId($request->session_id);
         // Cek Jumlah FP di Csv sama dengan Fp yang diupload??

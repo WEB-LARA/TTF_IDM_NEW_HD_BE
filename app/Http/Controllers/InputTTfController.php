@@ -585,7 +585,7 @@ class InputTTfController extends Controller
         // getJumlah FP yang diupload pada CSV
         $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId($request->session_id);
         // Cek Jumlah FP di Csv sama dengan Fp yang diupload??
-        if($getJumlahFpdiCsv == $request->jumlah_fp_yang_di_upload){
+        if($getJumlahFpdiCsv[0]->COUNT_DATA == $request->jumlah_fp_yang_di_upload){
             if($request->hasFile('file_djp')){
                 foreach($request->file_djp as $key => $file)
                 {

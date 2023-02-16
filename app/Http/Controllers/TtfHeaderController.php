@@ -66,7 +66,7 @@ class TtfHeaderController extends Controller
     }
     
     public function submitTtf(Request $request){
-        $validate = TtfHeader::where('TTF_ID',$request->ttf_id)->update([
+        $validate = TtfHeader::whereIn('TTF_ID',$request->ttf_id)->update([
             'STATUS'=>'S'
         ]);
         if($validate){
@@ -83,7 +83,7 @@ class TtfHeaderController extends Controller
     }
 
     public function cancelTtf(Request $request){
-        $validate = TtfHeader::where('TTF_ID',$request->ttf_id)->update([
+        $validate = TtfHeader::whereIn('TTF_ID',$request->ttf_id)->update([
             'STATUS'=>'C'
         ]);
         if($validate){

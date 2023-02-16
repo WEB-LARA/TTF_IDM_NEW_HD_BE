@@ -458,6 +458,10 @@ class InputTTfController extends Controller
                     ]);
                 }
             }
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data Lampiran berhasil disimpan!',
+            ]);
         }
     }
     public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path,$ttf_number){

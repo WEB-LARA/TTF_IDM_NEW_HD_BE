@@ -193,12 +193,12 @@ class TtfHeaderController extends Controller
                 }
             
                 // Hapus dari Ttf Lines
-                // $deleteLines= $ttf_lines->deleteTtfLines($data);
-                // // Hapus dari Ttf Fp
-                // $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
-                // // Hapus dari Ttf Headers
-                // $deleteHeader = $ttf_header->deleteTtf($data);
-                // $ttf_header = new Ttfheader();
+                $deleteLines= $ttf_lines->deleteTtfLines($data);
+                // Hapus dari Ttf Fp
+                $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
+                // Hapus dari Ttf Headers
+                $deleteHeader = $ttf_header->deleteTtf($data);
+                $ttf_header = new Ttfheader();
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
                 $path_file = $ttf_lampiran->getPathFile($data);
                 $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
@@ -213,9 +213,11 @@ class TtfHeaderController extends Controller
                         unlink($a->PATH_FILE);
                     }
                 }
-                // $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
-                // $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
-                rmdir(substr($path_file->PATH_FILE,0,62));
+                $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
+                $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
+                if(file_exists( substr($path_file->PATH_FILE,0,62) )){
+                    rmdir(substr($path_file->PATH_FILE,0,62));
+                }
             }
         },5);
 

@@ -8,6 +8,7 @@ use App\Models\SysFpFisik;
 use App\Models\TtfFp;
 use App\Models\TtfLampiran;
 use App\Models\TtfLines;
+use App\Models\TtfDataBpb;
 use ZipArchive;
 use Response;
 class TtfHeaderController extends Controller
@@ -151,12 +152,21 @@ class TtfHeaderController extends Controller
 
     public function deleteTtf(Request $request){
         $ttf_lines = new TtfLines();
-
-        $getDataFp = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
+        $ttf_fp = new TtfFp();
+        // Ambil Data BPB By per Ttf
+        $getDataBpb = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
+        // Update Used Flag jadi N
+        foreach ($getDataBpb as $a){
+            print_r($a);
+            echo "<br>";
+            $update = TtfDataBpb::where('BPB_ID',$a->TTF_BPB_ID)->update([
+                'USED_FLAG'=>'N'
+            ]);
+        }
+        $getDataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
 
         foreach ($getDataFp as $a){
             print_r($a);
-            echo "<br>";
         }
     }
 }

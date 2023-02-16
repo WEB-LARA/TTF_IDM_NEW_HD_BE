@@ -75,6 +75,14 @@ class SysMapSupplier extends Model
                                        sys_ref_branch b
                                    WHERE
                                        b.BRANCH_CODE = a.BRANCH_CODE) BRANCH_NAME')
+                   ->selectRaw('(SELECT 
+                                    CASE
+                                        WHEN b.SUPP_TYPE = \'Y\' THEN \'PKP\'
+                                        ELSE \'NON-PKP\'
+                                   FROM
+                                       sys_supp_site b
+                                   WHERE
+                                       b.BRANCH_CODE = a.BRANCH_CODE) BRANCH_NAME')
                     ->get();
         return $getData;
     }

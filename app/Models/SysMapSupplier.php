@@ -82,7 +82,7 @@ class SysMapSupplier extends Model
                                    FROM
                                        sys_supp_site b
                                    WHERE
-                                       b.BRANCH_CODE = a.BRANCH_CODE) BRANCH_NAME')
+                                       b.BRANCH_CODE = a.BRANCH_CODE) SUPP_TYPE')
                     ->get();
         return $getData;
     }

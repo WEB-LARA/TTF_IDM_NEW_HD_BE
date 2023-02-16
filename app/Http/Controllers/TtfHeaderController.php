@@ -103,6 +103,7 @@ class TtfHeaderController extends Controller
 
     public function getDetailTtfByTtfId(Request $request){
         $ttf_header = new TtfHeader();
+        $ttf_fp = new TtfFp();
         $ttf_lines = new TtfLines();
         $dataArray = array();
         $dataArrayFp = array();

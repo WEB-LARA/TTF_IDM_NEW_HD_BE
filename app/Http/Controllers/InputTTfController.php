@@ -231,6 +231,9 @@ class InputTTfController extends Controller
                         }
                         // Delete SysFPFisikTemp
                     }
+                    $updateHeader = TtfHeader::where('TTF_ID',$idHeader)->update([
+                        'PATH_NOTTF' => $getPath['DIR_NO_TTF']
+                    ]);
                     if($request->hasFile('file_lampiran'))
                     {
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
@@ -332,6 +335,9 @@ class InputTTfController extends Controller
                         }
                         // Delete SysFPFisikTemp
                     }
+                    $updateHeader = TtfHeader::where('TTF_ID',$idHeader)->update([
+                        'PATH_NOTTF' => $getPath['DIR_NO_TTF']
+                    ]);
                     // if($request->hasFile('file_lampiran'))
                     // {
                     //     $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);

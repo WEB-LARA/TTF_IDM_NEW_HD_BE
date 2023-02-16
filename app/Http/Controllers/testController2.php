@@ -8,7 +8,7 @@ use App\Models\testModel2;
 class testController2 extends Controller
 {
     public function getDataBranch(){
-        $test_model2 = new testModel();
+        $test_model2 = new testModel2();
         $data = $test_model2->getDataBranch();
 
         return response()->json([

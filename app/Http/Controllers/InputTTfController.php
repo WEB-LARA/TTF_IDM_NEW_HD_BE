@@ -609,7 +609,6 @@ class InputTTfController extends Controller
                         // print_r($result);
                         foreach($result as $a){
                             $no_fp = substr($a,35,19);
-                            print_r($no_fp);
                             $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
                             if($getDataTempBySessionId){
                                 // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);

@@ -436,7 +436,7 @@ class InputTTfController extends Controller
             "REAL_NAME" => $real_name,
             "PATH_FILE" => $path,
             "TTF_NUMBER" => $ttf_number,
-            "CREATED_DATE" => date('Y-m-d')
+            "CREATION_DATE" => date('Y-m-d')
         ]);
 
         if($insert){

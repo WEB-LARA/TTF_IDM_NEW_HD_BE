@@ -1003,7 +1003,6 @@ class InputTTfController extends Controller
             ]);
             $no++;
         }
-        $no--;
         // UPDATE NILAI FP UNTUK TANPA FP
         if ($error == '')
         {

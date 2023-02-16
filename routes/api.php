@@ -123,5 +123,5 @@ Route::controller(TtfUploadTmpController::class)->group(function () {
     Route::post('getDataForInquiryUpload', 'getDataForInquiryUpload');
 });
 Route::controller(TtfParamTable::class)->group(function () {
-    Route::post('getMaxBpbAndPpn', 'getMaxBpbAndPpn');
+    Route::get('getMaxBpbAndPpn', 'getMaxBpbAndPpn');
 });

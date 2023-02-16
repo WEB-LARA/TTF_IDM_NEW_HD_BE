@@ -16,8 +16,8 @@ class testModel4 extends Model
     public $timestamps = false;
 
     public function getDataSupplierbyBranch($branch){
-        $data = testModel4::select(\DB::raw("CONCAT(sys_supp_site.SUPP_SITE_CODE,'-',sys_supp_site.SUPP_SITE_ALT_NAME) AS SUPPLIER"))
-        ->where('sys_supp_site.SUPP_BRANCH_CODE',$branch)
+        $data = testModel4::where('sys_supp_site.SUPP_BRANCH_CODE',$branch)
+        ->select(\DB::raw("CONCAT(sys_supp_site.SUPP_SITE_CODE,'-',sys_supp_site.SUPP_SITE_ALT_NAME) AS SUPPLIER"))
         ->orderBy('sys_supp_site.SUPP_SITE_CODE','ASC')
         ->get();
         return $data;

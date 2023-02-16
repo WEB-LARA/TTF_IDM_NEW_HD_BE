@@ -76,8 +76,8 @@ class testModel2 extends Model
     }
 
     public function getDataBranch(){
-            $data = testModel::leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
-            ->select("CONCAT('ttf_headers.BRANCH_CODE','sys_ref_branch.BRANCH_NAME') AS BRANCH")
+            $data = testModel2::leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
+            ->select(DB::raw("CONCAT('ttf_headers.BRANCH_CODE','-','sys_ref_branch.BRANCH_NAME') AS BRANCH"))
             ->get();
             return $data;
     }

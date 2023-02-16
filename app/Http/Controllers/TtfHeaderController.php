@@ -113,7 +113,7 @@ class TtfHeaderController extends Controller
         $dataHeader = $ttf_header->getDetailTtfByTtfId($request->ttf_id);
         foreach ($dataHeader as $a){
             // print_r($a->FP_TYPE);
-            $dataFp = $ttf_tmp_table->getFpByTtfId($request->ttf_id);
+            $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
             $dataArray[$i]['TTF_NUM'] = $a->TTF_NUM;
             $dataArray[$i]['TTF_DATE'] = $a->TTF_DATE;
             $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;

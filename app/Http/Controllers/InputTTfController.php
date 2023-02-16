@@ -223,7 +223,7 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
-                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE']);
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE'],$request->session_id);
                         if($ttf_type == 1){
                             $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
                             $sys_fp_fisik_temp = new SysFpFisikTemp();
@@ -368,7 +368,7 @@ class InputTTfController extends Controller
         return $ttf_num;
     }
 
-    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf,$tipe_faktur){
+    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf,$tipe_faktur,$session_id){
         // Cek Folder Tahun
         $return_path = array();
         $year = date('Y');
@@ -396,7 +396,7 @@ class InputTTfController extends Controller
         }
         if($tipe_faktur == 1){
             $sys_fp_fisik_temp = new SysFpFisikTemp();
-            $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
+            $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp,$session_id);
             $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
             File::move($getDataFpFisik->PATH_FILE, $concatPath);
             $return_path['CONCAT_PATH'] = $concatPath;

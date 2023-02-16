@@ -8,8 +8,8 @@ use App\Models\testModel2;
 class testController2 extends Controller
 {
     public function getDataUsername(){
-        $test_model2= new SysUser();
-        $getData = $test_model2->getDataUsername();
+        $SysUser= new SysUser();
+        $getData = $SysUser->getDataUsername();
 
         return response()->json([
             'status' => 'success',

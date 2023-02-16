@@ -110,6 +110,7 @@ Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('submitTtf','submitTtf');
     Route::post('cancelTtf','cancelTtf');
     Route::post('getDetailTtfByTtfId','getDetailTtfByTtfId');
+    Route::post('deleteTtf','deleteTtf');
 });
 Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('createAnnouncement', 'createAnnouncement');

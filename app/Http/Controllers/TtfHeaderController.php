@@ -193,13 +193,14 @@ class TtfHeaderController extends Controller
                 }
             
                 // Hapus dari Ttf Lines
-                $deleteLines= $ttf_lines->deleteTtfLines($data);
-                // Hapus dari Ttf Fp
-                $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
-                // Hapus dari Ttf Headers
-                $deleteHeader = $ttf_header->deleteTtf($data);
-                // $ttf_header = new Ttfheader();
-                // $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
+                // $deleteLines= $ttf_lines->deleteTtfLines($data);
+                // // Hapus dari Ttf Fp
+                // $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
+                // // Hapus dari Ttf Headers
+                // $deleteHeader = $ttf_header->deleteTtf($data);
+                $ttf_header = new Ttfheader();
+                $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
+                print_r($nomor_ttf);
                 // $path_file = $ttf_lampiran->getPathFile($data);
                 // $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
                 // print_r($nomor_ttf);

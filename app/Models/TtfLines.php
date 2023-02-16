@@ -47,4 +47,16 @@ class TtfLines extends Model
             return 0;
         }
     }
+
+    public function getDataBpbByTtfFpId($ttf_fp_id){
+        $data = DB::select("SELECT 
+                                TTF_BPB_ID,BPB_NUMBER, BPB_DPP, BPB_TAX
+                            FROM
+                                ttf_lines a,
+                                ttf_data_bpb b
+                            WHERE
+                                a.TTF_BPB_ID = b.BPB_ID
+                                    AND a.TTF_BPB_ID = ?",[$ttf_fp_id]);
+        return $data;
+    }
 }

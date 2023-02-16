@@ -9,6 +9,7 @@ use App\Models\TtfFp;
 use App\Models\TtfLampiran;
 use App\Models\TtfLines;
 use App\Models\TtfDataBpb;
+use App\Models\PrepopulatedFp;
 use ZipArchive;
 use Response;
 class TtfHeaderController extends Controller
@@ -151,22 +152,41 @@ class TtfHeaderController extends Controller
     }
 
     public function deleteTtf(Request $request){
-        $ttf_lines = new TtfLines();
-        $ttf_fp = new TtfFp();
-        // Ambil Data BPB By per Ttf
-        $getDataBpb = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
-        // Update Used Flag jadi N
-        foreach ($getDataBpb as $a){
-            print_r($a);
-            echo "<br>";
-            $update = TtfDataBpb::where('BPB_ID',$a->TTF_BPB_ID)->update([
-                'USED_FLAG'=>'N'
-            ]);
-        }
-        $getDataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+        $proses = DB::transaction(function () use($request){
+            foreach($request->ttf_id as $data){
+                print_r($data);
+                echo "<br>";
+            }
+            // $ttf_lines = new TtfLines();
+            // $ttf_fp = new TtfFp();
+            // $ttf_header = new Ttfheader();
+            // // Ambil Data BPB By per Ttf
+            // $getDataBpb = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
+            // // Update Used Flag jadi N
+            // foreach ($getDataBpb as $a){
+            //     $update = TtfDataBpb::where('BPB_ID',$a->TTF_BPB_ID)->update([
+            //         'USED_FLAG'=>'N'
+            //     ]);
+            // }
+            // // Ambil Data Fp per Ttf
+            // $getDataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+            //  // Update Prepopulated => Used Flag jadi N
+            // foreach ($getDataFp as $a){
+            //     if($a->TIPE_FAKTUR == 'STANDARD'){
+            //         $update = PrepopulatedFp::where('NO_FP',$a->FP_NUM)->update([
+            //             'USED_FLAG'=>'N'
+            //         ]);
+            //     }
+            // }
+        
+            // $deleteLines= $ttf_lines->deleteTtfLines($request->ttf_id);
+            // $deleteFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+            // $deleteHeader = $ttf_header->deleteTtf($request->ttf_id);
+        },5);
 
-        foreach ($getDataFp as $a){
-            print_r($a);
-        }
+        return response()->json([
+                'status' => 'success',
+                'message' => 'Data Ttf Berhasil dihapus!'
+            ]);
     }
 }

@@ -16,6 +16,7 @@ use App\Http\Controllers\TtfHeaderController;
 use App\Http\Controllers\SysAnnouncementController;
 use App\Http\Controllers\testController;
 use App\Http\Controllers\testController2;
+use App\Http\Controllers\testController3;
 use App\Http\Controllers\TempUploadDjpCsvController;
 use App\Http\Controllers\TtfUploadTmpController;
 use App\Http\Controllers\TtfParamTable;
@@ -60,13 +61,14 @@ Route::controller(testController::class)->group(function () {
     Route::get('getdata1', 'getdata');
     Route::get('selectdata1', 'selectdata');
     Route::get('joindata1', 'joindata');
-    // Route::get('getDataInquiryTtf', 'getDataInquiryTtf');
     Route::get('searchDataTtf', 'searchDataTtf');
 });
 Route::controller(testController2::class)->group(function () {
-    Route::get('getDataBranch', 'getDataBranch');
     Route::get('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
     Route::get('downloadInquiryLampiran', 'downloadInquiryLampiran');
+});
+Route::controller(testController3::class)->group(function () {
+    Route::get('getDataBranch', 'getDataBranch');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

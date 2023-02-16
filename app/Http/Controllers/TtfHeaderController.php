@@ -193,23 +193,28 @@ class TtfHeaderController extends Controller
                 }
             
                 // Hapus dari Ttf Lines
-                // $deleteLines= $ttf_lines->deleteTtfLines($data);
-                // // Hapus dari Ttf Fp
-                // $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
-                // // Hapus dari Ttf Headers
-                // $deleteHeader = $ttf_header->deleteTtf($data);
+                $deleteLines= $ttf_lines->deleteTtfLines($data);
+                // Hapus dari Ttf Fp
+                $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
+                // Hapus dari Ttf Headers
+                $deleteHeader = $ttf_header->deleteTtf($data);
                 $ttf_header = new Ttfheader();
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
-                // print_r($nomor_ttf);
                 $path_file = $ttf_lampiran->getPathFile($data);
-                // $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
-                // print_r($nomor_ttf);
-                // // print_r("NOMOR_TTF".$nomor_ttf);
-                // $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
-                $files = glob($path_file->PATH_FILE. '*',GLOB_MARK);
-                foreach($files as $a){
-                    unlink($a);
+                $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
+                foreach($getFilediFpFisik as $a){
+                    if(file_exists( $a->PATH_FILE )){
+                        unlink($a->PATH_FILE);
+                    }
                 }
+                $getFilediLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($data);
+                foreach($getFilediLampiran as $a){
+                    if(file_exists( $a->PATH_FILE )){
+                        unlink($a->PATH_FILE);
+                    }
+                }
+                // $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
+                // $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
                 rmdir(substr($path_file->PATH_FILE,0,62));
             }
         },5);

@@ -199,6 +199,7 @@ class TtfHeaderController extends Controller
                 $path_file = $ttf_lampiran->getPathFile($data);
                 $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
                 $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf->TTF_NUM);
+                unlink(substr($path_file,0,62));
             }
         },5);
 

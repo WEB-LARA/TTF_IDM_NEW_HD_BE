@@ -193,31 +193,31 @@ class TtfHeaderController extends Controller
                 }
             
                 // Hapus dari Ttf Lines
-                $deleteLines= $ttf_lines->deleteTtfLines($data);
-                // Hapus dari Ttf Fp
-                $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
-                // Hapus dari Ttf Headers
-                $deleteHeader = $ttf_header->deleteTtf($data);
+                // $deleteLines= $ttf_lines->deleteTtfLines($data);
+                // // Hapus dari Ttf Fp
+                // $deleteFp = $ttf_fp->deleteTtfFpByttfId($data);
+                // // Hapus dari Ttf Headers
+                // $deleteHeader = $ttf_header->deleteTtf($data);
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
                 $path_file = $ttf_lampiran->getPathFile($data);
-                // print_r($nomor_ttf);
-                $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
-                foreach($getFilediFpFisik as $a){
-                    if(file_exists( $a->PATH_FILE )){
-                        unlink($a->PATH_FILE);
-                    }
-                }
-                $getFilediLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($data);
-                foreach($getFilediLampiran as $a){
-                    if(file_exists( $a->PATH_FILE )){
-                        unlink($a->PATH_FILE);
-                    }
-                }
-                $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
-                $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
-                if(file_exists( substr($path_file->PATH_FILE,0,62) )){
-                    rmdir(substr($path_file->PATH_FILE,0,62));
-                }
+                print_r($nomor_ttf);
+                // $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
+                // foreach($getFilediFpFisik as $a){
+                //     if(file_exists( $a->PATH_FILE )){
+                //         unlink($a->PATH_FILE);
+                //     }
+                // }
+                // $getFilediLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($data);
+                // foreach($getFilediLampiran as $a){
+                //     if(file_exists( $a->PATH_FILE )){
+                //         unlink($a->PATH_FILE);
+                //     }
+                // }
+                // $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
+                // $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
+                // if(file_exists( substr($path_file->PATH_FILE,0,62) )){
+                //     rmdir(substr($path_file->PATH_FILE,0,62));
+                // }
             }
         },5);
 

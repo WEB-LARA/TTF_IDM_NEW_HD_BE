@@ -143,5 +143,9 @@ class TtfHeaderController extends Controller
             $dataArray[$i]['DATA_FP'] = $dataArrayFp;
             $i++;
         }
+            return response()->json([
+                    'status' => 'success',
+                    'data' => $dataArray
+                ]);
     }
 }

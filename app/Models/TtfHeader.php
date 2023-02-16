@@ -279,7 +279,7 @@ class TtfHeader extends Model
     }
 
     public function deleteTtf($ttf_id){
-        $delete = TtfHeader::where('TTF_IDD',$ttf_id)->delete();
+        $delete = TtfHeader::where('TTF_ID',$ttf_id)->delete();
 
         if ($delete){
             return 1;
@@ -289,7 +289,7 @@ class TtfHeader extends Model
     }
 
     public function getTtfNumByTtfId($ttf_id){
-        $data =TtfHeader::where('TTF_ID',$ttf_id)->select('TTF_NUM')->get();
+        $data =TtfHeader::where('TTF_IDD',$ttf_id)->select('TTF_NUM')->get();
 
         return $data;
     }

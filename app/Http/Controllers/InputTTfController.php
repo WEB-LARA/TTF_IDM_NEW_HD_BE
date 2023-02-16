@@ -437,6 +437,29 @@ class InputTTfController extends Controller
             }
         }
     }
+
+    public function saveLampiranTerpisah(Request $request){
+        if($request->hasFile('file_lampiran')){
+            foreach($request->file_lampiran as $key => $file)
+            {
+                // $fileName = time().'.'.$file->extension();
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
+                // $request->file->move(public_path('/file_temp_fp'), $fileName)
+                if($file->move($request->path_simpan, $fileName)){
+                    $sys_fp_fisik = new SysFpFisik();
+                    $insert = TtfLampiran::create([
+                        "TTF_ID" => $request->ttf_id,
+                        "REAL_NAME" => $real_name,
+                        "PATH_FILE" => $request->path_simpan.'/'.$fileName,
+                        "UPDATED_DATE" => date('Y-m-d H:i:s'),
+                        "FILE_SIZE" =>$size
+                    ]);
+                }
+            }
+        }
+    }
     public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path,$ttf_number){
         $sys_fp_fisik = new SysFpFisik();
 

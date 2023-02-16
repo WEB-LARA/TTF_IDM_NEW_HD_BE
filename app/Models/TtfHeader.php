@@ -68,7 +68,8 @@ class TtfHeader extends Model
                                    asd.JUMLAH_DPP_BPB,
                                    asd.JUMLAH_TAX_BPB,
                                    (asd.JUMLAH_DPP_FAKTUR - asd.JUMLAH_DPP_BPB) AS SEL_DPP,
-                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN
+                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN,
+                                   asd.PATH_NOTTF
                                FROM
                                    (SELECT 
                                        a.TTF_ID,
@@ -91,6 +92,7 @@ class TtfHeader extends Model
                                            a.TTF_DATE,
                                            a.REVIEWED_DATE,
                                            a.VENDOR_SITE_CODE,
+                                           a.PATH_NOTTF,
                                            (SELECT 
                                                    b.SUPP_SITE_ALT_NAME
                                                FROM

@@ -84,6 +84,7 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::get('downloadTemplateCsv','downloadTemplateCsv');
     Route::post('verifikasiDJP','verifikasiDJP');
     Route::post('saveTTfUpload','saveTTfUpload');
+    Route::post('saveLampiranTerpisah','saveLampiranTerpisah');
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');

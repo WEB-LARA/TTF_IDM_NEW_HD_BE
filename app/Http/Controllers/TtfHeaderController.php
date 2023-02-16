@@ -148,4 +148,15 @@ class TtfHeaderController extends Controller
                     'data' => $dataArray
                 ]);
     }
+
+    public function deleteTtf(Request $request){
+        $ttf_lines = new TtfLines();
+
+        $getDataFp = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
+
+        foreach ($getDataFp as $a){
+            print_r($a);
+            echo "<br>";
+        }
+    }
 }

@@ -109,6 +109,7 @@ Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('downloadLampiran','downloadLampiran');
     Route::post('submitTtf','submitTtf');
     Route::post('cancelTtf','cancelTtf');
+    Route::post('getDetailTtfByTtfId','getDetailTtfByTtfId');
 });
 Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('createAnnouncement', 'createAnnouncement');

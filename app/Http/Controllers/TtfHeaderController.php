@@ -175,7 +175,7 @@ class TtfHeaderController extends Controller
                  // Update Prepopulated => Used Flag jadi N
                 foreach ($getDataFp as $a){
                     if($a->TIPE_FAKTUR == 'STANDARD'){
-                        $update = PrepopulatedFp::where('NO_FP',$a->FP_NUM)->update([
+                        $update = PrepopulatedFp::where('NOMOR_FAKTUR',$a->FP_NUM)->update([
                             'USED_FLAG'=>'N'
                         ]);
                     }

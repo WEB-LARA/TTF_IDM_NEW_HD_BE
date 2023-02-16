@@ -291,7 +291,7 @@ class TtfHeader extends Model
     public function getTtfNumByTtfId($ttf_id){
         $data = TtfHeader::where('TTF_ID',$ttf_id)->select('TTF_NUM')->get();
 
-        print_($data);
+        print_r($data);
         // return $data;
     }
 }

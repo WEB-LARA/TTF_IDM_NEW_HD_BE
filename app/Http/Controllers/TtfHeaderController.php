@@ -128,6 +128,7 @@ class TtfHeaderController extends Controller
             $dataArray[$i]['SUPP_TYPE'] = $a->SUPP_TYPE;
             $dataArray[$i]['NOMOR_NPWP'] = $a->NOMOR_NPWP;
             $dataArray[$i]['ALAMAT_SUPPLIER'] = $a->ALAMAT_SUPPLIER;
+            $j=0;
             foreach($dataFp as $b){
                 $dataArrayBpb = array();
                 $dataArrayFp[$j]['FP_NUM'] = $b->FP_NUM;
@@ -136,6 +137,7 @@ class TtfHeaderController extends Controller
                 $dataArrayFp[$j]['FP_TAX_AMT'] = $b->FP_TAX_AMT;
                 $dataArrayFp[$j]['TIPE_FAKTUR'] = $b->TIPE_FAKTUR;
                 $dataBpb = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
+                $k=0;
                 foreach($dataBpb as $c){
                     $dataArrayBpb[$k]['BPB_NUMBER'] = $c->BPB_NUMBER;
                     $dataArrayBpb[$k]['BPB_DPP'] = $c->BPB_DPP;

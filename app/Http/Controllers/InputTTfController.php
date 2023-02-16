@@ -606,7 +606,7 @@ class InputTTfController extends Controller
                         // $search_index_nomor_faktur = array_search('Kode dan Nomor Seri Faktur Pajak :', $explode);
                         $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
                         $result = preg_grep('~' . $input . '~', $explode);
-                        print_r($result);
+                        // print_r($result);
                         foreach($result as $a){
                             $no_fp = substr($a,35,19);
                             $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
@@ -644,11 +644,6 @@ class InputTTfController extends Controller
                             'message' => "Data CSV Berhasil di Validasi!",
                         ]);
                 }
-            }else{
-                return response()->json([
-                        'status' => 'success',
-                        'message' => "File DJP gagal dibaca!",
-                    ]);
             }
         }else{
             return response()->json([

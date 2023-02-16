@@ -37,4 +37,14 @@ class TtfLines extends Model
                                     AND a.TTF_ID = ?",[$ttf_id]);
         return $data;
     }
+
+    public function deleteTtfLines($ttf_id){
+        $delete = TtfLines::where('TTF_ID',$ttf_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

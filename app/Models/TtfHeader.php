@@ -272,4 +272,8 @@ class TtfHeader extends Model
 
         return $data;
     }
+
+    public function deleteTtf($ttf_id){
+
+    }
 }

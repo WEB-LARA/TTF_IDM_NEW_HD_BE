@@ -69,7 +69,7 @@ class TtfHeaderController extends Controller
     
     public function submitTtf(Request $request){
         $validate = TtfHeader::whereIn('TTF_ID',$request->ttf_id)->update([
-            'STATUS'=>'S'
+            'TTF_STATUS'=>'S'
         ]);
         if($validate){
             return response()->json([
@@ -86,7 +86,7 @@ class TtfHeaderController extends Controller
 
     public function cancelTtf(Request $request){
         $validate = TtfHeader::whereIn('TTF_ID',$request->ttf_id)->update([
-            'STATUS'=>'C'
+            'TTF_STATUS'=>'C'
         ]);
         if($validate){
             return response()->json([

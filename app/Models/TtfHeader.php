@@ -74,7 +74,12 @@ class TtfHeader extends Model
                                        a.TTF_ID,
                                            a.TTF_NUM,
                                            CASE
-                                               WHEN TTF_STATUS = '' THEN 'DRAFT'
+                                            WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
+                                            WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'
+                                            WHEN ttf_headers.TTF_STATUS = 'E' THEN 'EXPIRED'
+                                            WHEN ttf_headers.TTF_STATUS = 'R' THEN 'REJECTED'
+                                            WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
+                                            WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
                                            END AS TTF_STATUS,
                                            a.BRANCH_CODE,
                                            (SELECT 

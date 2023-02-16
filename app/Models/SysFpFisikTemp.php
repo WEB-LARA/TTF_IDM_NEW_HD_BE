@@ -26,7 +26,7 @@ class SysFpFisikTemp extends Model
     ];
 
     public function getDataSysFpFisikTmpByNoFp($no_fp,$session_id){
-        $data = SysFpFisikTemp::where('FP_NUM',$no_fp)->where('SESSION',$session_id)->first();
+        $data = SysFpFisikTemp::where('FPS_NUM',$no_fp)->where('SESSION',$session_id)->first();
         
         return $data;
     }

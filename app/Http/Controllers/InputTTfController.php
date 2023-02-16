@@ -454,7 +454,7 @@ class InputTTfController extends Controller
                     $insert = TtfLampiran::create([
                         "TTF_ID" => $request->ttf_id,
                         "REAL_NAME" => $real_name,
-                        "PATH_FILE" => $path_simpan.'/'.$fileName,
+                        "PATH_FILE" => $path_simpan->PATH_NOTTF.'/'.$fileName,
                         "UPDATED_DATE" => date('Y-m-d H:i:s'),
                         "FILE_SIZE" =>$size
                     ]);

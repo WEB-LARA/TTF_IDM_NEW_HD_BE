@@ -271,7 +271,7 @@ class InputTTfController extends Controller
                     $getTtfNumber = $this->getTtfNumber($a['CABANG']);
                     $ttf_type = $a['FP_TYPE'];
                     $insertHeader = TtfHeader::create([
-                        'BRANCH_CODE' => $a['CABANG'],
+                        'BRANCH_CODEE' => $a['CABANG'],
                         'VENDOR_SITE_CODE' => $a['SUPP_SITE'],
                         'TTF_NUM' => $getTtfNumber,
                         'TTF_DATE' => date('Y-m-d'),

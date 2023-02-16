@@ -56,7 +56,7 @@ class TtfLines extends Model
                                 ttf_data_bpb b
                             WHERE
                                 a.TTF_BPB_ID = b.BPB_ID
-                                    AND a.TTF_BPB_ID = ?",[$ttf_fp_id]);
+                                    AND a.TTF_FP_ID = ?",[$ttf_fp_id]);
         return $data;
     }
 }

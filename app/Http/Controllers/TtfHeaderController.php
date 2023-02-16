@@ -200,13 +200,13 @@ class TtfHeaderController extends Controller
                 // $deleteHeader = $ttf_header->deleteTtf($data);
                 $ttf_header = new Ttfheader();
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
-                print_r($nomor_ttf);
-                // $path_file = $ttf_lampiran->getPathFile($data);
+                // print_r($nomor_ttf);
+                $path_file = $ttf_lampiran->getPathFile($data);
                 // $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
                 // print_r($nomor_ttf);
                 // // print_r("NOMOR_TTF".$nomor_ttf);
-                // $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
-                // unlink(substr($path_file->PATH_FILE,0,62));
+                $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
+                unlink(substr($path_file->PATH_FILE,0,62));
             }
         },5);
 

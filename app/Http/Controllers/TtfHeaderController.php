@@ -42,7 +42,7 @@ class TtfHeaderController extends Controller
         $getDataTtfLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($request->id_ttf);
         // $zip = new ZipArchive();
         $zip = new \ZipArchive();
-        if ($zip->open(public_path('trigger_zip/test_new.zip'), \ZipArchive::CREATE) === TRUE)
+        if ($zip->open(public_path('trigger_zip/'.$request->nomor_ttf.'.zip'), \ZipArchive::CREATE) === TRUE)
         {
             foreach($getDataFpFisik as $a){
                 $zip->addFile($a->PATH_FILE,$a->REAL_NAME);

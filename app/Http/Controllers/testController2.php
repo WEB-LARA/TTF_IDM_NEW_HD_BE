@@ -9,11 +9,11 @@ class testController2 extends Controller
 {
     public function getDataUsername(){
         $test_model2= new SysUser();
-        $data = $test_model2->getDataUsername();
+        $getData = $test_model2->getDataUsername();
 
         return response()->json([
             'status' => 'success',
-            'data' => $data
+            'data' => $getData
         ]);
     }
 

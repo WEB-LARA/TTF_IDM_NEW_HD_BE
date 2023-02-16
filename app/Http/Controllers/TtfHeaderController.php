@@ -110,6 +110,7 @@ class TtfHeaderController extends Controller
         $dataArrayBpb = array();
         $i = 0;
         $j = 0;
+        $k = 0;
         $dataHeader = $ttf_header->getDetailTtfByTtfId($request->ttf_id);
         foreach ($dataHeader as $a){
             // print_r($a->FP_TYPE);

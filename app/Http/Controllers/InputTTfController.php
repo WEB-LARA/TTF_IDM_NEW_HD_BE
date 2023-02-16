@@ -444,7 +444,7 @@ class InputTTfController extends Controller
             foreach($request->file_lampiran as $key => $file)
             {
                 // $fileName = time().'.'.$file->extension();
-                $path_simpan = $ttf_header->getPathDirByTtfId($ttf_id);
+                $path_simpan = $ttf_header->getPathDirByTtfId($request->ttf_id);
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
                 $size = $file->getSize();

@@ -207,6 +207,9 @@ class TtfHeaderController extends Controller
                         unlink($a->PATH_FILE);
                     }
                 }
+                if(file_exists( substr($path_file->PATH_FILE,0,62) )){
+                    rmdir(substr($path_file->PATH_FILE,0,62));
+                }
                 // Hapus dari Ttf Lines
                 $deleteLines= $ttf_lines->deleteTtfLines($data);
                 // Hapus dari Ttf Fp
@@ -217,9 +220,6 @@ class TtfHeaderController extends Controller
                 $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
                 // Hapus Dari Fp Fisik
                 $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
-                if(file_exists( substr($path_file->PATH_FILE,0,62) )){
-                    rmdir(substr($path_file->PATH_FILE,0,62));
-                }
             }
         },5);
 

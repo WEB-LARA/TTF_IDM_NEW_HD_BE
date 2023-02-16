@@ -7,15 +7,15 @@ use App\Models\testModel2;
 
 class testController2 extends Controller
 {
-    // public function getDataInquiryLampiran(){
-    //     $test_model2 = new testModel2();
-    //     $data = $test_model2->getDataInquiryLampiran();
+    public function getDataBranch(){
+        $test_model2 = new testModel();
+        $data = $test_model2->getDataBranch();
 
-    //     return response()->json([
-    //         'status' => 'success',
-    //         'data' => $data
-    //     ]);
-    // }
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
 
     public function searchDataInquiryLampiran(Request $request){
         $test_model2 = new testModel2();

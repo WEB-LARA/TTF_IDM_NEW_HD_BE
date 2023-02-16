@@ -625,7 +625,7 @@ class InputTTfController extends Controller
                                     "STATUS" => "VALID_DJP"
                                 ]);
                             }else{
-                                $error .= "Error File ".$real_name." Tidak terdaftar Pada CSV!";
+                                $error .= "File ".$real_name." Tidak terdaftar Pada CSV!<br>";
                             }
                         }
                         // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");

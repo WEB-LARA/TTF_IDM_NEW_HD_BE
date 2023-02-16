@@ -162,7 +162,7 @@ class TtfUploadTmp extends Model
                                     `ttf_upload_tmp`
                                 WHERE
                                     `SESS_ID` = ?
-                                    AND STATUS_TTF = 'VALID_CSV'
+                                    AND STATUS = 'VALID_CSV'
                                 GROUP BY `NO_FP`) asd",[$session_id]);
         return $data;
     }

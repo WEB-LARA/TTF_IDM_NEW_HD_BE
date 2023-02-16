@@ -54,7 +54,7 @@ class TtfHeaderController extends Controller
 
         
         $zip->close();
-        $file= public_path('trigger_zip/test_new.zip');
+        $file= public_path('trigger_zip/'.$request->nomor_ttf.'.zip');
         $headers = array(
             "Content-type"        => "application/zip",
             "Content-Disposition" => "attachment; filename=test_zip.zip",

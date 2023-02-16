@@ -26,7 +26,7 @@ class SysFpFisik extends Model
     ];
 
     public function getDataByTtfNumber($ttf_number){
-        $data = SysFpFisik::where('TTF_NUMBERR',$ttf_number)->get();
+        $data = SysFpFisik::where('TTF_NUMBER',$ttf_number)->get();
 
         return $data;
     }

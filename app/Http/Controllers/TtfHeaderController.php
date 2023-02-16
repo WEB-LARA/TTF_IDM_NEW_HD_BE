@@ -208,7 +208,7 @@ class TtfHeaderController extends Controller
                 // $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf[0]->TTF_NUM);
                 $files = glob($path_file->PATH_FILE. '*',GLOB_MARK);
                 foreach($files as $a){
-                    unlink($file);
+                    unlink($a);
                 }
                 rmdir(substr($path_file->PATH_FILE,0,62));
             }

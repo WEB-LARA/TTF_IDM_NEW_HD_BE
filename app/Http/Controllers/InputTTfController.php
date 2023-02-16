@@ -550,6 +550,7 @@ class InputTTfController extends Controller
                 }
             }
         }
+        print_r($message);
         if($message['status']=='OK'){
             // $this->approveUpload($request->session_id,$request->user_id);
             // $this->approveUpload($request->session_id,$request->user_id);

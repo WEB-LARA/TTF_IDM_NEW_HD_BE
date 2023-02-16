@@ -342,19 +342,12 @@ class InputTTfController extends Controller
                 $this->deleteTmpAfterApproveCsv($session_id);
                 
             },5);
-        }catch (\Exception $e) {
-            return $e->getMessage();
-        }
-        if($submit){
             return response()->json([
                     'status' => 'success',
                     'message' => 'TTF Berhasil Disimpan!',
                 ]);
-        }else{
-            return response()->json([
-                    'status' => 'error',
-                    'message' => 'TTF Gagal Disimpan!',
-                ]);
+        }catch (\Exception $e) {
+            return $e->getMessage();
         }
     }
 

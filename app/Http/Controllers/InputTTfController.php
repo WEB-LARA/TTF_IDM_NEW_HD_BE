@@ -587,6 +587,7 @@ class InputTTfController extends Controller
         // Cek Jumlah FP di Csv sama dengan Fp yang diupload??
         if($getJumlahFpdiCsv[0]->COUNT_DATA == $request->jumlah_fp_yang_di_upload){
             if($request->hasFile('file_djp')){
+                print_r("ada file");
                 foreach($request->file_djp as $key => $file)
                 {
                     // $fileName = time().'.'.$file->extension();
@@ -644,6 +645,8 @@ class InputTTfController extends Controller
                             'message' => "Data CSV Berhasil di Validasi!",
                         ]);
                 }
+            }else{
+                print_r("Tidak ada file");
             }
         }else{
             return response()->json([

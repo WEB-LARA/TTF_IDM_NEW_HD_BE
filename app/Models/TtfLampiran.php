@@ -36,4 +36,10 @@ class TtfLampiran extends Model
             return 0;
         }
     }
+
+    public function checkDataExistsOnTtfLampiran($ttf_id){
+        $data = TtfLampiran::where('TTF_ID',$ttf_id)->count();
+
+        return $data;
+    }
 }

@@ -71,19 +71,28 @@ class TtfHeaderController extends Controller
     }
     
     public function submitTtf(Request $request){
-        $validate = TtfHeader::whereIn('TTF_ID',$request->ttf_id)->update([
-            'TTF_STATUS'=>'S'
-        ]);
-        if($validate){
-            return response()->json([
-                    'status' => 'success',
-                    'message' => 'Data Ttf Berhasil di Validasi!'
-                ]);
+        $ttf_lampiran = new TtfLampiran();
+        $checkLampiran = $ttf_lampiran->checkDataExistsOnTtfLampiran($request->ttf_id);
+        if($checkLampiran>0){
+            $validate = TtfHeader::whereIn('TTF_ID',$request->ttf_id)->update([
+                'TTF_STATUS'=>'S'
+            ]);
+            if($validate){
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'Data Ttf Berhasil di Validasi!'
+                    ]);
+            }else{
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'Data Ttf Gagal di Validasi!'
+                    ]);
+            }
         }else{
-            return response()->json([
-                    'status' => 'success',
-                    'message' => 'Data Ttf Gagal di Validasi!'
-                ]);
+                return response()->json([
+                        'status' => 'success',
+                        'message' => 'Data Ttf Gagal di Validasi!'
+                    ]);
         }
     }
 

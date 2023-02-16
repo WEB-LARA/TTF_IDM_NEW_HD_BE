@@ -640,7 +640,7 @@ class InputTTfController extends Controller
                         ]);
                 }else{
                     return response()->json([
-                            'status' => 'error',
+                            'status' => 'succes',
                             'message' => "Data CSV Berhasil di Validasi!",
                         ]);
                 }

@@ -339,12 +339,12 @@ class InputTTfController extends Controller
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
+                $this->deleteTmpAfterApproveCsv($session_id);
                 
             },5);
         }catch (\Exception $e) {
             return $e->getMessage();
         }
-        $this->deleteTmpAfterApproveCsv($session_id);
     }
 
     public function getTtfNumber($branchCode){

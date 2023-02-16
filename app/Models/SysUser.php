@@ -117,7 +117,7 @@ class SysUser extends Authenticatable implements JWTSubject
     }
 
     public function getDataUsername(){
-        $getData = SysUser::select('USERNAME')->get();
+        $getData = SysUser::select('USERNAME','ID_USER')->get();
         return $getData;
     }
 }

@@ -64,7 +64,7 @@ Route::controller(testController::class)->group(function () {
     Route::get('searchDataTtf', 'searchDataTtf');
 });
 Route::controller(testController2::class)->group(function () {
-    // Route::get('getDataInquiryLampiran', 'getDataInquiryLampiran');
+    Route::get('getDataBranch', 'getDataBranch');
     Route::get('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
     Route::get('downloadInquiryLampiran', 'downloadInquiryLampiran');
 });

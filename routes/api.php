@@ -103,7 +103,7 @@ Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('getDataInquiryTTF', 'getDataInquiryTTF');
     Route::post('getDataInquiryDetailTTF', 'getDataInquiryDetailTTF');
     Route::post('downloadLampiran','downloadLampiran');
-    Route::post('validateTtf','validateTtf');
+    Route::post('submitTtf','submitTtf');
     Route::post('cancelTtf','cancelTtf');
 });
 Route::controller(SysAnnouncementController::class)->group(function () {

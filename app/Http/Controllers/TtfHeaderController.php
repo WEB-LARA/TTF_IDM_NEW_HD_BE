@@ -65,9 +65,9 @@ class TtfHeaderController extends Controller
         // readfile(public_path('trigger_zip/test_new.zip'));
     }
     
-    public function validateTtf(Request $request){
+    public function submitTtf(Request $request){
         $validate = TtfHeader::where('TTF_ID',$request->ttf_id)->update([
-            'STATUS'=>'V'
+            'STATUS'=>'S'
         ]);
         if($validate){
             return response()->json([

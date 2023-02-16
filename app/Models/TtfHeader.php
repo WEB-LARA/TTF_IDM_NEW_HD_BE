@@ -292,7 +292,7 @@ class TtfHeader extends Model
         $data = TtfHeader::where('TTF_ID',200)->get();
 
         // $data = DB::select('SELECT * FROM ttf_headers WHERE TTF_ID = ?',[$ttf_id]);
-        print_r($data);
-        // return $data;
+        // print_r($data);
+        return $data;
     }
 }

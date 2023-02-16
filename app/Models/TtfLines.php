@@ -27,7 +27,7 @@ class TtfLines extends Model
     ];
 
     public function getDataBpbByTtfId($ttf_id){
-        $data = DB::select("S*ELECT 
+        $data = DB::select("SELECT 
                                 BPB_NUMBER, BPB_DPP, BPB_TAX
                             FROM
                                 ttf_lines a,

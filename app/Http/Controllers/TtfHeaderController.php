@@ -132,9 +132,9 @@ class TtfHeaderController extends Controller
                 $dataArrayFp[$j]['TIPE_FAKTUR'] = $b->TIPE_FAKTUR;
                 $dataBpb = $ttf_lines->getDataBpbByTtfId($request->ttf_id);
                 foreach($dataBpb as $c){
-                    $dataArrayBpb[$k]['BPB_NUMBER'] = $b->BPB_NUMBER;
-                    $dataArrayBpb[$k]['BPB_DPP'] = $b->BPB_DPP;
-                    $dataArrayBpb[$k]['BPB_TAX'] = $b->BPB_TAX;
+                    $dataArrayBpb[$k]['BPB_NUMBER'] = $c->BPB_NUMBER;
+                    $dataArrayBpb[$k]['BPB_DPP'] = $c->BPB_DPP;
+                    $dataArrayBpb[$k]['BPB_TAX'] = $c->BPB_TAX;
                     $k++;
                 }
                 $dataArrayFp[$j]['DATA_BPB'] = $dataArrayBpb;

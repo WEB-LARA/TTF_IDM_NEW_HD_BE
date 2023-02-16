@@ -171,6 +171,8 @@ class TtfHeaderController extends Controller
                 $ttf_lines = new TtfLines();
                 $ttf_fp = new TtfFp();
                 $ttf_header = new Ttfheader();
+                $ttf_lampiran = new TtfLampiran();
+                $sys_fp_fisik = new SysFpFisik();
                 // Ambil Data BPB By per Ttf
                 $getDataBpb = $ttf_lines->getDataBpbByTtfId($data);
                 // Update Used Flag jadi N
@@ -193,6 +195,10 @@ class TtfHeaderController extends Controller
                 $deleteLines= $ttf_lines->deleteTtfLines($data);
                 $deleteFp = $ttf_fp->getFpByTtfId($data);
                 $deleteHeader = $ttf_header->deleteTtf($data);
+                $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
+                $path_file = $ttf_lampiran->getPathFile($data);
+                $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);
+                $deleteFpFisik = $sys_fp_fisik->deleteSysFpFisik($nomor_ttf->TTF_NUM);
             }
         },5);
 

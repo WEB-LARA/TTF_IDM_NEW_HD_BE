@@ -287,4 +287,10 @@ class TtfHeader extends Model
             return 0;
         }
     }
+
+    public function getTtfNumByTtfId($ttf_id){
+        $data =Ttfheader::where('TTF_ID',$ttf_id)->select('TTF_NUM')->first();
+
+        return $data;
+    }
 }

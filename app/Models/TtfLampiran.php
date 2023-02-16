@@ -42,4 +42,9 @@ class TtfLampiran extends Model
 
         return $data;
     }
+    public function getPathFile($ttf_id){
+        $data = TtfLampiran::where('TTF_ID',$ttf_id)->select('PATH_FILE')->first();
+
+        return $data;
+    }
 }

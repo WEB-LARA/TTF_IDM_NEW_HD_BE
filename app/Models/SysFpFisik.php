@@ -33,7 +33,7 @@ class SysFpFisik extends Model
 
     public function deleteSysFpFisik($ttf_number){
 
-        $delete = SysFpFisik::where('TTF_NUMBER',$ttf_number)->delete();
+        $delete = SysFpFisik::where('TTF_NUMBERR',$ttf_number)->delete();
 
         if($delete){
             return 1;

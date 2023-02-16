@@ -193,7 +193,7 @@ class TtfHeaderController extends Controller
                 }
             
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
-                $path_file = $ttf_lampiran->getPathFile($data);
+                $path_file = $ttf_header->getPathDirByTtfId($data);
                 // print_r($nomor_ttf);
                 $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
                 foreach($getFilediFpFisik as $a){
@@ -207,8 +207,8 @@ class TtfHeaderController extends Controller
                         unlink($a->PATH_FILE);
                     }
                 }
-                if(file_exists( substr($path_file->PATH_FILE,0,62) )){
-                    rmdir(substr($path_file->PATH_FILE,0,62));
+                if(file_exists( $path_file->PATH_NOTTF )){
+                    rmdir($path_file->PATH_NOTTF);
                 }
                 // Hapus dari Ttf Lines
                 $deleteLines= $ttf_lines->deleteTtfLines($data);

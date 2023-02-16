@@ -195,6 +195,7 @@ class TtfHeaderController extends Controller
                 $deleteLines= $ttf_lines->deleteTtfLines($data);
                 $deleteFp = $ttf_fp->getFpByTtfId($data);
                 $deleteHeader = $ttf_header->deleteTtf($data);
+                $ttf_header = new Ttfheader();
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
                 $path_file = $ttf_lampiran->getPathFile($data);
                 $deleteLampiran = $ttf_lampiran->deleteTtfLampiran($data);

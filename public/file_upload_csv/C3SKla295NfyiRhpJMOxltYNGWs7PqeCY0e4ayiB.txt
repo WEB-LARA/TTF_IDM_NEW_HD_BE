@@ -1,0 +1,2 @@
+No BPB;Jenis Faktur Pajak;No Faktur Pajak;Tgl Faktur Pajak;Nilai DPP;Nilai PPN
+2021-112831-G001;SADAS;080.000-23.52459313;09/01/2023;390080000;0

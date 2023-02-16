@@ -19,7 +19,7 @@ use App\Http\Controllers\testController2;
 use App\Http\Controllers\testController3;
 use App\Http\Controllers\TempUploadDjpCsvController;
 use App\Http\Controllers\TtfUploadTmpController;
-use App\Http\Controllers\TtfParamTable;
+use App\Http\Controllers\TtfParamTableController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -126,6 +126,6 @@ Route::controller(TempUploadDjpCsvController::class)->group(function () {
 Route::controller(TtfUploadTmpController::class)->group(function () {
     Route::post('getDataForInquiryUpload', 'getDataForInquiryUpload');
 });
-Route::controller(TtfParamTable::class)->group(function () {
+Route::controller(TtfParamTableController::class)->group(function () {
     Route::get('getMaxBpbAndPpn', 'getMaxBpbAndPpn');
 });

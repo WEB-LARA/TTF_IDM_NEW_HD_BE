@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\testModel2;
+use App\Models\SysUser;
 
 class testController2 extends Controller
 {

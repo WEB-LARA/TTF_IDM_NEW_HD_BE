@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\testModel3;
+use App\Models\testModel4;
 
 class testController3 extends Controller
 {

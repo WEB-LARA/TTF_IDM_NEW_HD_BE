@@ -644,6 +644,11 @@ class InputTTfController extends Controller
                             'message' => "Data CSV Berhasil di Validasi!",
                         ]);
                 }
+            }else{
+                return response()->json([
+                        'status' => 'success',
+                        'message' => "File DJP gagal dibaca!",
+                    ]);
             }
         }else{
             return response()->json([

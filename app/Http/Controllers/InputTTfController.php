@@ -607,27 +607,30 @@ class InputTTfController extends Controller
                         $input = preg_quote('Kode dan Nomor Seri Faktur Pajak :', '~');
                         $result = preg_grep('~' . $input . '~', $explode);
                         // print_r($result);
-                        foreach($result as $a){
-                            $no_fp = substr($a,35,19);
-                            $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
-                            if($getDataTempBySessionId){
-                                // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
-                                $createFpFisikTemp = SysFpFisikTemp::create([
-                                    "SESSION" => $request->session_id,
-                                    "FP_NUM" => $no_fp,
-                                    "FILENAME" => $fileName,
-                                    "REAL_NAME" => $real_name,
-                                    "PATH_FILE" => public_path('file_temp_fp/'.$fileName),
-                                    "CREATED_DATE" => date('Y-m-d')
-                                ]);
+                        $input = preg_quote('NPWP :', '~');
+                        $result_npwp = preg_grep('~' . $input . '~', $explode);
+                        print_r($result_npwp);
+                        // foreach($result as $a){
+                        //     $no_fp = substr($a,35,19);
+                        //     $getDataTempBySessionId= $ttf_upload_tmp->getNoFpTmpBySessionIdAndNoFp($request->session_id,$no_fp);
+                        //     if($getDataTempBySessionId){
+                        //         // $validateUploadDjp = $prepopulated_fp->getPrepopulatedFpByNoFpAndNpwp($npwp_penjual,$no_faktur);
+                        //         $createFpFisikTemp = SysFpFisikTemp::create([
+                        //             "SESSION" => $request->session_id,
+                        //             "FP_NUM" => $no_fp,
+                        //             "FILENAME" => $fileName,
+                        //             "REAL_NAME" => $real_name,
+                        //             "PATH_FILE" => public_path('file_temp_fp/'.$fileName),
+                        //             "CREATED_DATE" => date('Y-m-d')
+                        //         ]);
 
-                                $update = TtfUploadTmp::where('NO_FP',$no_fp)->update([
-                                    "STATUS" => "VALID_DJP"
-                                ]);
-                            }else{
-                                $error .= "Error File ".$real_name." Tidak terdaftar Pada CSV!";
-                            }
-                        }
+                        //         $update = TtfUploadTmp::where('NO_FP',$no_fp)->update([
+                        //             "STATUS" => "VALID_DJP"
+                        //         ]);
+                        //     }else{
+                        //         $error .= "Error File ".$real_name." Tidak terdaftar Pada CSV!";
+                        //     }
+                        // }
                         // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
                     }
                     // $data[$i]=$fileName;

@@ -439,10 +439,12 @@ class InputTTfController extends Controller
     }
 
     public function saveLampiranTerpisah(Request $request){
+        $ttf_header = new TtfHeader();
         if($request->hasFile('file_lampiran')){
             foreach($request->file_lampiran as $key => $file)
             {
                 // $fileName = time().'.'.$file->extension();
+                $path_simpan = $ttf_header->getPathDirByTtfId($ttf_id);
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
                 $size = $file->getSize();
@@ -452,7 +454,7 @@ class InputTTfController extends Controller
                     $insert = TtfLampiran::create([
                         "TTF_ID" => $request->ttf_id,
                         "REAL_NAME" => $real_name,
-                        "PATH_FILE" => $request->path_simpan.'/'.$fileName,
+                        "PATH_FILE" => $path_simpan.'/'.$fileName,
                         "UPDATED_DATE" => date('Y-m-d H:i:s'),
                         "FILE_SIZE" =>$size
                     ]);

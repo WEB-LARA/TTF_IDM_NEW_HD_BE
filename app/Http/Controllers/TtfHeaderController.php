@@ -192,21 +192,27 @@ class TtfHeaderController extends Controller
                     }
                 }
             
+                // Ambil Nomor Ttf
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
+                // Ambil Path Parent Directori Lampiran dan No Fp
                 $path_file = $ttf_header->getPathDirByTtfId($data);
-                // print_r($nomor_ttf);
+                // Ambil Semua Data Fp Fisik
                 $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
                 foreach($getFilediFpFisik as $a){
+                    // Jika ada File, Delete
                     if(file_exists( $a->PATH_FILE )){
                         unlink($a->PATH_FILE);
                     }
                 }
+                // Ambil Semua Data Lampiran
                 $getFilediLampiran = $ttf_lampiran->getDataTtfLampiranByTTfID($data);
                 foreach($getFilediLampiran as $a){
+                    // Jika ada File, Delete
                     if(file_exists( $a->PATH_FILE )){
                         unlink($a->PATH_FILE);
                     }
                 }
+                // Delete Directory Path No Ttf
                 if(file_exists( $path_file->PATH_NOTTF )){
                     rmdir($path_file->PATH_NOTTF);
                 }

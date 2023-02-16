@@ -15,25 +15,6 @@ class testModel2 extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    // public function getDataInquiryLampiran(){
-    //     $data = testModel2::leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
-    //             ->select('ttf_headers.TTF_NUM',\DB::raw(
-    //             '( 
-    //                 CASE 
-    //                      WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"
-    //                      WHEN ttf_headers.TTF_STATUS = "C" THEN "CANCEL"
-    //                      WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
-    //                      WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
-    //                      WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
-    //                      WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
-    //                 END
-    //             ) AS STATUS_TTF'
-    //             ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX')
-    //           ->get();
-
-    //     return $data;
-    // }
-
     public function searchDataInquiryLampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
         $data = testModel2::leftjoin('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
               ->leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'sys_mapp_supp.BRANCH_CODE')
@@ -73,12 +54,5 @@ class testModel2 extends Model
                 $data = $data->get();
 
               return $data;
-    }
-
-    public function getDataBranch(){
-            $data = testModel2::leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
-            ->select(\DB::raw("CONCAT(ttf_headers.BRANCH_CODE,'-',sys_ref_branch.BRANCH_NAME) AS BRANCH"))
-            ->get();
-            return $data;
     }
 }

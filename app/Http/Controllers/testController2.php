@@ -7,9 +7,9 @@ use App\Models\testModel2;
 
 class testController2 extends Controller
 {
-    public function getDataBranch(){
-        $test_model2 = new testModel2();
-        $data = $test_model2->getDataBranch();
+    public function getDataUsername(){
+        $test_model2= new SysUser();
+        $data = $test_model2->getDataUsername();
 
         return response()->json([
             'status' => 'success',

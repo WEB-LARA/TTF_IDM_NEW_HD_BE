@@ -16,4 +16,15 @@ class testController3 extends Controller
             'data' => $data
         ]);
     }
+
+    public function getDataSupplierbyBranch(Request $request){
+        $test_model3= new testModel4();
+        $data = $test_model3->getDataSupplierbyBranch($request->branch);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
+
 }

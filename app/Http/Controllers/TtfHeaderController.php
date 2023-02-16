@@ -194,7 +194,7 @@ class TtfHeaderController extends Controller
             
                 $nomor_ttf = $ttf_header->getTtfNumByTtfId($data);
                 $path_file = $ttf_lampiran->getPathFile($data);
-                print_r($nomor_ttf);
+                // print_r($nomor_ttf);
                 $getFilediFpFisik = $sys_fp_fisik->getDataByTtfNumber($nomor_ttf[0]->TTF_NUM);
                 foreach($getFilediFpFisik as $a){
                     if(file_exists( $a->PATH_FILE )){

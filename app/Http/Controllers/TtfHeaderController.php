@@ -90,7 +90,7 @@ class TtfHeaderController extends Controller
             }
         }else{
                 return response()->json([
-                        'status' => 'success',
+                        'status' => 'error',
                         'message' => 'Tidak Ada Lampiran yang diupload pada TTF Ini!'
                     ]);
         }

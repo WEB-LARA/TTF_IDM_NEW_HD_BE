@@ -10,6 +10,7 @@ use App\Models\TtfLampiran;
 use App\Models\TtfLines;
 use App\Models\TtfDataBpb;
 use App\Models\PrepopulatedFp;
+use Illuminate\Support\Facades\DB;
 use ZipArchive;
 use Response;
 class TtfHeaderController extends Controller

@@ -242,8 +242,8 @@ class TtfHeader extends Model
                         FROM
                             sys_supp_site b
                         WHERE
-                            b.SUPP_SITE_CODE = a.VENDOR_SITE_CODE
-                                AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) NAMA_SUPPLIER")
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) NAMA_SUPPLIER")
             ->selectRaw("(SELECT 
                             CASE
                                     WHEN b.SUPP_TYPE = 'Y' THEN 'PKP'
@@ -252,22 +252,22 @@ class TtfHeader extends Model
                         FROM
                             sys_supp_site b
                         WHERE
-                            b.SUPP_SITE_CODE = a.VENDOR_SITE_CODE
-                                AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) SUPP_TYPE")
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) SUPP_TYPE")
             ->selectRaw("(SELECT 
                             b.SUPP_PKP_NUM
                         FROM
                             sys_supp_site b
                         WHERE
-                            b.SUPP_SITE_CODE = a.VENDOR_SITE_CODE
-                                AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) NOMOR_NPWP")
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) NOMOR_NPWP")
             ->selectRaw("(SELECT 
                             b.SUPP_PKP_ADDR1
                         FROM
                             sys_supp_site b
                         WHERE
-                            b.SUPP_SITE_CODE = a.VENDOR_SITE_CODE
-                                AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) ALAMAT_SUPPLIER")
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) ALAMAT_SUPPLIER")
             ->get();
 
         return $data;

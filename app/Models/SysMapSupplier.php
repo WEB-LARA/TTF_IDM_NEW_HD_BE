@@ -79,6 +79,7 @@ class SysMapSupplier extends Model
                                     CASE
                                         WHEN b.SUPP_TYPE = \'Y\' THEN \'PKP\'
                                         ELSE \'NON-PKP\'
+                                    END AS TIPE_SUPP
                                    FROM
                                        sys_supp_site b
                                    WHERE

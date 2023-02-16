@@ -45,4 +45,13 @@ class TtfFp extends Model
 
         return $data;
     }
+    public function deleteTtfFpByttfId($ttf_id){
+        $delete = TtfFp::where('TTF_ID',$ttf_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
 }

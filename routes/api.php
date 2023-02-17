@@ -135,5 +135,5 @@ Route::controller(TtfParamTableController::class)->group(function () {
     Route::get('getMaxBpbAndPpn', 'getMaxBpbAndPpn');
 });
 Route::controller(SysFpFisikTempController::class)->group(function () {
-    Route::get('deleteSysFpFisikTempBySessId', 'deleteSysFpFisikTempBySessId');
+    Route::post('deleteSysFpFisikTempBySessId', 'deleteSysFpFisikTempBySessId');
 });

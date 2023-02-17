@@ -126,7 +126,7 @@ class SysUser extends Authenticatable implements JWTSubject
         ->where('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
         ->where('sys_user.ID_USER',$id_user)
         ->where('ttf_headers.BRANCH_CODE',$branch_code)
-        ->select('ttf_headers.TTF_NUM','ttf_headers.BRANCH_CODE','SELISIH_DPP','SELISIH_TAX','CREATION_DATE')
+        ->select('ttf_headers.TTF_NUM','ttf_headers.BRANCH_CODE','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX','ttf_headers.CREATION_DATE')
         ->selectRaw("CASE
                           WHEN a.TTF_STATUS = '' THEN 'DRAFT'
                           WHEN a.TTF_STATUS = 'C' THEN 'CANCEL'

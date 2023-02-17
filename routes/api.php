@@ -20,6 +20,8 @@ use App\Http\Controllers\testController3;
 use App\Http\Controllers\TempUploadDjpCsvController;
 use App\Http\Controllers\TtfUploadTmpController;
 use App\Http\Controllers\TtfParamTableController;
+use App\Http\Controllers\SysFpFisikTempController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -131,4 +133,7 @@ Route::controller(TtfUploadTmpController::class)->group(function () {
 });
 Route::controller(TtfParamTableController::class)->group(function () {
     Route::get('getMaxBpbAndPpn', 'getMaxBpbAndPpn');
+});
+Route::controller(SysFpFisikTempController::class)->group(function () {
+    Route::get('deleteSysFpFisikTempBySessId', 'deleteSysFpFisikTempBySessId');
 });

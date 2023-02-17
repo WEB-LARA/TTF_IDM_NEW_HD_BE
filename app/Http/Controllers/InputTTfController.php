@@ -449,7 +449,7 @@ class InputTTfController extends Controller
                 $real_name = $file->getClientOriginalName();
                 $size = $file->getSize();
                 // $request->file->move(public_path('/file_temp_fp'), $fileName)
-                if($file->move($request->path_simpan, $fileName)){
+                if($file->move($path_simpan->PATH_NOTTF, $fileName)){
                     $sys_fp_fisik = new SysFpFisik();
                     $insert = TtfLampiran::create([
                         "TTF_ID" => $request->ttf_id,

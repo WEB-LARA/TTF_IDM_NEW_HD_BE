@@ -121,7 +121,7 @@ class SysUser extends Authenticatable implements JWTSubject
         return $getData;
     }
     public function getDataForInquiryTtfDashboard($id_user,$branch_code){
-        $data = SysUser::join('syss_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')
+        $data = SysUser::join('sys_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')
         ->join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'sys_mapp_supp.SUPP_SITE_CODE')
         ->where('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
         ->where('sys_user.ID_USER',$id_user)
@@ -136,5 +136,7 @@ class SysUser extends Authenticatable implements JWTSubject
                           WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
                      END AS TTF_STATUS")
         ->get();
+
+        return $data;
     }
 }

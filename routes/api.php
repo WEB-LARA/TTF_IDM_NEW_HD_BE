@@ -21,6 +21,7 @@ use App\Http\Controllers\TempUploadDjpCsvController;
 use App\Http\Controllers\TtfUploadTmpController;
 use App\Http\Controllers\TtfParamTableController;
 use App\Http\Controllers\SysFpFisikTempController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,4 +137,7 @@ Route::controller(TtfParamTableController::class)->group(function () {
 });
 Route::controller(SysFpFisikTempController::class)->group(function () {
     Route::post('deleteSysFpFisikTempBySessId', 'deleteSysFpFisikTempBySessId');
+});
+Route::controller(DashboardController::class)->group(function () {
+    Route::post('getDataForInquiryTtfDashboard', 'getDataForInquiryTtfDashboard');
 });

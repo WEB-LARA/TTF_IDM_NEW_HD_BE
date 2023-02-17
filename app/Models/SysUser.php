@@ -120,4 +120,21 @@ class SysUser extends Authenticatable implements JWTSubject
         $getData = SysUser::select('USERNAME','ID_USER')->get();
         return $getData;
     }
+    public function getDataForInquiryTtfDashboard($id_user,$branch_code){
+        $data = SysUser::join('sys_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')
+        ->join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'sys_mapp_supp.SUPP_SITE_CODE')
+        ->where('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
+        ->where('sys_user.ID_USER',$id_user)
+        ->where('ttf_headers.BRANCH_CODE',$branch_code)
+        ->select('ttf_headers.TTF_NUM','ttf_headers.BRANCH_CODE','SELISIH_DPP','SELISIH_TAX','CREATION_DATE')
+        ->selectRaw("CASE
+                          WHEN a.TTF_STATUS = '' THEN 'DRAFT'
+                          WHEN a.TTF_STATUS = 'C' THEN 'CANCEL'
+                          WHEN a.TTF_STATUS = 'E' THEN 'EXPIRED'
+                          WHEN a.TTF_STATUS = 'R' THEN 'REJECTED'
+                          WHEN a.TTF_STATUS = 'S' THEN 'SUBMITTED'
+                          WHEN a.TTF_STATUS = 'V' THEN 'VALIDATED'
+                     END AS TTF_STATUS")
+        ->get();
+    }
 }

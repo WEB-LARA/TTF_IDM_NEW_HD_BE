@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SysFpFisik;
+use App\Models\SysFpFisikTemp;
 class SysFpFisikTempController extends Controller
 {
     public function deleteSysFpFisikTempBySessId(Request $request){
-        $sys_fp_fisik = new SysFpFisik();
+        $sys_fp_fisik_temp = new SysFpFisikTemp();
 
-        $delete = $sys_fp_fisik->deleteSysFpFisikTempBySessId($request->session_id);
+        $delete = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
 
         if($delete){
             return response()->json([

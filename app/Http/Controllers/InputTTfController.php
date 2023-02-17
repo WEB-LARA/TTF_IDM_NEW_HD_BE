@@ -223,7 +223,7 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
-                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE']);
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE'],$request->session_id);
                         if($ttf_type == 1){
                             $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
                             $sys_fp_fisik_temp = new SysFpFisikTemp();
@@ -231,6 +231,9 @@ class InputTTfController extends Controller
                         }
                         // Delete SysFPFisikTemp
                     }
+                    $updateHeader = TtfHeader::where('TTF_ID',$idHeader)->update([
+                        'PATH_NOTTF' => $getPath['DIR_NO_TTF']
+                    ]);
                     if($request->hasFile('file_lampiran'))
                     {
                         $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
@@ -266,7 +269,7 @@ class InputTTfController extends Controller
         // print_r($data);
         $concat_ttf_num = '';
         try{
-            DB::transaction(function () use($dataHeader,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers,$session_id){
+            $submit = DB::transaction(function () use($dataHeader,$user_id,$dataFpTmp,$ttf_tmp_table,$concat_ttf_num,$ttf_headers,$session_id){
                 foreach($dataHeader as $a){
                     $getTtfNumber = $this->getTtfNumber($a['CABANG']);
                     $ttf_type = $a['FP_TYPE'];
@@ -324,7 +327,7 @@ class InputTTfController extends Controller
                         $prepopulated_fp = new PrepopulatedFp();
                         $updatePrepopulated = $prepopulated_fp->updatePrepopulatedFP($b['NO_FP'],'Y');
                         // Move File FP Fisik dari Temp Ke Folder Asli Serta Return Credentials
-                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE']);
+                        $getPath = $this->moveFileTTfFromTemp($b['NO_FP'],$a['CABANG'],$getTtfNumber,$b['FP_TYPE'],$session_id);
                         if($ttf_type == 1){
                             $saveToFpFisik = $this->insertToSysFpFisik($b['NO_FP'],$getPath['FILE_NAME'],$getPath['REAL_NAME'],$getPath['CONCAT_PATH'],$getTtfNumber);
                             $sys_fp_fisik_temp = new SysFpFisikTemp();
@@ -332,6 +335,9 @@ class InputTTfController extends Controller
                         }
                         // Delete SysFPFisikTemp
                     }
+                    $updateHeader = TtfHeader::where('TTF_ID',$idHeader)->update([
+                        'PATH_NOTTF' => $getPath['DIR_NO_TTF']
+                    ]);
                     // if($request->hasFile('file_lampiran'))
                     // {
                     //     $this->saveLampiran($request->file_lampiran,$getPath['DIR_NO_TTF'],$idHeader);
@@ -339,12 +345,16 @@ class InputTTfController extends Controller
                 }
                 $concat_ttf_num = rtrim($concat_ttf_num, ',');
                 $updateHeaders = $ttf_headers->updateTtfInsert($concat_ttf_num);
+                $this->deleteTmpAfterApproveCsv($session_id);
                 
             },5);
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'TTF Berhasil Disimpan!',
+                ]);
         }catch (\Exception $e) {
             return $e->getMessage();
         }
-        $this->deleteTmpAfterApproveCsv($session_id);
     }
 
     public function getTtfNumber($branchCode){
@@ -368,7 +378,7 @@ class InputTTfController extends Controller
         return $ttf_num;
     }
 
-    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf,$tipe_faktur){
+    public function moveFileTTfFromTemp($no_fp,$cabang,$no_ttf,$tipe_faktur,$session_id){
         // Cek Folder Tahun
         $return_path = array();
         $year = date('Y');
@@ -396,7 +406,7 @@ class InputTTfController extends Controller
         }
         if($tipe_faktur == 1){
             $sys_fp_fisik_temp = new SysFpFisikTemp();
-            $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp);
+            $getDataFpFisik = $sys_fp_fisik_temp->getDataSysFpFisikTmpByNoFp($no_fp,$session_id);
             $concatPath = $dir_no_ttf.'/'.$getDataFpFisik->FILENAME;
             File::move($getDataFpFisik->PATH_FILE, $concatPath);
             $return_path['CONCAT_PATH'] = $concatPath;
@@ -427,6 +437,35 @@ class InputTTfController extends Controller
             }
         }
     }
+
+    public function saveLampiranTerpisah(Request $request){
+        $ttf_header = new TtfHeader();
+        if($request->hasFile('file_lampiran')){
+            foreach($request->file_lampiran as $key => $file)
+            {
+                // $fileName = time().'.'.$file->extension();
+                $path_simpan = $ttf_header->getPathDirByTtfId($request->ttf_id);
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                $size = $file->getSize();
+                // $request->file->move(public_path('/file_temp_fp'), $fileName)
+                if($file->move($path_simpan->PATH_NOTTF, $fileName)){
+                    $sys_fp_fisik = new SysFpFisik();
+                    $insert = TtfLampiran::create([
+                        "TTF_ID" => $request->ttf_id,
+                        "REAL_NAME" => $real_name,
+                        "PATH_FILE" => $path_simpan->PATH_NOTTF.'/'.$fileName,
+                        "UPDATED_DATE" => date('Y-m-d H:i:s'),
+                        "FILE_SIZE" =>$size
+                    ]);
+                }
+            }
+            return response()->json([
+                    'status' => 'success',
+                    'message' => 'Data Lampiran berhasil disimpan!',
+            ]);
+        }
+    }
     public function insertToSysFpFisik($fp_num,$nama_file,$real_name,$path,$ttf_number){
         $sys_fp_fisik = new SysFpFisik();
 
@@ -436,7 +475,7 @@ class InputTTfController extends Controller
             "REAL_NAME" => $real_name,
             "PATH_FILE" => $path,
             "TTF_NUMBER" => $ttf_number,
-            "CREATED_DATE" => date('Y-m-d')
+            "CREATION_DATE" => date('Y-m-d')
         ]);
 
         if($insert){
@@ -572,16 +611,14 @@ class InputTTfController extends Controller
         $sys_fp_fisik_temp = new SysFpFisikTemp();
         $ttf_upload_tmp = new TtfUploadTmp();
         $error = '';
-        // Get Data Dari Sys Fp Fisik Temp
-        $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
-        // Delete Dulu data fisik yang ada di folder
-        foreach($getDataFpFisikBySess as $a){
-            if(file_exists($a->PATH_FILE)){
-                unlink($a->PATH_FILE);
-            }
-        }
-        // Delete Data yang ada di tabel Fp Fisik temp
-        $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
+        // // Get Data Dari Sys Fp Fisik Temp
+        // $getDataFpFisikBySess = $sys_fp_fisik_temp->getSysFpFisikTempBySessId($request->session_id);
+        // // Delete Dulu data fisik yang ada di folder
+        // foreach($getDataFpFisikBySess as $a){
+        //     if(file_exists($a->PATH_FILE)){
+        //         unlink($a->PATH_FILE);
+        //     }
+        // }
         // getJumlah FP yang diupload pada CSV
         $getJumlahFpdiCsv = $ttf_upload_tmp->getFPYangdiUploadBySessionId($request->session_id);
         // Cek Jumlah FP di Csv sama dengan Fp yang diupload??
@@ -625,7 +662,7 @@ class InputTTfController extends Controller
                                     "STATUS" => "VALID_DJP"
                                 ]);
                             }else{
-                                $error .= "Error File ".$real_name." Tidak terdaftar Pada CSV!";
+                                $error .= "File ".$real_name." Tidak terdaftar Pada CSV!<br>";
                             }
                         }
                         // $pos = strpos($content, "Kode dan Nomor Seri Faktur Pajak");
@@ -640,9 +677,11 @@ class InputTTfController extends Controller
                         ]);
                 }else{
                     return response()->json([
-                            'status' => 'error',
+                            'status' => 'success',
                             'message' => "Data CSV Berhasil di Validasi!",
                         ]);
+                    // Delete Data yang ada di tabel Fp Fisik temp
+                    $deleteFpFisikTemp = $sys_fp_fisik_temp->deleteSysFpFisikTempBySessId($request->session_id);
                 }
             }
         }else{

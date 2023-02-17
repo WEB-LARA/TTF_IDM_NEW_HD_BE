@@ -22,7 +22,28 @@ class TtfLampiran extends Model
     ];
 
     public function getDataTtfLampiranByTTfID($ttf_id){
-        $data = TtfLampiran::where('TTF_ID')->get();
+        $data = TtfLampiran::where('TTF_ID',$ttf_id)->get();
+
+        return $data;
+    }
+
+    public function deleteTtfLampiran($ttf_id){
+        $delete = TtfLampiran::where('TTF_ID',$ttf_id)->delete();
+
+        if($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function checkDataExistsOnTtfLampiran($ttf_id){
+        $data = TtfLampiran::where('TTF_ID',$ttf_id)->count();
+
+        return $data;
+    }
+    public function getPathFile($ttf_id){
+        $data = TtfLampiran::where('TTF_ID',$ttf_id)->select('PATH_FILE')->first();
 
         return $data;
     }

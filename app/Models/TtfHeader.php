@@ -68,13 +68,19 @@ class TtfHeader extends Model
                                    asd.JUMLAH_DPP_BPB,
                                    asd.JUMLAH_TAX_BPB,
                                    (asd.JUMLAH_DPP_FAKTUR - asd.JUMLAH_DPP_BPB) AS SEL_DPP,
-                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN
+                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN,
+                                   asd.PATH_NOTTF
                                FROM
                                    (SELECT 
                                        a.TTF_ID,
                                            a.TTF_NUM,
                                            CASE
-                                               WHEN TTF_STATUS = '' THEN 'DRAFT'
+                                                WHEN a.TTF_STATUS = '' THEN 'DRAFT'
+                                                WHEN a.TTF_STATUS = 'C' THEN 'CANCEL'
+                                                WHEN a.TTF_STATUS = 'E' THEN 'EXPIRED'
+                                                WHEN a.TTF_STATUS = 'R' THEN 'REJECTED'
+                                                WHEN a.TTF_STATUS = 'S' THEN 'SUBMITTED'
+                                                WHEN a.TTF_STATUS = 'V' THEN 'VALIDATED'
                                            END AS TTF_STATUS,
                                            a.BRANCH_CODE,
                                            (SELECT 
@@ -86,6 +92,7 @@ class TtfHeader extends Model
                                            a.TTF_DATE,
                                            a.REVIEWED_DATE,
                                            a.VENDOR_SITE_CODE,
+                                           a.PATH_NOTTF,
                                            (SELECT 
                                                    b.SUPP_SITE_ALT_NAME
                                                FROM
@@ -228,5 +235,72 @@ class TtfHeader extends Model
         /*$this->db->query("update ttf_headers a set
         a.TTF_STATUS = (case when (a.SELISIH_DPP + a.SELISIH_TAX) > 0 then 'E' else '' end)
         where a.TTF_STATUS = '' and a.TTF_NUM IN ($ttf_list)");*/
+    }
+    public function getDetailTtfByTtfId($ttf_id){
+        $data = TtfHeader::where('TTF_ID',$ttf_id)
+            ->select('TTF_NUM','TTF_DATE','VENDOR_SITE_CODE')
+            ->selectRaw("CASE
+                            WHEN TTF_TYPE = 1 THEN 'STANDARD'
+                            ELSE 'TANPA FAKTUR PAJAK'
+                        END AS TIPE_TTF")
+            ->selectRaw("(SUM_DPP_FP + SUM_TAX_FP) TOTAL_TTF")
+            ->selectRaw("(SELECT 
+                            b.SUPP_SITE_ALT_NAME
+                        FROM
+                            sys_supp_site b
+                        WHERE
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) NAMA_SUPPLIER")
+            ->selectRaw("(SELECT 
+                            CASE
+                                    WHEN b.SUPP_TYPE = 'Y' THEN 'PKP'
+                                    ELSE 'NON-PKP'
+                                END AS TIPE_SUPP
+                        FROM
+                            sys_supp_site b
+                        WHERE
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) SUPP_TYPE")
+            ->selectRaw("(SELECT 
+                            b.SUPP_PKP_NUM
+                        FROM
+                            sys_supp_site b
+                        WHERE
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) NOMOR_NPWP")
+            ->selectRaw("(SELECT 
+                            b.SUPP_PKP_ADDR1
+                        FROM
+                            sys_supp_site b
+                        WHERE
+                            b.SUPP_SITE_CODE = VENDOR_SITE_CODE
+                                AND b.SUPP_BRANCH_CODE = BRANCH_CODE) ALAMAT_SUPPLIER")
+            ->get();
+
+        return $data;
+    }
+
+    public function deleteTtf($ttf_id){
+        $delete = TtfHeader::where('TTF_ID',$ttf_id)->delete();
+
+        if ($delete){
+            return 1;
+        }else{
+            return 0;
+        }
+    }
+
+    public function getTtfNumByTtfId($ttf_id){
+        $data = TtfHeader::where('TTF_ID',$ttf_id)->get();
+
+        // $data = DB::select('SELECT * FROM ttf_headers WHERE TTF_ID = ?',[$ttf_id]);
+        // print_r($data);
+        return $data;
+    }
+
+    public function getPathDirByTtfId($ttf_id){
+        $data = TtfHeader::where('TTF_ID',$ttf_id)->select('PATH_NOTTF')->first();
+
+        return $data;
     }
 }

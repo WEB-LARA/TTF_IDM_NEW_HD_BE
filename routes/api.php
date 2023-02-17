@@ -20,6 +20,8 @@ use App\Http\Controllers\testController3;
 use App\Http\Controllers\TempUploadDjpCsvController;
 use App\Http\Controllers\TtfUploadTmpController;
 use App\Http\Controllers\TtfParamTableController;
+use App\Http\Controllers\SysFpFisikTempController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -84,6 +86,7 @@ Route::controller(InputTTfController::class)->group(function () {
     Route::get('downloadTemplateCsv','downloadTemplateCsv');
     Route::post('verifikasiDJP','verifikasiDJP');
     Route::post('saveTTfUpload','saveTTfUpload');
+    Route::post('saveLampiranTerpisah','saveLampiranTerpisah');
 });
 Route::controller(ConvertImageController::class)->group(function () {
     Route::get('convert', 'index');
@@ -109,6 +112,8 @@ Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('downloadLampiran','downloadLampiran');
     Route::post('submitTtf','submitTtf');
     Route::post('cancelTtf','cancelTtf');
+    Route::post('getDetailTtfByTtfId','getDetailTtfByTtfId');
+    Route::post('deleteTtf','deleteTtf');
 });
 Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('createAnnouncement', 'createAnnouncement');
@@ -128,4 +133,7 @@ Route::controller(TtfUploadTmpController::class)->group(function () {
 });
 Route::controller(TtfParamTableController::class)->group(function () {
     Route::get('getMaxBpbAndPpn', 'getMaxBpbAndPpn');
+});
+Route::controller(SysFpFisikTempController::class)->group(function () {
+    Route::post('deleteSysFpFisikTempBySessId', 'deleteSysFpFisikTempBySessId');
 });

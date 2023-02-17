@@ -70,7 +70,7 @@ Route::controller(testController2::class)->group(function () {
 });
 Route::controller(testController3::class)->group(function () {
     Route::get('getDataBranch', 'getDataBranch');
-    Route::get('getDataSupplierbyBranch', 'getDataSupplierbyBranch');
+    Route::post('getDataSupplierbyBranch', 'getDataSupplierbyBranch');
 });
 Route::controller(InputTTfController::class)->group(function () {
     Route::post('saveToTmpTtf', 'saveToTmpTtf');

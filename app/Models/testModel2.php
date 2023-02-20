@@ -17,7 +17,7 @@ class testModel2 extends Model
 
     public function searchDataInquiryLampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
         $data = testModel2::leftjoin('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
-              ->innerjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
+              ->join('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
               ->where('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
               ->select('ttf_headers.TTF_ID','ttf_headers.TTF_NUM',\DB::raw(
                 '( 

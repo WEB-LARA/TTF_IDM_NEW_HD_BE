@@ -68,10 +68,9 @@ class testController extends Controller
 
         $data = $test_model->searchDataTtf($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp,$request->session_id);
 
-        print_r($data);
-        // return response()->json([
-        //         'status' => 'success',
-        //         'data' => $data,
-        // ]);
+        return response()->json([
+                'status' => 'success',
+                'data' => $data,
+        ]);
     }
 }

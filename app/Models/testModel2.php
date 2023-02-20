@@ -17,7 +17,7 @@ class testModel2 extends Model
 
     public function searchDataInquiryLampiran($branch,$nottf,$kodesupp,$username,$tglttf_from,$tglttf_to,$status, $session_id){
         $data = testModel2::leftjoin('sys_mapp_supp', 'sys_mapp_supp.SUPP_SITE_CODE', '=', 'ttf_headers.VENDOR_SITE_CODE')
-              ->leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
+            //   ->leftjoin('sys_ref_branch', 'sys_ref_branch.BRANCH_CODE', '=', 'ttf_headers.BRANCH_CODE')
               ->select('ttf_headers.TTF_ID','ttf_headers.TTF_NUM',\DB::raw(
                 '( 
                     CASE 
@@ -29,7 +29,7 @@ class testModel2 extends Model
                          WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
                     END
                 ) AS STATUS_TTF'
-                ),'sys_ref_branch.BRANCH_NAME','ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX');
+                ),\DB::raw('(SELECT BRANCH_NAME FROM sys_ref_branch WHERE BRANCH_CODE = sys_mapp_supp.SUPP_BRANCH_CODE)) AS BRANCH_NAME'),'ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX');
                 if($branch){
                     $data = $data->where('ttf_headers.BRANCH_CODE',$branch);
                 }

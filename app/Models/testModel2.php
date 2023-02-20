@@ -29,7 +29,7 @@ class testModel2 extends Model
                          WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
                     END
                 ) AS STATUS_TTF'
-                ),\DB::raw('(SELECT BRANCH_NAME FROM sys_ref_branch WHERE BRANCH_CODE = sys_ref_branch.SUPP_BRANCH_CODE AND sys_ref_branch.SUPP_BRANCH_CODE = ttf_headers.BRANCH_CODE)) AS BRANCH_NAME'),'ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX');
+                ),\DB::raw('(SELECT BRANCH_NAME FROM sys_ref_branch WHERE BRANCH_CODE = ttf_headers.BRANCH_CODE) AS BRANCH_NAME'),'ttf_headers.CREATION_DATE','ttf_headers.LAST_UPDATE_DATE','ttf_headers.JUMLAH_FP','ttf_headers.SUM_DPP_FP','ttf_headers.SUM_TAX_FP','ttf_headers.JUMLAH_BPB','ttf_headers.SUM_DPP_BPB','ttf_headers.SUM_TAX_BPB','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX');
                 if($branch){
                     $data = $data->where('ttf_headers.BRANCH_CODE',$branch);
                 }

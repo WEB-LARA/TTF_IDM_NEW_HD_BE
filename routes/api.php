@@ -64,10 +64,10 @@ Route::controller(testController::class)->group(function () {
     Route::get('getdata1', 'getdata');
     Route::get('selectdata1', 'selectdata');
     Route::get('joindata1', 'joindata');
-    Route::get('searchDataTtf', 'searchDataTtf');
+    Route::post('searchDataTtf', 'searchDataTtf');
 });
 Route::controller(testController2::class)->group(function () {
-    Route::get('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
+    Route::post('searchDataInquiryLampiran', 'searchDataInquiryLampiran');
     Route::get('downloadInquiryLampiran', 'downloadInquiryLampiran');
     Route::get('getDataUsername', 'getDataUsername');
 });

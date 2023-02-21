@@ -52,8 +52,8 @@ class testModel2 extends Model
                 elseif($status == ''){
                     $data = $data->where('ttf_headers.TTF_STATUS','!=', '');
                 }
-                $data = $data->chunk(300,function($data){
-                    
+                $data = $data->chunk(300,function($dataModel){
+                    print_r($dataModel);
                 });
 
               return $data;

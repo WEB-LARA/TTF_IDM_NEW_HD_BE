@@ -145,7 +145,7 @@ class testModel extends Model
         print_r($data);
         $db = DB::connection()->getPdo();
 
-        $query = $db->prepare($sql);
+        $query = $db->prepare($data);
         $query->execute(array('002'));
 
         while ($name = $query->fetchColumn()){

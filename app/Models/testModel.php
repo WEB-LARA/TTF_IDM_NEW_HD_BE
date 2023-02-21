@@ -193,6 +193,6 @@ class testModel extends Model
         //         ttf_fp.FP_NUM = ?"
         //     ,[$branch,$nobpb,$tglbpb_from,$tglbpb_to,$nottf,$nofp]);
         
-              return $data;
+        return $data;
     }
 }

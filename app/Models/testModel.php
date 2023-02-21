@@ -140,7 +140,8 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $data = $data->chunk(100);
+        $chunks = $data->chunk(100);
+        print_r($chunks);
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 
@@ -193,6 +194,5 @@ class testModel extends Model
         //         ttf_fp.FP_NUM = ?"
         //     ,[$branch,$nobpb,$tglbpb_from,$tglbpb_to,$nottf,$nofp]);
         
-        return $data;
     }
 }

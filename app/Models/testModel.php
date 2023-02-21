@@ -101,7 +101,9 @@ class testModel extends Model
     // }
 
     public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
+        testModel::chunk(100, function ($chunk){
+            foreach($chunk as $data){
+                $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
@@ -140,11 +142,9 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $data = $data->chunk(100, function($data){
-            print_r($data); 
-        });
+        print_r($data);
+    }});
         
-        // return $data;
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 
@@ -196,6 +196,5 @@ class testModel extends Model
         //     AND
         //         ttf_fp.FP_NUM = ?"
         //     ,[$branch,$nobpb,$tglbpb_from,$tglbpb_to,$nottf,$nofp]);
-        
     }
 }

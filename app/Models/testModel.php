@@ -101,7 +101,6 @@ class testModel extends Model
     // }
 
     public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        $dataArray = array();
         $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
@@ -141,26 +140,9 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $data = $data->chunk(100,function ($dataQuery){
-            $i = 0;
-            foreach ($dataQuery as $a){
-                // print_r($a->FP_TYPE);
-                $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
-                $dataArray[$i]['SUPP_NAME'] = $a->SUPP_NAME;
-                $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
-                $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
-                $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
-                $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
-                $dataArray[$i]['FP_NUM'] = $a->FP_NUM;
-                $dataArray[$i]['FP_DATE'] = $a->FP_DATE;
-                $dataArray[$i]['FP_DPP_AMT'] = $a->FP_DPP_AMT;
-                $dataArray[$i]['FP_TAX_AMT'] = $a->FP_TAX_AMT;
-                $dataArray[$i]['TTF_NUM'] = $a->TTF_NUM;
-                $dataArray[$i]['TTF_DATE'] = $a->TTF_DATE;
-                $dataArray[$i]['TTF_RETURN_DATE'] = $a->TTF_RETURN_DATE;
-                $i++;
-            }
-        });
+        $data = $data->toSql();
+
+        print_r($data);
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 
@@ -213,6 +195,6 @@ class testModel extends Model
         //         ttf_fp.FP_NUM = ?"
         //     ,[$branch,$nobpb,$tglbpb_from,$tglbpb_to,$nottf,$nofp]);
         
-              return $dataQuery;
+            //   return $data;
     }
 }

@@ -143,6 +143,14 @@ class testModel extends Model
         $data = $data->toSql();
 
         print_r($data);
+        $db = DB::connection()->getPdo();
+
+        $query = $db->prepare($sql);
+        $query->execute(array('002'));
+
+        while ($name = $query->fetchColumn()){
+            print_r($name);
+        }
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 

@@ -64,7 +64,7 @@ class testController extends Controller
     // }
 
     public function searchDataTtf(Request $request){
-        ini_set('max_execution_time', '300');
+        ini_set('max_execution_time', '-1');
         // set_time_limit(300);
         $test_model = new testModel();
 

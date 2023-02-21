@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class testModel extends Model
 {
@@ -133,6 +134,11 @@ class testModel extends Model
         }
         if($tglbpb_from && $tglbpb_to){
             $data = $data->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to]);
+        }
+        else{
+            $now = Carbon::now()->format('Y-m-d');
+            $sub = $now->subDays(100)->format('Y-m-d');
+            $data = $data->wherebetween('ttf_data_bpb.BPB_DATE',[$sub, $now]);
         }
         if($nottf){
             $data = $data->where('ttf_headers.TTF_NUM',$nottf);

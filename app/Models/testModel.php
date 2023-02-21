@@ -101,89 +101,46 @@ class testModel extends Model
     // }
 
     public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        // $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
-        //       ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
-        //       ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
-        //       ->select('ttf_data_bpb.VENDOR_SITE_CODE',
-        //       \DB::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
-        //             SUPP_ID
-        //         FROM
-        //             sys_supp_site b
-        //         WHERE
-        //         b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
-        //         AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME'),
-        //         'ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',
-        //         \DB::raw(
-        //         '( 
-        //             CASE 
-        //                  WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"
-        //                  WHEN ttf_headers.TTF_STATUS = "C" THEN "CANCEL"
-        //                  WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
-        //                  WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
-        //                  WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
-        //                  WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
-        //             END
-        //         ) AS STATUS_TTF'
-        //     ));
-        // if($branch){
-        //     $data = $data->where('ttf_data_bpb.BRANCH_CODE',$branch);
-        // }
-        // if($nobpb){
-        //     $data = $data->where('ttf_data_bpb.BPB_NUMBER',$nobpb);
-        // }
-        // if($tglbpb_from && $tglbpb_to){
-        //     $data = $data->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to]);
-        // }
-        // if($nottf){
-        //     $data = $data->where('ttf_headers.TTF_NUM',$nottf);
-        // }
-        // if($nofp){
-        //     $data = $data->where('ttf_fp.FP_NUM',$nofp);
-        // }
-        $data = DB::select("SELECT 
-                                `ttf_data_bpb`.`VENDOR_SITE_CODE`,
-                                (SELECT 
-                                        SUPP_NAME
-                                    FROM
-                                        sys_supplier
-                                    WHERE
-                                        SUPP_ID = (SELECT 
-                                                SUPP_ID
-                                            FROM
-                                                sys_supp_site b
-                                            WHERE
-                                                b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
-                                                    AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME,
-                                `ttf_data_bpb`.`BPB_NUMBER`,
-                                `ttf_data_bpb`.`BPB_DATE`,
-                                `ttf_data_bpb`.`BPB_DPP`,
-                                `ttf_data_bpb`.`BPB_TAX`,
-                                `ttf_fp`.`FP_NUM`,
-                                `ttf_fp`.`FP_DATE`,
-                                `ttf_fp`.`FP_DPP_AMT`,
-                                `ttf_fp`.`FP_TAX_AMT`,
-                                `ttf_headers`.`TTF_NUM`,
-                                `ttf_headers`.`TTF_DATE`,
-                                `ttf_headers`.`TTF_RETURN_DATE`,
-                                (CASE
-                                    WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
-                                    WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'
-                                    WHEN ttf_headers.TTF_STATUS = 'E' THEN 'EXPIRED'
-                                    WHEN ttf_headers.TTF_STATUS = 'R' THEN 'REJECTED'
-                                    WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
-                                    WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
-                                END) AS STATUS_TTF
-                            FROM
-                                `ttf_data_bpb`
-                                    LEFT JOIN
-                                `ttf_lines` ON `ttf_lines`.`TTF_BPB_ID` = `ttf_data_bpb`.`BPB_ID`
-                                    LEFT JOIN
-                                `ttf_fp` ON `ttf_fp`.`TTF_FP_ID` = `ttf_lines`.`TTF_FP_ID`
-                                    LEFT JOIN
-                                `ttf_headers` ON `ttf_headers`.`TTF_ID` = `ttf_lines`.`TTF_ID`
-                            WHERE ttf_data_bpb.BRANCH_CODE='002'");
-        // $data = $data->get();
-        print_r($data);
+        $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
+              ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
+              ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
+              ->select('ttf_data_bpb.VENDOR_SITE_CODE',
+              \DB::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
+                    SUPP_ID
+                FROM
+                    sys_supp_site b
+                WHERE
+                b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
+                AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME'),
+                'ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',
+                \DB::raw(
+                '( 
+                    CASE 
+                         WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"
+                         WHEN ttf_headers.TTF_STATUS = "C" THEN "CANCEL"
+                         WHEN ttf_headers.TTF_STATUS = "E" THEN "EXPIRED"
+                         WHEN ttf_headers.TTF_STATUS = "R" THEN "REJECTED"
+                         WHEN ttf_headers.TTF_STATUS = "S" THEN "SUBMITTED"
+                         WHEN ttf_headers.TTF_STATUS = "V" THEN "VALIDATED"
+                    END
+                ) AS STATUS_TTF'
+            ));
+        if($branch){
+            $data = $data->where('ttf_data_bpb.BRANCH_CODE',$branch);
+        }
+        if($nobpb){
+            $data = $data->where('ttf_data_bpb.BPB_NUMBER',$nobpb);
+        }
+        if($tglbpb_from && $tglbpb_to){
+            $data = $data->wherebetween('ttf_data_bpb.BPB_DATE',[$tglbpb_from, $tglbpb_to]);
+        }
+        if($nottf){
+            $data = $data->where('ttf_headers.TTF_NUM',$nottf);
+        }
+        if($nofp){
+            $data = $data->where('ttf_fp.FP_NUM',$nofp);
+        }
+        $data = $data->get();
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 

@@ -141,7 +141,7 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $data = $data->chunk(500,function ($dataQuery){
+        $data = $data->chunk(100,function ($dataQuery){
             $i = 0;
             foreach ($dataQuery as $a){
                 // print_r($a->FP_TYPE);
@@ -213,6 +213,6 @@ class testModel extends Model
         //         ttf_fp.FP_NUM = ?"
         //     ,[$branch,$nobpb,$tglbpb_from,$tglbpb_to,$nottf,$nofp]);
         
-              return $data;
+              return $dataQuery;
     }
 }

@@ -101,7 +101,7 @@ class testModel extends Model
     // }
 
     public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
-        testModel::chunk(100, function ($chunk){
+        testModel::chunk(100, function ($chunk,$branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
             foreach($chunk as $data){
                 $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')

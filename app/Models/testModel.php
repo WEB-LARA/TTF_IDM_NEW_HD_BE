@@ -137,7 +137,8 @@ class testModel extends Model
         }
         else{
             $now = Carbon::now()->format('Y-m-d');
-            $sub = Carbon::now()->format('Y-m-d')->subDays('100');
+            $day = 100;
+            $sub = Carbon::now()->format('Y-m-d')->subDays($day);
             $data = $data->wherebetween('ttf_data_bpb.BPB_DATE',[$sub, $now]);
         }
         if($nottf){

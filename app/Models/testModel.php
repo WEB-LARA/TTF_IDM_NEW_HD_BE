@@ -140,8 +140,11 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $chunks = $data->chunk(100);
-        print_r($chunks);
+        $data = $data->chunk(100, function($data){
+            print_r($data); 
+        });
+        
+        // return $data;
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,
         //         (SELECT 

@@ -65,6 +65,7 @@ Route::controller(testController::class)->group(function () {
     Route::get('selectdata1', 'selectdata');
     Route::get('joindata1', 'joindata');
     Route::post('searchDataTtf', 'searchDataTtf');
+    Route::post('reportTtfs', 'reportTtfs');
 });
 Route::controller(testController2::class)->group(function () {
     Route::post('searchDataInquiryLampiran', 'searchDataInquiryLampiran');

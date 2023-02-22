@@ -73,4 +73,15 @@ class testController extends Controller
                 'data' => $data,
         ]);
     }
+
+    public function reportTtfs(Request $request){
+        $test_model = new testModel();
+
+        $data = $test_model->reportTtfs($request->id, $request->branch, $request->session_id);
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data,
+        ]);
+    }
 }

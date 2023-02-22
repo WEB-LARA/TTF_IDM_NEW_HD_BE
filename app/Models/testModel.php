@@ -212,7 +212,7 @@ class testModel extends Model
             if($branch){
                 $data = $data->where('ttf_data_bpb.BRANCH_CODE',$branch);
             }
-            $data = $data->get();
+            $data = $data->limit(100)->get();
             return $data;
         }
 }

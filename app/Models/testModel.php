@@ -206,6 +206,7 @@ class testModel extends Model
                     ->join('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
                     ->join('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
                     ->whereNotNull('ttf_fp.TTF_ID')
+                    ->whereNotNull('ttf_fp.FP_NUM')
                     ->select('ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_fp.FP_NUM','ttf_fp.FP_DATE',
                     \DB::raw('(ttf_data_bpb.BPB_DPP + ttf_data_bpb.BPB_TAX) AS NILAI_TTF'));
             if($id){

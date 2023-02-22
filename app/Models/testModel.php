@@ -205,7 +205,7 @@ class testModel extends Model
             $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
                   ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
                   ->select('ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_fp.FP_NUM','ttf_fp.FP_DATE',
-                  \DB::raw('(ttf_data_bpb.BPB_DPP+ttf_data_bpb.BPB_TAX) AS NILAI_TTF)'));
+                  \DB::raw('(ttf_data_bpb.BPB_DPP + ttf_data_bpb.BPB_TAX) AS NILAI_TTF'));
             if($id){
                     $data = $data->where('ttf_fp.TTF_ID',$id);
                 }

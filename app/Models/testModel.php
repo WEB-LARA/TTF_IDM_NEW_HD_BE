@@ -101,7 +101,7 @@ class testModel extends Model
     //     return $data;
     // }
 
-    public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $session_id){
+    public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp){
         $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
@@ -201,7 +201,7 @@ class testModel extends Model
         //         ttf_fp.FP_NUM = ?"
         //     ,[$branch,$nobpb,$tglbpb_from,$tglbpb_to,$nottf,$nofp]);
 
-        public function reportTtfs($id, $branch, $session_id){
+        public function reportTtfs($id, $branch){
             $data = testModel::join('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
                     ->join('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
                     ->join('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')

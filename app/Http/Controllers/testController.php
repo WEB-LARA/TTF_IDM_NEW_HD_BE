@@ -66,7 +66,7 @@ class testController extends Controller
     public function searchDataTtf(Request $request){
         $test_model = new testModel();
 
-        $data = $test_model->searchDataTtf($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp,$request->session_id);
+        $data = $test_model->searchDataTtf($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp);
 
         return response()->json([
                 'status' => 'success',
@@ -77,7 +77,7 @@ class testController extends Controller
     public function reportTtfs(Request $request){
         $test_model = new testModel();
 
-        $data = $test_model->reportTtfs($request->id, $request->branch, $request->session_id);
+        $data = $test_model->reportTtfs($request->id, $request->branch);
 
         return response()->json([
                 'status' => 'success',

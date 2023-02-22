@@ -10,7 +10,7 @@ use Carbon\Carbon;
 class testModel extends Model
 {
     use HasFactory;
-    protected $connection = 'mysql2';
+    protected $connection = 'mysql';
     protected $table = 'ttf_data_bpb';
     protected $primaryKey = 'ID';
     public $incrementing = false; 

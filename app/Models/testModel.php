@@ -10,6 +10,9 @@ use Carbon\Carbon;
 class testModel extends Model
 {
     use HasFactory;
+    // WEBDEV2
+    // protected $connection = 'mysql2';
+    // WEBDEV1
     protected $connection = 'mysql';
     protected $table = 'ttf_data_bpb';
     protected $primaryKey = 'ID';

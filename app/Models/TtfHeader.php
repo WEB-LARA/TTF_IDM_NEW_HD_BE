@@ -156,7 +156,7 @@ class TtfHeader extends Model
         $data = $data->skip($skip)->take($limit)->get();
         $nomor = 1;
         $i=0;
-        foreach ($data as $a){
+        foreach ($getData as $a){
             // print_r($a->FP_TYPE);
             // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
             $dataArray[$i]['NO'] = $nomor;

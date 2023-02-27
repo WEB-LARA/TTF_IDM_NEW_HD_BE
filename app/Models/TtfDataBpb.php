@@ -45,7 +45,7 @@ class TtfDataBpb extends Model
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0');
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
-                $nomor = 1;
+                $nomor = $skip+1;
                 foreach ($data as $a){
                     // print_r($a->FP_TYPE);
                     // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
@@ -82,7 +82,7 @@ class TtfDataBpb extends Model
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id]);
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
-                $nomor = 1;
+                $nomor = $skip+1;
                 foreach ($data as $a){
                     // print_r($a->FP_TYPE);
                     // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
@@ -120,7 +120,7 @@ class TtfDataBpb extends Model
                            AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();
-            $nomor = 1;
+            $nomor = $skip+1;
             foreach ($data as $a){
                 // print_r($a->FP_TYPE);
                 // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);

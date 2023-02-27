@@ -30,6 +30,12 @@ class SysMapSupplier extends Model
         }
     }
 
+    public function getBranchByUserId($user_id){
+        $data = SysMapSupplier::where('USER_ID',$user_id)-select('BRANCH_CODE')->groupBy('BRANCH_CODE');
+
+        return $data;
+    }
+
     public function getSupplierByUserId($user_id){
         $getData = SysMapSupplier::from('sys_mapp_supp as a')->where('USER_ID',$user_id)
                    ->SELECT('SUPP_SITE_CODE','BRANCH_CODE')

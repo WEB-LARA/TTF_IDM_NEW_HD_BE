@@ -182,7 +182,7 @@ class InputTTfController extends Controller
                         'SUM_DPP_FP' => $a['SUM_DPP_FP'],
                         'SUM_TAX_FP' => $a['SUM_TAX_FP'],
                         'CREATED_BY' => $user_id,
-                        'CREATION_DATE' => date('Y-m-d')
+                        'CREATION_DATE' => date('Y-m-d H:i:s')
                     ]);
                     $concat_ttf_num .= $getTtfNumber.',';
                     $idHeader = $insertHeader->TTF_ID;
@@ -286,7 +286,7 @@ class InputTTfController extends Controller
                         'SUM_DPP_FP' => $a['SUM_DPP_FP'],
                         'SUM_TAX_FP' => $a['SUM_TAX_FP'],
                         'CREATED_BY' => $user_id,
-                        'CREATION_DATE' => date('Y-m-d')
+                        'CREATION_DATE' => date('Y-m-d H:i:s')
                     ]);
                     $concat_ttf_num .= $getTtfNumber.',';
                     $idHeader = $insertHeader->TTF_ID;

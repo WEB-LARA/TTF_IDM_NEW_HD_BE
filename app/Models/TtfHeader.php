@@ -253,7 +253,7 @@ class TtfHeader extends Model
                                        ttf_headers a
                                    WHERE
                                        CREATED_BY = ?) asd limit ? offset ?",[$user_id,$limit,$skip]);
-        $nomor = 1;
+        $nomor = $skip+1;
         $i=0;
         foreach ($getDataPage as $a){
             // print_r($a->FP_TYPE);

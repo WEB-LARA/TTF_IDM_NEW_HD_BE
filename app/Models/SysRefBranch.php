@@ -14,11 +14,12 @@ class SysRefBranch extends Model
 
     public function getAllbranch($branch_code){
 
-        $data = SysRefBranch::select('BRANCH_CODE',\DB::raw('CONCAT(BRANCH_CODE,\'-\',BRANCH_NAME) COCNCAT_BRANCH'))->get();
+        $data = SysRefBranch::select('BRANCH_CODE',\DB::raw('CONCAT(BRANCH_CODE,\'-\',BRANCH_NAME) COCNCAT_BRANCH'));
         if($branch_code){
             $data = $data->whereIn('BRANCH_CODE',$branch_code);
         }
 
+        $data = $data->olrderBy('BRANCH_CODE','ASC')->get();
         return $data;
     }
 }

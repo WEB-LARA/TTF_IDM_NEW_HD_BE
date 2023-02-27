@@ -441,7 +441,13 @@ class TtfHeader extends Model
                           WHEN ttf_headers.TTF_STATUS = 'R' THEN 'REJECTED'
                           WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
                           WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
-                     END AS TTF_STATUS");
+                     END AS TTF_STATUS")
+        ->selectRaw('(SELECT 
+                                       b.BRANCH_NAME
+                                   FROM
+                                       sys_ref_branch b
+                                   WHERE
+                                       b.BRANCH_CODE = ttf_headers.BRANCH_CODE) BRANCH_NAME');
         if($id_user){
             $data = $data->where('ttf_headers.CREATED_BY',$id_user);
         }

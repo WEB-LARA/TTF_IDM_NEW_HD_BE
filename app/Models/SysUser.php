@@ -82,7 +82,7 @@ class SysUser extends Authenticatable implements JWTSubject
         if($role_id != 1){
             $getData = $getData->where('ID_USER',$user_id);
         }
-        $getData = $getData->get();
+        $getData = $getData->groupBy('ID_USER')->get();
         return $getData;
     }
 

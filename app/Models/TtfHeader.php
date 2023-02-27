@@ -152,11 +152,11 @@ class TtfHeader extends Model
                                    WHERE
                                        CREATED_BY = ?) asd",[$user_id]);
         $return_data = array();
-        $data_count = $data->count();
-        $data = $data->skip($skip)->take($limit)->get();
+        $data_count = $getData->count();
+        $data = $getData->skip($skip)->take($limit)->get();
         $nomor = 1;
         $i=0;
-        foreach ($getData as $a){
+        foreach ($data as $a){
             // print_r($a->FP_TYPE);
             // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
             $dataArray[$i]['NO'] = $nomor;

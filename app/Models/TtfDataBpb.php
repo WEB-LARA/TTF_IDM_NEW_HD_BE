@@ -30,6 +30,7 @@ class TtfDataBpb extends Model
     }
 
     public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn,$sess_id,$flag_go,$flag_ppn,$tipe_faktur,$jenis_faktur,$offset,$limit){
+        $skip = ($limit*$offset) - $limit;
         $return_data = array();
         if($tipe_faktur == 1){
             if($jenis_faktur == '010'){
@@ -41,7 +42,7 @@ class TtfDataBpb extends Model
                            SUPP_SITE = ? AND CABANG = ?
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0');
                 $data_count = $data->count();
-                $data = $data->get();
+                $data = $data->skip($skip)->take($limit)->get();
                 $return_data['count']=$data_count;
                 $return_data['data']=$data;
             }else{
@@ -52,7 +53,7 @@ class TtfDataBpb extends Model
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id]);
-                $data_count = $data->count();
+                $data_count = $data->skip($skip)->take($limit)->get();
                 $data = $data->get();
                 $return_data['count']=$data_count;
                 $return_data['data']=$data;
@@ -66,7 +67,7 @@ class TtfDataBpb extends Model
                        SUPP_SITE = ? AND CABANG = ?
                            AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
             $data_count = $data->count();
-            $data = $data->get();
+            $data = $data->skip($skip)->take($limit)->get();
             $return_data['count']=$data_count;
             $return_data['data']=$data;
         }

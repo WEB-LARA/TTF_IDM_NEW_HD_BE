@@ -44,7 +44,8 @@ class TtfHeader extends Model
     ];
 
 
-    public function getDataInquiryTTF($user_id){
+    public function getDataInquiryTTF($user_id,$offset,$limit){
+        $skip = ($limit*$offset) - $limit;
         // $getData = TtfHeader::where('CREATED_BY',$user_id)
         //                      ->select('TTF_ID','TTF_NUM','BRANCH_CODE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
         //                      ->selectRaw('CASE
@@ -150,6 +151,34 @@ class TtfHeader extends Model
                                        ttf_headers a
                                    WHERE
                                        CREATED_BY = ?) asd",[$user_id]);
+        $return_data = array();
+        $data_count = $data->count();
+        $data = $data->skip($skip)->take($limit)->get();
+        $nomor = 1;
+        $i=0;
+        foreach ($data as $a){
+            // print_r($a->FP_TYPE);
+            // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+            $dataArray[$i]['NO'] = $nomor;
+            $dataArray[$i]['TTF_ID'] = $a->TTF_ID;
+            $dataArray[$i]['TTF_NUM'] = $a->TTF_NUM;
+            $dataArray[$i]['TTF_STATUS'] = $a->TTF_STATUS;
+            $dataArray[$i]['BRANCH_CODE'] = $a->BRANCH_CODE;
+            $dataArray[$i]['TTF_DATE'] = $a->TTF_DATE;
+            $dataArray[$i]['REVIEWED_DATE'] = $a->REVIEWED_DATE;
+            $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
+            $dataArray[$i]['VENDOR_SITE_NAME'] = $a->VENDOR_SITE_NAME;
+            $dataArray[$i]['JUMLAH_FP'] = $a->JUMLAH_FP;
+            $dataArray[$i]['JUMLAH_DPP_FAKTUR'] = $a->JUMLAH_DPP_FAKTUR;
+            $dataArray[$i]['JUMLAH_PPN_FAKTUR'] = $a->JUMLAH_PPN_FAKTUR;
+            $dataArray[$i]['JUMLAH_BPB'] = $a->JUMLAH_BPB;
+            $dataArray[$i]['JUMLAH_DPP_BPB'] = $a->JUMLAH_DPP_BPB;
+            $dataArray[$i]['JUMLAH_TAX_BPB'] = $a->JUMLAH_TAX_BPB;
+            $i++;
+            $nomor++;
+        }              
+        $return_data['count']=$data_count;
+        $return_data['data']=$dataArray;                         
         return $getData;
     }
 

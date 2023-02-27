@@ -17,11 +17,12 @@ class TtfHeaderController extends Controller
 {
     public function getDataInquiryTTF(Request $request){
         $ttf_header = new TtfHeader();
-        $data = $ttf_header->getDataInquiryTTF($request->user_id);
+        $data = $ttf_header->getDataInquiryTTF($request->user_id,$request->offset,$request->limit);
 
         return response()->json([
                 'status' => 'success',
-                'data' => $data,
+                'count'=>$data['count'],
+                'data' => $data['data']
             ]);
     }
 

@@ -16,5 +16,16 @@ class DashboardController extends Controller
                 'data' => $data
         ]);
     }
+
+    public function getAllDataUser(){
+        $sys_user = new SysUser();
+
+        $data = $sys_user->getAllDataUser();
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data
+        ]);
+    }
     
 }

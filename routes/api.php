@@ -142,4 +142,5 @@ Route::controller(SysFpFisikTempController::class)->group(function () {
 });
 Route::controller(DashboardController::class)->group(function () {
     Route::post('getDataForInquiryTtfDashboard', 'getDataForInquiryTtfDashboard');
+    Route::post('getAllDataUser','getAllDataUser');
 });

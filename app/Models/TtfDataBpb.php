@@ -32,6 +32,7 @@ class TtfDataBpb extends Model
     public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn,$sess_id,$flag_go,$flag_ppn,$tipe_faktur,$jenis_faktur,$offset,$limit){
         $skip = ($limit*$offset) - $limit;
         $return_data = array();
+        $dataArray = array();
         if($tipe_faktur == 1){
             if($jenis_faktur == '010'){
                 $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
@@ -43,8 +44,33 @@ class TtfDataBpb extends Model
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0');
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
+                $nomor = 1;
+                foreach ($data as $a){
+                    // print_r($a->FP_TYPE);
+                    $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+                    $dataArray[$i]['NO'] = $nomor;
+                    $dataArray[$i]['ID'] = $a->ID;
+                    $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
+                    $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
+                    $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+                    $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
+                    $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
+                    $dataArray[$i]['NO_REF'] = $a->NO_REF;
+                    $dataArray[$i]['TGL_REF'] = $a->TGL_REF;
+                    $dataArray[$i]['BRANCH_CODE'] = $a->BRANCH_CODE;
+                    $dataArray[$i]['VENDOR_SITE_ID'] = $a->VENDOR_SITE_ID;
+                    $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
+                    $dataArray[$i]['USED_FLAG'] = $a->USED_FLAG;
+                    $dataArray[$i]['LAST_UPDATE_DATE'] = $a->LAST_UPDATE_DATE;
+                    $dataArray[$i]['LAST_UPDATE_BY'] = $a->LAST_UPDATE_BY;
+                    $dataArray[$i]['DC_CODE'] = $a->DC_CODE;
+                    $dataArray[$i]['FLAG_GO'] = $a->FLAG_GO;
+                    $dataArray[$i]['FLAG_PPN'] = $a->FLAG_PPN;
+                    $i++;
+                    $nomor++;
+                }
                 $return_data['count']=$data_count;
-                $return_data['data']=$data;
+                $return_data['data']=$dataArray;
             }else{
                 $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BPB_TAX',0)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
                            BPB_NUM
@@ -53,10 +79,35 @@ class TtfDataBpb extends Model
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id]);
-                $data_count = $data->skip($skip)->take($limit)->get();
-                $data = $data->get();
+                $data_count = $data->count();
+                $data = $data->skip($skip)->take($limit)->get();
+                $nomor = 1;
+                foreach ($data as $a){
+                    // print_r($a->FP_TYPE);
+                    $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+                    $dataArray[$i]['NO'] = $nomor;
+                    $dataArray[$i]['ID'] = $a->ID;
+                    $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
+                    $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
+                    $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+                    $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
+                    $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
+                    $dataArray[$i]['NO_REF'] = $a->NO_REF;
+                    $dataArray[$i]['TGL_REF'] = $a->TGL_REF;
+                    $dataArray[$i]['BRANCH_CODE'] = $a->BRANCH_CODE;
+                    $dataArray[$i]['VENDOR_SITE_ID'] = $a->VENDOR_SITE_ID;
+                    $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
+                    $dataArray[$i]['USED_FLAG'] = $a->USED_FLAG;
+                    $dataArray[$i]['LAST_UPDATE_DATE'] = $a->LAST_UPDATE_DATE;
+                    $dataArray[$i]['LAST_UPDATE_BY'] = $a->LAST_UPDATE_BY;
+                    $dataArray[$i]['DC_CODE'] = $a->DC_CODE;
+                    $dataArray[$i]['FLAG_GO'] = $a->FLAG_GO;
+                    $dataArray[$i]['FLAG_PPN'] = $a->FLAG_PPN;
+                    $i++;
+                    $nomor++;
+                }
                 $return_data['count']=$data_count;
-                $return_data['data']=$data;
+                $return_data['data']=$dataArray;
             }
         }else{
             $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
@@ -68,8 +119,33 @@ class TtfDataBpb extends Model
                            AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();
+            $nomor = 1;
+            foreach ($data as $a){
+                // print_r($a->FP_TYPE);
+                $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+                $dataArray[$i]['NO'] = $nomor;
+                $dataArray[$i]['ID'] = $a->ID;
+                $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
+                $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
+                $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+                $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
+                $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
+                $dataArray[$i]['NO_REF'] = $a->NO_REF;
+                $dataArray[$i]['TGL_REF'] = $a->TGL_REF;
+                $dataArray[$i]['BRANCH_CODE'] = $a->BRANCH_CODE;
+                $dataArray[$i]['VENDOR_SITE_ID'] = $a->VENDOR_SITE_ID;
+                $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
+                $dataArray[$i]['USED_FLAG'] = $a->USED_FLAG;
+                $dataArray[$i]['LAST_UPDATE_DATE'] = $a->LAST_UPDATE_DATE;
+                $dataArray[$i]['LAST_UPDATE_BY'] = $a->LAST_UPDATE_BY;
+                $dataArray[$i]['DC_CODE'] = $a->DC_CODE;
+                $dataArray[$i]['FLAG_GO'] = $a->FLAG_GO;
+                $dataArray[$i]['FLAG_PPN'] = $a->FLAG_PPN;
+                $i++;
+                $nomor++;
+            }
             $return_data['count']=$data_count;
-            $return_data['data']=$data;
+            $return_data['data']=$dataArray;
         }
 
         return $return_data;

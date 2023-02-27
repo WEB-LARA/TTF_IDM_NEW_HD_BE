@@ -64,7 +64,7 @@ class TtfDataBpb extends Model
                        ttf_tmp_table
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
-                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id])->get();
+                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
             $data_count = $data->count();
             $data = $data->get();
             $return_data['count']=$data_count;

@@ -154,7 +154,7 @@ class TtfHeader extends Model
         $return_data = array();
         $data_count = count($getData);
         $dataArray = array();
-        $getDataPage = DB::select("SELECT 
+        $getDataPage = DB::select("*SELECT 
                                    asd.TTF_ID,
                                    asd.TTF_NUM,
                                    asd.TTF_STATUS,

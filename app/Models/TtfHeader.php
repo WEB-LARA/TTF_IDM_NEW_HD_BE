@@ -152,7 +152,8 @@ class TtfHeader extends Model
                                    WHERE
                                        CREATED_BY = ?) asd",[$user_id]);
         $return_data = array();
-        $data_count = $getData->count();
+        $data_count = count($getData);
+        print_r($data_count);
         $data = $getData->skip($skip)->take($limit)->get();
         $nomor = 1;
         $i=0;

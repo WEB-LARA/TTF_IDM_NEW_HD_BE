@@ -177,7 +177,7 @@ class SysUser extends Authenticatable implements JWTSubject
                           WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
                           WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
                      END AS TTF_STATUS")
-        ->get();
+        ->orderBy('ttf_headers.TTF_ID','DESC')->take(10)->get();
 
         return $data;
     }

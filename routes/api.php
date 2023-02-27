@@ -144,5 +144,5 @@ Route::controller(DashboardController::class)->group(function () {
     Route::post('getDataForInquiryTtfDashboard', 'getDataForInquiryTtfDashboard');
     Route::post('getDataForInquiryTtfDashboardUser','getDataForInquiryTtfDashboardUser');
     Route::post('getAllDataUser','getAllDataUser');
-    Route::get('getAllbranch','getAllbranch');
+    Route::post('getAllbranch','getAllbranch');
 });

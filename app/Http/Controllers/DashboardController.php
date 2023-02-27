@@ -27,5 +27,16 @@ class DashboardController extends Controller
                 'data' => $data
         ]);
     }
+
+    public function getAllbranch(){
+        $sys_user = new SysUser();
+
+        $data =  $sys_user->getAllbranch();
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data
+        ]);
+    }
     
 }

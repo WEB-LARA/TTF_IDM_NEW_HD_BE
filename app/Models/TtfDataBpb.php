@@ -47,7 +47,7 @@ class TtfDataBpb extends Model
                 $nomor = 1;
                 foreach ($data as $a){
                     // print_r($a->FP_TYPE);
-                    $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+                    // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
                     $dataArray[$i]['NO'] = $nomor;
                     $dataArray[$i]['ID'] = $a->ID;
                     $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
@@ -84,7 +84,7 @@ class TtfDataBpb extends Model
                 $nomor = 1;
                 foreach ($data as $a){
                     // print_r($a->FP_TYPE);
-                    $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+                    // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
                     $dataArray[$i]['NO'] = $nomor;
                     $dataArray[$i]['ID'] = $a->ID;
                     $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
@@ -122,7 +122,7 @@ class TtfDataBpb extends Model
             $nomor = 1;
             foreach ($data as $a){
                 // print_r($a->FP_TYPE);
-                $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+                // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
                 $dataArray[$i]['NO'] = $nomor;
                 $dataArray[$i]['ID'] = $a->ID;
                 $dataArray[$i]['BPB_ID'] = $a->BPB_ID;

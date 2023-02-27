@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SysUser;
+use App\Models\SysRefBranch;
 class DashboardController extends Controller
 {
     //
@@ -29,9 +30,9 @@ class DashboardController extends Controller
     }
 
     public function getAllbranch(){
-        $sys_user = new SysUser();
+        $sys_ref_branch = new SysRefBranch();
 
-        $data =  $sys_user->getAllbranch();
+        $data =  $sys_ref_branch->getAllbranch();
 
         return response()->json([
                 'status' => 'success',

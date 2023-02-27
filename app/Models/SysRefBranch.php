@@ -13,7 +13,7 @@ class SysRefBranch extends Model
     protected $primaryKey = 'SUPP_SITE_ID';
 
     public function getAllbranch(){
-        $data = SysRefBranch::select('BRANCH_CODE',DB::raw('SELECT CONCAT(BRANCH_CODE,\'-\',BRANCH_NAME)'))->get();
+        $data = SysRefBranch::select('BRANCH_CODE',\DB::raw('CONCAT(BRANCH_CODE,\'-\',BRANCH_NAME)'))->get();
 
         return $data;
     }

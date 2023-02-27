@@ -47,7 +47,6 @@ class DashboardController extends Controller
 
         $getBranchFromUser = $sys_mapp_supplier->getBranchByUserId($request->user_id);
 
-        print_r($getBranchFromUser);
         $data =  $sys_ref_branch->getAllbranch($getBranchFromUser);
 
         return response()->json([

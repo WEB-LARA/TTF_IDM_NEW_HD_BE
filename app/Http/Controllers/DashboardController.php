@@ -8,9 +8,19 @@ use App\Models\SysRefBranch;
 class DashboardController extends Controller
 {
     //
-    public function getDataForInquiryTtfDashboard(Request $request){
+    public function getDataForInquiryTtfDashboardUser(Request $request){
         $sys_user = new SysUser();
-        $data = $sys_user->getDataForInquiryTtfDashboard($request->id_user,$request->branch_code);
+        $data = $sys_user->getDataForInquiryTtfDashboardUser($request->id_user,$request->branch_code);
+        // print_r($data);
+        return response()->json([
+                'status' => 'success',
+                'data' => $data
+        ]);
+    }
+
+    public function getDataForInquiryTtfDashboard(){
+        $sys_user = new SysUser();
+        $data = $sys_user->getDataForInquiryTtfDashboard();
         // print_r($data);
         return response()->json([
                 'status' => 'success',

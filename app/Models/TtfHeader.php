@@ -431,4 +431,25 @@ class TtfHeader extends Model
 
         return $data;
     }
+
+    public function getDataForInquiryTtfDashboard($id_user,$branch_code){
+        $data = Ttfheader::select('ttf_headers.TTF_NUM','ttf_headers.BRANCH_CODE','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX','ttf_headers.CREATION_DATE')
+        ->selectRaw("CASE
+                          WHEN ttf_headers.TTF_STATUS = '' THEN 'DRAFT'
+                          WHEN ttf_headers.TTF_STATUS = 'C' THEN 'CANCEL'
+                          WHEN ttf_headers.TTF_STATUS = 'E' THEN 'EXPIRED'
+                          WHEN ttf_headers.TTF_STATUS = 'R' THEN 'REJECTED'
+                          WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
+                          WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
+                     END AS TTF_STATUS");
+        if($id_user){
+            $data = $data->where('ttf_headers.CREATED_BY',$id_user);
+        }
+        if($branch_code){
+            $data = $data->where('ttf_headers.BRANCH_CODE',$branch_code);
+        }
+        $data = $data->orderBy('ttf_headers.TTF_ID','DESC')->take(10)->get();
+        
+        return $data;
+    }
 }

@@ -126,12 +126,12 @@ class SysUser extends Authenticatable implements JWTSubject
             $dataArray[$i]['ID_USER'] = $a->ID_USER;
             $dataArray[$i]['USERNAME'] = $a->USERNAME;
             $dataArray[$i]['USER_EMAIL'] = $a->USER_EMAIL;
-            $dataArray[$i]['SUPP_ID'] = $a->USER_EMAIL;
-            $dataArray[$i]['RESET_FLAG'] = $a->USER_EMAIL;
-            $dataArray[$i]['USER_ROLE'] = $a->USER_EMAIL;
-            $dataArray[$i]['ACTIVE_FLAG'] = $a->RESET_FLAG;
-            $dataArray[$i]['CREATION_DATE'] = $a->ACTIVE_FLAG;
-            $dataArray[$i]['LAST_UPDATED_DATE'] = $a->ACTIVE_FLAG;
+            $dataArray[$i]['SUPP_ID'] = $a->SUPP_ID;
+            $dataArray[$i]['RESET_FLAG'] = $a->RESET_FLAG;
+            $dataArray[$i]['USER_ROLE'] = $a->USER_ROLE;
+            $dataArray[$i]['ACTIVE_FLAG'] = $a->ACTIVE_FLAG;
+            $dataArray[$i]['CREATION_DATE'] = $a->CREATION_DATE;
+            $dataArray[$i]['LAST_UPDATED_DATE'] = $a->LAST_UPDATED_DATE;
             $dataArray[$i]['JUMLAH_SUPPLIER'] = $a->JUMLAH_SUPPLIER;
             $i++;
             $nomor++;

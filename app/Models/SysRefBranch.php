@@ -12,8 +12,8 @@ class SysRefBranch extends Model
 
     protected $primaryKey = 'SUPP_SITE_ID';
 
-    public function getAllbranch(){
-        $data = SysRefBranch::select('BRANCH_CODE',\DB::raw('CONCAT(BRANCH_CODE,\'-\',BRANCH_NAME) COCNCAT_BRANCH'))->get();
+    public function getAllbranch($branch_code){
+        $data = SysRefBranch::select('BRANCH_CODE',\DB::raw('CONCAT(BRANCH_CODE,\'-\',BRANCH_NAME) COCNCAT_BRANCH'))->whereIn('BRANCH_CODE',$branch_code)->get();
 
         return $data;
     }

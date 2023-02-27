@@ -44,15 +44,16 @@ class DashboardController extends Controller
     public function getAllbranch(Request $request){
         $sys_ref_branch = new SysRefBranch();
         $sys_mapp_supplier = new SysMapSupplier();
+
         $getBranchFromUser = $sys_mapp_supplier->getBranchByUserId($request->user_id);
 
         print_r($getBranchFromUser);
-        // $data =  $sys_ref_branch->getAllbranch($request->role_id,$request->user_id);
+        $data =  $sys_ref_branch->getAllbranch($getBranchFromUser);
 
-        // return response()->json([
-        //         'status' => 'success',
-        //         'data' => $data
-        // ]);
+        return response()->json([
+                'status' => 'success',
+                'data' => $data
+        ]);
     }
     
 }

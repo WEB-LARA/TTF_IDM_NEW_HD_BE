@@ -278,7 +278,7 @@ class TtfHeader extends Model
         }              
         $return_data['count']=$data_count;
         $return_data['data']=$dataArray;                         
-        return $getData;
+        return $return_data;
     }
 
     public function getDataInquiryDetailTTF($ttf_id){

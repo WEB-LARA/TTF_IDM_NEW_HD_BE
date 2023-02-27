@@ -182,7 +182,7 @@ class SysUser extends Authenticatable implements JWTSubject
                           WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
                      END AS TTF_STATUS");
 
-        if($user_id){
+        if($id_user){
             $data = $data->where('sys_user.ID_USER',$id_user);
         }
         if($branch_code){

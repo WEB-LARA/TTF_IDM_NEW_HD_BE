@@ -154,7 +154,7 @@ class TtfHeader extends Model
         $return_data = array();
         $data_count = count($getData);
         $dataArray = array();
-        $getDataPage = DB::select("*SELECT 
+        $getDataPage = DB::select("SELECT 
                                    asd.TTF_ID,
                                    asd.TTF_NUM,
                                    asd.TTF_STATUS,
@@ -252,7 +252,7 @@ class TtfHeader extends Model
                                    FROM
                                        ttf_headers a
                                    WHERE
-                                       CREATED_BY = ?) asd limit ?, ?",[$user_id,$limit,$skip]);
+                                       CREATED_BY = ?) asd limit ? offset ?",[$user_id,$limit,$skip]);
         $nomor = 1;
         $i=0;
         foreach ($getDataPage as $a){

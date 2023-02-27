@@ -153,6 +153,7 @@ class TtfHeader extends Model
                                        CREATED_BY = ?) asd",[$user_id]);
         $return_data = array();
         $data_count = count($getData);
+        $dataArray = array();
         $getDataPage = DB::select("SELECT 
                                    asd.TTF_ID,
                                    asd.TTF_NUM,

@@ -165,7 +165,7 @@ class SysUser extends Authenticatable implements JWTSubject
     public function getDataForInquiryTtfDashboard($id_user,$branch_code){
         $data = SysUser::join('sys_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')
         ->join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'sys_mapp_supp.SUPP_SITE_CODE')
-        ->where('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
+        ->whereColumn('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
         ->where('sys_user.ID_USER',$id_user)
         ->where('ttf_headers.BRANCH_CODE',$branch_code)
         ->select('ttf_headers.TTF_NUM','ttf_headers.BRANCH_CODE','ttf_headers.SELISIH_DPP','ttf_headers.SELISIH_TAX','ttf_headers.CREATION_DATE')

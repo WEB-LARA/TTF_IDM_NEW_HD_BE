@@ -153,11 +153,108 @@ class TtfHeader extends Model
                                        CREATED_BY = ?) asd",[$user_id]);
         $return_data = array();
         $data_count = count($getData);
-        print_r($data_count);
-        $data = $getData->skip($skip)->take($limit)->get();
+        $getDataPage = DB::select("SELECT 
+                                   asd.TTF_ID,
+                                   asd.TTF_NUM,
+                                   asd.TTF_STATUS,
+                                   asd.BRANCH_CODE,
+                                   asd.BRANCH_NAME,
+                                   asd.TTF_DATE,
+                                   asd.REVIEWED_DATE,
+                                   asd.VENDOR_SITE_CODE,
+                                   asd.VENDOR_SITE_NAME,
+                                   asd.JUMLAH_FP,
+                                   asd.JUMLAH_DPP_FAKTUR,
+                                   asd.JUMLAH_PPN_FAKTUR,
+                                   asd.JUMLAH_BPB,
+                                   asd.JUMLAH_DPP_BPB,
+                                   asd.JUMLAH_TAX_BPB,
+                                   (asd.JUMLAH_DPP_FAKTUR - asd.JUMLAH_DPP_BPB) AS SEL_DPP,
+                                   (asd.JUMLAH_PPN_FAKTUR - asd.JUMLAH_TAX_BPB) AS SEL_PPN,
+                                   asd.PATH_NOTTF
+                               FROM
+                                   (SELECT 
+                                       a.TTF_ID,
+                                           a.TTF_NUM,
+                                           CASE
+                                                WHEN a.TTF_STATUS = '' THEN 'DRAFT'
+                                                WHEN a.TTF_STATUS = 'C' THEN 'CANCEL'
+                                                WHEN a.TTF_STATUS = 'E' THEN 'EXPIRED'
+                                                WHEN a.TTF_STATUS = 'R' THEN 'REJECTED'
+                                                WHEN a.TTF_STATUS = 'S' THEN 'SUBMITTED'
+                                                WHEN a.TTF_STATUS = 'V' THEN 'VALIDATED'
+                                           END AS TTF_STATUS,
+                                           a.BRANCH_CODE,
+                                           (SELECT 
+                                                   b.branch_name
+                                               FROM
+                                                   sys_ref_branch b
+                                               WHERE
+                                                   b.branch_code = a.BRANCH_CODE) BRANCH_NAME,
+                                           a.TTF_DATE,
+                                           a.REVIEWED_DATE,
+                                           a.VENDOR_SITE_CODE,
+                                           a.PATH_NOTTF,
+                                           (SELECT 
+                                                   b.SUPP_SITE_ALT_NAME
+                                               FROM
+                                                   sys_supp_site b
+                                               WHERE
+                                                   b.SUPP_SITE_CODE = a.VENDOR_SITE_CODE
+                                                       AND b.SUPP_BRANCH_CODE = a.BRANCH_CODE) VENDOR_SITE_NAME,
+                                           (SELECT 
+                                                   COUNT(*)
+                                               FROM
+                                                   ttf_fp b
+                                               WHERE
+                                                   b.TTF_ID = a.TTF_ID) JUMLAH_FP,
+                                           (SELECT 
+                                                   SUM(b.FP_DPP_AMT)
+                                               FROM
+                                                   ttf_fp b
+                                               WHERE
+                                                   b.TTF_ID = a.TTF_ID) JUMLAH_DPP_FAKTUR,
+                                           (SELECT 
+                                                   SUM(b.FP_TAX_AMT)
+                                               FROM
+                                                   ttf_fp b
+                                               WHERE
+                                                   b.TTF_ID = a.TTF_ID) JUMLAH_PPN_FAKTUR,
+                                           (SELECT 
+                                                   COUNT(*)
+                                               FROM
+                                                   ttf_lines c
+                                               WHERE
+                                                   c.TTF_ID = a.TTF_ID) AS JUMLAH_BPB,
+                                           (SELECT 
+                                                   SUM(c.BPB_DPP)
+                                               FROM
+                                                   ttf_data_bpb c
+                                               WHERE
+                                                   c.BPB_ID IN (SELECT 
+                                                           d.TTF_BPB_ID
+                                                       FROM
+                                                           ttf_lines d
+                                                       WHERE
+                                                           d.TTF_ID = a.TTF_ID)) AS JUMLAH_DPP_BPB,
+                                           (SELECT 
+                                                   SUM(c.BPB_TAX)
+                                               FROM
+                                                   ttf_data_bpb c
+                                               WHERE
+                                                   c.BPB_ID IN (SELECT 
+                                                           d.TTF_BPB_ID
+                                                       FROM
+                                                           ttf_lines d
+                                                       WHERE
+                                                           d.TTF_ID = a.TTF_ID)) AS JUMLAH_TAX_BPB
+                                   FROM
+                                       ttf_headers a
+                                   WHERE
+                                       CREATED_BY = ?) asd limit ?, ?",[$user_id,$limit,$skip]);
         $nomor = 1;
         $i=0;
-        foreach ($data as $a){
+        foreach ($getDataPage as $a){
             // print_r($a->FP_TYPE);
             // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
             $dataArray[$i]['NO'] = $nomor;

@@ -45,7 +45,11 @@ class DashboardController extends Controller
         $sys_ref_branch = new SysRefBranch();
         $sys_mapp_supplier = new SysMapSupplier();
 
-        $getBranchFromUser = $sys_mapp_supplier->getBranchByUserId($request->user_id);
+        if($request->role_id != 1){
+            $getBranchFromUser = $sys_mapp_supplier->getBranchByUserId($request->user_id);
+        }else{
+            $getBranchFromUser = '';
+        }
 
         $data =  $sys_ref_branch->getAllbranch($getBranchFromUser);
 

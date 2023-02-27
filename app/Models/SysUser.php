@@ -76,9 +76,13 @@ class SysUser extends Authenticatable implements JWTSubject
         return $getData;
     }
 
-    public function getAllDataUser($branch_code){
-        $getData = SysUser::join('sys_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')->where('BRANCH_CODE',$branch_code)->select('ID_USER','USERNAME','USER_EMAIL','RESET_FLAG','ACTIVE_FLAG','USER_ROLE')->get();
+    public function getAllDataUser($role_id,$user_id){
+        $getData = SysUser::join('sys_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')->where('BRANCH_CODE',$branch_code)->select('ID_USER','USERNAME','USER_EMAIL','RESET_FLAG','ACTIVE_FLAG','USER_ROLE');
 
+        if($role_id != 1){
+            $getData = $getData->where('ID_USER',$user_id);
+        }
+        $getData = $getData->get();
         return $getData;
     }
 

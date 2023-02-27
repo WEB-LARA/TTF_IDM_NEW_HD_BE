@@ -119,7 +119,7 @@ class SysUser extends Authenticatable implements JWTSubject
         $dataArray = array();
         $nomor = $skip+1;
         $i=0;
-        foreach ($data as $a){
+        foreach ($getData as $a){
             // print_r($a->FP_TYPE);
             // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
             $dataArray[$i]['NO'] = $nomor;

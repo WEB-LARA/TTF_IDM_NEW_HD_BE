@@ -28,10 +28,10 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function getAllDataUser(){
+    public function getAllDataUser(Request $request){
         $sys_user = new SysUser();
 
-        $data = $sys_user->getAllDataUser();
+        $data = $sys_user->getAllDataUser($request->branch_code);
 
         return response()->json([
                 'status' => 'success',

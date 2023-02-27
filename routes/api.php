@@ -45,7 +45,7 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('createUser', 'createUser');
     Route::post('updateUser', 'updateUser');
     Route::post('updateEmailAndPasswordperUser','updateEmailAndPasswordperUser');
-    Route::get('getDataForInquiryUser', 'getDataForInquiryUser');
+    Route::post('getDataForInquiryUser', 'getDataForInquiryUser');
 });
 Route::controller(SysSupplierController::class)->group(function () {
     Route::get('getAllSupplier', 'getAllSupplier');

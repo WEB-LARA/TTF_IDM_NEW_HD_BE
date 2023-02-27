@@ -76,8 +76,9 @@ class SysUser extends Authenticatable implements JWTSubject
         return $getData;
     }
 
-    public function getDataForInquiryUser(){
-        $getData = DB::select('SELECT 
+    public function getDataForInquiryUser($offset,$limit){
+        $skip = ($limit*$offset) - $limit;
+        $getDataCount = DB::select('SELECT 
                                       ID_USER,
                                       USERNAME,
                                       USER_EMAIL,
@@ -95,8 +96,44 @@ class SysUser extends Authenticatable implements JWTSubject
                                               USER_ID = ID_USER) JUMLAH_SUPPLIER
                                   FROM
                                       sys_user');
-
-        return $getData;
+        $getData = DB::select('SELECT 
+                                      ID_USER,
+                                      USERNAME,
+                                      USER_EMAIL,
+                                      SUPP_ID,
+                                      RESET_FLAG,
+                                      USER_ROLE,
+                                      ACTIVE_FLAG,
+                                      CREATION_DATE,
+                                      LAST_UPDATED_DATE,
+                                      (SELECT 
+                                              COUNT(*)
+                                          FROM
+                                              sys_mapp_supp
+                                          WHERE
+                                              USER_ID = ID_USER) JUMLAH_SUPPLIER
+                                  FROM
+                                      sys_user LIMIT ? OFFSET ?',[$limit,$skip]);
+        $return_data = array();
+        $data_count = count($getDataCount);
+        $dataArray = array();
+        $nomor = $skip+1;
+        $i=0;
+        foreach ($data as $a){
+            // print_r($a->FP_TYPE);
+            // $dataFp = $ttf_fp->getFpByTtfId($request->ttf_id);
+            $dataArray[$i]['NO'] = $nomor;
+            $dataArray[$i]['ID_USER'] = $a->ID_USER;
+            $dataArray[$i]['USERNAME'] = $a->USERNAME;
+            $dataArray[$i]['USER_EMAIL'] = $a->USER_EMAIL;
+            $dataArray[$i]['RESET_FLAG'] = $a->RESET_FLAG;
+            $dataArray[$i]['ACTIVE_FLAG'] = $a->ACTIVE_FLAG;
+            $i++;
+            $nomor++;
+        }
+        $return_data['count']=$data_count;
+        $return_data['data']=$dataArray;
+        return $return_data;
     }
 
     public function checkAvailableUsername($username){

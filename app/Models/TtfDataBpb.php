@@ -30,6 +30,7 @@ class TtfDataBpb extends Model
     }
 
     public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn,$sess_id,$flag_go,$flag_ppn,$tipe_faktur,$jenis_faktur,$offset,$limit){
+        $return_data = array();
         if($tipe_faktur == 1){
             if($jenis_faktur == '010'){
                 $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
@@ -38,7 +39,11 @@ class TtfDataBpb extends Model
                            ttf_tmp_table
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
-                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0')->get();
+                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0');
+                $data_count = $data->count();
+                $data = $data->get();
+                $return_data['count']=$data_count;
+                $return_data['data']=$data;
             }else{
                 $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BPB_TAX',0)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
                            BPB_NUM
@@ -46,7 +51,11 @@ class TtfDataBpb extends Model
                            ttf_tmp_table
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
-                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->get();
+                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id]);
+                $data_count = $data->count();
+                $data = $data->get();
+                $return_data['count']=$data_count;
+                $return_data['data']=$data;
             }
         }else{
             $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
@@ -56,9 +65,13 @@ class TtfDataBpb extends Model
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
                            AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id])->get();
+            $data_count = $data->count();
+            $data = $data->get();
+            $return_data['count']=$data_count;
+            $return_data['data']=$data;
         }
 
-        return $data;
+        return $return_data;
     }
 
     public function getDataBpbByNoBPB($bpb_number){

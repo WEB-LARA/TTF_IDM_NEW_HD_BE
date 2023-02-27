@@ -292,7 +292,8 @@ class LoginController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'List User',
-                'data' => $getData
+                'count' => $getData['count'],
+                'data' => $getData['data']
             ],200);
         }else{
             return response()->json([

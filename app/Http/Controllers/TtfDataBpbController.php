@@ -8,9 +8,6 @@ use App\Models\TtfDataBpb;
 class TtfDataBpbController extends Controller
 {
     public function getDataBPBPerSupplier(Request $request){
-        print_r("OFFSET = ".$request->offset);
-        echo "<br>";
-        print_r("LIMIT = ".$request->limit);
         $ttf_data_bpb = new TtfDataBpb();
         $id_bpb = array();
         if($request->data_bpb){

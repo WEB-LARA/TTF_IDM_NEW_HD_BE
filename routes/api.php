@@ -141,7 +141,7 @@ Route::controller(SysFpFisikTempController::class)->group(function () {
     Route::post('deleteSysFpFisikTempBySessId', 'deleteSysFpFisikTempBySessId');
 });
 Route::controller(DashboardController::class)->group(function () {
-    Route::get('getDataForInquiryTtfDashboard', 'getDataForInquiryTtfDashboard');
+    Route::post('getDataForInquiryTtfDashboard', 'getDataForInquiryTtfDashboard');
     Route::post('getDataForInquiryTtfDashboardUser','getDataForInquiryTtfDashboardUser');
     Route::post('getAllDataUser','getAllDataUser');
     Route::get('getAllbranch','getAllbranch');

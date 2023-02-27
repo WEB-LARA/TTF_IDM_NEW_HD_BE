@@ -18,7 +18,7 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function getDataForInquiryTtfDashboard(){
+    public function getDataForInquiryTtfDashboard(Request $request){
         $sys_user = new SysUser();
         $data = $sys_user->getDataForInquiryTtfDashboard();
         // print_r($data);

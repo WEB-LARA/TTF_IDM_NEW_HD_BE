@@ -168,7 +168,7 @@ class SysUser extends Authenticatable implements JWTSubject
         $getData = SysUser::select('USERNAME','ID_USER')->get();
         return $getData;
     }
-    public function getDataForInquiryTtfDashboard(){
+    public function getDataForInquiryTtfDashboard($user_id,$branch_code){
         $data = SysUser::join('sys_mapp_supp', 'sys_mapp_supp.USER_ID', '=', 'sys_user.ID_USER')
         ->join('ttf_headers', 'ttf_headers.VENDOR_SITE_CODE', '=', 'sys_mapp_supp.SUPP_SITE_CODE')
         ->whereColumn('ttf_headers.BRANCH_CODE','=','sys_mapp_supp.BRANCH_CODE')
@@ -180,9 +180,16 @@ class SysUser extends Authenticatable implements JWTSubject
                           WHEN ttf_headers.TTF_STATUS = 'R' THEN 'REJECTED'
                           WHEN ttf_headers.TTF_STATUS = 'S' THEN 'SUBMITTED'
                           WHEN ttf_headers.TTF_STATUS = 'V' THEN 'VALIDATED'
-                     END AS TTF_STATUS")
-        ->orderBy('ttf_headers.TTF_ID','DESC')->take(10)->get();
+                     END AS TTF_STATUS");
 
+        if($user_id){
+            $data = $data->where('sys_user.ID_USER',$id_user);
+        }
+        if($branch_code){
+            $data = $data->where('ttf_headers.BRANCH_CODE',$branch_code);
+        }
+        $data = $data->orderBy('ttf_headers.TTF_ID','DESC')->take(10)->get();
+        
         return $data;
     }
     public function getDataForInquiryTtfDashboardUser($id_user,$branch_code){

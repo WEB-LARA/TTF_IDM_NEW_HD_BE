@@ -19,7 +19,7 @@ class SysRefBranch extends Model
             $data = $data->whereIn('BRANCH_CODE',$branch_code);
         }
 
-        $data = $data->olrderBy('BRANCH_CODE','ASC')->get();
+        $data = $data->orderBy('BRANCH_CODE','ASC')->get();
         return $data;
     }
 }

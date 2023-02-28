@@ -292,20 +292,9 @@ class TtfHeaderController extends Controller
         ]);
     }
 
-    public function getCountTtfDraftAndSubmitted(Request $request){
+    public function getCountTtfUnvalidatedAndValidated(Request $request){
         $ttf_header = new TtfHeader();
         $getData = $ttf_header->getCountTtfDraftAndSubmitted($request->user_id,$request->role_id);
-
-        return response()->json([
-            'status' => 'success',
-            'data' => $getData
-        ]);
-    }
-
-    public function getCountTtfValidated(Request $request){
-        $ttf_header = new TtfHeader();
-        $getData = $ttf_header->getCountTtfValidated($request->user_id,$request->role_id);
-
         $getDataValidated = $ttf_header->getCountTtfValidated($request->user_id,$request->role_id);
         return response()->json([
             'status' => 'success',

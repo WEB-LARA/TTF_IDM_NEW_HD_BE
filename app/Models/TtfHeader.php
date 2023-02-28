@@ -507,7 +507,7 @@ class TtfHeader extends Model
             $data = $data->where('CREATED_BY',$user_id);
         }
 
-        $data = $data->first();
+        $data = $data->value();
 
         return $data;
     }   
@@ -518,7 +518,7 @@ class TtfHeader extends Model
             $data = $data->where('CREATED_BY',$user_id);
         }
 
-        $data = $data->first();
+        $data = $data->value();
 
         return $data;
     }   

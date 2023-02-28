@@ -75,7 +75,7 @@ class TtfHeader extends Model
                 
             }else{
                 if($where == ''){
-                    $where = " WHERE ";
+                    $where = " WHEREE ";
                     $whereExtra .= " asd.TTF_STATUS = '$status_ttf' ";
                 }else{
                     $whereExtra .= " AND asd.TTF_STATUS = '$status_ttf' ";

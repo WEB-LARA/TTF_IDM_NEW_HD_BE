@@ -291,4 +291,14 @@ class TtfHeaderController extends Controller
             'data' => $getData
         ]);
     }
+
+    public function getCountTtfDraftAndValidated(Request $request){
+        $ttf_header = new TtfHeader();
+        $getData = $ttf_header->getCountTtfDraftAndValidated($request->user_id,$request->role_id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $getData
+        ]);
+    }
 }

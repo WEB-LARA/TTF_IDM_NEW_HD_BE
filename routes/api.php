@@ -118,6 +118,7 @@ Route::controller(TtfHeaderController::class)->group(function () {
     Route::post('deleteTtf','deleteTtf');
     Route::post('checkUploadDataBlob','checkUploadDataBlob');
     Route::post('getCountTtfAndMaxDate','getCountTtfAndMaxDate');
+    Route::post('getCountTtfDraftAndValidated','getCountTtfDraftAndValidated');
 });
 Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('createAnnouncement', 'createAnnouncement');

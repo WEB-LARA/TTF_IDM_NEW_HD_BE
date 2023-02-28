@@ -500,4 +500,16 @@ class TtfHeader extends Model
 
         return $data;
     }
+
+    public function getCountTtfDraftAndValidated($user_id,$role_id){
+        $data = TtfHeader::selectRaw('COUNT(*) TOTAL_TTF_UNVALIDATED')->where('TTF_STATUS','')->orWhere('TTF_STATUS','S');
+        if($role_id!=1){
+            $data = $data->where('CREATED_BY',$user_id);
+        }
+
+        $data = $data->first();
+
+        return $data;
+    }   
+    
 }

@@ -281,4 +281,14 @@ class TtfHeaderController extends Controller
                 ]);
         }
     }
+
+    public function getCountTtfAndMaxDate(){
+        $ttf_header = new TtfHeader();
+        $getData = $ttf_header->getCountTtfAndMaxDate($request->user_id,$request->role_id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $data
+        ]);
+    }
 }

@@ -489,4 +489,15 @@ class TtfHeader extends Model
         
         return $data;
     }
+
+    public function getCountTtfAndMaxDate($user_id,$role_id){
+        $data = TtfHeader::selectRaw('COUNT(*) TOTAL_TTF, MAX(CREATION_DATE) LAST_TTF_DATE');
+        if($role_id!=1){
+            $data = $data->where('CREATED_BY',$user_id);
+        }
+
+        $data = $data->get();
+
+        return $data;
+    }
 }

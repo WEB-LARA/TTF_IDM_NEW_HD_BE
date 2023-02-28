@@ -57,7 +57,7 @@ class TtfHeader extends Model
         if($search){
             if($where == ''){
                 $where = " WHERE ";
-                $whereExtra .= " (asd.TTF_ID LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
+                $whereExtra .= " (asd.TTF_NUM LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
             }else{
                 $whereExtra .= " AND (asd.TTF_ID LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
             }

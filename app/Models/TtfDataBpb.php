@@ -29,7 +29,7 @@ class TtfDataBpb extends Model
         }
     }
 
-    public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn,$sess_id,$flag_go,$flag_ppn,$tipe_faktur,$jenis_faktur,$offset,$limit){
+    public function getDataBPBPerSupplier($supp_site_code,$branch_code,$notIn,$sess_id,$flag_go,$flag_ppn,$tipe_faktur,$jenis_faktur,$offset,$limit,$search){
         $skip = ($limit*$offset) - $limit;
         $return_data = array();
         $dataArray = array();
@@ -43,6 +43,9 @@ class TtfDataBpb extends Model
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
                                AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0');
+                if($search){
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE '%?%') OR BPB_DATE LIKE '%?%' OR BPB_DPP LIKE '%?%' OR BPB_TAX LIKE '%?%')",[$search,$search,$search,$search]);
+                } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
                 $nomor = $skip+1;

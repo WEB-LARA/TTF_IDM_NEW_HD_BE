@@ -288,7 +288,7 @@ class TtfHeaderController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'data' => $data
+            'data' => $getData
         ]);
     }
 }

@@ -282,7 +282,7 @@ class TtfHeaderController extends Controller
         }
     }
 
-    public function getCountTtfAndMaxDate(){
+    public function getCountTtfAndMaxDate(Request $request){
         $ttf_header = new TtfHeader();
         $getData = $ttf_header->getCountTtfAndMaxDate($request->user_id,$request->role_id);
 

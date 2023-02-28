@@ -44,7 +44,7 @@ class TtfHeader extends Model
     ];
 
 
-    public function getDataInquiryTTF($user_id,$offset,$limit){
+    public function getDataInquiryTTF($user_id,$offset,$limit,$search,$start_date,$end_date,$status_ttf){
         $skip = ($limit*$offset) - $limit;
         // $getData = TtfHeader::where('CREATED_BY',$user_id)
         //                      ->select('TTF_ID','TTF_NUM','BRANCH_CODE','TTF_DATE','REVIEWED_DATE','VENDOR_SITE_CODE')
@@ -52,6 +52,26 @@ class TtfHeader extends Model
         //                                       WHEN TTF_STATUS = \'\' THEN \'DRAFT\'
         //                                   END AS TTF_STATUS')
         //                      ->get();
+        $where = '';
+        $whereExtra = "";
+        if($search){
+            if($where == ''){
+                $where = " WHERE ";
+            }
+            $whereExtra .= " AND (asd.TTF_ID LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
+        }
+        if($start_date && $end_date){
+            if($where == ''){
+                $where = " WHERE ";
+            }
+            $whereExtra .= " AND asd.TTF_DATE >= '$start_date' AND asd.TTF_DATE <= '$end_date' ";
+        }
+        if($status_ttf){
+            if($where == ''){
+                $where = " WHERE ";
+            }
+            $whereExtra .= " AND asd.TTF_STATUS = '$status_ttf' ";
+        }
         $getData = DB::select("SELECT 
                                    asd.TTF_ID,
                                    asd.TTF_NUM,
@@ -150,7 +170,7 @@ class TtfHeader extends Model
                                    FROM
                                        ttf_headers a
                                    WHERE
-                                       CREATED_BY = ?) asd",[$user_id]);
+                                       CREATED_BY = ?) asd $where $whereExtra",[$user_id]);
         $return_data = array();
         $data_count = count($getData);
         $dataArray = array();
@@ -252,7 +272,7 @@ class TtfHeader extends Model
                                    FROM
                                        ttf_headers a
                                    WHERE
-                                       CREATED_BY = ?) asd limit ? offset ?",[$user_id,$limit,$skip]);
+                                       CREATED_BY = ?) asd $where $whereExtra limit ? offset ?",[$user_id,$limit,$skip]);
         $nomor = $skip+1;
         $i=0;
         foreach ($getDataPage as $a){
@@ -263,6 +283,7 @@ class TtfHeader extends Model
             $dataArray[$i]['TTF_NUM'] = $a->TTF_NUM;
             $dataArray[$i]['TTF_STATUS'] = $a->TTF_STATUS;
             $dataArray[$i]['BRANCH_CODE'] = $a->BRANCH_CODE;
+            $dataArray[$i]['BRANCH_NAME'] = $a->BRANCH_NAME;
             $dataArray[$i]['TTF_DATE'] = $a->TTF_DATE;
             $dataArray[$i]['REVIEWED_DATE'] = $a->REVIEWED_DATE;
             $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;

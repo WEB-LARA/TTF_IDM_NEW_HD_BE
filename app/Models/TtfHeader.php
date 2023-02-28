@@ -507,18 +507,18 @@ class TtfHeader extends Model
             $data = $data->where('CREATED_BY',$user_id);
         }
 
-        $data = $data->value();
+        $data = $data->value('TOTAL_TTF_UNVALIDATED');
 
         return $data;
     }   
 
     public function getCountTtfValidated($user_id,$role_id){
-        $data = TtfHeader::selectRaw('COUNT(*) TOTAL_TTF_UNVALIDATED')->where('TTF_STATUS','V');
+        $data = TtfHeader::selectRaw('COUNT(*) TOTAL_TTF_VALIDATED')->where('TTF_STATUS','V');
         if($role_id!=1){
             $data = $data->where('CREATED_BY',$user_id);
         }
 
-        $data = $data->value();
+        $data = $data->value('TOTAL_TTF_VALIDATED');
 
         return $data;
     }   

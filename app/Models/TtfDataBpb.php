@@ -125,7 +125,7 @@ class TtfDataBpb extends Model
                        SUPP_SITE = ? AND CABANG = ?
                            AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
             if($search){
-                $data = $data->whereRaw("(BPB_NUMBER LIKE '%?%') OR BPB_DATE LIKE '%?%' OR BPB_DPP LIKE '%?%' OR BPB_TAX LIKE '%?%')",[$search,$search,$search,$search]);
+                $data = $data->whereRaw("(BPB_NUMBER LIKE '%:search1%') OR BPB_DATE LIKE '%:search2%' OR BPB_DPP LIKE '%:search3%' OR BPB_TAX LIKE '%:search4%')",[$search,$search,$search,$search]);
             } 
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();

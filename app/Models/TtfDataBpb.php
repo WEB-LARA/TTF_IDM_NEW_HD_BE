@@ -124,13 +124,13 @@ class TtfDataBpb extends Model
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
                            AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
-            if($search){
-                $search1 = $search;
-                $search2 = $search;
-                $search3 = $search;
-                $search4 = $search;
-                $data = $data->whereRaw("(BPB_NUMBER LIKE %2019%) OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
-            } 
+            // if($search){
+            //     $search1 = $search;
+            //     $search2 = $search;
+            //     $search3 = $search;
+            //     $search4 = $search;
+            //     $data = $data->whereRaw("(BPB_NUMBER LIKE %2019%) OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
+            // } 
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();
             $nomor = $skip+1;

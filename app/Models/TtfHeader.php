@@ -67,10 +67,14 @@ class TtfHeader extends Model
             $whereExtra .= " AND asd.TTF_DATE >= '$start_date' AND asd.TTF_DATE <= '$end_date' ";
         }
         if($status_ttf){
-            if($where == ''){
-                $where = " WHERE ";
+            if($status_ttf == 'A'){
+                
+            }else{
+                if($where == ''){
+                    $where = " WHERE ";
+                }
+                $whereExtra .= " AND asd.TTF_STATUS = '$status_ttf' ";
             }
-            $whereExtra .= " AND asd.TTF_STATUS = '$status_ttf' ";
         }
         $getData = DB::select("SELECT 
                                    asd.TTF_ID,

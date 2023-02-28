@@ -57,14 +57,18 @@ class TtfHeader extends Model
         if($search){
             if($where == ''){
                 $where = " WHERE ";
+                $whereExtra .= " (asd.TTF_ID LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
+            }else{
+                $whereExtra .= " AND (asd.TTF_ID LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
             }
-            $whereExtra .= " AND (asd.TTF_ID LIKE '%$search%' OR asd.BRANCH_NAME LIKE '%$search%' OR asd.VENDOR_SITE_NAME LIKE '%$search%') ";
         }
         if($start_date && $end_date){
             if($where == ''){
                 $where = " WHERE ";
+                $whereExtra .= " asd.TTF_DATE >= '$start_date' AND asd.TTF_DATE <= '$end_date' ";
+            }else{
+                $whereExtra .= " AND asd.TTF_DATE >= '$start_date' AND asd.TTF_DATE <= '$end_date' ";
             }
-            $whereExtra .= " AND asd.TTF_DATE >= '$start_date' AND asd.TTF_DATE <= '$end_date' ";
         }
         if($status_ttf){
             if($status_ttf == 'A'){
@@ -72,8 +76,10 @@ class TtfHeader extends Model
             }else{
                 if($where == ''){
                     $where = " WHERE ";
+                    $whereExtra .= " asd.TTF_STATUS = '$status_ttf' ";
+                }else{
+                    $whereExtra .= " AND asd.TTF_STATUS = '$status_ttf' ";
                 }
-                $whereExtra .= " AND asd.TTF_STATUS = '$status_ttf' ";
             }
         }
         $getData = DB::select("SELECT 

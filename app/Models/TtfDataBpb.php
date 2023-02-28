@@ -131,7 +131,7 @@ class TtfDataBpb extends Model
                        ttf_tmp_table
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
-                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
+                           AND SESS_ID = ?) AND BPB_TAX = 0 AND (BPB_NUMBER LIKE ? OR BPB_DATE LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)',[$supp_site_code,$branch_code,$sess_id,'\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
             // if($search){
             //     $search1 = $search;
             //     $search2 = $search;

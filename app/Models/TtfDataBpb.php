@@ -48,7 +48,7 @@ class TtfDataBpb extends Model
                     $search2 = $search;
                     $search3 = $search;
                     $search4 = $search;
-                    $data = $data->whereRaw("(BPB_NUMBER LIKE %2019%) OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE %2019% OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
                 } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
@@ -92,7 +92,7 @@ class TtfDataBpb extends Model
                     $search2 = $search;
                     $search3 = $search;
                     $search4 = $search;
-                    $data = $data->whereRaw("(BPB_NUMBER LIKE %2019%) OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE %2019% OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
                 } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
@@ -137,7 +137,7 @@ class TtfDataBpb extends Model
                 $search2 = $search;
                 $search3 = $search;
                 $search4 = $search;
-                $data = $data->whereRaw("(BPB_NUMBER LIKE %2019%) OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
+                $data = $data->whereRaw("(BPB_NUMBER LIKE %2019% OR BPB_DATE LIKE '%2019%' OR BPB_DPP LIKE %2019% OR BPB_TAX LIKE %2019%)");
             } 
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();

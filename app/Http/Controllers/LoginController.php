@@ -286,7 +286,7 @@ class LoginController extends Controller
     public function getDataForInquiryUser(Request $request){
         $sys_user = new SysUser();
 
-        $getData = $sys_user->getDataForInquiryUser($request->offset,$request->limit);
+        $getData = $sys_user->getDataForInquiryUser($request->offset,$request->limit,$request->search);
 
         if($getData){
             return response()->json([

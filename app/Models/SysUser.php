@@ -86,8 +86,14 @@ class SysUser extends Authenticatable implements JWTSubject
         return $getData;
     }
 
-    public function getDataForInquiryUser($offset,$limit){
+    public function getDataForInquiryUser($offset,$limit,$search){
         $skip = ($limit*$offset) - $limit;
+        $where = '';
+        $whereExtra = '';
+        if($search){
+            $where = " WHERE ";
+            $whereExtra = " (USERNAME LIKE '%$search%' OR  USER_EMAIL LIKE '%$search%') ";
+        }
         $getDataCount = DB::select('SELECT 
                                       ID_USER,
                                       USERNAME,
@@ -105,7 +111,7 @@ class SysUser extends Authenticatable implements JWTSubject
                                           WHERE
                                               USER_ID = ID_USER) JUMLAH_SUPPLIER
                                   FROM
-                                      sys_user');
+                                      sys_user'.$where.$whereExtra);
         $getData = DB::select('SELECT 
                                       ID_USER,
                                       USERNAME,
@@ -123,7 +129,7 @@ class SysUser extends Authenticatable implements JWTSubject
                                           WHERE
                                               USER_ID = ID_USER) JUMLAH_SUPPLIER
                                   FROM
-                                      sys_user LIMIT ? OFFSET ?',[$limit,$skip]);
+                                      sys_user '.$where.$whereExtra.'LIMIT ? OFFSET ?',[$limit,$skip]);
         $return_data = array();
         $data_count = count($getDataCount);
         $dataArray = array();

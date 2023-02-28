@@ -129,7 +129,7 @@ class TtfDataBpb extends Model
                 $search2 = $search;
                 $search3 = $search;
                 $search4 = $search;
-                $data = $data->whereRaw("(BPB_NUMBER LIKE '%?%') OR BPB_DATE LIKE '%?%' OR BPB_DPP LIKE %?% OR BPB_TAX LIKE %?%)",[$search1,$search2,$search3,$search4]);
+                $data = $data->whereRaw("(BPB_NUMBER LIKE %?%) OR BPB_DATE LIKE '%?%' OR BPB_DPP LIKE %?% OR BPB_TAX LIKE %?%)",[$search1,$search2,$search3,$search4]);
             } 
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();

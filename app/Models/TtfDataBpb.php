@@ -60,7 +60,7 @@ class TtfDataBpb extends Model
                     $dataArray[$i]['ID'] = $a->ID;
                     $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
                     $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
-                    $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+                    $dataArray[$i]['DATE_FORMAT_BPB'] = $a->DATE_FORMAT_BPB;
                     $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
                     $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
                     $dataArray[$i]['NO_REF'] = $a->NO_REF;
@@ -104,7 +104,7 @@ class TtfDataBpb extends Model
                     $dataArray[$i]['ID'] = $a->ID;
                     $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
                     $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
-                    $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+                    $dataArray[$i]['DATE_FORMAT_BPB'] = $a->DATE_FORMAT_BPB;
                     $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
                     $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
                     $dataArray[$i]['NO_REF'] = $a->NO_REF;
@@ -149,7 +149,7 @@ class TtfDataBpb extends Model
                 $dataArray[$i]['ID'] = $a->ID;
                 $dataArray[$i]['BPB_ID'] = $a->BPB_ID;
                 $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
-                $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+                $dataArray[$i]['DATE_FORMAT_BPB'] = $a->DATE_FORMAT_BPB;
                 $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
                 $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
                 $dataArray[$i]['NO_REF'] = $a->NO_REF;

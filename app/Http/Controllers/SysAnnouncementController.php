@@ -149,6 +149,24 @@ class SysAnnouncementController extends Controller
             ],400);
         }
     }
+
+    public function getDataAnnouncementInquiry(Request $request){
+        $announcement = new SysAnnouncement();
+
+        $data = $announcement->getDataAnnouncementInquiry($request->offset,$request->limit);
+
+        if($data){
+            return response()->json([
+                'status' => 'success',
+                'count' => $data['count'],
+                'data' => $data['data']
+            ],200);
+        }else{
+            return response()->json([
+                'status' => 'gagal'
+            ],400);
+        }
+    }
     public function getDownload(Request $request)
     {
         //PDF file is stored under project/public/download/info.pdf

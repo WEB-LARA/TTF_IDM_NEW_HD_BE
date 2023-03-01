@@ -125,6 +125,7 @@ Route::controller(SysAnnouncementController::class)->group(function () {
     Route::post('updateAnnouncement', 'updateAnnouncement');
     Route::post('deletePengumuman', 'deletePengumuman');
     Route::get('getDataAnnouncement', 'getDataAnnouncement');
+    Route::post('getDataAnnouncementInquiry','getDataAnnouncementInquiry');
     Route::post('getDownload','getDownload');
 });
 Route::controller(TempUploadDjpCsvController::class)->group(function () {

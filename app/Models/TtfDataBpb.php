@@ -131,7 +131,7 @@ class TtfDataBpb extends Model
                        ttf_tmp_table
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
-                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id])->selectRaw('DATE_FORMAT(BPB_DATE,\'%d-%b-%Y\') DATE_FORMAT_BPB');
+                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id])->selectRaw('* ,DATE_FORMAT(BPB_DATE,\'%d-%b-%Y\') DATE_FORMAT_BPB');
             if($search){
                 $search1 = $search;
                 $search2 = $search;

@@ -109,7 +109,7 @@ class testModel extends Model
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
               ->select('ttf_data_bpb.VENDOR_SITE_CODE',
-              \testmodel::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
+              \DB::raw('(SELECT SUPP_NAME FROM sys_supplier WHERE SUPP_ID = (SELECT 
                     SUPP_ID
                 FROM
                     sys_supp_site b
@@ -117,7 +117,7 @@ class testModel extends Model
                 b.SUPP_SITE_CODE = ttf_data_bpb.VENDOR_SITE_CODE
                 AND b.SUPP_BRANCH_CODE = ttf_data_bpb.BRANCH_CODE)) AS SUPP_NAME'),
                 'ttf_data_bpb.BPB_NUMBER','ttf_data_bpb.BPB_DATE','ttf_data_bpb.BPB_DPP','ttf_data_bpb.BPB_TAX','ttf_fp.FP_NUM','ttf_fp.FP_DATE','ttf_fp.FP_DPP_AMT','ttf_fp.FP_TAX_AMT','ttf_headers.TTF_NUM','ttf_headers.TTF_DATE','ttf_headers.TTF_RETURN_DATE',
-                \testmodel::raw(
+                \DB::raw(
                 '( 
                     CASE 
                          WHEN ttf_headers.TTF_STATUS = "" THEN "DRAFT"

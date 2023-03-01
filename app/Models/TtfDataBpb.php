@@ -42,13 +42,13 @@ class TtfDataBpb extends Model
                            ttf_tmp_table
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
-                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0');
+                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->whereRaw('BPB_TAX <> 0')->selectRaw('DATE_FORMAT(BPB_DATE,\'%d-%b-%Y\') DATE_FORMAT_BPB');
                 if($search){
                     $search1 = $search;
                     $search2 = $search;
                     $search3 = $search;
                     $search4 = $search;
-                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR BPB_DATE LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
                 } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
@@ -86,13 +86,13 @@ class TtfDataBpb extends Model
                            ttf_tmp_table
                         WHERE
                            SUPP_SITE = ? AND CABANG = ?
-                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id]);
+                               AND SESS_ID = ?)',[$supp_site_code,$branch_code,$sess_id])->selectRaw('DATE_FORMAT(BPB_DATE,\'%d-%b-%Y\') DATE_FORMAT_BPB');
                 if($search){
                     $search1 = $search;
                     $search2 = $search;
                     $search3 = $search;
                     $search4 = $search;
-                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR BPB_DATE LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
                 } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
@@ -131,13 +131,13 @@ class TtfDataBpb extends Model
                        ttf_tmp_table
                     WHERE
                        SUPP_SITE = ? AND CABANG = ?
-                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id]);
+                           AND SESS_ID = ?) AND BPB_TAX = 0',[$supp_site_code,$branch_code,$sess_id])->selectRaw('DATE_FORMAT(BPB_DATE,\'%d-%b-%Y\') DATE_FORMAT_BPB');
             if($search){
                 $search1 = $search;
                 $search2 = $search;
                 $search3 = $search;
                 $search4 = $search;
-                $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR BPB_DATE LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['%'.$search1.'%','%'.$search2.'%','%'.$search3.'%','%'.$search4.'%']);
+                $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['%'.$search1.'%','%'.$search2.'%','%'.$search3.'%','%'.$search4.'%']);
             } 
             $data_count = $data->count();
             $data = $data->skip($skip)->take($limit)->get();

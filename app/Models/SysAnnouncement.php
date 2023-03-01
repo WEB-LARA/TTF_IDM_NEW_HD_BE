@@ -31,10 +31,10 @@ class SysAnnouncement extends Model
         return $getData;
     }
 
-    public function getDataAnnouncementInquiry($limit,$offset){
+    public function getDataAnnouncementInquiry($offset,$limit){
         $skip = ($limit*$offset) - $limit;
         $dataArray = array();
-        $getData = SysAnnouncement::orderBy('START_DATEE','DESC');
+        $getData = SysAnnouncement::orderBy('START_DATE','DESC');
 
         $data_count = $getData->count();
         $data = $getData->skip($skip)->take($limit)->get();

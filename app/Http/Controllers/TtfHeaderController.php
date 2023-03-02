@@ -261,31 +261,32 @@ class TtfHeaderController extends Controller
     }
 
     public function checkUploadDataBlob(Request $request){
-        $ttf_header = new TtfHeader();
-        if($request->hasfile('file')){
-            foreach($request->file as $key => $file)
-            {
-                // print_r("TTF_ID = ".$request->TTF_ID);
-                $path_file = $ttf_header->getPathDirByTtfId($request->ttf_id);
-                $fileName = $file->hashName();
-                $real_name = $file->getClientOriginalName();
-                // print_r($path_file);
-                if($file->move($path_file->PATH_NOTTF, $fileName)){
-                    // Convert Fp ke Gambar
-                        return response()->json([
-                            'status' => 'success',
-                            'message' => 'sukses menerima file',
-                            'file_name' => $fileName
-                        ]);
-                }else{
-                        return response()->json([
-                            'status' => 'success',
-                            'message' => 'gagal menerima file',
-                        ]);
-                }
+        print_r($request->data);
+        // $ttf_header = new TtfHeader();
+        // if($request->hasfile('file')){
+        //     foreach($request->file as $key => $file)
+        //     {
+        //         // print_r("TTF_ID = ".$request->TTF_ID);
+        //         $path_file = $ttf_header->getPathDirByTtfId($request->ttf_id);
+        //         $fileName = $file->hashName();
+        //         $real_name = $file->getClientOriginalName();
+        //         // print_r($path_file);
+        //         if($file->move($path_file->PATH_NOTTF, $fileName)){
+        //             // Convert Fp ke Gambar
+        //                 return response()->json([
+        //                     'status' => 'success',
+        //                     'message' => 'sukses menerima file',
+        //                     'file_name' => $fileName
+        //                 ]);
+        //         }else{
+        //                 return response()->json([
+        //                     'status' => 'success',
+        //                     'message' => 'gagal menerima file',
+        //                 ]);
+        //         }
 
-            }
-        }
+        //     }
+        // }
     }
 
     public function getCountTtfAndMaxDate(Request $request){

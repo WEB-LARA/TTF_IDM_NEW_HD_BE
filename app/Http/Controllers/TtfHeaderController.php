@@ -265,8 +265,8 @@ class TtfHeaderController extends Controller
         if($request->hasfile('file')){
             foreach($request->file as $key => $file)
             {
-                print_r("TTF_ID = ".$request->TTF_ID);
-                $path_file = $ttf_header->getPathDirByTtfId($request->TTF_ID);
+                // print_r("TTF_ID = ".$request->TTF_ID);
+                $path_file = $ttf_header->getPathDirByTtfId($request->ttf_id);
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
                 print_r($path_file);

@@ -262,7 +262,7 @@ class TtfHeaderController extends Controller
 
     public function checkUploadDataBlob(Request $request){
         $request->validate([
-            'file' => 'required|mimes:pdf|max:2048',
+            'file' => 'required|mimes:pdf',
         ]);
         if($request->hasfile('file')){
             foreach($request->file as $key => $file)

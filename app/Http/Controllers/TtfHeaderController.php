@@ -269,20 +269,20 @@ class TtfHeaderController extends Controller
                 $path_file = $ttf_header->getPathDirByTtfId($request->ttf_id);
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
-                print_r($path_file);
-                // if($file->move($path_file['PATH_NOTTF'], $fileName)){
-                //     // Convert Fp ke Gambar
-                //         return response()->json([
-                //             'status' => 'success',
-                //             'message' => 'sukses menerima file',
-                //             'file_name' => $fileName
-                //         ]);
-                // }else{
-                //         return response()->json([
-                //             'status' => 'success',
-                //             'message' => 'gagal menerima file',
-                //         ]);
-                // }
+                // print_r($path_file);
+                if($file->move($path_file->PATH_NOTTF, $fileName)){
+                    // Convert Fp ke Gambar
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'sukses menerima file',
+                            'file_name' => $fileName
+                        ]);
+                }else{
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'gagal menerima file',
+                        ]);
+                }
 
             }
         }

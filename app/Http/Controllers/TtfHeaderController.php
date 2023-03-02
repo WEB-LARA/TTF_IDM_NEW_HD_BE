@@ -268,7 +268,7 @@ class TtfHeaderController extends Controller
                 $path_file = $ttf_header->getPathDirByTtfId($request->TTF_ID);
                 $fileName = $file->hashName();
                 $real_name = $file->getClientOriginalName();
-                if($file->move($path_file, $fileName)){
+                if($file->move($path_file->PATH_NOTTF, $fileName)){
                     // Convert Fp ke Gambar
                         return response()->json([
                             'status' => 'success',

@@ -264,21 +264,27 @@ class TtfHeaderController extends Controller
         $request->validate([
             'file' => 'required|mimes:pdf|max:2048',
         ]);
-  
-        $fileName = $request->file->hashName();  
-        $real_name = $request->file->getClientOriginalName();
-        if($request->file->move(public_path('/file_temp_fp'), $fileName)){
-            // Convert Fp ke Gambar
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'sukses menerima file',
-                    'file_name' => $fileName
-                ]);
-        }else{
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'gagal menerima file',
-                ]);
+        if($request->hasfile('file')){
+            foreach($request->file as $key => $file)
+            {
+
+                $fileName = $file->hashName();
+                $real_name = $file->getClientOriginalName();
+                if($file->move(public_path('/file_temp_fp'), $fileName)){
+                    // Convert Fp ke Gambar
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'sukses menerima file',
+                            'file_name' => $fileName
+                        ]);
+                }else{
+                        return response()->json([
+                            'status' => 'success',
+                            'message' => 'gagal menerima file',
+                        ]);
+                }
+
+            }
         }
     }
 

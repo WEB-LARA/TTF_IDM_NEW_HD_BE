@@ -16,8 +16,9 @@ class SysMasterBpbController extends Controller
         $offset=$request->offset;
         $limit=$request->limit;
         $skip = ($limit*$offset) - $limit;
+        $return_data = array();
         $getData = SysMasterBpb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_bpb.KODE_DC')
-        ->select('NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC');
+        ->select('sys_master_bpb.ID','NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC');
         
         if($branch_code){
             $getData = $getData->where('sys_ref_branch.BRANCH_CODE',$branch_code);
@@ -35,6 +36,25 @@ class SysMasterBpbController extends Controller
         $count_data = $getData->count();
 
         $data = $getData->skip($skip)->take($limit)->get();
+        $i = 0;
+        $nomor = $skip+1;
+        foreach ($data as $a){
+            // print_r($a->FP_TYPE);
+            // $dataLines = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$a->NO_FP,$request->session_id);
+            $dataArray[$i]['ID'] = $a->ID;
+            $dataArray[$i]['NOMOR'] = $nomor;
+            $dataArray[$i]['NO_BPB'] = $a->FP_TYPE;
+            $dataArray[$i]['TGL_BPB'] = $a->NO_FP;
+            $dataArray[$i]['DPP'] = $a->TANGGAL_FP;
+            $dataArray[$i]['TAX'] = $a->FP_DPP;
+            $dataArray[$i]['VENDOR_SITE_CODE'] = $a->FP_TAX;
+            $dataArray[$i]['INVOICE_NUM'] = $a->JUMLAH_BPB;
+            $dataArray[$i]['KODE_DC'] = $a->KODE_DC;
+            $dataArray[$i]['JUMLAH_PPN_BPB'] = $a->JUMLAH_PPN_BPB;
+            // $dataArray[$i]['DATA_LINES'] = $dataLines;
+            $i++;
+            $nomor++;
+        }
 
         return response()->json([
                 'status' => 'success',

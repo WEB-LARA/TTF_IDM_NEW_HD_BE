@@ -267,45 +267,18 @@ class TtfHeaderController extends Controller
             $ttf_id = $request->ttf_id[$i];
             $file = $request->file[$i];
 
-            print_r("TTF ID KE = ".$ttf_id);
+            $path_file = $ttf_header->getPathDirByTtfId($ttf_id);
+            $fileName = $file->hashName();
+            $real_name = $file->getClientOriginalName();
+
+            print_r("PATH FILE =".$path_file);
             echo "<br>";
-            print_r($file);
+            print_r("FILE NAME = ".$fileName);
+            echo "<br>";
+            print_r("REAL NAME =".$real_name);
             echo "<br>";
         }
-        // foreach($request->data as $a){
-        //     print_r($a);
-        //     $explode_data = explode(",",$a);
-        //     print_r($explode_data);
-        //     $file = $explode_data[1];
 
-        //     $fileName = $file->getClientOriginalName();
-
-        //     print_r("REAL_NAME - ".$fileName);
-        // }
-        // if($request->hasfile('file')){
-        //     foreach($request->file as $key => $file)
-        //     {
-        //         // print_r("TTF_ID = ".$request->TTF_ID);
-        //         $path_file = $ttf_header->getPathDirByTtfId($request->ttf_id);
-        //         $fileName = $file->hashName();
-        //         $real_name = $file->getClientOriginalName();
-        //         // print_r($path_file);
-        //         if($file->move($path_file->PATH_NOTTF, $fileName)){
-        //             // Convert Fp ke Gambar
-        //                 return response()->json([
-        //                     'status' => 'success',
-        //                     'message' => 'sukses menerima file',
-        //                     'file_name' => $fileName
-        //                 ]);
-        //         }else{
-        //                 return response()->json([
-        //                     'status' => 'success',
-        //                     'message' => 'gagal menerima file',
-        //                 ]);
-        //         }
-
-        //     }
-        // }
     }
 
     public function getCountTtfAndMaxDate(Request $request){

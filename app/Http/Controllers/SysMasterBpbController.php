@@ -21,7 +21,7 @@ class SysMasterBpbController extends Controller
 
         return response()->json([
                 'status' => 'success',
-                'data' => $getData,
+                'data' => $data,
             ]);
     }
 

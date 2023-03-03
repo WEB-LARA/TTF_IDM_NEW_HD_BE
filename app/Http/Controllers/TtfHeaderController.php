@@ -264,7 +264,7 @@ class TtfHeaderController extends Controller
         $ttf_header = new TtfHeader();
         $array_length = count($request->ttf_id);
         print_r($request->ttf_id);        
-        print_r($request->file);
+        print_r($request->file[0]);
         for($i = 0 ; $i<$array_length ;$i++){
             $ttf_id = $request->ttf_id[$i];
             $file = $request->file[$i];

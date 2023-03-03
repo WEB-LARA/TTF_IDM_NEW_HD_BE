@@ -89,7 +89,7 @@ class TtfUploadTmp extends Model
         // ->selectRaw('abs(ttf_upload_tmp.FP_DPP - sum(ttf_upload_tmp.BPB_AMOUNT))  SELISIH_DPP')
         // ->selectRaw('abs(ttf_upload_tmp.FP_TAX - sum(ttf_upload_tmp.BPB_PPN)) SELISIH_PPN')
         // ->get();
-        $data = DB::select('SELECT a.NO_FP,a.FP_DPP,a.FP_TAX,(a.FP_DPP + a.FP_TAX) NILAI_FP, abs(a.FP_DPP - sum(a.BPB_AMOUNT))  SELISIH_DPP, abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN from ttf_upload_tmp a,prepopulated_fp fp where a.NO_FP=fp.NOMOR_FAKTUR AND a.FP_DPP=fp.JUMLAH_DPP AND a.FP_TAX=fp.JUMLAH_PPN AND  a.SESS_ID = ? group by a.SEQ_NUM, a.NO_FP',[$session_id]);
+        $data = DB::select('*SELECT a.NO_FP,a.FP_DPP,a.FP_TAX,(a.FP_DPP + a.FP_TAX) NILAI_FP, abs(a.FP_DPP - sum(a.BPB_AMOUNT))  SELISIH_DPP, abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN from ttf_upload_tmp a,prepopulated_fp fp where a.NO_FP=fp.NOMOR_FAKTUR AND a.FP_DPP=fp.JUMLAH_DPP AND a.FP_TAX=fp.JUMLAH_PPN AND  a.SESS_ID = ? group by a.SEQ_NUM, a.NO_FPELECT a.NO_FP,a.FP_DPP,a.FP_TAX,(a.FP_DPP + a.FP_TAX) NILAI_FP, abs(a.FP_DPP - sum(a.BPB_AMOUNT))  SELISIH_DPP, abs(a.FP_TAX - sum(a.BPB_PPN)) SELISIH_PPN from ttf_upload_tmp a,prepopulated_fp fp where a.NO_FP=fp.NOMOR_FAKTUR AND a.FP_DPP=fp.JUMLAH_DPP AND a.FP_TAX=fp.JUMLAH_PPN AND  a.SESS_ID = ? group by a.SEQ_NUM, a.NO_FP',[$session_id]);
         // print_r($data);
         return $data;
     }

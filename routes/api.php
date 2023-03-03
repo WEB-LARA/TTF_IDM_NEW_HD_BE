@@ -150,6 +150,7 @@ Route::controller(DashboardController::class)->group(function () {
     Route::post('getDataForInquiryTtfDashboardUser','getDataForInquiryTtfDashboardUser');
     Route::post('getAllDataUser','getAllDataUser');
     Route::post('getAllbranch','getAllbranch');
+    Route::post('getSuppSiteCode','getSuppSiteCode');
 });
 Route::controller(SysMasterBpbController::class)->group(function () {
     Route::post('getDataInquiryDownloadBpb', 'getDataInquiryDownloadBpb');

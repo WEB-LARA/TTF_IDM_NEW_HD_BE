@@ -264,7 +264,7 @@ class TtfHeaderController extends Controller
         $ttf_header = new TtfHeader();
 
         foreach($request->data as $a){
-            print_r(json_encode($a->id));
+            print_r($a);
         }
         // if($request->hasfile('file')){
         //     foreach($request->file as $key => $file)

@@ -37,7 +37,7 @@ class SysMasterBpbController extends Controller
 
         $data = $getData->skip($skip)->take($limit)->get();
         $i = 0;
-        $nomor = $skip+1;
+        $nomor = $offset+1;
         foreach ($data as $a){
             // print_r($a->FP_TYPE);
             // $dataLines = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$a->NO_FP,$request->session_id);

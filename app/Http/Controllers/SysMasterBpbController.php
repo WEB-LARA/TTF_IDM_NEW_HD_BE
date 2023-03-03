@@ -25,8 +25,8 @@ class SysMasterBpbController extends Controller
         if($vendor_site_code){
             $getData = $getData->where('sys_master_bpb.VENDOR_SITE_CODE',$vendor_site_code);
         }
-        if($bpb_date_start && $bpb_date_end){
-            $getData = $getData->whereBetween('sys_master_bpb.TGL_BPB',array($bpb_date_start,$bpb_date_end));
+        if($tanggal_bpb_start && $tanggal_bpb_end){
+            $getData = $getData->whereBetween('sys_master_bpb.TGL_BPB',array($tanggal_bpb_start,$tanggal_bpb_end));
         }
         if($nomor_bpb){
             $getData = $getData->where('sys_master_bpb.NO_BPB',$nomor_bpb);

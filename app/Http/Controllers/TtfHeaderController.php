@@ -265,7 +265,7 @@ class TtfHeaderController extends Controller
 
         print_r($request->ttf_id);
 
-        print_r($reqiest->file);
+        print_r($request->file);
         // foreach($request->data as $a){
         //     print_r($a);
         //     $explode_data = explode(",",$a);

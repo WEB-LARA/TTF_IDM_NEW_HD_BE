@@ -59,7 +59,7 @@ class SysMasterBpbController extends Controller
         return response()->json([
                 'status' => 'success',
                 'count' => $count_data,
-                'data'=>$data
+                'data'=>$dataArray
         ]);
     }
 

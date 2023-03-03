@@ -41,8 +41,8 @@ class SysMasterBpbController extends Controller
         foreach ($data as $a){
             // print_r($a->FP_TYPE);
             // $dataLines = $ttf_tmp_table->getDataDetailBPBperFP($request->supp_site_code,$request->branch_code,$a->NO_FP,$request->session_id);
-            $dataArray[$i]['ID'] = $a->ID;
             $dataArray[$i]['NOMOR'] = $nomor;
+            $dataArray[$i]['ID'] = $a->ID;
             $dataArray[$i]['NO_BPB'] = $a->FP_TYPE;
             $dataArray[$i]['TGL_BPB'] = $a->NO_FP;
             $dataArray[$i]['DPP'] = $a->TANGGAL_FP;

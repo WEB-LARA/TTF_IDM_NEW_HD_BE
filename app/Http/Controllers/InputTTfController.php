@@ -589,7 +589,7 @@ class InputTTfController extends Controller
                 }
             }
         }
-        print_r($message);
+        // print_r($message);
         if($message['status']=='OK'){
             // $this->approveUpload($request->session_id,$request->user_id);
             // $this->approveUpload($request->session_id,$request->user_id);
@@ -1118,8 +1118,8 @@ class InputTTfController extends Controller
             $data['message'] = $error;
         }
         // print_r($error);
-        print_r($data);
-        // return $data;
+        // print_r($data);
+        return $data;
     }
 
     public function approveUpload($session_id,$user_id){

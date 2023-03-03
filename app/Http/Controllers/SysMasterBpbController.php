@@ -17,6 +17,7 @@ class SysMasterBpbController extends Controller
         $limit=$request->limit;
         $skip = ($limit*$offset) - $limit;
         $return_data = array();
+        $dataArray = array();
         $getData = SysMasterBpb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_bpb.KODE_DC')
         ->select('sys_master_bpb.ID','NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC');
         

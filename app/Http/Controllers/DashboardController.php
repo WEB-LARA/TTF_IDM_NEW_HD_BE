@@ -58,5 +58,16 @@ class DashboardController extends Controller
                 'data' => $data
         ]);
     }
+
+    public function getSuppSiteCode(Request $request){
+        $sys_mapp_supplier = new SysMapSupplier();
+
+        $data = $sys_mapp_supplier->getSuppSiteByUserId($request->user_id);
+
+        return response()->json([
+                'status' => 'success',
+                'data' => $data
+        ]);
+    }
     
 }

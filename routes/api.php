@@ -22,6 +22,8 @@ use App\Http\Controllers\TtfUploadTmpController;
 use App\Http\Controllers\TtfParamTableController;
 use App\Http\Controllers\SysFpFisikTempController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\SysMasterBpbController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -149,3 +151,7 @@ Route::controller(DashboardController::class)->group(function () {
     Route::post('getAllDataUser','getAllDataUser');
     Route::post('getAllbranch','getAllbranch');
 });
+Route::controller(SysMasterBpbController::class)->group(function () {
+    Route::post('getDataInquiryDownloadBpb', 'getDataInquiryDownloadBpb');
+});
+

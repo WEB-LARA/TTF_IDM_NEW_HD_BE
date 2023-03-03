@@ -1117,7 +1117,8 @@ class InputTTfController extends Controller
             $data['message'] = $error;
         }
         // print_r($error);
-        return $data;
+        print_r($data);
+        // return $data;
     }
 
     public function approveUpload($session_id,$user_id){

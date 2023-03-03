@@ -263,6 +263,7 @@ class TtfHeaderController extends Controller
     public function checkUploadDataBlob(Request $request){
         $ttf_header = new TtfHeader();
         $array_length = count($request->ttf_id);
+        $counter = 0;
         for($i = 0 ; $i<$array_length ;$i++){
             $ttf_id = $request->ttf_id[$i];
             $file = $request->file[$i];
@@ -271,12 +272,22 @@ class TtfHeaderController extends Controller
             $fileName = $file->hashName();
             $real_name = $file->getClientOriginalName();
 
-            print_r("PATH FILE =".$path_file);
-            echo "<br>";
-            print_r("FILE NAME = ".$fileName);
-            echo "<br>";
-            print_r("REAL NAME =".$real_name);
-            echo "<br>";
+            if($file->move($path_file->PATH_NOTTF, $fileName)){
+                // Convert Fp ke Gambar
+                $counter = $counter + 1;
+            }
+        }
+
+        if ($counter > 0){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'sukses menerima file',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'success',
+                'message' => 'gagal menerima file',
+            ]);
         }
 
     }

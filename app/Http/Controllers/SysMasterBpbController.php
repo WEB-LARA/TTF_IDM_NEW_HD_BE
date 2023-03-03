@@ -17,7 +17,6 @@ class SysMasterBpbController extends Controller
         $count_data = $getData->count();
 
         $data = $getData->skip($skip)->take($limit)->get();
-    
 
         return response()->json([
                 'status' => 'success',

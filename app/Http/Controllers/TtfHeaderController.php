@@ -263,9 +263,6 @@ class TtfHeaderController extends Controller
     public function checkUploadDataBlob(Request $request){
         $ttf_header = new TtfHeader();
         $array_length = count($request->ttf_id);
-        print_r($request->ttf_id);
-
-        print_r($request->file);
         for($i = 0 ; $i<$array_length ;$i++){
             $ttf_id = print_r($request->ttf_id[$i]);
             $file = print_r($request->file[$i]);

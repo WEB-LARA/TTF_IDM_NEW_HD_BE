@@ -65,7 +65,7 @@ class SysMasterBpbController extends Controller
     }
 
     public function downloadBpb(Request $request){
-        $getData = SysMasterBpb::where('ID',[17360277,17359218])
+        $getData = SysMasterBpb::whereIn('ID',[17360277,17359218])
         ->select('PATH_DATA')->get();
         $pdf = PDFMerger::init();
         print_r($getData);

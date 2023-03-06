@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SysMasterBpb;
+use App\Models\SysMasterNrb;
 use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 class SysMasterNrbController extends Controller
@@ -19,7 +19,7 @@ class SysMasterNrbController extends Controller
         $skip = ($limit*$offset) - $limit;
         $return_data = array();
         $dataArray = array();
-        $getData = SysMasterBpb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_nrb.KODE_DC')
+        $getData = SysMasterNrb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_nrb.KODE_DC')
         ->select('sys_master_nrb.ID','NO_NRB','TGL_NRB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC');
         
         if($branch_code){

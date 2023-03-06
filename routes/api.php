@@ -23,7 +23,7 @@ use App\Http\Controllers\TtfParamTableController;
 use App\Http\Controllers\SysFpFisikTempController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SysMasterBpbController;
-
+use App\Http\Controllers\SysMasterNrbController;
 
 /*
 |--------------------------------------------------------------------------
@@ -156,7 +156,7 @@ Route::controller(SysMasterBpbController::class)->group(function () {
     Route::post('getDataInquiryDownloadBpb', 'getDataInquiryDownloadBpb');
     Route::post('downloadBpb','downloadBpb');
 });
-Route::controller(SysMasterBpbController::class)->group(function () {
+Route::controller(SysMasterNrbController::class)->group(function () {
     Route::post('getDataInquiryDownloadNrb', 'getDataInquiryDownloadNrb');
     Route::post('downloadNrb','downloadNrb');
 });

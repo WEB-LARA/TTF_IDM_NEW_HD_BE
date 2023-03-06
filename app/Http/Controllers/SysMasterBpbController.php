@@ -68,6 +68,7 @@ class SysMasterBpbController extends Controller
         $getData = SysMasterBpb::where('ID',[17360277,17359218])
         ->select('PATH_DATA')->get();
         $pdf = PDFMerger::init();
+        print_r($getData);
         foreach($getData as $a){
             // $pdf->addPDF($a->PATH_DATA, 'all');
             print_r($a->PATH_DATA);

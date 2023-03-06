@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SysMasterBpb;
+use Webklex\PDFMerger\Facades\PDFMergerFacade as PDFMerger;
 
 class SysMasterBpbController extends Controller
 {

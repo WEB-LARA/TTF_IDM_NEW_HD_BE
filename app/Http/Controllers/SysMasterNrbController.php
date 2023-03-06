@@ -63,4 +63,18 @@ class SysMasterNrbController extends Controller
                 'data'=>$dataArray
         ]);
     }
+
+    public function downloadNrb(Request $request){
+        $getData = SysMasterNrb::whereIn('ID',[2954388,2954389])
+        ->select('PATH_DATA')->get();
+        $pdf = PDFMerger::init();
+        foreach($getData as $a){
+            $pdf->addPDF($a->PATH_DATA, 'all');
+        }
+        $fileName = time().'.pdf';
+        $pdf->merge();
+        $pdf->save(public_path('folder_merge_nrb/'.$fileName));
+        
+        return response()->download(public_path('folder_merge_nrb/'.$fileName));
+    }
 }

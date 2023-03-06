@@ -69,7 +69,14 @@ class SysMasterNrbController extends Controller
         ->select('PATH_DATA')->get();
         $pdf = PDFMerger::init();
         foreach($getData as $a){
-            $pdf->addPDF($a->PATH_DATA, 'all');
+            if(file_exists($a->PATH_DATA)){
+                $pdf->addPDF($a->PATH_DATA, 'all');
+            }else{
+                return response()->json([
+                        'status' => 'error',
+                        'message' => 'File Fisik Nrb Yang dipilih tidak terdaftar!'
+                ]);
+            }
         }
         $fileName = time().'.pdf';
         $pdf->merge();

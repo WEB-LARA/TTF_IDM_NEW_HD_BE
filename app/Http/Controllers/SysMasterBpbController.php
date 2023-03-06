@@ -67,12 +67,17 @@ class SysMasterBpbController extends Controller
     public function downloadBpb(Request $request){
         $getData = SysMasterBpb::where('ID',[17359218,17360277])
         ->select('PATH_DATA')->get();
-
+        $pdf = PDFMerger::init();
         foreach($getData as $a){
-            print_r($a);
-            echo "<br>";
-        }
-    }
 
+            $pdf->addPDF($a->PATH_DATA, 'all');
+        }
+
+        $fileName = time().'.pdf';
+        $pdf->merge();
+        $pdf->save(public_path($fileName));
+        
+        return response()->download(public_path($fileName));
+    }
 
 }

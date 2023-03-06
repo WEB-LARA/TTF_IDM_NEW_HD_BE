@@ -69,6 +69,7 @@ class SysMasterBpbController extends Controller
 
         foreach($getData as $a){
             print_r($a);
+            echo "<br>";
         }
     }
 

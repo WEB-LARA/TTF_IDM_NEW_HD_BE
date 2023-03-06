@@ -69,12 +69,8 @@ class SysMasterBpbController extends Controller
         ->select('PATH_DATA')->get();
         $pdf = PDFMerger::init();
         foreach($getData as $a){
-            // $pdf->addPDF($a->PATH_DATA, 'all');
-            print_r($a->PATH_DATA);
-            echo "<br>";
+            $pdf->addPDF($a->PATH_DATA, 'all');
         }
-        $pdf->addPDF('/usr/src/app/public/download_bpb/ezlmllnqnjAugIPr2Ee6XBFSOpH06CnSCDNEuFTu.pdf', 'all');
-        $pdf->addPDF('/usr/src/app/public/download_bpb/VBS4So7vcV6ZnwP8LuW2LCJOhlRAvsH6feHPqpNT.pdf', 'all');
         $fileName = time().'.pdf';
         $pdf->merge();
         $pdf->save(public_path('folder_merge_bpb/'.$fileName));

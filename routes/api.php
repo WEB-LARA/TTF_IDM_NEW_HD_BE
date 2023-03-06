@@ -154,5 +154,6 @@ Route::controller(DashboardController::class)->group(function () {
 });
 Route::controller(SysMasterBpbController::class)->group(function () {
     Route::post('getDataInquiryDownloadBpb', 'getDataInquiryDownloadBpb');
+    Route::post('downloadBpb','downloadBpb');
 });
 

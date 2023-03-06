@@ -28,11 +28,11 @@ class SysMasterNrbController extends Controller
         if($vendor_site_code){
             $getData = $getData->where('sys_master_nrb.VENDOR_SITE_CODE',$vendor_site_code);
         }
-        if($tanggal_bpb_start && $tanggal_bpb_end){
+        if($tanggal_nrb_start && $tanggal_nrb_end){
             $getData = $getData->whereBetween('sys_master_nrb.TGL_NRB',array($tanggal_bpb_start,$tanggal_bpb_end));
         }
-        if($nomor_bpb){
-            $getData = $getData->where('sys_master_nrb.NO_NRB',$nomor_bpb);
+        if($nomor_nrb){
+            $getData = $getData->where('sys_master_nrb.NO_NRB',$nomor_nrb);
         }
 
         $count_data = $getData->count();

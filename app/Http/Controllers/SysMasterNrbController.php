@@ -74,7 +74,7 @@ class SysMasterNrbController extends Controller
             }else{
                 return response()->json([
                         'status' => 'error',
-                        'message' => 'File Fisik Nrb Yang dipilih tidak terdaftar!'
+                        'message' => 'File Fisik Nrb Yang dipilih Tidak Ada!'
                 ]);
             }
         }

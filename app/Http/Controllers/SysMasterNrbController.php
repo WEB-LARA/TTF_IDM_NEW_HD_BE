@@ -65,7 +65,7 @@ class SysMasterNrbController extends Controller
     }
 
     public function downloadNrb(Request $request){
-        $getData = SysMasterNrb::whereIn('ID',[2954388,2954389])
+        $getData = SysMasterNrb::whereIn('ID',$request->ID)
         ->select('PATH_DATA')->get();
         $pdf = PDFMerger::init();
         foreach($getData as $a){

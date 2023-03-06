@@ -75,9 +75,9 @@ class SysMasterBpbController extends Controller
 
         $fileName = time().'.pdf';
         $pdf->merge();
-        $pdf->save(public_path($fileName));
+        $pdf->save(public_path('folder_merge_bpb/'.$fileName));
         
-        return response()->download(public_path($fileName));
+        return response()->download(public_path('folder_merge_bpb/'.$fileName));
     }
 
 }

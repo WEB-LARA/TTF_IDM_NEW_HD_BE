@@ -156,7 +156,7 @@ class TtfTmpTable extends Model
     }
 
     public function getDataDetailBPBperFP($supp_site_code,$branch_code,$no_fp,$sess_id){
-        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('NO_FP',$no_fp)->where('SESS_ID',$sess_id)->select('BPB_NUM','BPB_DATE','BPB_AMOUNT','BPB_PPN')->get();
+        $getData = TtfTmpTable::where('SUPP_SITE',$supp_site_code)->where('CABANG',$branch_code)->where('NO_FP',$no_fp)->where('SESS_ID',$sess_id)->select('BPB_NUM','BPB_ID','BPB_DATE','BPB_AMOUNT','BPB_PPN')->get();
 
         return $getData;
     }

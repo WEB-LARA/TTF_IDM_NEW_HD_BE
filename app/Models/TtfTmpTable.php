@@ -28,7 +28,8 @@ class TtfTmpTable extends Model
         'BPB_AMOUNT',
         'BPB_PPN',
         'SESS_ID',
-        'SCAN_FLAG'
+        'SCAN_FLAG',
+        'BPB_ID'
     ];
 
     // public function saveToTmpTable($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag){

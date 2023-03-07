@@ -58,6 +58,7 @@ class InputTTfController extends Controller
                         'FP_DATE' => $fp_date,
                         'FP_DPP' => $dpp_fp,
                         'FP_TAX' => $tax_fp,
+                        'BPB_ID' => $a['bpb_id'],
                         'BPB_NUM' => $a['bpb_num'],
                         'BPB_DATE' => $a['bpb_date'],
                         'BPB_AMOUNT' => $a['bpb_dpp'],

@@ -109,7 +109,7 @@ class InputTTfController extends Controller
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama){
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
-                $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->delete();
+                $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->where('SESS_ID',$session_id)->delete();
                 foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUM' => 1,
@@ -130,6 +130,16 @@ class InputTTfController extends Controller
                     ]);
                 }
 
+                $deleteTmpTableFpFisik = SysFpFisikTemp::where('NO_FP',$no_fp_lama)->where('SESSION',$session_id)->delete();
+
+                $createFpFisikTemp = SysFpFisikTemp::create([
+                    "SESSION" => $session_id,
+                    "FP_NUM" => $no_fp,
+                    "FILENAME" => $nama_file,
+                    "REAL_NAME" => $real_name,
+                    "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
+                    "CREATED_DATE" => date('Y-m-d')
+                ]);
             },5);
 
             return response()->json([

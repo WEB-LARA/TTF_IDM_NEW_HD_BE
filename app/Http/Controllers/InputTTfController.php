@@ -107,67 +107,52 @@ class InputTTfController extends Controller
         $nama_file = $request->nama_file;
         $real_name = $request->real_name;
         $ttf_tmp_table = new TtfTmpTable();
+
+        try{
+            DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama,$nama_file,$real_name){
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->where('SESS_ID',$session_id)->delete();
+                foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
-                        'SEQ_NUMM' => 1,
+                        'SEQ_NUM' => 1,
                         'FP_TYPE' => $fp_type,
                         'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
                         'CABANG' => $branch_code,
                         'NO_FP' => $no_fp,
-                        'NO_NPWPS' => $dataSuppSite->SUPP_PKP_NUM,
+                        'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
                         'FP_DATE' => $fp_date,
                         'FP_DPP' => $dpp_fp,
                         'FP_TAX' => $tax_fp,
+                        'BPB_ID' => $a['bpb_id'],
+                        'BPB_NUM' => $a['bpb_num'],
+                        'BPB_DATE' => $a['bpb_date'],
+                        'BPB_AMOUNT' => $a['bpb_dpp'],
+                        'BPB_PPN' => $a['bpb_ppn'],
                         'SESS_ID' => $session_id,
                         'SCAN_FLAG' => $scan_flag
                     ]);
-        // try{
-        //     DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama,$nama_file,$real_name){
-        //         $sys_supp_site = new SysSuppSite();
-        //         $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
-        //         $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->where('SESS_ID',$session_id)->delete();
-        //         foreach($data_bpb as $a){
-        //             $tmpTable = TtfTmpTable::create([
-        //                 'SEQ_NUM' => 1,
-        //                 'FP_TYPE' => $fp_type,
-        //                 'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
-        //                 'CABANG' => $branch_code,
-        //                 'NO_FP' => $no_fp,
-        //                 'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
-        //                 'FP_DATE' => $fp_date,
-        //                 'FP_DPP' => $dpp_fp,
-        //                 'FP_TAX' => $tax_fp,
-        //                 'BPB_ID' => $a['bpb_id'],
-        //                 'BPB_NUM' => $a['bpb_num'],
-        //                 'BPB_DATE' => $a['bpb_date'],
-        //                 'BPB_AMOUNT' => $a['bpb_dpp'],
-        //                 'BPB_PPN' => $a['bpb_ppn'],
-        //                 'SESS_ID' => $session_id,
-        //                 'SCAN_FLAG' => $scan_flag
-        //             ]);
-        //         }
+                }
 
-        //         $deleteTmpTableFpFisik = SysFpFisikTemp::where('FP_NUM',$no_fp_lama)->where('SESSION',$session_id)->delete();
+                $deleteTmpTableFpFisik = SysFpFisikTemp::where('FP_NUM',$no_fp_lama)->where('SESSION',$session_id)->delete();
 
-        //         $createFpFisikTemp = SysFpFisikTemp::create([
-        //             "SESSION" => $session_id,
-        //             "FP_NUM" => $no_fp,
-        //             "FILENAME" => $nama_file,
-        //             "REAL_NAME" => $real_name,
-        //             "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
-        //             "CREATED_DATE" => date('Y-m-d')
-        //         ]);
-        //     },5);
+                $createFpFisikTemp = SysFpFisikTemp::create([
+                    "SESSION" => $session_id,
+                    "FP_NUM" => $no_fp,
+                    "FILENAME" => $nama_file,
+                    "REAL_NAME" => $real_name,
+                    "PATH_FILE" => public_path('file_temp_fp/'.$nama_file),
+                    "CREATED_DATE" => date('Y-m-d')
+                ]);
+            },5);
 
-        //     return response()->json([
-        //         'status' => 'success',
-        //         'message' => 'sukses'
-        //     ]);
-        // }catch (\Exception $e) {
-        //     return $e->getMessage();
-        // }
+            return response()->json([
+                'status' => 'success',
+                'message' => 'sukses'
+            ]);
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
     }
 
     public function getDataTtfTmpBYSessionId(Request $request){

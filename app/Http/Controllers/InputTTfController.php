@@ -107,6 +107,9 @@ class InputTTfController extends Controller
         $nama_file = $request->nama_file;
         $real_name = $request->real_name;
         $ttf_tmp_table = new TtfTmpTable();
+                $sys_supp_site = new SysSuppSite();
+                $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
+                $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->where('SESS_ID',$session_id)->delete();
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUMM' => 1,
                         'FP_TYPE' => $fp_type,

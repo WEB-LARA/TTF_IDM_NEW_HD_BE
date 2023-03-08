@@ -116,15 +116,10 @@ class InputTTfController extends Controller
                         'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
                         'CABANG' => $branch_code,
                         'NO_FP' => $no_fp,
-                        'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
+                        'NO_NPWPS' => $dataSuppSite->SUPP_PKP_NUM,
                         'FP_DATE' => $fp_date,
                         'FP_DPP' => $dpp_fp,
                         'FP_TAX' => $tax_fp,
-                        'BPB_ID' => $a['bpb_id'],
-                        'BPB_NUM' => $a['bpb_num'],
-                        'BPB_DATE' => $a['bpb_date'],
-                        'BPB_AMOUNT' => $a['bpb_dpp'],
-                        'BPB_PPN' => $a['bpb_ppn'],
                         'SESS_ID' => $session_id,
                         'SCAN_FLAG' => $scan_flag
                     ]);

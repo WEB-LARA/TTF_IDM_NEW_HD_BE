@@ -113,6 +113,7 @@ class InputTTfController extends Controller
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->where('SESS_ID',$session_id)->delete();
+                print_r($data_bpb);
                 foreach($data_bpb as $a){
                     $tmpTable = TtfTmpTable::create([
                         'SEQ_NUMM' => 1,

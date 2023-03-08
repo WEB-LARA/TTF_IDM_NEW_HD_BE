@@ -107,7 +107,9 @@ class InputTTfController extends Controller
         $nama_file = $request->nama_file;
         $real_name = $request->real_name;
         $ttf_tmp_table = new TtfTmpTable();
-
+        print_r("DPP FP = ".$dpp_fp);
+        echo "<br>";
+        print_r("TAX FP = ".$tax_fp);
         try{
             DB::transaction(function () use ($fp_type,$no_fp,$supp_site_id,$branch_code,$fp_date,$dpp_fp,$tax_fp,$data_bpb,$scan_flag,$session_id,$no_fp_lama,$nama_file,$real_name){
                 $sys_supp_site = new SysSuppSite();

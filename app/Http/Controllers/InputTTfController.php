@@ -133,7 +133,7 @@ class InputTTfController extends Controller
                     ]);
                 }
 
-                $deleteTmpTableFpFisik = SysFpFisikTemp::where('NO_FP',$no_fp_lama)->where('SESSION',$session_id)->delete();
+                $deleteTmpTableFpFisik = SysFpFisikTemp::where('FP_NUM',$no_fp_lama)->where('SESSION',$session_id)->delete();
 
                 $createFpFisikTemp = SysFpFisikTemp::create([
                     "SESSION" => $session_id,

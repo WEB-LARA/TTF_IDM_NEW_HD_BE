@@ -113,25 +113,26 @@ class InputTTfController extends Controller
                 $sys_supp_site = new SysSuppSite();
                 $dataSuppSite = $sys_supp_site->getSiteCodeAndNpwp($supp_site_id,$branch_code);
                 $deleteTmpTable = TtfTmpTable::where('NO_FP',$no_fp_lama)->where('SESS_ID',$session_id)->delete();
-                print_r($data_bpb);
                 foreach($data_bpb as $a){
-                    $tmpTable = TtfTmpTable::create([
-                        'SEQ_NUMM' => 1,
-                        'FP_TYPE' => $fp_type,
-                        'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
-                        'CABANG' => $branch_code,
-                        'NO_FP' => $no_fp,
-                        'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
-                        'FP_DATE' => $fp_date,
-                        'FP_DPP' => $dpp_fp,
-                        'FP_TAX' => $tax_fp,
-                        'BPB_NUM' => $a['bpb_num'],
-                        'BPB_DATE' => $a['bpb_date'],
-                        'BPB_AMOUNT' => $a['bpb_dpp'],
-                        'BPB_PPN' => $a['bpb_ppn'],
-                        'SESS_ID' => $session_id,
-                        'SCAN_FLAG' => $scan_flag
-                    ]);
+                    print_r($a);
+                    // $tmpTable = TtfTmpTable::create([
+                    //     'SEQ_NUM' => 1,
+                    //     'FP_TYPE' => $fp_type,
+                    //     'SUPP_SITE' => $dataSuppSite->SUPP_SITE_CODE,
+                    //     'CABANG' => $branch_code,
+                    //     'NO_FP' => $no_fp,
+                    //     'NO_NPWP' => $dataSuppSite->SUPP_PKP_NUM,
+                    //     'FP_DATE' => $fp_date,
+                    //     'FP_DPP' => $dpp_fp,
+                    //     'FP_TAX' => $tax_fp,
+                    //     'BPB_ID' => $a['bpb_id'],
+                    //     'BPB_NUM' => $a['bpb_num'],
+                    //     'BPB_DATE' => $a['bpb_date'],
+                    //     'BPB_AMOUNT' => $a['bpb_dpp'],
+                    //     'BPB_PPN' => $a['bpb_ppn'],
+                    //     'SESS_ID' => $session_id,
+                    //     'SCAN_FLAG' => $scan_flag
+                    // ]);
                 }
 
                 $deleteTmpTableFpFisik = SysFpFisikTemp::where('FP_NUM',$no_fp_lama)->where('SESSION',$session_id)->delete();

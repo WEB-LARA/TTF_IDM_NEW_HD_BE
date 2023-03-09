@@ -36,7 +36,7 @@ class TtfDataBpb extends Model
         $i=0;
         if($tipe_faktur == 1){
             if($jenis_faktur == '010'){
-                $data = TtfDataBpb::where('VENDOR_SITE_CODEE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
+                $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
                            BPB_NUM
                         FROM
                            ttf_tmp_table
@@ -48,7 +48,7 @@ class TtfDataBpb extends Model
                     $search2 = $search;
                     $search3 = $search;
                     $search4 = $search;
-                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['%'.$search1.'%','%'.$search2.'%','%'.$search3.'%','%'.$search4.'%']);
                 } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();
@@ -93,7 +93,7 @@ class TtfDataBpb extends Model
                     $search2 = $search;
                     $search3 = $search;
                     $search4 = $search;
-                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['\'%'.$search1.'%\'','\'%'.$search2.'%\'','\'%'.$search3.'%\'','\'%'.$search4.'%\'']);
+                    $data = $data->whereRaw("(BPB_NUMBER LIKE ? OR DATE_FORMAT(BPB_DATE,'%d-%b-%Y') LIKE ? OR BPB_DPP LIKE ? OR BPB_TAX LIKE ?)",['%'.$search1.'%','%'.$search2.'%','%'.$search3.'%','%'.$search4.'%']);
                 } 
                 $data_count = $data->count();
                 $data = $data->skip($skip)->take($limit)->get();

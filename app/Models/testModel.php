@@ -154,6 +154,8 @@ class testModel extends Model
         $data_count = $data->count();
         $data = $data->skip($skip)->take($limit)->get();
         $nomor = $skip+1;
+        $return_data = array();
+        $dataArray = array();
         $i=0;
         foreach ($data as $a){
             $dataArray[$i]['NO'] = $nomor;

@@ -21,11 +21,12 @@ class testController2 extends Controller
     public function searchDataInquiryLampiran(Request $request){
         $test_model2 = new testModel2();
 
-        $data = $test_model2->searchDataInquiryLampiran($request->branch,$request->nottf,$request->kodesupp,$request->username,$request->tglttf_from,$request->tglttf_to,$request->status);
+        $getData = $test_model2->searchDataInquiryLampiran($request->branch,$request->nottf,$request->kodesupp,$request->username,$request->tglttf_from,$request->tglttf_to,$request->status,$request->offset,$request->limit);
 
         return response()->json([
                 'status' => 'success',
-                'data' => $data,
+                'count' => $getData['count'],
+                'data' => $getData['data']
         ]);
     }
 

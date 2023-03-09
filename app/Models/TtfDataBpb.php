@@ -36,7 +36,7 @@ class TtfDataBpb extends Model
         $i=0;
         if($tipe_faktur == 1){
             if($jenis_faktur == '010'){
-                $data = TtfDataBpb::where('VENDOR_SITE_CODE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
+                $data = TtfDataBpb::where('VENDOR_SITE_CODEE',$supp_site_code)->where('BRANCH_CODE',$branch_code)->where('USED_FLAG','N')->where('FLAG_GO',$flag_go)->where('FLAG_PPN',$flag_ppn)->whereNotin('BPB_ID',$notIn)->whereRaw('BPB_NUMBER NOT IN (SELECT 
                            BPB_NUM
                         FROM
                            ttf_tmp_table

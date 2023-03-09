@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\testModel2;
 use App\Models\SysFpFisik;
 use App\Models\SysUser;
+use App\Models\TtfLampiran;
 
 class testController2 extends Controller
 {

@@ -7,6 +7,8 @@ use App\Models\testModel2;
 use App\Models\SysFpFisik;
 use App\Models\SysUser;
 use App\Models\TtfLampiran;
+use ZipArchive;
+use Response;
 
 class testController2 extends Controller
 {

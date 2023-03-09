@@ -66,7 +66,7 @@ class testController extends Controller
     public function searchDataTtf(Request $request){
         $test_model = new testModel();
 
-        $getdata = $test_model->searchDataTtf($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp, $request->offset,$request->limit);
+        $getData = $test_model->searchDataTtf($request->branch,$request->nobpb,$request->tglbpb_from,$request->tglbpb_to,$request->nottf,$request->nofp, $request->offset,$request->limit);
 
         return response()->json([
                 'status' => 'success',

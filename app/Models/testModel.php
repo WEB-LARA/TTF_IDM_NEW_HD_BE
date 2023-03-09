@@ -104,7 +104,7 @@ class testModel extends Model
     //     return $data;
     // }
 
-    public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp){
+    public function searchDataTtf($branch, $nobpb, $tglbpb_from, $tglbpb_to, $nottf, $nofp, $offset,$limit){
         $data = testModel::leftjoin('ttf_lines', 'ttf_lines.TTF_BPB_ID', '=', 'ttf_data_bpb.BPB_ID')
               ->leftjoin('ttf_fp', 'ttf_fp.TTF_FP_ID', '=', 'ttf_lines.TTF_FP_ID')
               ->leftjoin('ttf_headers', 'ttf_headers.TTF_ID', '=', 'ttf_lines.TTF_ID')
@@ -149,8 +149,35 @@ class testModel extends Model
         if($nofp){
             $data = $data->where('ttf_fp.FP_NUM',$nofp);
         }
-        $data = $data->get();
-        return $data;
+        // $data = $data->get();
+        $skip = ($limit*$offset) - $limit;
+        $data_count = $data->count();
+        $data = $data->skip($skip)->take($limit)->get();
+        $nomor = $skip+1;
+        $i=0;
+        foreach ($data as $a){
+            $dataArray[$i]['NO'] = $nomor;
+            $dataArray[$i]['VENDOR_SITE_ID'] = $a->VENDOR_SITE_ID;
+            $dataArray[$i]['SUPP_NAME'] = $a->SUPP_NAME;
+            $dataArray[$i]['BPB_NUMBER'] = $a->BPB_NUMBER;
+            $dataArray[$i]['BPB_DATE'] = $a->BPB_DATE;
+            $dataArray[$i]['BPB_DPP'] = $a->BPB_DPP;
+            $dataArray[$i]['BPB_TAX'] = $a->BPB_TAX;
+            $dataArray[$i]['FP_NUM'] = $a->FP_NUM;
+            $dataArray[$i]['FP_DATE'] = $a->FP_DATE;
+            $dataArray[$i]['FP_DPP_AMT'] = $a->FP_DPP_AMT;
+            $dataArray[$i]['FP_TAX_AMT'] = $a->FP_TAX_AMT;
+            $dataArray[$i]['TTF_NUM'] = $a->TTF_NUM;
+            $dataArray[$i]['TTF_DATE'] = $a->TTF_DATE;
+            $dataArray[$i]['TTF_RETURN_DATE'] = $a->TTF_RETURN_DATE;
+            $dataArray[$i]['STATUS_TTF'] = $a->STATUS_TTF;
+            $i++;
+            $nomor++;
+        }
+        $return_data['count']=$data_count;
+        $return_data['data']=$dataArray;
+
+        return $return_data;
     }
         // print_r($data);        // $data = DB::select("SELECT
         //         ttf_data_bpb.VENDOR_SITE_CODE,

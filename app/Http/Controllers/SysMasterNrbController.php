@@ -59,6 +59,7 @@ class SysMasterNrbController extends Controller
             $dataArray[$i]['CONCAT_NAME'] = $a->VENDOR_SITE_CODE.'-'.$a->NAMA_SUPP;
             $dataArray[$i]['INVOICE_NUM'] = $a->INVOICE_NUM;
             $dataArray[$i]['KODE_DC'] = $a->KODE_DC;
+            $dataArray[$i]['CONCAT_CABANG'] = $a->KODE_DC.'-'.$a->BRANCH_NAME;
             // $dataArray[$i]['DATA_LINES'] = $dataLines;
             $i++;
             $nomor++;

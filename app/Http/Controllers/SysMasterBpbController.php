@@ -20,7 +20,7 @@ class SysMasterBpbController extends Controller
         $return_data = array();
         $dataArray = array();
         $getData = SysMasterBpb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_bpb.KODE_DC')
-        ->select('sys_master_bpb.ID','NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC','NAMA_CABANG')->selectRaw('(SELECT 
+        ->select('sys_master_bpb.ID','NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC','BRANCH_NAME')->selectRaw('(SELECT 
                     sys_supp_site.SUPP_SITE_ALT_NAME
                 FROM
                     sys_supp_site
@@ -59,7 +59,7 @@ class SysMasterBpbController extends Controller
             $dataArray[$i]['CONCAT_NAME'] = $a->VENDOR_SITE_CODE.'-'.$a->NAMA_SUPP;
             $dataArray[$i]['INVOICE_NUM'] = $a->INVOICE_NUM;
             $dataArray[$i]['KODE_DC'] = $a->KODE_DC;
-            $dataArray[$i]['CONCAT_CABANG'] = $a->KODE_DC.'-'.$a->NAMA_CABANG;
+            $dataArray[$i]['CONCAT_CABANG'] = $a->KODE_DC.'-'.$a->BRANCH_NAME;
             // $dataArray[$i]['DATA_LINES'] = $dataLines;
             $i++;
             $nomor++;

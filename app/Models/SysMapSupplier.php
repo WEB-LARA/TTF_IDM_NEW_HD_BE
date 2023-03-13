@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class SysMapSupplier extends Model
 {
     use HasFactory;
@@ -37,7 +37,24 @@ class SysMapSupplier extends Model
     }
 
     public function getSuppSiteByUserId($user_id){
-        $data = SysMapSupplier::where('USER_ID',$user_id)->select('SUPP_SITE_CODE')->groupBy('SUPP_SITE_CODE')->get();
+        // $data = SysMapSupplier::where('USER_ID',$user_id)->select('SUPP_SITE_CODE')->selectRaw('SELECT SUPP_SITE_ALT_NAME from ')->groupBy('SUPP_SITE_CODE')->get();
+        $data = DB::select("SELECT 
+                                 *
+                             FROM
+                                 (SELECT 
+                                     SUPP_SITE_CODE,
+                                         (SELECT 
+                                                 sys_supp_site.SUPP_SITE_ALT_NAME
+                                             FROM
+                                                 sys_supp_site
+                                             WHERE
+                                                 sys_supp_site.SUPP_BRANCH_CODE = sys_mapp_supp.BRANCH_CODE
+                                                     AND sys_supp_site.SUPP_SITE_CODE = sys_mapp_supp.SUPP_SITE_CODE) AS SUPP_NAME
+                                 FROM
+                                     sys_mapp_supp
+                                 WHERE
+                                     user_id = ?) asd
+                             GROUP BY asd.SUPP_SITE_CODE , asd.SUPP_NAME",[$user_id]);
 
         return $data;
     }

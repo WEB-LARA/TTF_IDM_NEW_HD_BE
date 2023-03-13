@@ -20,7 +20,13 @@ class SysMasterNrbController extends Controller
         $return_data = array();
         $dataArray = array();
         $getData = SysMasterNrb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_nrb.KODE_DC')
-        ->select('sys_master_nrb.ID','NO_NRB','TGL_NRB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC');
+        ->select('sys_master_nrb.ID','NO_NRB','TGL_NRB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC','BRANCH_NAME')->selectRaw('(SELECT 
+                    sys_supp_site.SUPP_SITE_ALT_NAME
+                FROM
+                    sys_supp_site
+                WHERE
+                    sys_supp_site.SUPP_BRANCH_CODE = sys_ref_branch.BRANCH_CODE
+                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_bpb.VENDOR_SITE_CODE) NAMA_SUPP');
         
         if($branch_code){
             $getData = $getData->where('sys_ref_branch.BRANCH_CODE',$branch_code);
@@ -50,6 +56,7 @@ class SysMasterNrbController extends Controller
             $dataArray[$i]['DPP'] = $a->DPP;
             $dataArray[$i]['TAX'] = $a->TAX;
             $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
+            $dataArray[$i]['CONCAT_NAME'] = $a->VENDOR_SITE_CODE.'-'.$a->NAMA_SUPP;
             $dataArray[$i]['INVOICE_NUM'] = $a->INVOICE_NUM;
             $dataArray[$i]['KODE_DC'] = $a->KODE_DC;
             // $dataArray[$i]['DATA_LINES'] = $dataLines;

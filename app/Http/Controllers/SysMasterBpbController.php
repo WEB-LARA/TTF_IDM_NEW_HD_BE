@@ -55,7 +55,8 @@ class SysMasterBpbController extends Controller
             $dataArray[$i]['TGL_BPB'] = $a->TGL_BPB;
             $dataArray[$i]['DPP'] = $a->DPP;
             $dataArray[$i]['TAX'] = $a->TAX;
-            $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE.'-'.$a->NAMA_SUPP;
+            $dataArray[$i]['VENDOR_SITE_CODE'] = $a->VENDOR_SITE_CODE;
+            $dataArray[$i]['CONCAT_NAME'] = $a->VENDOR_SITE_CODE.'-'.$a->NAMA_SUPP;
             $dataArray[$i]['INVOICE_NUM'] = $a->INVOICE_NUM;
             $dataArray[$i]['KODE_DC'] = $a->KODE_DC;
             // $dataArray[$i]['DATA_LINES'] = $dataLines;

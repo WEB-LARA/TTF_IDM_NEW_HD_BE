@@ -26,7 +26,13 @@ class SysMasterBpbController extends Controller
                     sys_supp_site
                 WHERE
                     sys_supp_site.SUPP_BRANCH_CODE = sys_ref_branch.BRANCH_CODE
-                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_bpb.VENDOR_SITE_CODE) NAMA_SUPP');
+                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_bpb.VENDOR_SITE_CODE) NAMA_SUPP,
+                (SELECT 
+                    sys_ref_branch.BRANCH_NAME
+                FROM
+                    sys_ref_branch
+                WHERE
+                    sys_ref_branch.BRANCH_UNIT_CODE = sys_master_bpb.KODE_DC) NAMA_CABANG');
         
         if($branch_code){
             $getData = $getData->where('sys_ref_branch.BRANCH_CODE',$branch_code);
@@ -59,6 +65,7 @@ class SysMasterBpbController extends Controller
             $dataArray[$i]['CONCAT_NAME'] = $a->VENDOR_SITE_CODE.'-'.$a->NAMA_SUPP;
             $dataArray[$i]['INVOICE_NUM'] = $a->INVOICE_NUM;
             $dataArray[$i]['KODE_DC'] = $a->KODE_DC;
+            $dataArray[$i]['CONCAT_CABANG'] = $a->KODE_DC.'-'.$a->NAMA_CABANG;
             // $dataArray[$i]['DATA_LINES'] = $dataLines;
             $i++;
             $nomor++;

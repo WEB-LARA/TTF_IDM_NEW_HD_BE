@@ -20,13 +20,13 @@ class SysMasterBpbController extends Controller
         $return_data = array();
         $dataArray = array();
         $getData = SysMasterBpb::join('sys_ref_branch', 'sys_ref_branch.BRANCH_UNIT_CODE', '=', 'sys_master_bpb.KODE_DC')
-        ->select('sys_master_bpb.ID','NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC')->selectRaw('SELECT 
+        ->select('sys_master_bpb.ID','NO_BPB','TGL_BPB','DPP','TAX','VENDOR_SITE_CODE','INVOICE_NUM','KODE_DC')->selectRaw('(SELECT 
                     sys_supp_site.SUPP_SITE_ALT_NAME
                 FROM
                     sys_supp_site
                 WHERE
                     sys_supp_site.SUPP_BRANCH_CODE = sys_ref_branch.BRANCH_CODE
-                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_bpb.SUPP_SITE_CODE NAMA_SUPP');
+                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_bpb.SUPP_SITE_CODE NAMA_SUPP)');
         
         if($branch_code){
             $getData = $getData->where('sys_ref_branch.BRANCH_CODE',$branch_code);

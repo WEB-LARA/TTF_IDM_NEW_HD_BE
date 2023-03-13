@@ -39,7 +39,8 @@ class SysMapSupplier extends Model
     public function getSuppSiteByUserId($user_id){
         // $data = SysMapSupplier::where('USER_ID',$user_id)->select('SUPP_SITE_CODE')->selectRaw('SELECT SUPP_SITE_ALT_NAME from ')->groupBy('SUPP_SITE_CODE')->get();
         $data = DB::select("SELECT 
-                                 *
+                                SUPP_SITE_CODE,
+                                CONCAT(SUPP_SITE_CODE,'-',SUPP_NAME) SUPP_NAME
                              FROM
                                  (SELECT 
                                      SUPP_SITE_CODE,

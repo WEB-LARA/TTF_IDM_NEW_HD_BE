@@ -26,7 +26,7 @@ class SysMasterNrbController extends Controller
                     sys_supp_site
                 WHERE
                     sys_supp_site.SUPP_BRANCH_CODE = sys_ref_branch.BRANCH_CODE
-                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_bpb.VENDOR_SITE_CODE) NAMA_SUPP');
+                        AND sys_supp_site.SUPP_SITE_CODE = sys_master_nrb.VENDOR_SITE_CODE) NAMA_SUPP');
         
         if($branch_code){
             $getData = $getData->where('sys_ref_branch.BRANCH_CODE',$branch_code);

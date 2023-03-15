@@ -21,7 +21,7 @@ class SysAnnouncement extends Model
     ];
 
     public function getDataAnnouncement(){
-        $getData = SysAnnouncement::orderBy('START_DATE','DESC')->get();
+        $getData = SysAnnouncement::orderByRaw('COALESCE(START_DATE,CREATED_DATE) DESC')->get();
 
         return $getData;
     }

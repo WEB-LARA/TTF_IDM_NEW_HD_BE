@@ -47,7 +47,13 @@ class testModel2 extends Model
             $data = $data->wherebetween('ttf_headers.TTF_DATE',[$tglttf_from, $tglttf_to]);
         }
         if($status){
-            $data = $data->where('ttf_headers.TTF_STATUS',$status);
+            if($status == "D"){
+                $data = $data->where('ttf_headers.TTF_STATUS','');
+            }else if ($status == 'A'){
+
+            }else{
+                 $data = $data->where('ttf_headers.TTF_STATUS',$status);
+            }
         }
         elseif($status == ''){
             $data = $data->where('ttf_headers.TTF_STATUS','!=', '');
